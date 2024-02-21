@@ -389,11 +389,8 @@ class NNtrain(Strategy):
         fc = [sublist[-1] for sublist in parameter]
 
         textstr = ''
-        for i in range(len(good_clients)):
-            textstr += f'Client {str(good_clients[i])} => 0 \n'
-
-        for i in range(len(bad_clients)):
-            textstr += f'Client {str(bad_clients[i])} => 2 \n'
+        for l, g in enumerate(local_cid):
+            textstr += f'Client {g} => {int(malicious[l])} \n'
 
         plt.imshow(np.array(fc), cmap='viridis', interpolation='nearest')
         plt.colorbar()
