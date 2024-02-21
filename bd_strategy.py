@@ -420,6 +420,8 @@ class NNtrain(Strategy):
 
         _, _, _, _ = nd_clustering(parameter, client_id, malicious, fcb, "fcb", server_round, individual_acc, e=0)
 
+        _, _, _, _ = nd_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, individual_acc, e=0)
+
         """Check backdoor task accuracy"""
         for x in range(len(new_results)):
             if malicious[x] == '2':
@@ -771,7 +773,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
     reduced_data = pca.fit_transform(layer)
 
     """Non-IID"""
-    e = 0.1
+    e = 0.05
     mp = 5
     e -= 0.0025*(server_round/5)
     mp -= (server_round//20) 
@@ -802,7 +804,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
 
     # Plotting the clusters
     fig = plt.figure(figsize=(8, 6))
-    ax = fig.add_subplot(111, projection='3d')
+    ax = fig.add_subplot(111, projection='2d')
 
     # Assigning colors to clusters
     unique_labels = np.unique(comb_C)
