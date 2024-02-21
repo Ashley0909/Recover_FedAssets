@@ -384,6 +384,25 @@ class NNtrain(Strategy):
         # print(len(parameter[0][9]))  #10     #contains the bias value of the 10 output neurons
 
         print("Here, what is the size of the fully connected layer?", len(parameter[0][-1]))
+        print("How about the second last layer?", len(parameter[0][-2]))
+
+        fc = np.array(parameter)[:,-1]
+
+        textstr = ''
+        for i in range(len(good_clients)):
+            textstr += f'Client {str(good_clients[i])} => 0 \n'
+
+        for i in range(len(bad_clients)):
+            textstr += f'Client {str(bad_clients[i])} => 2 \n'
+
+        plt.imshow(fc, cmap='viridis', interpolation='nearest')
+        plt.colorbar()
+        plt.text(-12, 12, textstr, fontsize=8, verticalalignment='center', horizontalalignment='left')
+        plt.xlabel("FC Layer")
+        plt.ylabel("Clients")
+        plt.title("Heatmap of all clients' FC Layer")
+        plt.savefig('./FC.png')
+        plt.close()
 
         """Check backdoor task accuracy"""
         for x in range(len(new_results)):
