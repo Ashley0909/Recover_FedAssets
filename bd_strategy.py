@@ -386,7 +386,7 @@ class NNtrain(Strategy):
         print("Here, what is the size of the fully connected layer?", len(parameter[0][-1]))
         print("How about the second last layer?", len(parameter[0][-2]))
 
-        fc = np.array(parameter)[:,-1]
+        fc = [sublist[-1] for sublist in parameter]
 
         textstr = ''
         for i in range(len(good_clients)):
@@ -395,7 +395,7 @@ class NNtrain(Strategy):
         for i in range(len(bad_clients)):
             textstr += f'Client {str(bad_clients[i])} => 2 \n'
 
-        plt.imshow(fc, cmap='viridis', interpolation='nearest')
+        plt.imshow(np.array(fc), cmap='viridis', interpolation='nearest')
         plt.colorbar()
         plt.text(-12, 12, textstr, fontsize=8, verticalalignment='center', horizontalalignment='left')
         plt.xlabel("FC Layer")
