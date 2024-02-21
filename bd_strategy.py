@@ -18,8 +18,6 @@ from sklearn.metrics.pairwise import euclidean_distances
 from openpyxl import load_workbook
 wb = load_workbook( "CIFAR_Global.xlsx" )
 # wb = load_workbook( "Clustering_per_layer.xlsx" )
-# wb = load_workbook( "Stronger_Model.xlsx" )
-# wb = load_workbook( "MNIST_Global.xlsx" )
 ws = wb.active
 
 import smtplib
