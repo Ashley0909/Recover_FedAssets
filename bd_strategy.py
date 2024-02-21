@@ -386,19 +386,36 @@ class NNtrain(Strategy):
         print("Here, what is the size of the fully connected layer?", len(parameter[0][-1]))
         print("How about the second last layer?", len(parameter[0][-2]))
 
-        fc = [sublist[-1] for sublist in parameter]
+        fcb = [sublist[-1] for sublist in parameter]
+        fcw = []
+        for i in range(len(parameter)): 
+            w = 0
+            vector = []  #set up a vector for each client
+            for j in range(len(parameter[i][-2])): #10
+                w = np.sum(parameter[i][-2][j]) #84
+                vector.append(w)
+            fcw.append(np.array(vector))
 
         textstr = ''
         for l, g in enumerate(local_cid):
             textstr += f'Client {g} => {int(malicious[l])} \n'
 
-        plt.imshow(np.array(fc), cmap='viridis', interpolation='nearest')
+        plt.imshow(np.array(fcb), cmap='viridis', interpolation='nearest')
         plt.colorbar()
         plt.text(-12, 12, textstr, fontsize=8, verticalalignment='center', horizontalalignment='left')
-        plt.xlabel("FC Layer")
+        plt.xlabel("FC Layer Bias")
         plt.ylabel("Clients")
-        plt.title("Heatmap of all clients' FC Layer")
-        plt.savefig('./FC.png')
+        plt.title("Heatmap of all clients' FC Layer Bias")
+        plt.savefig('./FCB.png')
+        plt.close()
+
+        plt.imshow(np.array(fcw), cmap='viridis', interpolation='nearest')
+        plt.colorbar()
+        plt.text(-12, 12, textstr, fontsize=8, verticalalignment='center', horizontalalignment='left')
+        plt.xlabel("FC Layer Weights")
+        plt.ylabel("Clients")
+        plt.title("Heatmap of all clients' FC Layer Weights")
+        plt.savefig('./FCW.png')
         plt.close()
 
         """Check backdoor task accuracy"""
