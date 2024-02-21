@@ -769,7 +769,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         return [0], [0], 0
         
     """Run PCA on the n dimensional data"""
-    pca = PCA(n_components=3)
+    pca = PCA(n_components=2)
     reduced_data = pca.fit_transform(layer)
 
     """Non-IID"""
@@ -803,8 +803,9 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
     #     comb_C = db.labels_
 
     # Plotting the clusters
-    fig = plt.figure(figsize=(8, 6))
-    ax = fig.add_subplot(111, projection='2d')
+    # fig = plt.figure(figsize=(8, 6))
+    # ax = fig.add_subplot(111, projection='2d')
+    plt.figure(figsize=(8, 6))
 
     # Assigning colors to clusters
     unique_labels = np.unique(comb_C)
@@ -819,7 +820,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         cluster_points = reduced_data[comb_C == l]
         centroid = np.mean(cluster_points, axis=0)
         centroids.append(centroid)
-        ax.scatter(xy[:, 0], xy[:, 1], xy[:,2], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))
+        plt.scatter(xy[:, 0], xy[:, 1], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))
 
     plt.title("DBSCAN Clustering {0} of {1} clients".format(name, len(parameter)))
     plt.legend()
@@ -831,10 +832,12 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
     texts = []
     num = 1
     for i, txt in enumerate(clabel0):
-        texts.append(ax.text(comb0[i][0], comb0[i][1], comb0[i][2], txt))
+        # texts.append(ax.text(comb0[i][0], comb0[i][1], comb0[i][2], txt))
+        texts.append(plt.text(comb0[i][0], comb0[i][1], txt))
         num *= -1
     for i, txt in enumerate(clabel1):
-        texts.append(ax.text(comb1[i][0], comb1[i][1], comb1[i][2], txt))
+        # texts.append(ax.text(comb1[i][0], comb1[i][1], comb1[i][2], txt))
+        texts.append(plt.text(comb1[i][0], comb1[i][1], txt))
         num *= -1
 
     plt.savefig('./{0}, Round {1}.png'.format(name, server_round))
