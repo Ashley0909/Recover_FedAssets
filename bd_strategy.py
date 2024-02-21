@@ -385,6 +385,8 @@ class NNtrain(Strategy):
         # print(len(parameter[0][8]))  #10     #contains the weight values each output neuron gets (each neuron should receive 84 weights)
         # print(len(parameter[0][9]))  #10     #contains the bias value of the 10 output neurons
 
+        print("Here, what is the size of the fully connected layer?", len(parameter[0][-1]))
+
         """Check backdoor task accuracy"""
         for x in range(len(new_results)):
             if malicious[x] == '2':
