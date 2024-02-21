@@ -418,6 +418,8 @@ class NNtrain(Strategy):
         plt.savefig('./FCW.png')
         plt.close()
 
+        _, _, _, _ = nd_clustering(parameter, client_id, malicious, fcb, "fcb", server_round, individual_acc, e=0)
+
         """Check backdoor task accuracy"""
         for x in range(len(new_results)):
             if malicious[x] == '2':
@@ -833,17 +835,14 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         texts.append(ax.text(comb1[i][0], comb1[i][1], comb1[i][2], txt))
         num *= -1
 
-    plt.savefig('Plots/{0}, Round {1}.png'.format(name, server_round))
-    # plt.close()
+    plt.savefig('./{0}, Round {1}.png'.format(name, server_round))
+    plt.close()
 
     reps = []
     for l in unique_labels:
         print("l is", l)
         cluster = np.array(indi_acc)[comb_C == l]
-        print("Individual accuracies:", cluster)
-        # localid = np.arange(len(comb_C))[comb_C == l] 
         median = np.median(cluster) 
-        # print("Median for cluster", l, "is", median)
         reps.append((median, l))
 
     """Set the largest cluster to be benign as a default"""
