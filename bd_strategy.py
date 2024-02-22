@@ -531,6 +531,8 @@ class NNtrain(Strategy):
         final_aggregated = []
         bad_model = []
 
+        print(weights_results)
+
         good_results = np.array(weights_results)[comb_C == 0]
         bad_results = np.array(weights_results)[comb_C == 2]
 
