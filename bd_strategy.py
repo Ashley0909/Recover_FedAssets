@@ -534,6 +534,8 @@ class NNtrain(Strategy):
         good_results = np.array(weights_results)[comb_C == 0]
         bad_results = np.array(weights_results)[comb_C == 2]
 
+        parameters_aggregated = ndarrays_to_parameters(resnet_aggregate(good_results, bad_results))
+
         # # print("Convolutional Layers")
         # c1w_aggregated, bad_c1w = aggregate_weights("conv", good_conv1_w, good_num_examples, bad_conv1_w, bad_num_examples, parameter, good_clients, bad_clients, 0, False, None, evil_conv1_w, evil_parameter, evil_numexamples, server_round, acc_diff)
 
@@ -554,29 +556,29 @@ class NNtrain(Strategy):
         # weight_aggregated, bad_weight = aggregate_weights("ol", good_weights, good_num_examples, bad_weights, bad_num_examples, parameter, good_clients, bad_clients, 8, True, target_label, evil_weights, evil_parameter, evil_numexamples, server_round, acc_diff)
         # bias_aggregated, bad_bias = aggregate_biases("ol", good_biases, good_num_examples, bad_biases, bad_num_examples, True, target_label, evil_biases, evil_numexamples, server_round, acc_diff)
 
-        final_aggregated.append(c1w_aggregated)
-        final_aggregated.append(c1b_aggregated)
-        final_aggregated.append(c2w_aggregated)
-        final_aggregated.append(c2b_aggregated)
-        final_aggregated.append(fhw_aggregated)
-        final_aggregated.append(fhb_aggregated)
-        final_aggregated.append(shw_aggregated)
-        final_aggregated.append(shb_aggregated)
-        final_aggregated.append(weight_aggregated)
-        final_aggregated.append(bias_aggregated)
-        # parameters_good = ndarrays_to_parameters(final_aggregated)
-        parameters_aggregated = ndarrays_to_parameters(final_aggregated)
+        # final_aggregated.append(c1w_aggregated)
+        # final_aggregated.append(c1b_aggregated)
+        # final_aggregated.append(c2w_aggregated)
+        # final_aggregated.append(c2b_aggregated)
+        # final_aggregated.append(fhw_aggregated)
+        # final_aggregated.append(fhb_aggregated)
+        # final_aggregated.append(shw_aggregated)
+        # final_aggregated.append(shb_aggregated)
+        # final_aggregated.append(weight_aggregated)
+        # final_aggregated.append(bias_aggregated)
+        # # parameters_good = ndarrays_to_parameters(final_aggregated)
+        # parameters_aggregated = ndarrays_to_parameters(final_aggregated)
 
-        bad_model.append(bad_c1w)
-        bad_model.append(bad_c1b)
-        bad_model.append(bad_c2w)
-        bad_model.append(bad_c2b)
-        bad_model.append(bad_fhw)
-        bad_model.append(bad_fhb)
-        bad_model.append(bad_shw)
-        bad_model.append(bad_shb)
-        bad_model.append(bad_weight)
-        bad_model.append(bad_bias)
+        # bad_model.append(bad_c1w)
+        # bad_model.append(bad_c1b)
+        # bad_model.append(bad_c2w)
+        # bad_model.append(bad_c2b)
+        # bad_model.append(bad_fhw)
+        # bad_model.append(bad_fhb)
+        # bad_model.append(bad_shw)
+        # bad_model.append(bad_shb)
+        # bad_model.append(bad_weight)
+        # bad_model.append(bad_bias)
         # parameters_bad = ndarrays_to_parameters(bad_model)
 
         # parameters_aggregated = []
@@ -593,8 +595,8 @@ class NNtrain(Strategy):
             log(WARNING, "No fit_metrics_aggregation_fn provided")
 
         # Record thie final model in case if the next round is a void round
-        final_model = parameters_aggregated
-        final_metric = metrics_aggregated
+        # final_model = parameters_aggregated
+        # final_metric = metrics_aggregated
 
         return parameters_aggregated, metrics_aggregated
 
