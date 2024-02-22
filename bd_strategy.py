@@ -1192,16 +1192,19 @@ def resnet_aggregate(good_result, bad_result):
                 ]
                 for good_sublist, bad_sublist, s in zip(good_prime[l], bad_prime[l], sim_weight_list)
             ]
+            print("Size is", np.array(weighted_param_aggregated).shape)
         elif isinstance(good_prime[l], float):
             print("that one value")
             dist = abs(good_prime[l] - bad_prime[l])
             sim_weight = np.exp(constant.MALI_LAMBDA * dist)
             weighted_param_aggregated = (good_prime[l] + (sim_weight * bad_prime[l]))/(1+sim_weight)
-        else:   
+            print("Size is", np.array(weighted_param_aggregated).shape)
+        else:
             print("bias")
             neuron_dists = list(map(abs, map(lambda x,y: x - y, good_prime[l], bad_prime[l])))
             sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
             weighted_param_aggregated = list(map(lambda g,b,s: (g + (s * b))/ (1 + s), good_prime[l], bad_prime[l], sim_weight_list)) 
+            print("Size is", np.array(weighted_param_aggregated).shape)
 
         aggregated_result.append(weighted_param_aggregated)  # records each layer
 
