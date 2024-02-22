@@ -1157,10 +1157,14 @@ def resnet_aggregate(good_result, bad_result):
     good_numex_total = sum([num_examples for _, num_examples in good_result])
     bad_numex_total = sum([num_examples for _, num_examples in bad_result])
 
+    print("good_result:", np.array(good_result[0][0][0]).shape)
+
     # Create a list of weights, each multiplied by the related number of examples
     good_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in good_result]
 
     bad_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in bad_result]
+
+    print("good weighted weights:", np.array(good_weighted_weights[0][0][0][0]).shape)
 
     # Compute average weights of each layer
     good_prime: NDArrays = [
@@ -1173,7 +1177,7 @@ def resnet_aggregate(good_result, bad_result):
         for layer_updates in zip(*bad_weighted_weights)
     ]
 
-    print("bad prime is", bad_prime)
+    print("good prime:", good_prime[0].shape)
 
     # For each layer, compute the distance between the good and the bad, then apply the similarity weight to the bad clients
     # Depending on the layer being weight or bias, we have different approaches: directly calc dist for bias since one value per neuron, but sum all weights of a neuron before calc dist
@@ -1193,7 +1197,7 @@ def resnet_aggregate(good_result, bad_result):
                 for good_sublist, bad_sublist, s in zip(good_prime[l], bad_prime[l], sim_weight_list)
             ]
             print("Size is", np.array(weighted_param_aggregated).shape)
-        elif isinstance(good_prime[l], float):
+        elif len(good_prime[l].shape) < 1:
             print("that one value")
             dist = abs(good_prime[l] - bad_prime[l])
             sim_weight = np.exp(constant.MALI_LAMBDA * dist)
