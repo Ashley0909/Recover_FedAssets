@@ -77,9 +77,11 @@ print('Using MPS:', USE_MPS)
 malicious_record = []
 final_model = []
 final_metric = []
-e_olb, e_c1w, e_c2w, e_fhw, e_shw = 0, 0, 0, 0, 0
-highest_accuracy_c1w, highest_accuracy_c2w, highest_accuracy_fhw, highest_accuracy_shw, highest_accuracy_olb = 1/10, 1/10, 1/10, 1/10, 1/10
-lowest_accuracy_c1w, lowest_accuracy_c2w, lowest_accuracy_fhw, lowest_accuracy_shw, lowest_accuracy_olb = 0, 0, 0, 0, 0
+# e_olb, e_c1w, e_c2w, e_fhw, e_shw = 0, 0, 0, 0, 0
+# highest_accuracy_c1w, highest_accuracy_c2w, highest_accuracy_fhw, highest_accuracy_shw, highest_accuracy_olb = 1/10, 1/10, 1/10, 1/10, 1/10
+# lowest_accuracy_c1w, lowest_accuracy_c2w, lowest_accuracy_fhw, lowest_accuracy_shw, lowest_accuracy_olb = 0, 0, 0, 0, 0
+e, lowest_accuracy = 0, 0
+highest_accuracy = 1/10
 global_targetlabel = None
 
 class NNtrain(Strategy):
@@ -310,7 +312,8 @@ class NNtrain(Strategy):
         results: List[Tuple[ClientProxy, FitRes]],
         failures: List[Union[Tuple[ClientProxy, FitRes], BaseException]],
     ) -> Tuple[Optional[Parameters], Dict[str, Scalar]]:
-        global malicious_record, highest_accuracy_c1w, lowest_accuracy_c1w, highest_accuracy_c2w, lowest_accuracy_c2w, highest_accuracy_fhw, lowest_accuracy_fhw, highest_accuracy_shw, lowest_accuracy_shw, highest_accuracy_olb, lowest_accuracy_olb, final_model, final_metric, global_targetlabel, e_olb, e_c1w, e_c2w, e_fhw, e_shw
+        # global malicious_record, highest_accuracy_c1w, lowest_accuracy_c1w, highest_accuracy_c2w, lowest_accuracy_c2w, highest_accuracy_fhw, lowest_accuracy_fhw, highest_accuracy_shw, lowest_accuracy_shw, highest_accuracy_olb, lowest_accuracy_olb, final_model, final_metric, global_targetlabel, e_olb, e_c1w, e_c2w, e_fhw, e_shw
+        global malicious_record, highest_accuracy, lowest_accuracy, final_model, final_metric, global_targetlabel, e
 
         if not results:
             return None, {}
@@ -372,55 +375,6 @@ class NNtrain(Strategy):
 
         print("Number of Preset Malicious Clients is", malicious.count("2"))
         print("Number of Preset Benign Clients is", malicious.count("0"))
-        # print(len(parameter[0][0]))  #6
-        # print(len(parameter[0][1]))  #6
-        # print(len(parameter[0][2]))  #16
-        # print(len(parameter[0][3]))  #16
-        # print(len(parameter[0][4]))  #120
-        # print(len(parameter[0][5]))  #120
-        # print(len(parameter[0][6]))  #84
-        # print(len(parameter[0][7]))  #84
-        # print(len(parameter[0][8]))  #10     #contains the weight values each output neuron gets (each neuron should receive 84 weights)
-        # print(len(parameter[0][9]))  #10     #contains the bias value of the 10 output neurons
-
-        print("Here, what is the size of the fully connected layer?", len(parameter[0][-1]))
-        print("How about the second last layer?", len(parameter[0][-2]))
-
-        fcb = [sublist[-1] for sublist in parameter]
-        fcw = []
-        for i in range(len(parameter)): 
-            w = 0
-            vector = []  #set up a vector for each client
-            for j in range(len(parameter[i][-2])): #10
-                w = np.sum(parameter[i][-2][j]) #84
-                vector.append(w)
-            fcw.append(np.array(vector))
-
-        textstr = ''
-        for l, g in enumerate(local_cid):
-            textstr += f'Client {g} => {int(malicious[l])} \n'
-
-        plt.imshow(np.array(fcb), cmap='viridis', interpolation='nearest')
-        plt.colorbar()
-        plt.text(-12, 12, textstr, fontsize=8, verticalalignment='center', horizontalalignment='left')
-        plt.xlabel("FC Layer Bias")
-        plt.ylabel("Clients")
-        plt.title("Heatmap of all clients' FC Layer Bias")
-        plt.savefig('./FCB.png')
-        plt.close()
-
-        plt.imshow(np.array(fcw), cmap='viridis', interpolation='nearest')
-        plt.colorbar()
-        plt.text(-12, 12, textstr, fontsize=8, verticalalignment='center', horizontalalignment='left')
-        plt.xlabel("FC Layer Weights")
-        plt.ylabel("Clients")
-        plt.title("Heatmap of all clients' FC Layer Weights")
-        plt.savefig('./FCW.png')
-        plt.close()
-
-        _, _, _, _ = nd_clustering(parameter, client_id, malicious, fcb, "fcb", server_round, individual_acc, e=0)
-
-        _, _, _, _ = nd_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, individual_acc, e=0)
 
         """Check backdoor task accuracy"""
         for x in range(len(new_results)):
@@ -440,119 +394,32 @@ class NNtrain(Strategy):
             poisoning_acc = "N/A"
             print("Average poisoning accuracy: N/A")
 
-        """Implement n-dimension clustering"""
-        biases = []
-        weights = []
-        first_hidden_b = []
-        first_hidden_w = []
-        second_hidden_b = []
-        second_hidden_w = []
-        conv1_w = []
-        conv1_b = []
-        conv2_w = []
-        conv2_b = []
+        """Get FC Weight for clustering"""
+        fcb = [sublist[-1] for sublist in parameter]
+        fcw = []
         for i in range(len(parameter)): 
-            conv1_b.append(parameter[i][1])
-            conv2_b.append(parameter[i][3])
-            first_hidden_b.append(parameter[i][5])
-            second_hidden_b.append(parameter[i][7])
-            biases.append(parameter[i][9])
-
             w = 0
             vector = []  #set up a vector for each client
-            for j in range(len(parameter[i][8])): #10
-                w = np.sum(parameter[i][8][j]) #84
+            for j in range(len(parameter[i][-2])): #10
+                w = np.sum(parameter[i][-2][j]) #84
                 vector.append(w)
-            weights.append(np.array(vector))
+            fcw.append(np.array(vector))
 
-            w = 0
-            sh_vector = []
-            for k in range(len(parameter[i][6])):
-                w = np.sum(parameter[i][6][k])
-                sh_vector.append(w)
-            second_hidden_w.append(np.array(sh_vector))
-
-            w = 0
-            fh_vector = []
-            for z in range(len(parameter[i][4])):
-                w = np.sum(parameter[i][4][z])
-                fh_vector.append(w)
-            first_hidden_w.append(np.array(fh_vector))
-
-            w = 0
-            conv2_vector = []
-            for z in range(len(parameter[i][2])):
-                w = np.sum(parameter[i][2][z])
-                conv2_vector.append(w)
-            conv2_w.append(np.array(conv2_vector))
-
-            w = 0
-            conv1_vector = []
-            for z in range(len(parameter[i][0])):
-                w = np.sum(parameter[i][0][z])
-                conv1_vector.append(w)
-            conv1_w.append(np.array(conv1_vector))
-        
-        """Find Layer parameter of evil clients"""
-        evil_conv1_w = []
-        evil_conv1_b = []
-        evil_conv2_w = []
-        evil_conv2_b = []
-        evil_biases = []
-        evil_weights = []
-        evil_fh_b = []
-        evil_fh_w = []
-        evil_sh_b = []
-        evil_sh_w = []
         if len(evil_parameter) > 0:
-            for i in range(len(evil_parameter)):
-                evil_biases.append(evil_parameter[i][9])
-                evil_sh_b.append(evil_parameter[i][7])
-                evil_fh_b.append(evil_parameter[i][5])
-                evil_conv2_b.append(evil_parameter[i][3])
-                evil_conv1_b.append(evil_parameter[i][1])
+            evil_fcb = [sublist[-1] for sublist in evil_parameter]
+            evil_fcw = []
+            for i in range(len(evil_parameter)): 
+                w = 0
                 vector = []  #set up a vector for each client
-                w = 0
-                for j in range(len(evil_parameter[i][8])): #10
-                    w = np.sum(evil_parameter[i][8][j]) #84
+                for j in range(len(evil_parameter[i][-2])): #10
+                    w = np.sum(evil_parameter[i][-2][j]) #84
                     vector.append(w)
-                evil_weights.append(np.array(vector))
+                evil_fcw.append(np.array(vector))
 
-                w = 0
-                sh_vector = []
-                for k in range(len(evil_parameter[i][6])):
-                    w = np.sum(evil_parameter[i][6][k])
-                    sh_vector.append(w)
-                evil_sh_w.append(np.array(sh_vector))
+        heatmaps(local_cid, malicious, np.array(fcb), 'FCB')
+        heatmaps(local_cid, malicious, np.array(fcw), 'FCW')
 
-                w = 0
-                fh_vector = []
-                for z in range(len(evil_parameter[i][4])):
-                    w = np.sum(evil_parameter[i][4][z])
-                    fh_vector.append(w)
-                evil_fh_w.append(np.array(fh_vector))
-
-                w = 0
-                conv2_vector = []
-                for z in range(len(evil_parameter[i][2])): 
-                    w = np.sum(evil_parameter[i][2][z])
-                    conv2_vector.append(w)
-                evil_conv2_w.append(np.array(conv2_vector))
-
-                w = 0
-                conv1_vector = []
-                for z in range(len(evil_parameter[i][0])):
-                    w = np.sum(evil_parameter[i][0][z])
-                    conv1_vector.append(w)
-                evil_conv1_w.append(np.array(conv1_vector))
-
-        # print("eolb, e1w, ec2w, cfhw, eshw = ", e_olb, e_c1w, e_c2w, e_fhw, e_shw)
-        
-        comb_C_olb, record_olb, acc_diff_olb, highest_accuracy_olb, lowest_accuracy_olb, e_olb = full_clustering(parameter, client_id, malicious, biases, "biases", server_round, individual_acc, e_olb, highest_accuracy_olb, lowest_accuracy_olb)
-        comb_C_c1w, record_c1w, acc_diff_c1w, highest_accuracy_c1w, lowest_accuracy_c1w, e_c1w = full_clustering(parameter, client_id, malicious, conv1_w, "conv1w", server_round, individual_acc, e_c1w, highest_accuracy_c1w, lowest_accuracy_c1w)
-        comb_C_c2w, record_c2w, acc_diff_c2w, highest_accuracy_c2w, lowest_accuracy_c2w, e_c2w = full_clustering(parameter, client_id, malicious, conv2_w, "conv2w", server_round, individual_acc, e_c2w, highest_accuracy_c2w, lowest_accuracy_c2w)
-        comb_C_fhw, record_fhw, acc_diff_fhw, highest_accuracy_fhw, lowest_accuracy_fhw, e_fhw = full_clustering(parameter, client_id, malicious, first_hidden_w, "fhw", server_round, individual_acc, e_fhw, highest_accuracy_fhw, lowest_accuracy_fhw)
-        comb_C_shw, record_shw, acc_diff_shw, highest_accuracy_shw, lowest_accuracy_shw, e_shw = full_clustering(parameter, client_id, malicious, second_hidden_w, "shw", server_round, individual_acc, e_shw, highest_accuracy_shw, lowest_accuracy_shw)
+        comb_C, record, acc_diff, highest_accuracy, lowest_accuracy, e = full_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, individual_acc, e, highest_accuracy, lowest_accuracy)
 
         """CIFAR-10"""
         # if server_round <= 10:
@@ -569,9 +436,9 @@ class NNtrain(Strategy):
         #     acc_diff = acc_diff_shw
 
         """MNIST or CIFAR NonIID"""
-        comb_C = comb_C_olb
-        record = record_olb
-        acc_diff = acc_diff_olb
+        # comb_C = comb_C_olb
+        # record = record_olb
+        # acc_diff = acc_diff_olb
 
         bad_num_examples = np.array(num_examples)[comb_C == 2]
         good_num_examples = np.array(num_examples)[comb_C == 0]
@@ -616,9 +483,13 @@ class NNtrain(Strategy):
 
         ws[constant.EXCEL_CELL+str(server_round+107)] = clustering_acc
         ws[constant.EXCEL_CELL+str(server_round+211)] = poisoning_acc
+
+        """Split the parameters into good and malicious"""
+        good_fcw = np.array(fcw)[comb_C == 0]
+        bad_fcw = np.array(fcw)[comb_C == 2]
                 
-        good_weights, good_biases, good_fh_w, good_fh_b, good_sh_w, good_sh_b, good_conv1_w, good_conv1_b, good_conv2_w, good_conv2_b = generateparams(weights, biases, first_hidden_w, first_hidden_b, second_hidden_w, second_hidden_b, conv1_w, conv1_b, conv2_w, conv2_b, comb_C, True)
-        bad_weights, bad_biases, bad_fh_w, bad_fh_b, bad_sh_w, bad_sh_b, bad_conv1_w, bad_conv1_b, bad_conv2_w, bad_conv2_b = generateparams(weights, biases, first_hidden_w, first_hidden_b, second_hidden_w, second_hidden_b, conv1_w, conv1_b, conv2_w, conv2_b, comb_C, False)
+        # good_weights, good_biases, good_fh_w, good_fh_b, good_sh_w, good_sh_b, good_conv1_w, good_conv1_b, good_conv2_w, good_conv2_b = generateparams(weights, biases, first_hidden_w, first_hidden_b, second_hidden_w, second_hidden_b, conv1_w, conv1_b, conv2_w, conv2_b, comb_C, True)
+        # bad_weights, bad_biases, bad_fh_w, bad_fh_b, bad_sh_w, bad_sh_b, bad_conv1_w, bad_conv1_b, bad_conv2_w, bad_conv2_b = generateparams(weights, biases, first_hidden_w, first_hidden_b, second_hidden_w, second_hidden_b, conv1_w, conv1_b, conv2_w, conv2_b, comb_C, False)
 
         # good_weights, good_biases, good_fh_w, good_fh_b, good_sh_w, good_sh_b, good_conv1_w, good_conv1_b, good_conv2_w, good_conv2_b = generateparams_nocluster(weights, biases, first_hidden_w, first_hidden_b, second_hidden_w, second_hidden_b, conv1_w, conv1_b, conv2_w, conv2_b, malicious, True)
         # bad_weights, bad_biases, bad_fh_w, bad_fh_b, bad_sh_w, bad_sh_b, bad_conv1_w, bad_conv1_b, bad_conv2_w, bad_conv2_b = generateparams_nocluster(weights, biases, first_hidden_w, first_hidden_b, second_hidden_w, second_hidden_b, conv1_w, conv1_b, conv2_w, conv2_b, malicious, False)
@@ -633,14 +504,14 @@ class NNtrain(Strategy):
         """Detecting Target Label"""
         if (len(good_clients) > 0) and (len(bad_clients) > 0 or len(evil_numexamples) > 0):
             dist_list = []
-            for i in range(len(good_biases[0])):
-                good_biases_average = compute_average(good_biases[:,i], len(good_clients))
+            for i in range(len(good_fcw[0])):
+                good_biases_average = compute_average(good_fcw[:,i], len(good_clients))
                 if len(bad_clients) == 0:
-                    bad_biases_average = compute_average(np.array(evil_biases)[:,i], len(evil_numexamples))
+                    bad_biases_average = compute_average(np.array(evil_fcw)[:,i], len(evil_numexamples))
                 elif len(evil_numexamples) == 0:
-                    bad_biases_average = compute_average(bad_biases[:,i], len(bad_clients))
+                    bad_biases_average = compute_average(bad_fcw[:,i], len(bad_clients))
                 else:
-                    bad_biases_average = compute_average(np.concatenate((bad_biases, evil_biases), axis=0)[:,i], (len(bad_clients)+len(evil_numexamples)))
+                    bad_biases_average = compute_average(np.concatenate((bad_fcw, evil_fcw), axis=0)[:,i], (len(bad_clients)+len(evil_numexamples)))
 
                 dist = abs(good_biases_average - bad_biases_average)
                 dist_list.append(dist)
@@ -660,25 +531,28 @@ class NNtrain(Strategy):
         final_aggregated = []
         bad_model = []
 
-        # print("Convolutional Layers")
-        c1w_aggregated, bad_c1w = aggregate_weights("conv", good_conv1_w, good_num_examples, bad_conv1_w, bad_num_examples, parameter, good_clients, bad_clients, 0, False, None, evil_conv1_w, evil_parameter, evil_numexamples, server_round, acc_diff)
+        good_results = np.array(weights_results)[comb_C == 0]
+        bad_results = np.array(weights_results)[comb_C == 2]
 
-        # if c1w_aggregated == []:  # if theres no good clients ALL BENIGN
-        #     print("No good clients")
-        #     return final_model, final_metric
+        # # print("Convolutional Layers")
+        # c1w_aggregated, bad_c1w = aggregate_weights("conv", good_conv1_w, good_num_examples, bad_conv1_w, bad_num_examples, parameter, good_clients, bad_clients, 0, False, None, evil_conv1_w, evil_parameter, evil_numexamples, server_round, acc_diff)
+
+        # # if c1w_aggregated == []:  # if theres no good clients ALL BENIGN
+        # #     print("No good clients")
+        # #     return final_model, final_metric
         
-        c1b_aggregated, bad_c1b = aggregate_biases("conv", good_conv1_b, good_num_examples, bad_conv1_b, bad_num_examples, False, None, evil_conv1_b, evil_numexamples, server_round, acc_diff)
-        c2w_aggregated, bad_c2w = aggregate_weights("conv", good_conv2_w, good_num_examples, bad_conv2_w, bad_num_examples, parameter, good_clients, bad_clients, 2, False, None, evil_conv2_w, evil_parameter, evil_numexamples, server_round, acc_diff)
-        c2b_aggregated, bad_c2b = aggregate_biases("conv", good_conv2_b, good_num_examples, bad_conv2_b, bad_num_examples, False, None, evil_conv2_b, evil_numexamples, server_round, acc_diff)
-        # print("First Hidden Layer")
-        fhw_aggregated, bad_fhw = aggregate_weights("fh", good_fh_w, good_num_examples, bad_fh_w, bad_num_examples, parameter, good_clients, bad_clients, 4, False, None, evil_fh_w, evil_parameter, evil_numexamples, server_round, acc_diff)
-        fhb_aggregated, bad_fhb = aggregate_biases("fh", good_fh_b, good_num_examples, bad_fh_b, bad_num_examples, False, None, evil_fh_b, evil_numexamples, server_round, acc_diff)
-        # print("Second Hidden Layer")
-        shw_aggregated, bad_shw = aggregate_weights("sh", good_sh_w, good_num_examples, bad_sh_w, bad_num_examples, parameter, good_clients, bad_clients, 6, False, None, evil_sh_w, evil_parameter, evil_numexamples, server_round, acc_diff)
-        shb_aggregated, bad_shb = aggregate_biases("sh", good_sh_b, good_num_examples, bad_sh_b, bad_num_examples, False, None, evil_sh_b, evil_numexamples, server_round, acc_diff)
-        # print("Output Layer")
-        weight_aggregated, bad_weight = aggregate_weights("ol", good_weights, good_num_examples, bad_weights, bad_num_examples, parameter, good_clients, bad_clients, 8, True, target_label, evil_weights, evil_parameter, evil_numexamples, server_round, acc_diff)
-        bias_aggregated, bad_bias = aggregate_biases("ol", good_biases, good_num_examples, bad_biases, bad_num_examples, True, target_label, evil_biases, evil_numexamples, server_round, acc_diff)
+        # c1b_aggregated, bad_c1b = aggregate_biases("conv", good_conv1_b, good_num_examples, bad_conv1_b, bad_num_examples, False, None, evil_conv1_b, evil_numexamples, server_round, acc_diff)
+        # c2w_aggregated, bad_c2w = aggregate_weights("conv", good_conv2_w, good_num_examples, bad_conv2_w, bad_num_examples, parameter, good_clients, bad_clients, 2, False, None, evil_conv2_w, evil_parameter, evil_numexamples, server_round, acc_diff)
+        # c2b_aggregated, bad_c2b = aggregate_biases("conv", good_conv2_b, good_num_examples, bad_conv2_b, bad_num_examples, False, None, evil_conv2_b, evil_numexamples, server_round, acc_diff)
+        # # print("First Hidden Layer")
+        # fhw_aggregated, bad_fhw = aggregate_weights("fh", good_fh_w, good_num_examples, bad_fh_w, bad_num_examples, parameter, good_clients, bad_clients, 4, False, None, evil_fh_w, evil_parameter, evil_numexamples, server_round, acc_diff)
+        # fhb_aggregated, bad_fhb = aggregate_biases("fh", good_fh_b, good_num_examples, bad_fh_b, bad_num_examples, False, None, evil_fh_b, evil_numexamples, server_round, acc_diff)
+        # # print("Second Hidden Layer")
+        # shw_aggregated, bad_shw = aggregate_weights("sh", good_sh_w, good_num_examples, bad_sh_w, bad_num_examples, parameter, good_clients, bad_clients, 6, False, None, evil_sh_w, evil_parameter, evil_numexamples, server_round, acc_diff)
+        # shb_aggregated, bad_shb = aggregate_biases("sh", good_sh_b, good_num_examples, bad_sh_b, bad_num_examples, False, None, evil_sh_b, evil_numexamples, server_round, acc_diff)
+        # # print("Output Layer")
+        # weight_aggregated, bad_weight = aggregate_weights("ol", good_weights, good_num_examples, bad_weights, bad_num_examples, parameter, good_clients, bad_clients, 8, True, target_label, evil_weights, evil_parameter, evil_numexamples, server_round, acc_diff)
+        # bias_aggregated, bad_bias = aggregate_biases("ol", good_biases, good_num_examples, bad_biases, bad_num_examples, True, target_label, evil_biases, evil_numexamples, server_round, acc_diff)
 
         final_aggregated.append(c1w_aggregated)
         final_aggregated.append(c1b_aggregated)
@@ -773,38 +647,38 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
     reduced_data = pca.fit_transform(layer)
 
     """Non-IID"""
-    e = 0.05
-    mp = 5
-    e -= 0.0025*(server_round/5)
-    mp -= (server_round//20) 
-    db = DBSCAN(eps=max(e, 0.03), min_samples=max(3,mp)).fit(reduced_data)  #original (exp=1.1, min_samples=5)
-    comb_C = db.labels_
+    # e = 2
+    # mp = 5
+    # e -= 0.0025*(server_round/5)
+    # mp -= (server_round//20) 
+    # db = DBSCAN(eps=max(e, 0.03), min_samples=max(3,mp)).fit(reduced_data)  #original (exp=1.1, min_samples=5)
+    # comb_C = db.labels_
     
     """IID"""
-    # if server_round < 6:
-    #     kmeans = KMeans(init="k-means++", n_clusters=2, n_init=4).fit(reduced_data)
-    #     comb_C = kmeans.predict(reduced_data)
+    if server_round < 6:
+        kmeans = KMeans(init="k-means++", n_clusters=2, n_init=4).fit(reduced_data)
+        comb_C = kmeans.predict(reduced_data)
 
-    #     centroids = kmeans.cluster_centers_
-    #     centroids_assignment = kmeans.predict(centroids)
-    #     unique_labels = np.unique(comb_C)
-    #     max_dist = []
-    #     for l in unique_labels:
-    #         distances = euclidean_distances(reduced_data[comb_C == l], centroids[centroids_assignment == l])
-    #         max_dist.append(np.max(distances))
-    #     e = np.max(max_dist)
-    # else:
-    #     mp = 5
-    #     e -= 0.0025*(server_round/5)
-    #     mp -= (server_round//20) 
-    #     # print("e is", e)
-    #     # print("mp is", mp)
-    #     db = DBSCAN(eps=max(e, 0.03), min_samples=max(3,mp)).fit(reduced_data)
-    #     comb_C = db.labels_
+        centroids = kmeans.cluster_centers_
+        centroids_assignment = kmeans.predict(centroids)
+        unique_labels = np.unique(comb_C)
+        max_dist = []
+        for l in unique_labels:
+            distances = euclidean_distances(reduced_data[comb_C == l], centroids[centroids_assignment == l])
+            max_dist.append(np.max(distances))
+        e = np.max(max_dist)
+    else:
+        mp = 5
+        e -= 0.0025*(server_round/5)
+        mp -= (server_round//20) 
+        # print("e is", e)
+        # print("mp is", mp)
+        db = DBSCAN(eps=max(e, 0.03), min_samples=max(3,mp)).fit(reduced_data)
+        comb_C = db.labels_
 
-    # Plotting the clusters
+    """Plotting the clusters"""
     # fig = plt.figure(figsize=(8, 6))
-    # ax = fig.add_subplot(111, projection='2d')
+    # ax = fig.add_subplot(111, projection='3d')
     plt.figure(figsize=(8, 6))
 
     # Assigning colors to clusters
@@ -1053,6 +927,20 @@ def show_plots(local_cid, malicious,
     # plt.show(block=True)
     plt.close()
 
+def heatmaps(local_cid, malicious, layer, name):
+    textstr = ''
+    for l, g in enumerate(local_cid):
+        textstr += f'Client {g} => {int(malicious[l])} \n'
+
+    plt.imshow(layer, cmap='viridis', interpolation='nearest')
+    plt.colorbar()
+    plt.text(-12, 12, textstr, fontsize=8, verticalalignment='center', horizontalalignment='left')
+    plt.xlabel(name)
+    plt.ylabel("Clients")
+    plt.title("Heatmap of all clients' {}".format(name))
+    plt.savefig('./{}.png'.format(name))
+    plt.close()
+
 def compute_average(data, count):
     average = np.sum(data, axis=0) / count
 
@@ -1092,17 +980,10 @@ def aggregate_biases(name, good_layer, good_num_examples, bad_layer, bad_num_exa
         evil_aggregated = []
 
     if acc_diff != 0: # if there is no good clients
-        # print("acc_diff", acc_diff)
         bad_aggregated = naive_aggregate(bad_layer, bad_num_examples)
         for j in range(len(bad_layer[0])):
             sim = np.exp(constant.EVIL_LAMBDA * acc_diff)
             evil_sim = np.exp(constant.EVIL_LAMBDA * acc_diff)
-            # print("sim")
-            # if sim > 0.1:
-            #     print(sim)
-            # print("evil sim")
-            # if evil_sim > 0.1:
-            #     print(evil_sim)
             if evil_aggregated != []:
                 weighted_param_aggregated = ((sim * bad_aggregated[j]) + (evil_sim * evil_aggregated[j]))/(evil_sim + sim)
             else:
@@ -1122,10 +1003,6 @@ def aggregate_biases(name, good_layer, good_num_examples, bad_layer, bad_num_exa
             for j in range(len(good_layer[0])):
                 evil_dist = abs(good_aggregated[j] - evil_aggregated[j])
                 evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
-
-                # print("evil sim")
-                # if evil_sim_weight > 0.1:
-                #     print(evil_sim_weight)
                 weighted_param_aggregated = (good_aggregated[j] + (evil_sim_weight * evil_aggregated[j]))/(1+evil_sim_weight)
                 aggregated_result.append(weighted_param_aggregated)
         else:
@@ -1143,7 +1020,6 @@ def aggregate_biases(name, good_layer, good_num_examples, bad_layer, bad_num_exa
         if evil_aggregated != []:
             evil_dist = abs(good_aggregated[j] - evil_aggregated[j])
             evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
-            # evil_sim_weight = 1  # equally
         else:
             evil_sim_weight = 0
              
@@ -1153,14 +1029,6 @@ def aggregate_biases(name, good_layer, good_num_examples, bad_layer, bad_num_exa
         else:
             dist = abs(good_aggregated[j] - bad_aggregated[j])
             sim_weight = np.exp(constant.MALI_LAMBDA * dist)  #Updated similarity weight CHANGED 5.5
-        # sim_weight = 1  # equally
-            
-        # print("Sim")
-        # if sim_weight > 0.1:
-        #     print(sim_weight)
-        # print("evil sim")
-        # if evil_sim_weight > 0.1:
-        #     print(evil_sim_weight)
 
         if evil_sim_weight == 0:
             weighted_param_aggregated = (good_aggregated[j] + (sim_weight * bad_aggregated[j])) / (1 + sim_weight)
@@ -1207,13 +1075,6 @@ def aggregate_weights(name, good_layer, good_num_examples, bad_layer, bad_num_ex
         for j in range(len(parameter[0][k])): #each neuron
             sim = np.exp(constant.EVIL_LAMBDA * acc_diff)
             evil_sim = np.exp(constant.EVIL_LAMBDA * acc_diff)
-            # print("sim")
-            # if sim > 0.1:
-            #     print(sim)
-            # print("Evil sim")
-            # if evil_sim > 0.1:
-            #     print(evil_sim)
-
             if evil_aggregated != []:
                 weighted_param_aggregated = ((sim * bad_weights_prime[j]) + (evil_sim * evil_weights_prime[j]))/(sim + evil_sim)
             else:
@@ -1235,17 +1096,12 @@ def aggregate_weights(name, good_layer, good_num_examples, bad_layer, bad_num_ex
         for layer_updates in zip(*good_weighted_weights)
     ]
 
-    # print("Total bad num is", total_bad_num)
-
     if total_bad_num == 0: # no bad client
         aggregated_result = []
         if evil_aggregated != []:
             for j in range(len(parameter[0][k])):
                 evil_dist = abs(good_aggregated[j] - evil_aggregated[j])
                 evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
-                # print("evil sim")
-                # if evil_sim_weight > 0.1:
-                #     print(evil_sim_weight)
                 weighted_param_aggregated = (good_weights_prime[j] + (evil_sim_weight * evil_weights_prime[j]))/(1+evil_sim_weight)
                 aggregated_result.append(weighted_param_aggregated)
         else:
@@ -1281,13 +1137,6 @@ def aggregate_weights(name, good_layer, good_num_examples, bad_layer, bad_num_ex
             dist = abs(good_aggregated[j] - bad_aggregated[j])
             sim_weight = np.exp(constant.MALI_LAMBDA * dist)  #Updated similarity weight CHANGED 7
         
-        # print("Sim weight")
-        # if sim_weight > 0.1:
-        #     print(sim_weight)
-        # print("Evil sim weight")
-        # if evil_sim_weight > 0.1:
-        #     print(evil_sim_weight)
-        
         if evil_sim_weight == 0:
             weighted_param_aggregated = (good_weights_prime[j] + (sim_weight * bad_weights_prime[j])) / (1 + sim_weight)
         else:
@@ -1299,6 +1148,50 @@ def aggregate_weights(name, good_layer, good_num_examples, bad_layer, bad_num_ex
     else:
         return aggregate_for_good, good_weights_prime
     # return good_weights_prime, good_weights_prime  # All Benign
+
+def resnet_aggregate(good_result, bad_result):
+    good_numex_total = sum([num_examples for _, num_examples in good_result])
+    bad_numex_total = sum([num_examples for _, num_examples in bad_result])
+
+    # Create a list of weights, each multiplied by the related number of examples
+    good_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in good_result]
+
+    bad_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in bad_result]
+
+    # Compute average weights of each layer
+    good_prime: NDArrays = [
+        reduce(np.add, layer_updates) / good_numex_total
+        for layer_updates in zip(*good_weighted_weights)
+    ]
+
+    bad_prime: NDArrays = [
+        reduce(np.add, layer_updates) / bad_numex_total
+        for layer_updates in zip(*bad_weighted_weights)
+    ]
+
+    # For each layer, compute the distance between the good and the bad, then apply the similarity weight to the bad clients
+    # Depending on the layer being weight or bias, we have different approaches: directly calc dist for bias since one value per neuron, but sum all weights of a neuron before calc dist
+    aggregated_result = []
+    for l in range(len(good_prime)):
+        if len(good_prime[l].shape) > 1:
+            # weights: sum up all incoming weights
+            neuron_dists = list(map(abs, map(lambda x,y: x - y, sum(good_prime[l]), sum(bad_prime[l]))))
+        else:
+            neuron_dists = list(map(abs, map(lambda x,y: x - y, good_prime[l], bad_prime[l])))
+        sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
+        if len(good_prime[l].shape) > 1:
+            weighted_param_aggregated = [
+                [
+                    (g+(s*b)) / (1+s)
+                    for g,b, in zip(good_sublist, bad_sublist)
+                ]
+                for good_sublist, bad_sublist, s in zip(good_prime[l], bad_prime[l], sim_weight_list)
+            ]
+        else:
+            weighted_param_aggregated = list(map(lambda g,b,s: (g + (s * b))/ (1 + s), good_prime[l], bad_prime[l], sim_weight_list)) 
+        aggregated_result.append(weighted_param_aggregated)  # records each layer
+
+    return np.array(aggregated_result)
 
 def generateparams(weights, biases, first_hidden_w, first_hidden_b, second_hidden_w, second_hidden_b, conv1_w, conv1_b, conv2_w, conv2_b, comb_C, benign):
     if benign:
