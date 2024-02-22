@@ -1179,13 +1179,12 @@ def resnet_aggregate(good_result, bad_result):
     # Depending on the layer being weight or bias, we have different approaches: directly calc dist for bias since one value per neuron, but sum all weights of a neuron before calc dist
     aggregated_result = []
     for l in range(len(good_prime)):
+        print("layer", l)
         if len(good_prime[l].shape) > 1:
+            print("weight")
             # weights: sum up all incoming weights
             neuron_dists = list(map(abs, map(lambda x,y: x - y, sum(good_prime[l]), sum(bad_prime[l]))))
-        else:
-            neuron_dists = list(map(abs, map(lambda x,y: x - y, good_prime[l], bad_prime[l])))
-        sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
-        if len(good_prime[l].shape) > 1:
+            sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
             weighted_param_aggregated = [
                 [
                     (g+(s*b)) / (1+s)
@@ -1193,8 +1192,17 @@ def resnet_aggregate(good_result, bad_result):
                 ]
                 for good_sublist, bad_sublist, s in zip(good_prime[l], bad_prime[l], sim_weight_list)
             ]
-        else:
+        elif isinstance(good_prime[l], list):
+            print("bias")
+            neuron_dists = list(map(abs, map(lambda x,y: x - y, good_prime[l], bad_prime[l])))
+            sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
             weighted_param_aggregated = list(map(lambda g,b,s: (g + (s * b))/ (1 + s), good_prime[l], bad_prime[l], sim_weight_list)) 
+        else:
+            print("that one value")
+            dist = abs(good_prime[l] - bad_prime[l])
+            sim_weight = np.exp(constant.MALI_LAMBDA * dist)
+            weighted_param_aggregated = (good_prime[l] + (sim_weight * bad_prime[l]))/(1+sim_weight)
+
         aggregated_result.append(weighted_param_aggregated)  # records each layer
 
     return np.array(aggregated_result)
