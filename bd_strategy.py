@@ -531,8 +531,6 @@ class NNtrain(Strategy):
         final_aggregated = []
         bad_model = []
 
-        print(weights_results)
-
         good_results = [weights_results[i] for i in range(len(weights_results)) if comb_C[i] == 0]
         bad_results = [weights_results[i] for i in range(len(weights_results)) if comb_C[i] == 2]
 
@@ -1174,6 +1172,8 @@ def resnet_aggregate(good_result, bad_result):
         reduce(np.add, layer_updates) / bad_numex_total
         for layer_updates in zip(*bad_weighted_weights)
     ]
+
+    print("bad prime is", bad_prime)
 
     # For each layer, compute the distance between the good and the bad, then apply the similarity weight to the bad clients
     # Depending on the layer being weight or bias, we have different approaches: directly calc dist for bias since one value per neuron, but sum all weights of a neuron before calc dist
