@@ -533,8 +533,10 @@ class NNtrain(Strategy):
 
         print(weights_results)
 
-        good_results = np.array(weights_results)[comb_C == 0]
-        bad_results = np.array(weights_results)[comb_C == 2]
+        good_results = [weights_results[i] for i in range(len(weights_results)) if comb_C[i] == 0]
+        bad_results = [weights_results[i] for i in range(len(weights_results)) if comb_C[i] == 2]
+
+        print("length of good results is", len(good_results), "and length of bad results is", len(bad_results))
 
         parameters_aggregated = ndarrays_to_parameters(resnet_aggregate(good_results, bad_results))
 
