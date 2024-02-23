@@ -442,8 +442,6 @@ class NNtrain(Strategy):
         # record = record_olb
         # acc_diff = acc_diff_olb
 
-        # bad_num_examples = np.array(num_examples)[comb_C == 2]
-        # good_num_examples = np.array(num_examples)[comb_C == 0]
         bad_clients = local_cid[comb_C == 2]
         good_clients = local_cid[comb_C == 0]
 
@@ -455,26 +453,21 @@ class NNtrain(Strategy):
                 correct += 1
         clustering_acc = correct / len(malicious)
 
+        """Assume Clustering 100%"""
+        bad_index = [index for index,value in enumerate(malicious) if value == "2"]
+        good_index = [index for index,value in enumerate(malicious) if value == "0"]
+        bad_clients = local_cid[bad_index]
+        good_clients = local_cid[good_index]
+
         print("Final Clustering acc is", clustering_acc)
 
-        """Assume Clustering 100%"""
-        # bad_index = [index for index,value in enumerate(malicious) if value == "2"]
-        # good_index = [index for index,value in enumerate(malicious) if value == "0"]
-        # bad_num_examples = np.array(num_examples)[bad_index]
-        # good_num_examples = np.array(num_examples)[good_index]
-        # bad_clients = local_cid[bad_index]
-        # good_clients = local_cid[good_index]
-
-        # print("length of bad clients:", len(bad_clients))
-        # print("length of good clients:", len(good_clients))
-
         if record == 1:
-            global_bad = client_id[comb_C == 2]
-            # global_bad = client_id[bad_index]
+            # global_bad = client_id[comb_C == 2]
+            global_bad = client_id[bad_index]
             malicious_record.extend(global_bad)
             malicious_record = list(set(malicious_record)) #avoid duplicates
 
-        print(len(malicious_record))
+        print(len(malicious_record), "added to evil list")
 
         determined_status = {}
         for i in range(len(weights_results)):
@@ -489,6 +482,10 @@ class NNtrain(Strategy):
         """Split the parameters into good and malicious"""
         good_fcw = np.array(fcw)[comb_C == 0]
         bad_fcw = np.array(fcw)[comb_C == 2]
+
+        """Assume Clustering 100%"""
+        good_fcw = np.array(fcw)[good_index]
+        bad_fcw = np.array(fcw)[bad_index]
                 
         # good_weights, good_biases, good_fh_w, good_fh_b, good_sh_w, good_sh_b, good_conv1_w, good_conv1_b, good_conv2_w, good_conv2_b = generateparams(weights, biases, first_hidden_w, first_hidden_b, second_hidden_w, second_hidden_b, conv1_w, conv1_b, conv2_w, conv2_b, comb_C, True)
         # bad_weights, bad_biases, bad_fh_w, bad_fh_b, bad_sh_w, bad_sh_b, bad_conv1_w, bad_conv1_b, bad_conv2_w, bad_conv2_b = generateparams(weights, biases, first_hidden_w, first_hidden_b, second_hidden_w, second_hidden_b, conv1_w, conv1_b, conv2_w, conv2_b, comb_C, False)
@@ -530,11 +527,12 @@ class NNtrain(Strategy):
         print("Target label is", target_label)
 
         """After detecting the clients and their target label, make a function that determines the weight of contribution"""
-        final_aggregated = []
-        bad_model = []
-
         good_results = [weights_results[i] for i in range(len(weights_results)) if comb_C[i] == 0]
         bad_results = [weights_results[i] for i in range(len(weights_results)) if comb_C[i] == 2]
+
+        """Assume Clustering 100%"""
+        good_results = [weights_results[i] for i in range(len(weights_results)) if i in good_index]
+        bad_results = [weights_results[i] for i in range(len(weights_results)) if i in bad_index]
 
         print("length of good results is", len(good_results), "and length of bad results is", len(bad_results))
 
@@ -1226,6 +1224,8 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
                         ]
                         for good_sublist, evil_sublist, es in zip(good_prime[l], evil_prime[l], evil_sim_list)
                     ]
+                else:
+                    weighted_param_aggregated = good_prime[l]
 
             elif len(good_prime[l].shape) < 1:
                 if evil_prime != [] and bad_prime != []:
@@ -1242,6 +1242,8 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
                     evil_dist = abs(good_prime[l] - evil_prime[l])
                     evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
                     weighted_param_aggregated = (good_prime[l] + (evil_sim_weight * evil_prime[l]))/(1+evil_sim_weight)
+                else:
+                    weighted_param_aggregated = good_prime[l]
             else:
                 if evil_prime != [] and bad_prime != []:
                     neuron_dists = list(map(abs, map(lambda x,y: x - y, good_prime[l], bad_prime[l])))
@@ -1257,6 +1259,8 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
                     evil_dist = abs(good_prime[l] - evil_prime[l])
                     evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
                     weighted_param_aggregated = list(map(lambda g,e,es: (g + (es * e))/ (1 + es), good_prime[l], evil_prime[l], evil_sim_weight)) 
+                else:
+                    weighted_param_aggregated = good_prime[l]
 
             aggregated_result.append(weighted_param_aggregated)  # records each layer
 
