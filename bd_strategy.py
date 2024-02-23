@@ -486,12 +486,6 @@ class NNtrain(Strategy):
         """Assume Clustering 100%"""
         good_fcw = np.array(fcw)[good_index]
         bad_fcw = np.array(fcw)[bad_index]
-                
-        # good_weights, good_biases, good_fh_w, good_fh_b, good_sh_w, good_sh_b, good_conv1_w, good_conv1_b, good_conv2_w, good_conv2_b = generateparams(weights, biases, first_hidden_w, first_hidden_b, second_hidden_w, second_hidden_b, conv1_w, conv1_b, conv2_w, conv2_b, comb_C, True)
-        # bad_weights, bad_biases, bad_fh_w, bad_fh_b, bad_sh_w, bad_sh_b, bad_conv1_w, bad_conv1_b, bad_conv2_w, bad_conv2_b = generateparams(weights, biases, first_hidden_w, first_hidden_b, second_hidden_w, second_hidden_b, conv1_w, conv1_b, conv2_w, conv2_b, comb_C, False)
-
-        # good_weights, good_biases, good_fh_w, good_fh_b, good_sh_w, good_sh_b, good_conv1_w, good_conv1_b, good_conv2_w, good_conv2_b = generateparams_nocluster(weights, biases, first_hidden_w, first_hidden_b, second_hidden_w, second_hidden_b, conv1_w, conv1_b, conv2_w, conv2_b, malicious, True)
-        # bad_weights, bad_biases, bad_fh_w, bad_fh_b, bad_sh_w, bad_sh_b, bad_conv1_w, bad_conv1_b, bad_conv2_w, bad_conv2_b = generateparams_nocluster(weights, biases, first_hidden_w, first_hidden_b, second_hidden_w, second_hidden_b, conv1_w, conv1_b, conv2_w, conv2_b, malicious, False)
         
         # show_clustered_plots(good_clients, bad_clients, 
         #         good_conv1_w, bad_conv1_w, good_conv1_b, bad_conv1_b, 
@@ -537,56 +531,6 @@ class NNtrain(Strategy):
         print("length of good results is", len(good_results), "and length of bad results is", len(bad_results))
 
         parameters_aggregated = ndarrays_to_parameters(resnet_aggregate(good_results, bad_results, evil_results, acc_diff))
-
-        # # print("Convolutional Layers")
-        # c1w_aggregated, bad_c1w = aggregate_weights("conv", good_conv1_w, good_num_examples, bad_conv1_w, bad_num_examples, parameter, good_clients, bad_clients, 0, False, None, evil_conv1_w, evil_parameter, evil_numexamples, server_round, acc_diff)
-
-        # # if c1w_aggregated == []:  # if theres no good clients ALL BENIGN
-        # #     print("No good clients")
-        # #     return final_model, final_metric
-        
-        # c1b_aggregated, bad_c1b = aggregate_biases("conv", good_conv1_b, good_num_examples, bad_conv1_b, bad_num_examples, False, None, evil_conv1_b, evil_numexamples, server_round, acc_diff)
-        # c2w_aggregated, bad_c2w = aggregate_weights("conv", good_conv2_w, good_num_examples, bad_conv2_w, bad_num_examples, parameter, good_clients, bad_clients, 2, False, None, evil_conv2_w, evil_parameter, evil_numexamples, server_round, acc_diff)
-        # c2b_aggregated, bad_c2b = aggregate_biases("conv", good_conv2_b, good_num_examples, bad_conv2_b, bad_num_examples, False, None, evil_conv2_b, evil_numexamples, server_round, acc_diff)
-        # # print("First Hidden Layer")
-        # fhw_aggregated, bad_fhw = aggregate_weights("fh", good_fh_w, good_num_examples, bad_fh_w, bad_num_examples, parameter, good_clients, bad_clients, 4, False, None, evil_fh_w, evil_parameter, evil_numexamples, server_round, acc_diff)
-        # fhb_aggregated, bad_fhb = aggregate_biases("fh", good_fh_b, good_num_examples, bad_fh_b, bad_num_examples, False, None, evil_fh_b, evil_numexamples, server_round, acc_diff)
-        # # print("Second Hidden Layer")
-        # shw_aggregated, bad_shw = aggregate_weights("sh", good_sh_w, good_num_examples, bad_sh_w, bad_num_examples, parameter, good_clients, bad_clients, 6, False, None, evil_sh_w, evil_parameter, evil_numexamples, server_round, acc_diff)
-        # shb_aggregated, bad_shb = aggregate_biases("sh", good_sh_b, good_num_examples, bad_sh_b, bad_num_examples, False, None, evil_sh_b, evil_numexamples, server_round, acc_diff)
-        # # print("Output Layer")
-        # weight_aggregated, bad_weight = aggregate_weights("ol", good_weights, good_num_examples, bad_weights, bad_num_examples, parameter, good_clients, bad_clients, 8, True, target_label, evil_weights, evil_parameter, evil_numexamples, server_round, acc_diff)
-        # bias_aggregated, bad_bias = aggregate_biases("ol", good_biases, good_num_examples, bad_biases, bad_num_examples, True, target_label, evil_biases, evil_numexamples, server_round, acc_diff)
-
-        # final_aggregated.append(c1w_aggregated)
-        # final_aggregated.append(c1b_aggregated)
-        # final_aggregated.append(c2w_aggregated)
-        # final_aggregated.append(c2b_aggregated)
-        # final_aggregated.append(fhw_aggregated)
-        # final_aggregated.append(fhb_aggregated)
-        # final_aggregated.append(shw_aggregated)
-        # final_aggregated.append(shb_aggregated)
-        # final_aggregated.append(weight_aggregated)
-        # final_aggregated.append(bias_aggregated)
-        # # parameters_good = ndarrays_to_parameters(final_aggregated)
-        # parameters_aggregated = ndarrays_to_parameters(final_aggregated)
-
-        # bad_model.append(bad_c1w)
-        # bad_model.append(bad_c1b)
-        # bad_model.append(bad_c2w)
-        # bad_model.append(bad_c2b)
-        # bad_model.append(bad_fhw)
-        # bad_model.append(bad_fhb)
-        # bad_model.append(bad_shw)
-        # bad_model.append(bad_shb)
-        # bad_model.append(bad_weight)
-        # bad_model.append(bad_bias)
-        # parameters_bad = ndarrays_to_parameters(bad_model)
-
-        # parameters_aggregated = []
-        # parameters_aggregated.append(parameters_good)
-        # parameters_aggregated.append(parameters_bad)
-        # parameters_aggregated.append(determined_status)
 
         # Aggregate custom metrics if aggregation fn was provided
         metrics_aggregated = {}
@@ -953,209 +897,6 @@ def compute_average(data, count):
 
     return average
 
-def naive_aggregate(parameters: List[NDArrays], num_examples: List[int]) -> NDArrays:
-    """Compute weighted average."""
-    # Calculate the total number of examples used during training
-    if len(num_examples) == 0:
-        return []
-    
-    num_examples_total = sum(num_examples)
-
-    # Create a list of weights, each multiplied by the related number of examples
-    weighted_weights = []
-    for i in range(len(num_examples)):
-        weighted_weights.append(parameters[i] * num_examples[i])
-
-    # Compute average weights of each layer
-    if len(np.shape(weighted_weights)) == 1:
-        weights_prime: NDArrays = [np.sum(weighted_weights) / num_examples_total]
-    else:
-        weights_prime: NDArrays = [
-            reduce(np.add, layer_updates) / num_examples_total
-            for layer_updates in zip(*weighted_weights)
-        ]
-    
-    return weights_prime
-
-def aggregate_biases(name, good_layer, good_num_examples, bad_layer, bad_num_examples, last: bool, target_label: int, evil_layer, evil_num_examples, server_round, acc_diff):
-    # print("Aggregate biases")
-    aggregate_for_good = []
-
-    if evil_layer != []:
-        evil_aggregated = naive_aggregate(evil_layer, evil_num_examples)
-    else:
-        evil_aggregated = []
-
-    if acc_diff != 0: # if there is no good clients
-        bad_aggregated = naive_aggregate(bad_layer, bad_num_examples)
-        for j in range(len(bad_layer[0])):
-            sim = np.exp(constant.EVIL_LAMBDA * acc_diff)
-            evil_sim = np.exp(constant.EVIL_LAMBDA * acc_diff)
-            if evil_aggregated != []:
-                weighted_param_aggregated = ((sim * bad_aggregated[j]) + (evil_sim * evil_aggregated[j]))/(evil_sim + sim)
-            else:
-                weighted_param_aggregated = sim * bad_aggregated[j]
-            aggregate_for_good.append(weighted_param_aggregated)
-
-        if name == "conv":
-            return [], []
-        else:
-            return aggregate_for_good, []
-        # return [], []  # All Benign
-    
-    good_aggregated = naive_aggregate(good_layer, good_num_examples)
-    if len(bad_layer) == 0:  # no bad clients
-        aggregated_result = []
-        if evil_aggregated != []: 
-            for j in range(len(good_layer[0])):
-                evil_dist = abs(good_aggregated[j] - evil_aggregated[j])
-                evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
-                weighted_param_aggregated = (good_aggregated[j] + (evil_sim_weight * evil_aggregated[j]))/(1+evil_sim_weight)
-                aggregated_result.append(weighted_param_aggregated)
-        else:
-            aggregated_result = good_aggregated
-
-        if name == "conv":
-            return good_aggregated, good_aggregated
-        else:
-            return aggregated_result, good_aggregated
-        # return good_aggregated, good_aggregated  # All Benign
-    
-    bad_aggregated = naive_aggregate(bad_layer, bad_num_examples)
-
-    for j in range(len(good_layer[0])):
-        if evil_aggregated != []:
-            evil_dist = abs(good_aggregated[j] - evil_aggregated[j])
-            evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
-        else:
-            evil_sim_weight = 0
-             
-        if last and j == target_label:
-            sim_weight = 0
-            evil_sim_weight = 0
-        else:
-            dist = abs(good_aggregated[j] - bad_aggregated[j])
-            sim_weight = np.exp(constant.MALI_LAMBDA * dist)  #Updated similarity weight CHANGED 5.5
-
-        if evil_sim_weight == 0:
-            weighted_param_aggregated = (good_aggregated[j] + (sim_weight * bad_aggregated[j])) / (1 + sim_weight)
-        else:
-            weighted_param_aggregated = (good_aggregated[j] + (sim_weight * bad_aggregated[j]) + (evil_sim_weight * evil_aggregated[j])) / (1 + sim_weight + evil_sim_weight)
-        aggregate_for_good.append(weighted_param_aggregated)
-
-    if name == "conv":
-        return good_aggregated, good_aggregated
-    else:
-        return aggregate_for_good, good_aggregated
-    # return good_aggregated, good_aggregated  # All Benign
-
-def aggregate_weights(name, good_layer, good_num_examples, bad_layer, bad_num_examples, parameter, good_client, bad_client, k, last: bool, target_label: int, evil_layer, evil_parameter, evil_num_examples, server_round, acc_diff):
-    # print("Aggregate weights")
-    aggregate_for_good = []
-    good_weighted_weights = []
-    bad_weighted_weights = []
-    evil_weighted_weights = []
-    total_evil_num = sum(evil_num_examples)
-    total_bad_num = sum(bad_num_examples)
-    total_good_num = sum(good_num_examples)
-
-    # Aggregate all evil clients' original expanded weights
-    if total_evil_num != 0:
-        for i in range(len(evil_parameter)): # number of evil clients
-            evil_weighted_weights.append(evil_parameter[i][k] * evil_num_examples[i])
-        evil_weights_prime: NDArrays = [
-            reduce(np.add, layer_updates) / total_evil_num
-            for layer_updates in zip(*evil_weighted_weights)
-        ]
-        evil_aggregated = naive_aggregate(evil_layer, evil_num_examples)
-    else:
-        evil_aggregated = []
-
-    if acc_diff != 0: # if there is no good clients
-        for j, i in enumerate(bad_client): #each malicious client
-            bad_weighted_weights.append(parameter[int(i)][k] * bad_num_examples[j])
-        bad_weights_prime: NDArrays = [
-            reduce(np.add, layer_updates) / total_bad_num
-            for layer_updates in zip(*bad_weighted_weights)
-        ]
-
-        for j in range(len(parameter[0][k])): #each neuron
-            sim = np.exp(constant.EVIL_LAMBDA * acc_diff)
-            evil_sim = np.exp(constant.EVIL_LAMBDA * acc_diff)
-            if evil_aggregated != []:
-                weighted_param_aggregated = ((sim * bad_weights_prime[j]) + (evil_sim * evil_weights_prime[j]))/(sim + evil_sim)
-            else:
-                weighted_param_aggregated = sim * bad_weights_prime[j]
-            aggregate_for_good.append(weighted_param_aggregated)
-
-        if name == "conv":
-            return [], []
-        else:
-            return aggregate_for_good, []
-        # return [], []  # All Benign
-
-    # Aggregate all good clients' original expanded weights
-    good_aggregated = naive_aggregate(good_layer, good_num_examples)
-    for j, i in enumerate(good_client): #each benign client
-        good_weighted_weights.append(parameter[int(i)][k] * good_num_examples[j])
-    good_weights_prime: NDArrays = [
-        reduce(np.add, layer_updates) / total_good_num
-        for layer_updates in zip(*good_weighted_weights)
-    ]
-
-    if total_bad_num == 0: # no bad client
-        aggregated_result = []
-        if evil_aggregated != []:
-            for j in range(len(parameter[0][k])):
-                evil_dist = abs(good_aggregated[j] - evil_aggregated[j])
-                evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
-                weighted_param_aggregated = (good_weights_prime[j] + (evil_sim_weight * evil_weights_prime[j]))/(1+evil_sim_weight)
-                aggregated_result.append(weighted_param_aggregated)
-        else:
-            aggregated_result = good_weights_prime
-        
-        if name == "conv":
-            return good_weights_prime, good_weights_prime
-        else:
-            return aggregated_result, good_weights_prime
-        # return good_weights_prime, good_weights_prime   # All Benign
-    
-    # Aggregate all bad clients' original expanded weights
-    bad_aggregated = naive_aggregate(bad_layer, bad_num_examples)
-    for j, i in enumerate(bad_client): #each malicious client
-        bad_weighted_weights.append(parameter[int(i)][k] * bad_num_examples[j])
-    bad_weights_prime: NDArrays = [
-        reduce(np.add, layer_updates) / total_bad_num
-        for layer_updates in zip(*bad_weighted_weights)
-    ]
-
-    for j in range(len(parameter[0][k])): #each neuron
-        if evil_aggregated != []:
-            evil_dist = abs(good_aggregated[j] - evil_aggregated[j])
-            evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
-            # evil_sim_weight = 1
-        else:
-            evil_sim_weight = 0
-
-        if last and j == target_label:
-            sim_weight = 0
-            evil_sim_weight = 0 
-        else:
-            dist = abs(good_aggregated[j] - bad_aggregated[j])
-            sim_weight = np.exp(constant.MALI_LAMBDA * dist)  #Updated similarity weight CHANGED 7
-        
-        if evil_sim_weight == 0:
-            weighted_param_aggregated = (good_weights_prime[j] + (sim_weight * bad_weights_prime[j])) / (1 + sim_weight)
-        else:
-            weighted_param_aggregated = (good_weights_prime[j] + (sim_weight * bad_weights_prime[j]) + (evil_sim_weight * evil_weights_prime[j])) / (1 + sim_weight + evil_sim_weight)
-        aggregate_for_good.append(weighted_param_aggregated)
-    
-    if name == "conv":
-        return good_weights_prime, good_weights_prime
-    else:
-        return aggregate_for_good, good_weights_prime
-    # return good_weights_prime, good_weights_prime  # All Benign
-
 def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
     print("acc_diff is", acc_diff)
     good_numex_total = sum([num_examples for _, num_examples in good_result])
@@ -1172,6 +913,9 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
         reduce(np.add, layer_updates) / good_numex_total
         for layer_updates in zip(*good_weighted_weights)
     ]
+
+    """All Benign"""
+    return good_prime
 
     bad_prime: NDArrays = [
         reduce(np.add, layer_updates) / bad_numex_total
@@ -1285,78 +1029,6 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
             aggregated_result.append(weighted_param_aggregated)  # records each layer
 
     return aggregated_result
-
-def generateparams(weights, biases, first_hidden_w, first_hidden_b, second_hidden_w, second_hidden_b, conv1_w, conv1_b, conv2_w, conv2_b, comb_C, benign):
-    if benign:
-        weights_param = np.array(weights)[comb_C == 0]
-        biases_param = np.array(biases)[comb_C == 0]
-
-        fh_w = np.array(first_hidden_w)[comb_C == 0]
-        fh_b = np.array(first_hidden_b)[comb_C == 0]
-
-        sh_w = np.array(second_hidden_w)[comb_C == 0]
-        sh_b = np.array(second_hidden_b)[comb_C == 0]
-
-        c1_w = np.array(conv1_w)[comb_C == 0]
-        c1_b = np.array(conv1_b)[comb_C == 0]
-
-        c2_w = np.array(conv2_w)[comb_C == 0]
-        c2_b = np.array(conv2_b)[comb_C == 0]
-
-    elif not benign:
-        weights_param = np.array(weights)[comb_C == 2]
-        biases_param = np.array(biases)[comb_C == 2]
-
-        fh_w = np.array(first_hidden_w)[comb_C == 2]
-        fh_b = np.array(first_hidden_b)[comb_C == 2]
-
-        sh_w = np.array(second_hidden_w)[comb_C == 2]
-        sh_b = np.array(second_hidden_b)[comb_C == 2]
-
-        c1_w = np.array(conv1_w)[comb_C == 2]
-        c1_b = np.array(conv1_b)[comb_C == 2]
-
-        c2_w = np.array(conv2_w)[comb_C == 2]
-        c2_b = np.array(conv2_b)[comb_C == 2]
-
-    return weights_param, biases_param, fh_w, fh_b, sh_w, sh_b, c1_w, c1_b, c2_w, c2_b
-    
-def generateparams_nocluster(weights, biases, first_hidden_w, first_hidden_b, second_hidden_w, second_hidden_b, conv1_w, conv1_b, conv2_w, conv2_b, malicious, benign):
-    if not benign:
-        bad_index = [index for index,value in enumerate(malicious) if value == "2"]
-        weights_param = np.array(weights)[bad_index]
-        biases_param = np.array(biases)[bad_index]
-
-        fh_w = np.array(first_hidden_w)[bad_index]
-        fh_b = np.array(first_hidden_b)[bad_index]
-
-        sh_w = np.array(second_hidden_w)[bad_index]
-        sh_b = np.array(second_hidden_b)[bad_index]
-
-        c1_w = np.array(conv1_w)[bad_index]
-        c1_b = np.array(conv1_b)[bad_index]
-
-        c2_w = np.array(conv2_w)[bad_index]
-        c2_b = np.array(conv2_b)[bad_index]
-
-    elif benign:
-        good_index = [index for index,value in enumerate(malicious) if value == "0"]
-        weights_param = np.array(weights)[good_index]
-        biases_param = np.array(biases)[good_index]
-
-        fh_w = np.array(first_hidden_w)[good_index]
-        fh_b = np.array(first_hidden_b)[good_index]
-
-        sh_w = np.array(second_hidden_w)[good_index]
-        sh_b = np.array(second_hidden_b)[good_index]
-
-        c1_w = np.array(conv1_w)[good_index]
-        c1_b = np.array(conv1_b)[good_index]
-
-        c2_w = np.array(conv2_w)[good_index]
-        c2_b = np.array(conv2_b)[good_index]
-
-    return weights_param, biases_param, fh_w, fh_b, sh_w, sh_b, c1_w, c1_b, c2_w, c2_b
 
 def full_clustering(parameter, client_id, malicious, layer, name, server_round, individual_acc, e, highest_accuracy, lowest_accuracy):
     comb_C, accuracies, benign_class, e = nd_clustering(parameter, client_id, malicious, layer, name, server_round, individual_acc, e)
