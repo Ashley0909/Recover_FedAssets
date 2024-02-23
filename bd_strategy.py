@@ -588,7 +588,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         textstr += f'Client {str(cid[k])} => {malicious[k]} \n'
     
     if len(parameter) < 2:
-        return [0], [0], 0
+        return [0], [0], 0, e
         
     """Run PCA on the n dimensional data"""
     pca = PCA(n_components=2)
