@@ -416,8 +416,8 @@ class NNtrain(Strategy):
                     vector.append(w)
                 evil_fcw.append(np.array(vector))
 
-        heatmaps(local_cid, malicious, np.array(fcb), 'FCB')
-        heatmaps(local_cid, malicious, np.array(fcw), 'FCW')
+        heatmaps(local_cid, malicious, np.array(fcb), 'FCB', server_round)
+        heatmaps(local_cid, malicious, np.array(fcw), 'FCW', server_round)
 
         comb_C, record, acc_diff, highest_accuracy, lowest_accuracy, e = full_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, individual_acc, e, highest_accuracy, lowest_accuracy)
 
@@ -700,9 +700,13 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         centroids.append(centroid)
         plt.scatter(xy[:, 0], xy[:, 1], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))
 
-    plt.title("DBSCAN Clustering {0} of {1} clients".format(name, len(parameter)))
-    plt.legend()
+    if server_round < 6:
+        plt.title("Kmeans Clustering {0} of {1} clients".format(name, len(parameter)))
+    else:
+        plt.title("DBSCAN Clustering {0} of {1} clients".format(name, len(parameter)))
     
+    plt.legend()
+
     comb0 = np.array(reduced_data)[comb_C == 0]
     comb1 = np.array(reduced_data)[comb_C != 0]
     clabel0 = np.array(label)[comb_C == 0]
@@ -931,7 +935,7 @@ def show_plots(local_cid, malicious,
     # plt.show(block=True)
     plt.close()
 
-def heatmaps(local_cid, malicious, layer, name):
+def heatmaps(local_cid, malicious, layer, name, server_round):
     textstr = ''
     for l, g in enumerate(local_cid):
         textstr += f'Client {g} => {int(malicious[l])} \n'
@@ -942,7 +946,7 @@ def heatmaps(local_cid, malicious, layer, name):
     plt.xlabel(name)
     plt.ylabel("Clients")
     plt.title("Heatmap of all clients' {}".format(name))
-    plt.savefig('./{}.png'.format(name))
+    plt.savefig('heatmaps/{} in Round {1}.png'.format(name, server_round))
     plt.close()
 
 def compute_average(data, count):
