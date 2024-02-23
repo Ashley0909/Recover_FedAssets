@@ -1187,7 +1187,7 @@ def resnet_aggregate(good_result, bad_result):
         if len(good_prime[l].shape) > 1:
             print("weight")
             # weights: sum up all incoming weights
-            neuron_dists = list(map(abs, map(lambda x,y: x - y, sum(good_prime[l]), sum(bad_prime[l]))))
+            neuron_dists = list(map(abs, map(lambda x,y: x - y, [sum(x) for x in good_prime[l]], [sum(y) for y in bad_prime[l]])))
             sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
             weighted_param_aggregated = [
                 [
