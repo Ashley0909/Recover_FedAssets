@@ -948,7 +948,7 @@ def heatmaps(local_cid, malicious, layer, name, server_round):
     plt.xlabel(name)
     plt.ylabel("Clients")
     plt.title("Heatmap of all clients' {}".format(name))
-    plt.savefig('heatmaps/{} in Round {1}.png'.format(name, server_round))
+    plt.savefig('heatmaps/{0} in Round {1}.png'.format(name, server_round))
     plt.close()
 
 def compute_average(data, count):
