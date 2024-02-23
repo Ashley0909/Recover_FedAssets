@@ -718,7 +718,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         texts.append(plt.text(comb1[i][0], comb1[i][1], txt))
         num *= -1
 
-    plt.savefig('./clusters/{0}, Round {1}.png'.format(name, server_round))
+    plt.savefig('clusters/{0}, Round {1}.png'.format(name, server_round))
     plt.close()
 
     reps = []
