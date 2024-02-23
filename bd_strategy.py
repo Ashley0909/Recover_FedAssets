@@ -718,7 +718,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         texts.append(plt.text(comb1[i][0], comb1[i][1], txt))
         num *= -1
 
-    plt.savefig('./{0}, Round {1}.png'.format(name, server_round))
+    plt.savefig('clusters/{0}, Round {1}.png'.format(name, server_round))
     plt.close()
 
     reps = []
@@ -1157,14 +1157,10 @@ def resnet_aggregate(good_result, bad_result):
     good_numex_total = sum([num_examples for _, num_examples in good_result])
     bad_numex_total = sum([num_examples for _, num_examples in bad_result])
 
-    print("good_result:", np.array(good_result[0][0][0]).shape)
-
     # Create a list of weights, each multiplied by the related number of examples
     good_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in good_result]
 
     bad_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in bad_result]
-
-    print("good weighted weights:", np.array(good_weighted_weights[0][0][0][0]).shape)
 
     # Compute average weights of each layer
     good_prime: NDArrays = [
@@ -1177,15 +1173,11 @@ def resnet_aggregate(good_result, bad_result):
         for layer_updates in zip(*bad_weighted_weights)
     ]
 
-    print("good prime:", good_prime[0].shape)
-
     # For each layer, compute the distance between the good and the bad, then apply the similarity weight to the bad clients
     # Depending on the layer being weight or bias, we have different approaches: directly calc dist for bias since one value per neuron, but sum all weights of a neuron before calc dist
     aggregated_result = []
     for l in range(len(good_prime)):
-        print("layer", l)
         if len(good_prime[l].shape) > 1:
-            print("weight")
             # weights: sum up all incoming weights
             neuron_dists = list(map(abs, map(lambda x,y: x - y, [sum(x) for x in good_prime[l]], [sum(y) for y in bad_prime[l]])))
             sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
@@ -1196,19 +1188,14 @@ def resnet_aggregate(good_result, bad_result):
                 ]
                 for good_sublist, bad_sublist, s in zip(good_prime[l], bad_prime[l], sim_weight_list)
             ]
-            print("Size is", np.array(weighted_param_aggregated).shape)
         elif len(good_prime[l].shape) < 1:
-            print("that one value")
             dist = abs(good_prime[l] - bad_prime[l])
             sim_weight = np.exp(constant.MALI_LAMBDA * dist)
             weighted_param_aggregated = (good_prime[l] + (sim_weight * bad_prime[l]))/(1+sim_weight)
-            print("Size is", np.array(weighted_param_aggregated).shape)
         else:
-            print("bias")
             neuron_dists = list(map(abs, map(lambda x,y: x - y, good_prime[l], bad_prime[l])))
             sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
             weighted_param_aggregated = list(map(lambda g,b,s: (g + (s * b))/ (1 + s), good_prime[l], bad_prime[l], sim_weight_list)) 
-            print("Size is", np.array(weighted_param_aggregated).shape)
 
         aggregated_result.append(weighted_param_aggregated)  # records each layer
 
