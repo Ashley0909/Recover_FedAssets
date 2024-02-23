@@ -330,6 +330,7 @@ class NNtrain(Strategy):
 
         evil_numexamples = []
         evil_parameter = []
+        evil_results = []
         i = 0
         total = 0
         count = 0
@@ -337,6 +338,7 @@ class NNtrain(Strategy):
             if cp.cid in malicious_record:
                 evil_numexamples.append(fit_res.num_examples)
                 evil_parameter.append(parameters_to_ndarrays(fit_res.parameters))
+                evil_results.append((parameters_to_ndarrays(fit_res.parameters), fit_res.num_examples))
                 # Computing individual poisoning accuracies
                 parameters_ndarrays = parameters_to_ndarrays(fit_res.parameters)
                 attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays, {})
@@ -363,7 +365,7 @@ class NNtrain(Strategy):
         print("malicious is", malicious)
         
         num_examples = [res[1] for res in weights_results]
-        print("Number of Evil Clients:", len(evil_numexamples))
+        print("Number of Evil Clients:", len(evil_results))
 
         if len(num_examples) == 0:
             print("Only Evil Clients in this round, void this round.")
@@ -405,10 +407,10 @@ class NNtrain(Strategy):
                 vector.append(w)
             fcw.append(np.array(vector))
 
-        if len(evil_parameter) > 0:
-            evil_fcb = [sublist[-1] for sublist in evil_parameter]
+        if len(evil_results) > 0:
+            # evil_fcb = [sublist[-1] for sublist in evil_parameter]
             evil_fcw = []
-            for i in range(len(evil_parameter)): 
+            for i in range(len(evil_results)): 
                 w = 0
                 vector = []  #set up a vector for each client
                 for j in range(len(evil_parameter[i][-2])): #10
@@ -440,8 +442,8 @@ class NNtrain(Strategy):
         # record = record_olb
         # acc_diff = acc_diff_olb
 
-        bad_num_examples = np.array(num_examples)[comb_C == 2]
-        good_num_examples = np.array(num_examples)[comb_C == 0]
+        # bad_num_examples = np.array(num_examples)[comb_C == 2]
+        # good_num_examples = np.array(num_examples)[comb_C == 0]
         bad_clients = local_cid[comb_C == 2]
         good_clients = local_cid[comb_C == 0]
 
@@ -502,16 +504,16 @@ class NNtrain(Strategy):
         #        good_weights, bad_weights, good_biases, bad_biases, server_round)
 
         """Detecting Target Label"""
-        if (len(good_clients) > 0) and (len(bad_clients) > 0 or len(evil_numexamples) > 0):
+        if (len(good_clients) > 0) and (len(bad_clients) > 0 or len(evil_results) > 0):
             dist_list = []
             for i in range(len(good_fcw[0])):
                 good_biases_average = compute_average(good_fcw[:,i], len(good_clients))
                 if len(bad_clients) == 0:
-                    bad_biases_average = compute_average(np.array(evil_fcw)[:,i], len(evil_numexamples))
-                elif len(evil_numexamples) == 0:
+                    bad_biases_average = compute_average(np.array(evil_fcw)[:,i], len(evil_results))
+                elif len(evil_results) == 0:
                     bad_biases_average = compute_average(bad_fcw[:,i], len(bad_clients))
                 else:
-                    bad_biases_average = compute_average(np.concatenate((bad_fcw, evil_fcw), axis=0)[:,i], (len(bad_clients)+len(evil_numexamples)))
+                    bad_biases_average = compute_average(np.concatenate((bad_fcw, evil_fcw), axis=0)[:,i], (len(bad_clients)+len(evil_results)))
 
                 dist = abs(good_biases_average - bad_biases_average)
                 dist_list.append(dist)
@@ -520,7 +522,7 @@ class NNtrain(Strategy):
             global_targetlabel = target_label
         elif len(good_clients) == 0 and global_targetlabel != None:
             target_label = global_targetlabel
-        elif len(bad_clients) == 0 and len(evil_numexamples) == 0 and global_targetlabel != None:
+        elif len(bad_clients) == 0 and len(evil_results) == 0 and global_targetlabel != None:
             target_label = global_targetlabel
         else:
             target_label = None
@@ -536,7 +538,7 @@ class NNtrain(Strategy):
 
         print("length of good results is", len(good_results), "and length of bad results is", len(bad_results))
 
-        parameters_aggregated = ndarrays_to_parameters(resnet_aggregate(good_results, bad_results))
+        parameters_aggregated = ndarrays_to_parameters(resnet_aggregate(good_results, bad_results, evil_results))
 
         # # print("Convolutional Layers")
         # c1w_aggregated, bad_c1w = aggregate_weights("conv", good_conv1_w, good_num_examples, bad_conv1_w, bad_num_examples, parameter, good_clients, bad_clients, 0, False, None, evil_conv1_w, evil_parameter, evil_numexamples, server_round, acc_diff)
@@ -1157,14 +1159,15 @@ def aggregate_weights(name, good_layer, good_num_examples, bad_layer, bad_num_ex
         return aggregate_for_good, good_weights_prime
     # return good_weights_prime, good_weights_prime  # All Benign
 
-def resnet_aggregate(good_result, bad_result):
+def resnet_aggregate(good_result, bad_result, evil_result):
     good_numex_total = sum([num_examples for _, num_examples in good_result])
     bad_numex_total = sum([num_examples for _, num_examples in bad_result])
+    evil_numex_total = sum([num_examples for _, num_examples in evil_result])
 
     # Create a list of weights, each multiplied by the related number of examples
     good_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in good_result]
-
     bad_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in bad_result]
+    evil_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in evil_result]
 
     # Compute average weights of each layer
     good_prime: NDArrays = [
@@ -1177,6 +1180,14 @@ def resnet_aggregate(good_result, bad_result):
         for layer_updates in zip(*bad_weighted_weights)
     ]
 
+    if evil_numex_total != 0:
+        evil_prime: NDArrays = [
+            reduce(np.add, layer_updates) / evil_numex_total
+            for layer_updates in zip(*evil_weighted_weights)
+        ]
+    else:
+        evil_prime = []
+
     # For each layer, compute the distance between the good and the bad, then apply the similarity weight to the bad clients
     # Depending on the layer being weight or bias, we have different approaches: directly calc dist for bias since one value per neuron, but sum all weights of a neuron before calc dist
     aggregated_result = []
@@ -1185,21 +1196,46 @@ def resnet_aggregate(good_result, bad_result):
             # weights: sum up all incoming weights
             neuron_dists = list(map(abs, map(lambda x,y: x - y, [sum(x) for x in good_prime[l]], [sum(y) for y in bad_prime[l]])))
             sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
-            weighted_param_aggregated = [
-                [
-                    (g+(s*b)) / (1+s)
-                    for g,b, in zip(good_sublist, bad_sublist)
+            if evil_prime != []:
+                evil_dists = list(map(abs, map(lambda x,y: x - y, [sum(x) for x in good_prime[l]], [sum(y) for y in evil_prime[l]])))
+                evil_sim_list = [np.exp(constant.EVIL_LAMBDA * dist) for dist in evil_dists]
+
+                weighted_param_aggregated = [
+                    [
+                        (g+(s*b)+(es*e)) / (1+s+es)
+                        for g,b,e in zip(good_sublist, bad_sublist, evil_sublist)
+                    ]
+                    for good_sublist, bad_sublist, evil_sublist, s, es in zip(good_prime[l], bad_prime[l], evil_prime[l], sim_weight_list, evil_sim_list)
                 ]
-                for good_sublist, bad_sublist, s in zip(good_prime[l], bad_prime[l], sim_weight_list)
-            ]
+            else:
+                weighted_param_aggregated = [
+                    [
+                        (g+(s*b)) / (1+s)
+                        for g,b, in zip(good_sublist, bad_sublist)
+                    ]
+                    for good_sublist, bad_sublist, s in zip(good_prime[l], bad_prime[l], sim_weight_list)
+                ]
+
         elif len(good_prime[l].shape) < 1:
             dist = abs(good_prime[l] - bad_prime[l])
             sim_weight = np.exp(constant.MALI_LAMBDA * dist)
-            weighted_param_aggregated = (good_prime[l] + (sim_weight * bad_prime[l]))/(1+sim_weight)
+
+            if evil_prime != []:
+                evil_dist = abs(good_prime[l] - evil_prime[l])
+                evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
+                weighted_param_aggregated = (good_prime[l] + (sim_weight * bad_prime[l]) + (evil_sim_weight * evil_prime[l]))/(1+sim_weight+evil_sim_weight)
+            else:
+                weighted_param_aggregated = (good_prime[l] + (sim_weight * bad_prime[l]))/(1+sim_weight)
         else:
             neuron_dists = list(map(abs, map(lambda x,y: x - y, good_prime[l], bad_prime[l])))
             sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
-            weighted_param_aggregated = list(map(lambda g,b,s: (g + (s * b))/ (1 + s), good_prime[l], bad_prime[l], sim_weight_list)) 
+
+            if evil_prime != []:
+                evil_dist = abs(good_prime[l] - evil_prime[l])
+                evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
+                weighted_param_aggregated = list(map(lambda g,b,e,s,es: (g + (s * b) + (es * e))/ (1 + s + es), good_prime[l], bad_prime[l], evil_prime[l], sim_weight_list, evil_sim_weight)) 
+            else:
+                weighted_param_aggregated = list(map(lambda g,b,s: (g + (s * b))/ (1 + s), good_prime[l], bad_prime[l], sim_weight_list)) 
 
         aggregated_result.append(weighted_param_aggregated)  # records each layer
 
