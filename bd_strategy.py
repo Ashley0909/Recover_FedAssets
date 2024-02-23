@@ -1261,6 +1261,8 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
                     print("only good and bad")
                     weighted_param_aggregated = list(map(lambda g,b,s: (g + (s * b))/ (1 + s), good_prime[l], bad_prime[l], sim_weight_list)) 
 
+            print("aggregated has shape", np.array(weighted_param_aggregated).shape)
+
     # Still need to consider the case when there is no good client
     elif bad_prime != [] and evil_prime != []:
         print("no good clients, only bad and evil")
@@ -1274,11 +1276,12 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
         for l in range(len(bad_prime)):
             weighted_param_aggregated = (sim_weight * bad_prime[l])/sim_weight
     elif evil_prime != []:
-        pritn("no good and bad, only evil")
+        print("no good and bad, only")
         evil_sim_weight = np.exp(constant.EVIL_LAMBDA * acc_diff)
         for l in range(len(evil_prime)):
             weighted_param_aggregated = (sim_weight * evil_prime[l])/evil_sim_weight
 
+    print("aggregated has shape", np.array(weighted_param_aggregated).shape)
     aggregated_result.append(weighted_param_aggregated)  # records each layer
 
     return aggregated_result
