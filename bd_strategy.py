@@ -1195,19 +1195,15 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
     if acc_diff == 0:
         for l in range(len(good_prime)):
             if len(good_prime[l].shape) > 1:
-                print("weight")
                 # weights: sum up all incoming weights
                 if bad_prime != []:
-                    print("have malicious clients")
                     neuron_dists = list(map(abs, map(lambda x,y: x - y, [sum(x) for x in good_prime[l]], [sum(y) for y in bad_prime[l]])))
                     sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
                 if evil_prime != []:
-                    print("have evil clients")
                     evil_dists = list(map(abs, map(lambda x,y: x - y, [sum(x) for x in good_prime[l]], [sum(y) for y in evil_prime[l]])))
                     evil_sim_list = [np.exp(constant.EVIL_LAMBDA * dist) for dist in evil_dists]
 
                 if bad_prime != [] and evil_prime != []:
-                    print("both bad and evil, and good")
                     weighted_param_aggregated = [
                         [
                             (g+(s*b)+(es*e)) / (1+s+es)
@@ -1216,7 +1212,6 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
                         for good_sublist, bad_sublist, evil_sublist, s, es in zip(good_prime[l], bad_prime[l], evil_prime[l], sim_weight_list, evil_sim_list)
                     ]
                 elif bad_prime != []:
-                    print("just bad and good")
                     weighted_param_aggregated = [
                         [
                             (g+(s*b)) / (1+s)
@@ -1225,7 +1220,6 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
                         for good_sublist, bad_sublist, s in zip(good_prime[l], bad_prime[l], sim_weight_list)
                     ]
                 elif evil_prime != []:
-                    print("just evil and good")
                     weighted_param_aggregated = [
                         [
                             (g+(es*e)) / (1+es)
@@ -1235,54 +1229,47 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
                     ]
 
             elif len(good_prime[l].shape) < 1:
-                print("just a number")
                 dist = abs(good_prime[l] - bad_prime[l])
                 sim_weight = np.exp(constant.MALI_LAMBDA * dist)
 
                 if evil_prime != []:
-                    print("have evil clients")
                     evil_dist = abs(good_prime[l] - evil_prime[l])
                     evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
                     weighted_param_aggregated = (good_prime[l] + (sim_weight * bad_prime[l]) + (evil_sim_weight * evil_prime[l]))/(1+sim_weight+evil_sim_weight)
                 else:
-                    print("only good and bad")
                     weighted_param_aggregated = (good_prime[l] + (sim_weight * bad_prime[l]))/(1+sim_weight)
             else:
-                print("bias")
                 neuron_dists = list(map(abs, map(lambda x,y: x - y, good_prime[l], bad_prime[l])))
                 sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
 
                 if evil_prime != []:
-                    print("have evil clients")
                     evil_dist = abs(good_prime[l] - evil_prime[l])
                     evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
                     weighted_param_aggregated = list(map(lambda g,b,e,s,es: (g + (s * b) + (es * e))/ (1 + s + es), good_prime[l], bad_prime[l], evil_prime[l], sim_weight_list, evil_sim_weight)) 
                 else:
-                    print("only good and bad")
                     weighted_param_aggregated = list(map(lambda g,b,s: (g + (s * b))/ (1 + s), good_prime[l], bad_prime[l], sim_weight_list)) 
 
-            print("aggregated has shape", np.array(weighted_param_aggregated).shape)
+            aggregated_result.append(weighted_param_aggregated)  # records each layer
 
     # Still need to consider the case when there is no good client
     elif bad_prime != [] and evil_prime != []:
-        print("no good clients, only bad and evil")
         sim_weight = np.exp(constant.MALI_LAMBDA * acc_diff)
         evil_sim_weight = np.exp(constant.EVIL_LAMBDA * acc_diff)
         for l in range(len(bad_prime)):
             weighted_param_aggregated = ((sim_weight * bad_prime[l]) + (evil_sim_weight * evil_prime[l]))/(sim_weight + evil_sim_weight)
+            aggregated_result.append(weighted_param_aggregated)  # records each layer
+
     elif bad_prime != []:
-        print("no good and evil, only bad")
         sim_weight = np.exp(constant.MALI_LAMBDA * acc_diff)
         for l in range(len(bad_prime)):
             weighted_param_aggregated = (sim_weight * bad_prime[l])/sim_weight
+            aggregated_result.append(weighted_param_aggregated)  # records each layer
+
     elif evil_prime != []:
-        print("no good and bad, only")
         evil_sim_weight = np.exp(constant.EVIL_LAMBDA * acc_diff)
         for l in range(len(evil_prime)):
             weighted_param_aggregated = (sim_weight * evil_prime[l])/evil_sim_weight
-
-    print("aggregated has shape", np.array(weighted_param_aggregated).shape)
-    aggregated_result.append(weighted_param_aggregated)  # records each layer
+            aggregated_result.append(weighted_param_aggregated)  # records each layer
 
     return aggregated_result
 
