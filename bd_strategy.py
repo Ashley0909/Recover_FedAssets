@@ -729,7 +729,6 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
 
     reps = []
     for l in unique_labels:
-        print("l is", l)
         cluster = np.array(indi_acc)[comb_C == l]
         median = np.median(cluster) 
         reps.append((median, l))
@@ -1229,25 +1228,35 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
                     ]
 
             elif len(good_prime[l].shape) < 1:
-                dist = abs(good_prime[l] - bad_prime[l])
-                sim_weight = np.exp(constant.MALI_LAMBDA * dist)
-
-                if evil_prime != []:
+                if evil_prime != [] and bad_prime != []:
+                    dist = abs(good_prime[l] - bad_prime[l])
+                    sim_weight = np.exp(constant.MALI_LAMBDA * dist)
                     evil_dist = abs(good_prime[l] - evil_prime[l])
                     evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
                     weighted_param_aggregated = (good_prime[l] + (sim_weight * bad_prime[l]) + (evil_sim_weight * evil_prime[l]))/(1+sim_weight+evil_sim_weight)
-                else:
+                elif bad_prime != []:
+                    dist = abs(good_prime[l] - bad_prime[l])
+                    sim_weight = np.exp(constant.MALI_LAMBDA * dist)
                     weighted_param_aggregated = (good_prime[l] + (sim_weight * bad_prime[l]))/(1+sim_weight)
+                elif evil_prime != []:
+                    evil_dist = abs(good_prime[l] - evil_prime[l])
+                    evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
+                    weighted_param_aggregated = (good_prime[l] + (evil_sim_weight * evil_prime[l]))/(1+evil_sim_weight)
             else:
-                neuron_dists = list(map(abs, map(lambda x,y: x - y, good_prime[l], bad_prime[l])))
-                sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
-
-                if evil_prime != []:
+                if evil_prime != [] and bad_prime != []:
+                    neuron_dists = list(map(abs, map(lambda x,y: x - y, good_prime[l], bad_prime[l])))
+                    sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
                     evil_dist = abs(good_prime[l] - evil_prime[l])
                     evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
                     weighted_param_aggregated = list(map(lambda g,b,e,s,es: (g + (s * b) + (es * e))/ (1 + s + es), good_prime[l], bad_prime[l], evil_prime[l], sim_weight_list, evil_sim_weight)) 
-                else:
+                elif bad_prime != []:
+                    neuron_dists = list(map(abs, map(lambda x,y: x - y, good_prime[l], bad_prime[l])))
+                    sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
                     weighted_param_aggregated = list(map(lambda g,b,s: (g + (s * b))/ (1 + s), good_prime[l], bad_prime[l], sim_weight_list)) 
+                elif evil_prime != []:
+                    evil_dist = abs(good_prime[l] - evil_prime[l])
+                    evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
+                    weighted_param_aggregated = list(map(lambda g,e,es: (g + (es * e))/ (1 + es), good_prime[l], evil_prime[l], evil_sim_weight)) 
 
             aggregated_result.append(weighted_param_aggregated)  # records each layer
 
