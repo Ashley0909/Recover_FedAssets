@@ -486,13 +486,6 @@ class NNtrain(Strategy):
         """Assume Clustering 100%"""
         good_fcw = np.array(fcw)[good_index]
         bad_fcw = np.array(fcw)[bad_index]
-        
-        # show_clustered_plots(good_clients, bad_clients, 
-        #         good_conv1_w, bad_conv1_w, good_conv1_b, bad_conv1_b, 
-        #         good_conv2_w, bad_conv2_w, good_conv2_b, bad_conv2_b,
-        #        good_fh_w, bad_fh_w, good_fh_b, bad_fh_b,
-        #        good_sh_w, bad_sh_w, good_sh_b, bad_sh_b,
-        #        good_weights, bad_weights, good_biases, bad_biases, server_round)
 
         """Detecting Target Label"""
         if (len(good_clients) > 0) and (len(bad_clients) > 0 or len(evil_results) > 0):
@@ -934,7 +927,7 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
     # Depending on the layer being weight or bias, we have different approaches: directly calc dist for bias since one value per neuron, but sum all weights of a neuron before calc dist
     aggregated_result = []
     if acc_diff == 0:
-        for l in range(len(good_prime)):
+        for l in range(len(good_prime)-2, len(good_prime)):
             if len(good_prime[l].shape) > 1:
                 # weights: sum up all incoming weights
                 if bad_prime != []:
@@ -1028,7 +1021,9 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
             weighted_param_aggregated = (sim_weight * evil_prime[l])/evil_sim_weight
             aggregated_result.append(weighted_param_aggregated)  # records each layer
 
-    return aggregated_result
+    good_prime[-2] = aggregated_result[0]
+    good_prime[-1] = aggregated_result[1]
+    return good_prime
 
 def full_clustering(parameter, client_id, malicious, layer, name, server_round, individual_acc, e, highest_accuracy, lowest_accuracy):
     comb_C, accuracies, benign_class, e = nd_clustering(parameter, client_id, malicious, layer, name, server_round, individual_acc, e)
