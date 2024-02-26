@@ -572,7 +572,6 @@ class NNtrain(Strategy):
 
         return loss_aggregated, metrics_aggregated
 
-
 def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc, e):
     label = []
     textstr = ''
@@ -581,7 +580,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         textstr += f'Client {str(cid[k])} => {malicious[k]} \n'
     
     if len(parameter) < 2:
-        return [0], [0], 0, e
+        return [-1], [(indi_acc[0],-1)], -1, e
         
     """Run PCA on the n dimensional data"""
     pca = PCA(n_components=2)
@@ -908,7 +907,7 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
     ]
 
     """All Benign"""
-    # return good_prime
+    return good_prime
 
     bad_prime: NDArrays = [
         reduce(np.add, layer_updates) / bad_numex_total
