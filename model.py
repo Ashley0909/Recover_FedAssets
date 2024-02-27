@@ -50,20 +50,27 @@ class LeNet(nn.Module):
 def get_parameters(net) -> List[np.ndarray]:
     return [val.cpu().numpy() for _, val in net.state_dict().items()]
 
-def train(net, trainloader, optimizer, epochs, device: str):
+def train(net, trainloader, device, epochs, learning_rate, proximal_mu) -> None:
     # Train the network on the training set.
-    
     criterion = torch.nn.CrossEntropyLoss()
+    optimizer = torch.optim.SGD(net.parameters(), lr=learning_rate, weight_decay=0.001)
+    global_params = [val.detach().clone() for val in net.parameters()]
     net.train()
-    net.to(device)
-
     for _ in range(epochs):
-        for images, labels in trainloader: 
-            images, labels = images.to(device), labels.to(device)
-            optimizer.zero_grad()
-            loss = criterion(net(images), labels)
-            loss.backward()
-            optimizer.step()
+        net = _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer, proximal_mu)
+
+
+def _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer: torch.optim.Adam, proximal_mu: float) -> nn.Module:
+    for images, labels in trainloader: 
+        images, labels = images.to(device), labels.to(device)
+        optimizer.zero_grad()
+        proximal_term = 0.0
+        for local_weights, global_weights in zip(net.parameters(), global_params):
+            proximal_term += torch.square((local_weights - global_weights).norm(2))
+        loss = criterion(net(images), labels) + (proximal_mu / 2) * proximal_term
+        loss.backward()
+        optimizer.step()
+    return net
 
 
 def test(net, testloader, device: str):

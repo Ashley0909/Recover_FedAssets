@@ -55,12 +55,13 @@ class PresetClient(fl.client.NumPyClient):
 
         lr = config['lr']
         momentum = config['momentum']
-        epochs = config["local_epochs"]
+        epochs = config['local_epochs']
+        proximal_mu = config['proximal_mu']
 
-        optim = torch.optim.SGD(self.model.parameters(), lr=lr, momentum=momentum)
+        # optim = torch.optim.SGD(self.model.parameters(), lr=lr, momentum=momentum)
 
         # do local training
-        train(self.model, self.trainloader, optim, epochs, self.device)
+        train(self.model, self.trainloader, self.device, epochs, lr, proximal_mu)
 
         # return the updated model, the number of examples in the client, and a dictionary of metrics
         return self.get_parameters({}), len(self.trainloader), {"malicious": self.malicious}
