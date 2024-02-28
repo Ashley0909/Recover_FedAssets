@@ -1,0 +1,18 @@
+dataset: cifar10
+num_rounds: 100
+num_clients: 20
+batch_size: 20
+num_classes: 10
+num_channels: 3
+num_clients_per_round_fit: 10
+num_clients_per_round_eval: 10
+config_fit:
+  lr: 0.01
+  momentum: 0.9
+  local_epochs: 5
+dataset_config:
+  ratio_benign_client: 0.6
+  poisoning_rate: 0.6
+  iid: true
+  balance: false
+  power_law: false
