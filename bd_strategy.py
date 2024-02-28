@@ -907,7 +907,7 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
     ]
 
     """All Benign"""
-    # return good_prime
+    return good_prime
 
     bad_prime: NDArrays = [
         reduce(np.add, layer_updates) / bad_numex_total
