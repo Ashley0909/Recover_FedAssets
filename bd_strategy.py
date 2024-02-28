@@ -587,34 +587,34 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
     reduced_data = pca.fit_transform(layer)
 
     """Non-IID"""
-    # e = 2
-    # mp = 5
-    # e -= 0.0025*(server_round/5)
-    # mp -= (server_round//20) 
-    # db = DBSCAN(eps=max(e, 0.03), min_samples=max(3,mp)).fit(reduced_data)  #original (exp=1.1, min_samples=5)
-    # comb_C = db.labels_
+    e = 1 # original 2
+    mp = 5
+    e -= 0.0025*(server_round/5)
+    mp -= (server_round//20) 
+    db = DBSCAN(eps=max(e, 0.03), min_samples=max(3,mp)).fit(reduced_data)  #original (exp=1.1, min_samples=5)
+    comb_C = db.labels_
     
     """IID"""
-    if server_round < 6:
-        kmeans = KMeans(init="k-means++", n_clusters=2, n_init=4).fit(reduced_data)
-        comb_C = kmeans.predict(reduced_data)
+    # if server_round < 6:
+    #     kmeans = KMeans(init="k-means++", n_clusters=2, n_init=4).fit(reduced_data)
+    #     comb_C = kmeans.predict(reduced_data)
 
-        centroids = kmeans.cluster_centers_
-        centroids_assignment = kmeans.predict(centroids)
-        unique_labels = np.unique(comb_C)
-        max_dist = []
-        for l in unique_labels:
-            distances = euclidean_distances(reduced_data[comb_C == l], centroids[centroids_assignment == l])
-            max_dist.append(np.max(distances))
-        e = np.max(max_dist)
-    else:
-        mp = 5
-        e -= 0.0025*(server_round/5)
-        mp -= (server_round//20) 
-        # print("e is", e)
-        # print("mp is", mp)
-        db = DBSCAN(eps=max(e, 0.03), min_samples=max(3,mp)).fit(reduced_data)
-        comb_C = db.labels_
+    #     centroids = kmeans.cluster_centers_
+    #     centroids_assignment = kmeans.predict(centroids)
+    #     unique_labels = np.unique(comb_C)
+    #     max_dist = []
+    #     for l in unique_labels:
+    #         distances = euclidean_distances(reduced_data[comb_C == l], centroids[centroids_assignment == l])
+    #         max_dist.append(np.max(distances))
+    #     e = np.max(max_dist)
+    # else:
+    #     mp = 5
+    #     e -= 0.0025*(server_round/5)
+    #     mp -= (server_round//20) 
+    #     # print("e is", e)
+    #     # print("mp is", mp)
+    #     db = DBSCAN(eps=max(e, 0.03), min_samples=max(3,mp)).fit(reduced_data)
+    #     comb_C = db.labels_
 
     """Plotting the clusters"""
     # fig = plt.figure(figsize=(8, 6))
@@ -907,7 +907,7 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
     ]
 
     """All Benign"""
-    return good_prime
+    # return good_prime
 
     bad_prime: NDArrays = [
         reduce(np.add, layer_updates) / bad_numex_total
@@ -1057,33 +1057,30 @@ def full_clustering(parameter, client_id, malicious, layer, name, server_round, 
     #     accuracies = [tup for tup in accuracies if tup[0] != -1]   # remove noise cluster
     print("accuracies is", accuracies)
 
-    # if not all(abs(x[0] - accuracies[0][0]) < 0.05 for x in accuracies):  # if the values of the array is very different
     if len(accuracies) == 2:
-        if accuracies[0][0] == accuracies[1][0]:
-            #larger cluster is benign
-            unique_labels = np.unique(comb_C)
-            malicious_class = unique_labels[unique_labels != benign_class][0]
-            highest_accuracy = accuracies[0][0]
-            lowest_accuracy = 0
-        else:
-            if not all(abs(x[0] - accuracies[0][0]) < 0.05 for x in accuracies):
-                record = 1
+        benign_class = -1
+        malicious_class = 0
+        # if accuracies[0][0] == accuracies[1][0]:  # if the two clusters have similar accuracies
+        #     #larger cluster is benign
+        #     unique_labels = np.unique(comb_C)
+        #     malicious_class = unique_labels[unique_labels != benign_class][0]
+        #     highest_accuracy = accuracies[0][0]
+        #     lowest_accuracy = 0
+        # else:
+        #     if not all(abs(x[0] - accuracies[0][0]) < 0.05 for x in accuracies):
+        #         record = 1
         
-            for acc, cluster in accuracies:
-                if (acc > highest_acc):   # if (acc > highest_acc) and (record == 1):
-                    benign_class = cluster
-                    highest_acc = acc
-                if (acc < lowest_acc):
-                    malicious_class = cluster
-                    lowest_acc = acc
-                # print("benign_class, high_acc:", benign_class, highest_acc)
-                # print("mali_class, low_acc:", malicious_class, lowest_acc)
-                highest_accuracy = highest_acc
-                lowest_accuracy = lowest_acc
+        #     for acc, cluster in accuracies:
+        #         if (acc > highest_acc):   # if (acc > highest_acc) and (record == 1):
+        #             benign_class = cluster
+        #             highest_acc = acc
+        #         if (acc < lowest_acc):
+        #             malicious_class = cluster
+        #             lowest_acc = acc
+        #         highest_accuracy = highest_acc
+        #         lowest_accuracy = lowest_acc
     else:
         if len(accuracies) == 1:  #if towards the end there is only one type of client. 
-            # print("highest accuracy is", highest_accuracy)
-            # print("accuracy is", accuracies[0][0])
             if accuracies[0][0] >= highest_accuracy:
                 benign_class = accuracies[0][1]
                 malicious_class = 10
@@ -1106,25 +1103,14 @@ def full_clustering(parameter, client_id, malicious, layer, name, server_round, 
     comb_C = np.array(mod_combC)
     benign_class = 0
 
-    correct = 0
-    for i in range(len(comb_C)):
-        if (comb_C[i] == benign_class) and (malicious[i] == "0"):
-            correct += 1
-        elif (comb_C[i] != benign_class) and (malicious[i] == "2"):
-            correct += 1
-    clustering_acc = correct / len(malicious)
+    # correct = 0
+    # for i in range(len(comb_C)):
+    #     if (comb_C[i] == benign_class) and (malicious[i] == "0"):
+    #         correct += 1
+    #     elif (comb_C[i] != benign_class) and (malicious[i] == "2"):
+    #         correct += 1
+    # clustering_acc = correct / len(malicious)
 
-    print("Clustering acc for", name, "is", clustering_acc)
-
-    # if name == "biases":
-    #     ws["U"+str(server_round+4)] = clustering_acc
-    # elif name == "conv1w":
-    #     ws["V"+str(server_round+4)] = clustering_acc
-    # elif name == "conv2w":
-    #     ws["W"+str(server_round+4)] = clustering_acc
-    # elif name == "fhw":
-    #     ws["X"+str(server_round+4)] = clustering_acc
-    # elif name == "shw":
-    #     ws["Y"+str(server_round+4)] = clustering_acc
+    # print("Clustering acc for", name, "is", clustering_acc)
 
     return comb_C, record, acc_diff, highest_accuracy, lowest_accuracy, e

@@ -464,3 +464,15 @@
 
 """Aggregate the parameters"""
 # parameters_aggregated = ndarrays_to_parameters(aggregate(weights_results))
+
+"""Print clustering accuracy for each layer"""
+# if name == "biases":
+#     ws["U"+str(server_round+4)] = clustering_acc
+# elif name == "conv1w":
+#     ws["V"+str(server_round+4)] = clustering_acc
+# elif name == "conv2w":
+#     ws["W"+str(server_round+4)] = clustering_acc
+# elif name == "fhw":
+#     ws["X"+str(server_round+4)] = clustering_acc
+# elif name == "shw":
+#     ws["Y"+str(server_round+4)] = clustering_acc
