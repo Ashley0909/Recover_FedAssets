@@ -464,10 +464,9 @@ class NNtrain(Strategy):
         if record == 1:
             global_bad = client_id[comb_C == 2]
             # global_bad = client_id[bad_index]
+            print(len(global_bad), "added to evil list")
             malicious_record.extend(global_bad)
             malicious_record = list(set(malicious_record)) #avoid duplicates
-
-        print(len(malicious_record), "added to evil list")
 
         determined_status = {}
         for i in range(len(weights_results)):
@@ -658,7 +657,10 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         texts.append(plt.text(comb1[i][0], comb1[i][1], txt))
         num *= -1
 
-    plt.savefig('clusters/{0}, Round {1}.png'.format(name, server_round))
+    # plt.savefig('clusters/{0}, Round {1}.png'.format(name, server_round))
+    """All Benign"""
+    plt.savefig('clusters/AllBenign/{0}, Round {1}.png'.format(name, server_round))
+
     plt.close()
 
     reps = []
@@ -673,203 +675,6 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
 
     return comb_C, reps, benign_class, e
 
-def show_clustered_plots(good_clients, bad_clients, 
-                good_c1w, bad_c1w, good_c1b, bad_c1b, 
-                good_c2w, bad_c2w, good_c2b, bad_c2b,
-               good_fh_w, bad_fh_w, good_fh_b, bad_fh_b,
-               good_sh_w, bad_sh_w, good_sh_b, bad_sh_b,
-               good_weights, bad_weights, good_biases, bad_biases, server_round):
-    textstr = ''
-    for i in range(len(good_clients)):
-        textstr += f'Client {str(good_clients[i])} => 0 \n'
-
-    for i in range(len(bad_clients)):
-        textstr += f'Client {str(bad_clients[i])} => 2 \n'
-
-    """Plot the heat map of the first conv layer's weight values"""
-    plt.imshow(np.concatenate((good_c1w, bad_c1w), axis=0), cmap='viridis', interpolation='nearest')
-    plt.colorbar()
-    plt.text(-12, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    plt.xlabel("Convolutional Layer 1 Weights")
-    plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' Convolutional Layer 1's weights")
-    plt.savefig('Heatmaps_1/C1W Round {0}.png'.format(server_round))
-    plt.close()
-
-    """Plot the heat map of the first conv layer's bias vlaues"""
-    plt.imshow(np.concatenate((good_c1b, bad_c1b), axis=0), cmap='viridis', interpolation='nearest')
-    plt.colorbar()
-    plt.text(-12, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    plt.xlabel("Convolutional Layer 1 Biases")
-    plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' Convolutional Layer 1's biases")
-    plt.savefig('Heatmaps_1/C1B Round {0}.png'.format(server_round))
-    plt.close()
-
-    """Plot the heat map of the second conv layer's weight values"""
-    plt.imshow(np.concatenate((good_c2w, bad_c2w), axis=0), cmap='viridis', interpolation='nearest')
-    plt.colorbar()
-    plt.text(-12, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    plt.xlabel("Convolutional Layer 2 Weights")
-    plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' Convolutional Layer 2's weights")
-    plt.savefig('Heatmaps_1/C2W Round {0}.png'.format(server_round))
-    plt.close()
-
-    """Plot the heat map of the second conv layer's bias vlaues"""
-    plt.imshow(np.concatenate((good_c2b, bad_c2b), axis=0), cmap='viridis', interpolation='nearest')
-    plt.colorbar()
-    plt.text(-12, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    plt.xlabel("Convolutional Layer 2 Biases")
-    plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' Convolutional Layer 2's biases")
-    plt.savefig('Heatmaps_1/C2B Round {0}.png'.format(server_round))
-    plt.close()
-
-    """Plot the heat map of the first hidden layer's weight values"""
-    plt.imshow(np.concatenate((good_fh_w, bad_fh_w), axis=0), cmap='viridis', interpolation='nearest')
-    plt.colorbar()
-    plt.text(-12, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    plt.xlabel("First Hidden Layer Weights")
-    plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' First Hidden Layer's weights")
-    plt.savefig('Heatmaps_1/FHW Round {0}.png'.format(server_round))
-    plt.close()
-
-    """Plot the heat map of the first hidden layer's bias vlaues"""
-    plt.imshow(np.concatenate((good_fh_b, bad_fh_b), axis=0), cmap='viridis', interpolation='nearest')
-    plt.colorbar()
-    plt.text(-12, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    plt.xlabel("First Hidden Layer Biases")
-    plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' First Hidden Layer's biases")
-    plt.savefig('Heatmaps_1/FHB Round {0}.png'.format(server_round))
-    plt.close()
-
-    """Plot the heat map of the second hidden layer's weight values"""
-    plt.imshow(np.concatenate((good_sh_w, bad_sh_w), axis=0), cmap='viridis', interpolation='nearest')
-    plt.colorbar()
-    plt.text(-8, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    plt.xlabel("Second Hidden Layer Weights")
-    plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' Second Hidden Layer's weights")
-    plt.savefig('Heatmaps_1/SHW Round {0}.png'.format(server_round))
-    plt.close()
-
-    """Plot the heat map of the second hidden layer's bias vlaues"""
-    plt.imshow(np.concatenate((good_sh_b, bad_sh_b), axis=0), cmap='viridis', interpolation='nearest')
-    plt.colorbar()
-    plt.text(-8, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    plt.xlabel("Second Hidden Layer Biases")
-    plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' Second Hidden Layer's biases")
-    plt.savefig('Heatmaps_1/SHB Round {0}.png'.format(server_round))
-    plt.close()
-
-    # """Plot the heat map of the third hidden layer's weight values"""
-    # plt.imshow(np.concatenate((good_th_w, bad_th_w), axis=0), cmap='viridis', interpolation='nearest')
-    # plt.colorbar()
-    # plt.text(-8, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    # plt.xlabel("Third Hidden Layer Weights")
-    # plt.ylabel("Clients")
-    # plt.title("Heatmap of all clients' Third Hidden layer's weights")
-    # plt.close()
-    # plt.show(block=True)
-
-    # """Plot the heat map of the third hidden layer's bias vlaues"""
-    # plt.imshow(np.concatenate((good_th_b, bad_th_b), axis=0), cmap='viridis', interpolation='nearest')
-    # plt.colorbar()
-    # plt.text(-8, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    # plt.xlabel("Third Hidden Layer Biases")
-    # plt.ylabel("Clients")
-    # plt.title("Heatmap of all clients' Third Hidden layer's biases")
-    # plt.close()
-    # plt.show(block=True)
-
-    """Plot the heat map of the last layer's weight values"""
-    plt.imshow(np.concatenate((good_weights, bad_weights), axis=0), cmap='viridis', interpolation='nearest')
-    plt.colorbar()
-    plt.text(-8, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    plt.xlabel("Last Layer Weights")
-    plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' last layer's weights")
-    plt.savefig('Heatmaps_1/OLW Round {0}.png'.format(server_round))
-    plt.close()
-
-    """Plot the heat map of the last layer's bias vlaues"""
-    plt.imshow(np.concatenate((good_biases, bad_biases), axis=0), cmap='viridis', interpolation='nearest')
-    plt.colorbar()
-    plt.text(-8, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    plt.xlabel("Last Layer Biases")
-    plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' last layer's biases")
-    plt.savefig('Heatmaps_1/OLB Round {0}.png'.format(server_round))
-    plt.close()
-
-def show_plots(local_cid, malicious,
-               first_hidden_w, first_hidden_b,
-               second_hidden_w, second_hidden_b,
-               weights, biases):
-    textstr = ''
-    for l, g in enumerate(local_cid):
-        textstr += f'Client {g} => {int(malicious[l])} \n'
-
-    """Plot the heat map of the first hidden layer's weight values"""
-    plt.imshow(first_hidden_w, cmap='viridis', interpolation='nearest')
-    plt.colorbar()
-    plt.text(-12, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    plt.xlabel("First Hidden Layer Weights")
-    plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' First Hidden Layer's weights")
-    # plt.show(block=True)
-
-    """Plot the heat map of the first hidden layer's bias vlaues"""
-    plt.imshow(first_hidden_b, cmap='viridis', interpolation='nearest')
-    plt.colorbar()
-    plt.text(-12, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    plt.xlabel("First Hidden Layer Biases")
-    plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' First Hidden Layer's biases")
-    # plt.show(block=True)
-
-    """Plot the heat map of the second hidden layer's weight values"""
-    plt.imshow(second_hidden_w, cmap='viridis', interpolation='nearest')
-    plt.colorbar()
-    plt.text(-8, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    plt.xlabel("Second Hidden Layer Weights")
-    plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' Second Hidden Layer's weights")
-    # plt.show(block=True)
-
-    """Plot the heat map of the second hidden layer's bias vlaues"""
-    plt.imshow(second_hidden_b, cmap='viridis', interpolation='nearest')
-    plt.colorbar()
-    plt.text(-8, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    plt.xlabel("Second Hidden Layer Biases")
-    plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' Second Hidden Layer's biases")
-    # plt.show(block=True)
-
-    """Plot the heat map of the last layer's weight values"""
-    plt.imshow(weights, cmap='viridis', interpolation='nearest')
-    plt.colorbar()
-    plt.text(-8, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    plt.xlabel("Last Layer Weights")
-    plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' last layer's weights")
-    # plt.show(block=True)
-
-    print("printing last layers' biases")
-    """Plot the heat map of the last layer's bias vlaues"""
-    plt.imshow(biases, cmap='viridis', interpolation='nearest')
-    plt.colorbar()
-    plt.text(-8, 12, textstr, fontsize=10, verticalalignment='center', horizontalalignment='left')
-    plt.xlabel("Last Layer Biases")
-    plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' last layer's biases")
-    # plt.show(block=True)
-    plt.close()
-
 def heatmaps(local_cid, malicious, layer, name, server_round):
     textstr = ''
     for l, g in enumerate(local_cid):
@@ -881,7 +686,10 @@ def heatmaps(local_cid, malicious, layer, name, server_round):
     plt.xlabel(name)
     plt.ylabel("Clients")
     plt.title("Heatmap of all clients' {}".format(name))
-    plt.savefig('heatmaps/{0} in Round {1}.png'.format(name, server_round))
+    # plt.savefig('heatmaps/{0} in Round {1}.png'.format(name, server_round))
+    """All Benign"""
+    plt.savefig('heatmaps/AllBenign/{0} in Round {1}.png'.format(name, server_round))
+
     plt.close()
 
 def compute_average(data, count):
@@ -907,7 +715,7 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
     ]
 
     """All Benign"""
-    # return good_prime
+    return good_prime
 
     bad_prime: NDArrays = [
         reduce(np.add, layer_updates) / bad_numex_total
@@ -1036,30 +844,35 @@ def full_clustering(parameter, client_id, malicious, layer, name, server_round, 
     acc_diff = 0
 
     if len(accuracies) > 2:  # if there are more than two clusters, merge clusters so that there is only two clusters
-        # print("More than 2 clusters")
         # Find the two distinct clusters by their accuracies
+        """IID"""
         max_tuple = max(accuracies, key=lambda x:x[0])
         min_tuple = min(accuracies, key=lambda x:x[0])
-        # print("max_tuple:", max_tuple, ", min_tuple:", min_tuple)
+
+        """Non-IID"""
+        min_tuple = next(tup for tup in accuracies if tup[1] == -1)  # the noise tuple
+        max_tuple = next(tup for tup in accuracies if tup[1] == 0)   # the main tuple
+
         remaining = [t for t in accuracies if t != min_tuple and t!= max_tuple]
         while len(remaining) != 0:
             rep = remaining[0]
-            # print("rep:", rep)
             if abs(max_tuple[0] - rep[0]) > abs(rep[0] - min_tuple[0]):  #if the accuracy is closer to the min
-                # print("closer to min")
                 mod_combC = [min_tuple[1] if item == rep[1] else item for item in comb_C]
             else:
-                # print("closer to max")
                 mod_combC = [max_tuple[1] if item == rep[1] else item for item in comb_C]
             remaining.remove(rep)
             comb_C = mod_combC
             accuracies.remove(rep)
-    #     accuracies = [tup for tup in accuracies if tup[0] != -1]   # remove noise cluster
+
     print("accuracies is", accuracies)
 
     if len(accuracies) == 2:
+        """Non-IID"""
         benign_class = -1
         malicious_class = 0
+        record = 1
+
+        """IID"""
         # if accuracies[0][0] == accuracies[1][0]:  # if the two clusters have similar accuracies
         #     #larger cluster is benign
         #     unique_labels = np.unique(comb_C)
