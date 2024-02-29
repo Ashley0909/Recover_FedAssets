@@ -91,15 +91,15 @@ def _partition_data(
             )
         elif dirichlet:
             """Benign dataset"""
-            goodsets = sample_dirichlet(benignset, num_good_clients, alpha)
+            goodsets = sample_dirichlet(benignset, num_good_clients, alpha, seed)
             """Malicious dataset"""
-            badsets = sample_dirichlet(maliciousset, num_bad_clients, alpha)
+            badsets = sample_dirichlet(maliciousset, num_bad_clients, alpha, seed+2)
         else:
             shard_size = int(partition_size / 2) # partition size is number of images per client
             """Benign dataset"""
             goodsets = random_allocate(benignset, num_good_clients, shard_size, seed)
             """Malicious dataset"""
-            badsets = random_allocate(maliciousset, num_bad_clients, shard_size, seed+20)
+            badsets = random_allocate(maliciousset, num_bad_clients, shard_size, seed+2)
 
     return goodsets, badsets
 
@@ -309,7 +309,7 @@ def random_allocate(dataset, num_of_clients, shard_size, seed):
 
     return resultset
 
-def sample_dirichlet(dataset, num_of_clients, alpha, seed=42):
+def sample_dirichlet(dataset, num_of_clients, alpha, seed):
     min_required_samples_per_client = 10
     min_samples = 0
     prng = np.random.default_rng(seed)
