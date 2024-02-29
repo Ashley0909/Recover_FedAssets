@@ -18,7 +18,7 @@ Extract the dataset and poison it
 
 ##### dataset.py
 
-Calls the functions in **mixbackdoor.py** and allocate training, validation and test datasets
+First calls the function in **dataset_preparation.py** to partition the data into training, validation and test datasets. Then calls the functions in **mixbackdoor.py** to poison the data accordingly
 
 ##### dataset_preparation.py
 

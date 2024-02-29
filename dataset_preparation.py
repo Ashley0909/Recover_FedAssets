@@ -309,36 +309,6 @@ def random_allocate(dataset, num_of_clients, shard_size, seed):
 
     return resultset
 
-# def sample_dirichlet(dataset, num_of_clients, alpha):
-#     classes = {}
-#     for idx, x in enumerate(dataset):
-#         _, label = x
-#         if type(label) == torch.Tensor:
-#             label = label.item()
-#         if label in classes:
-#             classes[label].append(idx)
-#         else:
-#             classes[label] = [idx]
-
-#     num_classes = len(classes.keys())
-
-#     resultset = []   # each element represents a client
-
-#     for n in range(num_classes):
-#         random.shuffle(classes[n])
-#         class_size = len(classes[n])
-#         class_subset = Subset(dataset, np.array(classes[n]))
-#         sampled_probabilities = class_size * np.random.dirichlet(np.array(num_of_clients * [alpha]))
-#         for user in range(num_of_clients):
-#             num_imgs = int(round(sampled_probabilities[user]))
-#             sampled_list = Subset(class_subset, np.arange(min(len(classes[n]), num_imgs)))
-#             if len(resultset) < len(range(num_of_clients)):
-#                 resultset.append(sampled_list)
-#             else:
-#                 resultset[user] = ConcatDataset((resultset[user], sampled_list))
-            
-#     return resultset
-
 def sample_dirichlet(dataset, num_of_clients, alpha, seed=42):
     min_required_samples_per_client = 10
     min_samples = 0
