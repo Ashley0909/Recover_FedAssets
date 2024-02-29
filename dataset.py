@@ -55,6 +55,8 @@ def prepare_clientdataset(config: DictConfig,
         iid=config.iid,
         balance=config.balance,
         power_law=config.power_law,
+        dirichlet=config.dirichlet,
+        alpha=config.alpha,
         seed=42,
     )
 
@@ -70,8 +72,8 @@ def prepare_clientdataset(config: DictConfig,
 
         for_train, for_val = random_split(bdtrainset_, [num_train, num_val], torch.Generator().manual_seed(2023))
 
-        bdtrainloaders.append(DataLoader(for_train, batch_size=batch_size, shuffle=True, num_workers=2))
-        bdvalloaders.append(DataLoader(for_val, batch_size=batch_size, shuffle=False, num_workers=2))
+        bdtrainloaders.append(DataLoader(for_train, batch_size=batch_size, shuffle=True, num_workers=2, drop_last=True))
+        bdvalloaders.append(DataLoader(for_val, batch_size=batch_size, shuffle=False, num_workers=2, drop_last=True))
 
     for ctrainset_ in goodtrainsets:
         num_total = len(ctrainset_)
@@ -80,8 +82,8 @@ def prepare_clientdataset(config: DictConfig,
 
         for_train, for_val = random_split(ctrainset_, [num_train, num_val], torch.Generator().manual_seed(2023))
 
-        cleantrainloaders.append(DataLoader(for_train, batch_size=batch_size, shuffle=True, num_workers=2))
-        cleanvalloaders.append(DataLoader(for_val, batch_size=batch_size, shuffle=False, num_workers=2))
+        cleantrainloaders.append(DataLoader(for_train, batch_size=batch_size, shuffle=True, num_workers=2, drop_last=True))
+        cleanvalloaders.append(DataLoader(for_val, batch_size=batch_size, shuffle=False, num_workers=2, drop_last=True))
 
     testloader = DataLoader(testset, batch_size=128)
 
