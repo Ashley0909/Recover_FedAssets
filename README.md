@@ -12,9 +12,13 @@ Main function to be run in terminal
 
 Our algorithm, how clustering and aggregation works
 
+##### mixedbackdoor.py
+
+Extract the dataset and poison it
+
 ##### dataset.py
 
-Getting the dataset and partition it into training and test datasets
+Calls the functions in **mixbackdoor.py** and allocate training, validation and test datasets
 
 ##### dataset_preparation.py
 

@@ -3,11 +3,9 @@ from typing import List, Optional, Tuple
 import random
 import numpy as np
 import torch
-from PIL import Image
 
 # import torchvision.transforms as transforms
 from torch.utils.data import ConcatDataset, Dataset, Subset, random_split
-from mixedbackdoor import TriggerHandler
 
 def _partition_data(
     trainset,
@@ -15,6 +13,8 @@ def _partition_data(
     benign_ratio,
     iid: Optional[bool] = False,
     power_law: Optional[bool] = True,
+    dirichlet: Optional[bool] = True,
+    alpha: Optional[float] = 0.5,
     balance: Optional[bool] = False,
     seed: Optional[int] = 42,
 ) -> Tuple[List[Dataset], Dataset]:
@@ -59,6 +59,7 @@ def _partition_data(
         # Since the subsets do not have target as the attribute, we have to create it by ourselves to use power law
         benignset.targets = torch.as_tensor([benignset[i][1] for i in range(len(benignset))])
         maliciousset.targets = torch.as_tensor([maliciousset[i][1] for i in range(len(maliciousset))])
+
         if power_law:
             trainset_sorted = _sort_by_class(benignset)
             goodsets = _power_law_split(
@@ -88,44 +89,17 @@ def _partition_data(
                 mean=0.0,
                 sigma=2.0,
             )
+        elif dirichlet:
+            """Benign dataset"""
+            goodsets = sample_dirichlet(benignset, num_good_clients, alpha)
+            """Malicious dataset"""
+            badsets = sample_dirichlet(maliciousset, num_bad_clients, alpha)
         else:
             shard_size = int(partition_size / 2) # partition size is number of images per client
             """Benign dataset"""
-            idxs = benignset.targets.argsort()
-            sorted_data = Subset(benignset, idxs) # a set that has the train data sorted in terms of their labels
-            tmp = []
-            for idx in range(num_good_clients * 2): 
-                tmp.append(
-                    Subset(
-                        sorted_data, np.arange(shard_size * idx, shard_size * (idx + 1))
-                    )
-                )
-            idxs_list = torch.randperm(
-                num_good_clients * 2, generator=torch.Generator().manual_seed(seed)
-            )
-            goodsets = [
-                ConcatDataset((tmp[idxs_list[2 * i]], tmp[idxs_list[2 * i + 1]]))
-                for i in range(num_good_clients)
-            ]
-
+            goodsets = random_allocate(benignset, num_good_clients, shard_size, seed)
             """Malicious dataset"""
-            indices = maliciousset.targets.argsort().tolist()
-            idxs = random.sample(indices, len(indices))
-            shuffled = Subset(maliciousset, idxs)
-            tmp = []
-            for idx in range(num_bad_clients * 2): 
-                tmp.append(
-                    Subset(
-                        shuffled, np.arange(shard_size * idx, shard_size * (idx + 1))
-                    )
-                )
-            idxs_list = torch.randperm(
-                num_bad_clients * 2, generator=torch.Generator().manual_seed(seed+20)
-            )
-            badsets = [
-                ConcatDataset((tmp[idxs_list[2 * i]], tmp[idxs_list[2 * i + 1]]))
-                for i in range(num_bad_clients)
-            ]
+            badsets = random_allocate(maliciousset, num_bad_clients, shard_size, seed+20)
 
     return goodsets, badsets
 
@@ -314,3 +288,89 @@ def _power_law_split(
         partitions = final_partitions
 
     return partitions
+
+def random_allocate(dataset, num_of_clients, shard_size, seed):
+    idxs = dataset.targets.argsort()
+    sorted_data = Subset(dataset, idxs) # a set that has the train data sorted in terms of their labels
+    tmp = []
+    for idx in range(num_of_clients * 2): 
+        tmp.append(
+            Subset(
+                sorted_data, np.arange(shard_size * idx, shard_size * (idx + 1))
+            )
+        )
+    idxs_list = torch.randperm(
+        num_of_clients * 2, generator=torch.Generator().manual_seed(seed)
+    )
+    resultset = [
+        ConcatDataset((tmp[idxs_list[2 * i]], tmp[idxs_list[2 * i + 1]]))
+        for i in range(num_of_clients)
+    ]
+
+    return resultset
+
+# def sample_dirichlet(dataset, num_of_clients, alpha):
+#     classes = {}
+#     for idx, x in enumerate(dataset):
+#         _, label = x
+#         if type(label) == torch.Tensor:
+#             label = label.item()
+#         if label in classes:
+#             classes[label].append(idx)
+#         else:
+#             classes[label] = [idx]
+
+#     num_classes = len(classes.keys())
+
+#     resultset = []   # each element represents a client
+
+#     for n in range(num_classes):
+#         random.shuffle(classes[n])
+#         class_size = len(classes[n])
+#         class_subset = Subset(dataset, np.array(classes[n]))
+#         sampled_probabilities = class_size * np.random.dirichlet(np.array(num_of_clients * [alpha]))
+#         for user in range(num_of_clients):
+#             num_imgs = int(round(sampled_probabilities[user]))
+#             sampled_list = Subset(class_subset, np.arange(min(len(classes[n]), num_imgs)))
+#             if len(resultset) < len(range(num_of_clients)):
+#                 resultset.append(sampled_list)
+#             else:
+#                 resultset[user] = ConcatDataset((resultset[user], sampled_list))
+            
+#     return resultset
+
+def sample_dirichlet(dataset, num_of_clients, alpha, seed=42):
+    min_required_samples_per_client = 10
+    min_samples = 0
+    prng = np.random.default_rng(seed)
+
+    # get the targets
+    tmp_t = dataset.targets
+    if isinstance(tmp_t, list):
+        tmp_t = np.array(tmp_t)
+    if isinstance(tmp_t, torch.Tensor):
+        tmp_t = tmp_t.numpy()
+    num_classes = len(set(tmp_t))
+    total_samples = len(tmp_t)
+    while min_samples < min_required_samples_per_client:
+        idx_clients: List[List] = [[] for _ in range(num_of_clients)]
+        for k in range(num_classes):
+            idx_k = np.where(tmp_t == k)[0]
+            prng.shuffle(idx_k)
+            proportions = prng.dirichlet(np.repeat(alpha, num_of_clients))
+            proportions = np.array(
+                [
+                    p * (len(idx_j) < total_samples / num_of_clients)
+                    for p, idx_j in zip(proportions, idx_clients)
+                ]
+            )
+            proportions = proportions / proportions.sum()
+            proportions = (np.cumsum(proportions) * len(idx_k)).astype(int)[:-1]
+            idx_k_split = np.split(idx_k, proportions)
+            idx_clients = [
+                idx_j + idx.tolist() for idx_j, idx in zip(idx_clients, idx_k_split)
+            ]
+            min_samples = min([len(idx_j) for idx_j in idx_clients])
+
+    trainsets_per_client = [Subset(dataset, idxs) for idxs in idx_clients]
+    return trainsets_per_client

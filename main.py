@@ -5,14 +5,12 @@ import hydra
 # from hydra.core.hydra_config import HydraConfig
 from omegaconf import DictConfig, OmegaConf
 import flwr as fl
-from torchvision.transforms import ToTensor, Normalize, Compose
 
 from dataset import prepare_clientdataset
 from client import generate_nnclient_fn, weighted_average
 from server import get_on_fit_config, get_evaluate_fn, get_attacker_evaluate_fn
 from bd_strategy import NNtrain
-from model import Net, get_parameters, LeNet
-from mixedbackdoor import build_testset
+from model import get_parameters
 
 import torchvision.models as models
 import torch.nn as nn
