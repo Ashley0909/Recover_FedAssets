@@ -657,9 +657,9 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         texts.append(plt.text(comb1[i][0], comb1[i][1], txt))
         num *= -1
 
-    # plt.savefig('clusters/{0}, Round {1}.png'.format(name, server_round))
+    plt.savefig('clusters/{0}, Round {1}.png'.format(name, server_round))
     """All Benign"""
-    plt.savefig('clusters/AllBenign/{0}, Round {1}.png'.format(name, server_round))
+    # plt.savefig('clusters/AllBenign/{0}, Round {1}.png'.format(name, server_round))
 
     plt.close()
 
@@ -686,9 +686,9 @@ def heatmaps(local_cid, malicious, layer, name, server_round):
     plt.xlabel(name)
     plt.ylabel("Clients")
     plt.title("Heatmap of all clients' {}".format(name))
-    # plt.savefig('heatmaps/{0} in Round {1}.png'.format(name, server_round))
+    plt.savefig('heatmaps/{0} in Round {1}.png'.format(name, server_round))
     """All Benign"""
-    plt.savefig('heatmaps/AllBenign/{0} in Round {1}.png'.format(name, server_round))
+    # plt.savefig('heatmaps/AllBenign/{0} in Round {1}.png'.format(name, server_round))
 
     plt.close()
 
@@ -715,7 +715,7 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
     ]
 
     """All Benign"""
-    return good_prime
+    # return good_prime
 
     bad_prime: NDArrays = [
         reduce(np.add, layer_updates) / bad_numex_total
@@ -846,8 +846,8 @@ def full_clustering(parameter, client_id, malicious, layer, name, server_round, 
     if len(accuracies) > 2:  # if there are more than two clusters, merge clusters so that there is only two clusters
         # Find the two distinct clusters by their accuracies
         """IID"""
-        max_tuple = max(accuracies, key=lambda x:x[0])
-        min_tuple = min(accuracies, key=lambda x:x[0])
+        # max_tuple = max(accuracies, key=lambda x:x[0])
+        # min_tuple = min(accuracies, key=lambda x:x[0])
 
         """Non-IID"""
         min_tuple = next(tup for tup in accuracies if tup[1] == -1)  # the noise tuple
