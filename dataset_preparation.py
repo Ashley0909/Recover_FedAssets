@@ -310,37 +310,67 @@ def random_allocate(dataset, num_of_clients, shard_size, seed):
     return resultset
 
 def sample_dirichlet(dataset, num_of_clients, alpha, seed):
-    min_required_samples_per_client = 10
-    min_samples = 0
-    prng = np.random.default_rng(seed)
+    classes = {}
+    for idx, x in enumerate(dataset):
+        _, label = x
+        if type(label) == torch.Tensor:
+            label = label.item
+        if label in classes:
+            classes[label].append(idx)
+        else:
+            classes[label] = [idx]
 
-    # get the targets
-    tmp_t = dataset.targets
-    if isinstance(tmp_t, list):
-        tmp_t = np.array(tmp_t)
-    if isinstance(tmp_t, torch.Tensor):
-        tmp_t = tmp_t.numpy()
-    num_classes = len(set(tmp_t))
-    total_samples = len(tmp_t)
-    while min_samples < min_required_samples_per_client:
-        idx_clients: List[List] = [[] for _ in range(num_of_clients)]
-        for k in range(num_classes):
-            idx_k = np.where(tmp_t == k)[0]
-            prng.shuffle(idx_k)
-            proportions = prng.dirichlet(np.repeat(alpha, num_of_clients))
-            proportions = np.array(
-                [
-                    p * (len(idx_j) < total_samples / num_of_clients)
-                    for p, idx_j in zip(proportions, idx_clients)
-                ]
-            )
-            proportions = proportions / proportions.sum()
-            proportions = (np.cumsum(proportions) * len(idx_k)).astype(int)[:-1]
-            idx_k_split = np.split(idx_k, proportions)
-            idx_clients = [
-                idx_j + idx.tolist() for idx_j, idx in zip(idx_clients, idx_k_split)
-            ]
-            min_samples = min([len(idx_j) for idx_j in idx_clients])
+    num_classes = len(classes.keys())
 
-    trainsets_per_client = [Subset(dataset, idxs) for idxs in idx_clients]
-    return trainsets_per_client
+    resultset = []
+
+    for n in range(num_classes):
+        random.shuffle(classes[n])
+        class_size = len(classes[n])
+        class_subset = Subset(dataset, np.array(classes[n]))
+        sampled_probabilities = class_size * np.random.dirichlet(np.array(num_of_clients * [alpha]))
+        for user in range(num_of_clients):
+            num_imgs = int(round(sampled_probabilities[user]))
+            sampled_list = Subset(class_subset, np.arange(min(len(classes[n]), num_imgs)))
+            if len(resultset) < len(range(num_of_clients)):
+                resultset.append(sampled_list)
+            else:
+                resultset[user] = ConcatDataset((resultset[user], sampled_list))
+
+    return resultset
+
+# def sample_dirichlet(dataset, num_of_clients, alpha, seed):
+#     min_required_samples_per_client = 10
+#     min_samples = 0
+#     prng = np.random.default_rng(seed)
+
+#     # get the targets
+#     tmp_t = dataset.targets
+#     if isinstance(tmp_t, list):
+#         tmp_t = np.array(tmp_t)
+#     if isinstance(tmp_t, torch.Tensor):
+#         tmp_t = tmp_t.numpy()
+#     num_classes = len(set(tmp_t))
+#     total_samples = len(tmp_t)
+#     while min_samples < min_required_samples_per_client:
+#         idx_clients: List[List] = [[] for _ in range(num_of_clients)]
+#         for k in range(num_classes):
+#             idx_k = np.where(tmp_t == k)[0]
+#             prng.shuffle(idx_k)
+#             proportions = prng.dirichlet(np.repeat(alpha, num_of_clients))
+#             proportions = np.array(
+#                 [
+#                     p * (len(idx_j) < total_samples / num_of_clients)
+#                     for p, idx_j in zip(proportions, idx_clients)
+#                 ]
+#             )
+#             proportions = proportions / proportions.sum()
+#             proportions = (np.cumsum(proportions) * len(idx_k)).astype(int)[:-1]
+#             idx_k_split = np.split(idx_k, proportions)
+#             idx_clients = [
+#                 idx_j + idx.tolist() for idx_j, idx in zip(idx_clients, idx_k_split)
+#             ]
+#             min_samples = min([len(idx_j) for idx_j in idx_clients])
+
+#     trainsets_per_client = [Subset(dataset, idxs) for idxs in idx_clients]
+#     return trainsets_per_client
