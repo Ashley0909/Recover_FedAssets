@@ -582,7 +582,10 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         return [-1], [(indi_acc[0],-1)], -1, e
         
     """Run PCA on the n dimensional data"""
-    pca = PCA(n_components=3)
+    """2D"""
+    pca = PCA(n_components=2)
+    """3D"""
+    # pca = PCA(n_components=3)
     reduced_data = pca.fit_transform(layer)
 
     """Non-IID"""
@@ -610,15 +613,15 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         mp = 5
         e -= 0.0025*(server_round/5)
         mp -= (server_round//20) 
-        # print("e is", e)
-        # print("mp is", mp)
         db = DBSCAN(eps=max(e, 0.03), min_samples=max(3,mp)).fit(reduced_data)
         comb_C = db.labels_
 
     """Plotting the clusters"""
-    fig = plt.figure(figsize=(8, 6))
-    ax = fig.add_subplot(111, projection='3d')
-    # plt.figure(figsize=(8, 6))
+    """3D"""
+    # fig = plt.figure(figsize=(8, 6))
+    # ax = fig.add_subplot(111, projection='3d')
+    """2D"""
+    plt.figure(figsize=(8, 6))
 
     # Assigning colors to clusters
     unique_labels = np.unique(comb_C)
@@ -633,8 +636,8 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         cluster_points = reduced_data[comb_C == l]
         centroid = np.mean(cluster_points, axis=0)
         centroids.append(centroid)
-        # plt.scatter(xy[:, 0], xy[:, 1], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))
-        ax.scatter(xy[:, 0], xy[:, 1], xy[:,2], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))
+        plt.scatter(xy[:, 0], xy[:, 1], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  # 2D
+        # ax.scatter(xy[:, 0], xy[:, 1], xy[:,2], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  #3D
 
     if server_round < 6:
         plt.title("Kmeans Clustering {0} of {1} clients".format(name, len(parameter)))
@@ -650,16 +653,15 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
     texts = []
     num = 1
     for i, txt in enumerate(clabel0):
-        texts.append(ax.text(comb0[i][0], comb0[i][1], comb0[i][2], txt))
-        # texts.append(plt.text(comb0[i][0], comb0[i][1], txt))
+        # texts.append(ax.text(comb0[i][0], comb0[i][1], comb0[i][2], txt))  #3D
+        texts.append(plt.text(comb0[i][0], comb0[i][1], txt))  #2D
         num *= -1
     for i, txt in enumerate(clabel1):
-        texts.append(ax.text(comb1[i][0], comb1[i][1], comb1[i][2], txt))
-        # texts.append(plt.text(comb1[i][0], comb1[i][1], txt))
+        # texts.append(ax.text(comb1[i][0], comb1[i][1], comb1[i][2], txt))   #3D
+        texts.append(plt.text(comb1[i][0], comb1[i][1], txt))   #2D
         num *= -1
 
-    # plt.savefig('clusters/{0}, Round {1}.png'.format(name, server_round))
-    plt.savefig('clusters/IID/{0}, Round {1}.png'.format(name, server_round))
+    plt.savefig('clusters/{0}, Round {1}.png'.format(name, server_round))
     """All Benign"""
     # plt.savefig('clusters/AllBenign/{0}, Round {1}.png'.format(name, server_round))
 
@@ -688,7 +690,7 @@ def heatmaps(local_cid, malicious, layer, name, server_round):
     plt.xlabel(name)
     plt.ylabel("Clients")
     plt.title("Heatmap of all clients' {}".format(name))
-    # plt.savefig('heatmaps/{0} in Round {1}.png'.format(name, server_round))
+    plt.savefig('heatmaps/{0} in Round {1}.png'.format(name, server_round))
     """All Benign"""
     # plt.savefig('heatmaps/AllBenign/{0} in Round {1}.png'.format(name, server_round))
 
