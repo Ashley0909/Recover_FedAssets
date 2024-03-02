@@ -486,7 +486,19 @@ class NNtrain(Strategy):
         # good_fcw = np.array(fcw)[good_index]
         # bad_fcw = np.array(fcw)[bad_index]
 
-        """Detecting Target Label"""
+        """Identifying the Key Neurons per clients (Random Allocation)"""
+        key_neuron = {i: [] for i in range(len(good_clients))}
+        for cid, client in enumerate(good_fcw):
+            avg = np.average(np.array(client))
+            std = np.std(np.array(client))
+            for i, neuron in enumerate(client):
+                z_score = (neuron - avg) / std
+                if abs(z_score) >= 1.5:
+                    key_neuron[cid].append(i)
+                    
+        print("key neurons are", key_neuron)
+
+        """Detecting Target Label (Maybe I can change it to find the max value of the row as well)"""
         if (len(good_clients) > 0) and (len(bad_clients) > 0 or len(evil_results) > 0):
             dist_list = []
             for i in range(len(good_fcw[0])):
@@ -522,7 +534,7 @@ class NNtrain(Strategy):
 
         print("length of good results is", len(good_results), "and length of bad results is", len(bad_results))
 
-        parameters_aggregated = ndarrays_to_parameters(resnet_aggregate(good_results, bad_results, evil_results, acc_diff))
+        parameters_aggregated = ndarrays_to_parameters(resnet_aggregate(good_results, bad_results, evil_results, acc_diff, key_neuron, target_label))
 
         # Aggregate custom metrics if aggregation fn was provided
         metrics_aggregated = {}
@@ -589,32 +601,32 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
     reduced_data = pca.fit_transform(layer)
 
     """Non-IID"""
-    # e = 1 # original 2
-    # mp = 5
-    # e -= 0.0025*(server_round/5)
-    # mp -= (server_round//20) 
-    # db = DBSCAN(eps=max(e, 0.03), min_samples=max(3,mp)).fit(reduced_data)  #original (exp=1.1, min_samples=5)
-    # comb_C = db.labels_
+    e = 1 # original 2
+    mp = 5
+    e -= 0.0025*(server_round/5)
+    mp -= (server_round//20) 
+    db = DBSCAN(eps=max(e, 0.03), min_samples=max(3,mp)).fit(reduced_data)  #original (exp=1.1, min_samples=5)
+    comb_C = db.labels_
     
     """IID"""
-    if server_round < 6:
-        kmeans = KMeans(init="k-means++", n_clusters=2, n_init=4).fit(reduced_data)
-        comb_C = kmeans.predict(reduced_data)
+    # if server_round < 6:
+    #     kmeans = KMeans(init="k-means++", n_clusters=2, n_init=4).fit(reduced_data)
+    #     comb_C = kmeans.predict(reduced_data)
 
-        centroids = kmeans.cluster_centers_
-        centroids_assignment = kmeans.predict(centroids)
-        unique_labels = np.unique(comb_C)
-        max_dist = []
-        for l in unique_labels:
-            distances = euclidean_distances(reduced_data[comb_C == l], centroids[centroids_assignment == l])
-            max_dist.append(np.max(distances))
-        e = np.max(max_dist)
-    else:
-        mp = 5
-        e -= 0.0025*(server_round/5)
-        mp -= (server_round//20) 
-        db = DBSCAN(eps=max(e, 0.03), min_samples=max(3,mp)).fit(reduced_data)
-        comb_C = db.labels_
+    #     centroids = kmeans.cluster_centers_
+    #     centroids_assignment = kmeans.predict(centroids)
+    #     unique_labels = np.unique(comb_C)
+    #     max_dist = []
+    #     for l in unique_labels:
+    #         distances = euclidean_distances(reduced_data[comb_C == l], centroids[centroids_assignment == l])
+    #         max_dist.append(np.max(distances))
+    #     e = np.max(max_dist)
+    # else:
+    #     mp = 5
+    #     e -= 0.0025*(server_round/5)
+    #     mp -= (server_round//20) 
+    #     db = DBSCAN(eps=max(e, 0.03), min_samples=max(3,mp)).fit(reduced_data)
+    #     comb_C = db.labels_
 
     """Plotting the clusters"""
     """3D"""
@@ -701,7 +713,7 @@ def compute_average(data, count):
 
     return average
 
-def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
+def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, key_neuron, target_label):
     print("acc_diff is", acc_diff)
     good_numex_total = sum([num_examples for _, num_examples in good_result])
     bad_numex_total = sum([num_examples for _, num_examples in bad_result])
@@ -709,13 +721,50 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff):
 
     # Create a list of weights, each multiplied by the related number of examples
     good_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in good_result]
+    total_ex_neuron = [0 for _ in range(constant.NUM_CLASS)]
+
+    for c, weights in enumerate(good_weighted_weights):
+        for idx, layer in enumerate(weights[-2:], start=0):
+            for n in range(len(layer)):
+                if n not in key_neuron[c]: 
+                    if isinstance(layer[n], np.float32):
+                        layer[n] = 0.0
+                    else:
+                        layer[n] = np.zeros(len(layer[n]))
+                else:
+                    if idx == 0:
+                        total_ex_neuron[n] += good_result[c][1]
+    
+    mod_exp_neuron = [1 if element == 0 else element for element in total_ex_neuron]
+    print(mod_exp_neuron)
+
     bad_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in bad_result]
     evil_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in evil_result]
 
+    #Set the parameter of the target label to be 0
+    for c, weights in enumerate(bad_weighted_weights):
+        for idx, layer in enumerate(weights[-2:], start=0):
+            for n in range(len(layer)):
+                if n == target_label: 
+                    if isinstance(layer[n], np.float32):
+                        layer[n] = 0.0
+                    else:
+                        layer[n] = np.zeros(len(layer[n]))
+
+    #Set the parameter of the target label to be 0
+    for c, weights in enumerate(evil_weighted_weights):
+        for idx, layer in enumerate(weights[-2:], start=0):
+            for n in range(len(layer)):
+                if n == target_label: 
+                    if isinstance(layer[n], np.float32):
+                        layer[n] = 0.0
+                    else:
+                        layer[n] = np.zeros(len(layer[n]))
+
     # Compute average weights of each layer
     good_prime: NDArrays = [
-        reduce(np.add, layer_updates) / good_numex_total
-        for layer_updates in zip(*good_weighted_weights)
+        reduce(np.add, layer_updates) / good_numex_total if (i < len(good_result[0][0])-2) else reduce(np.add, layer_updates) / mod_exp_neuron if (i == len(good_result[0][0])-1) else reduce(np.add, layer_updates) / np.array(mod_exp_neuron)[:, np.newaxis]
+        for i, layer_updates in enumerate(zip(*good_weighted_weights))  #list of tuples (client)
     ]
 
     """All Benign"""
@@ -850,12 +899,12 @@ def full_clustering(parameter, client_id, malicious, layer, name, server_round, 
     if len(accuracies) > 2:  # if there are more than two clusters, merge clusters so that there is only two clusters
         # Find the two distinct clusters by their accuracies
         """IID"""
-        max_tuple = max(accuracies, key=lambda x:x[0])
-        min_tuple = min(accuracies, key=lambda x:x[0])
+        # max_tuple = max(accuracies, key=lambda x:x[0])
+        # min_tuple = min(accuracies, key=lambda x:x[0])
 
         """Non-IID"""
-        # min_tuple = next(tup for tup in accuracies if tup[1] == -1)  # the noise tuple
-        # max_tuple = next(tup for tup in accuracies if tup[1] == 0)   # the main tuple
+        min_tuple = next(tup for tup in accuracies if tup[1] == -1)  # the noise tuple
+        max_tuple = next(tup for tup in accuracies if tup[1] == 0)   # the main tuple
 
         remaining = [t for t in accuracies if t != min_tuple and t!= max_tuple]
         while len(remaining) != 0:
@@ -872,30 +921,30 @@ def full_clustering(parameter, client_id, malicious, layer, name, server_round, 
 
     if len(accuracies) == 2:
         """Non-IID"""
-        # benign_class = -1
-        # malicious_class = 0
-        # record = 1
+        benign_class = -1
+        malicious_class = 0
+        record = 1
 
         """IID"""
-        if accuracies[0][0] == accuracies[1][0]:  # if the two clusters have similar accuracies
-            #larger cluster is benign
-            unique_labels = np.unique(comb_C)
-            malicious_class = unique_labels[unique_labels != benign_class][0]
-            highest_accuracy = accuracies[0][0]
-            lowest_accuracy = 0
-        else:
-            if not all(abs(x[0] - accuracies[0][0]) < 0.05 for x in accuracies):
-                record = 1
+        # if accuracies[0][0] == accuracies[1][0]:  # if the two clusters have similar accuracies
+        #     #larger cluster is benign
+        #     unique_labels = np.unique(comb_C)
+        #     malicious_class = unique_labels[unique_labels != benign_class][0]
+        #     highest_accuracy = accuracies[0][0]
+        #     lowest_accuracy = 0
+        # else:
+        #     if not all(abs(x[0] - accuracies[0][0]) < 0.05 for x in accuracies):
+        #         record = 1
         
-            for acc, cluster in accuracies:
-                if (acc > highest_acc):   # if (acc > highest_acc) and (record == 1):
-                    benign_class = cluster
-                    highest_acc = acc
-                if (acc < lowest_acc):
-                    malicious_class = cluster
-                    lowest_acc = acc
-                highest_accuracy = highest_acc
-                lowest_accuracy = lowest_acc
+        #     for acc, cluster in accuracies:
+        #         if (acc > highest_acc):   # if (acc > highest_acc) and (record == 1):
+        #             benign_class = cluster
+        #             highest_acc = acc
+        #         if (acc < lowest_acc):
+        #             malicious_class = cluster
+        #             lowest_acc = acc
+        #         highest_accuracy = highest_acc
+        #         lowest_accuracy = lowest_acc
     else:
         if len(accuracies) == 1:  #if towards the end there is only one type of client. 
             if accuracies[0][0] >= highest_accuracy:
@@ -919,15 +968,5 @@ def full_clustering(parameter, client_id, malicious, layer, name, server_round, 
     mod_combC = [0 if item == benign_class else 2 for item in comb_C]
     comb_C = np.array(mod_combC)
     benign_class = 0
-
-    # correct = 0
-    # for i in range(len(comb_C)):
-    #     if (comb_C[i] == benign_class) and (malicious[i] == "0"):
-    #         correct += 1
-    #     elif (comb_C[i] != benign_class) and (malicious[i] == "2"):
-    #         correct += 1
-    # clustering_acc = correct / len(malicious)
-
-    # print("Clustering acc for", name, "is", clustering_acc)
 
     return comb_C, record, acc_diff, highest_accuracy, lowest_accuracy, e
