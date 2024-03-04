@@ -7,7 +7,6 @@ from torch.utils.data import random_split, DataLoader, SubsetRandomSampler
 from mixedbackdoor import build_poisoned_training_set, build_testset
 from dataset_preparation import _partition_data
 import matplotlib.pyplot as plt
-import numpy as np
 
 
 def get_mnist(data_path: str = './data'):
@@ -40,16 +39,18 @@ def prepare_clientdataset(config: DictConfig,
         tr = Compose([ToTensor(), Normalize((0.1307,),(0.3081,))])
     elif dataset == 'cifar10':
         tr = Compose([ToTensor(), Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+
+    trainset, testset = get_cifar(data_path = './data')
         
-    mixedtrain = build_poisoned_training_set(tr, data_path = './data', benign_ratio=config.ratio_benign_client, dataset=dataset, poisoning_rate=config.poisoning_rate)
+    # trainset = build_poisoned_training_set(tr, data_path = './data', benign_ratio=config.ratio_benign_client, dataset=dataset, poisoning_rate=config.poisoning_rate)
 
-    testset = build_testset(tr, data_path = './data', benign_ratio=config.ratio_benign_client, dataset=dataset, poisoning_rate=config.poisoning_rate)
+    # testset = build_testset(tr, data_path = './data', benign_ratio=config.ratio_benign_client, dataset=dataset, poisoning_rate=config.poisoning_rate)
 
-    attacker_testset = build_testset(tr, data_path = './data', benign_ratio=config.ratio_benign_client, dataset=dataset, poisoning_rate=1.0)
+    # attacker_testset = build_testset(tr, data_path = './data', benign_ratio=config.ratio_benign_client, dataset=dataset, poisoning_rate=1.0)
 
     """Partition the data"""
     goodtrainsets, badtrainsets = _partition_data(
-        mixedtrain,
+        trainset,
         num_partitions,
         benign_ratio=config.ratio_benign_client,
         iid=config.iid,
@@ -65,8 +66,8 @@ def prepare_clientdataset(config: DictConfig,
     cleantrainloaders = []
     cleanvalloaders = []
 
-    for bdtrainset_ in badtrainsets:
-        num_total = len(bdtrainset_)
+    for bdtrainset_ in badtrainsets:  # per client
+        num_total = len(bdtrainset_)  # total number of samples per client
         num_val = int(val_ratio * num_total)
         num_train = num_total - num_val
 
@@ -74,6 +75,8 @@ def prepare_clientdataset(config: DictConfig,
 
         bdtrainloaders.append(DataLoader(for_train, batch_size=batch_size, shuffle=True, num_workers=2, drop_last=True))
         bdvalloaders.append(DataLoader(for_val, batch_size=batch_size, shuffle=False, num_workers=2, drop_last=True))
+        # bdtrainloaders.append(DataLoader(for_train, batch_size=batch_size, shuffle=True, num_workers=2))
+        # bdvalloaders.append(DataLoader(for_val, batch_size=batch_size, shuffle=False, num_workers=2))
 
     for ctrainset_ in goodtrainsets:
         num_total = len(ctrainset_)
@@ -84,12 +87,15 @@ def prepare_clientdataset(config: DictConfig,
 
         cleantrainloaders.append(DataLoader(for_train, batch_size=batch_size, shuffle=True, num_workers=2, drop_last=True))
         cleanvalloaders.append(DataLoader(for_val, batch_size=batch_size, shuffle=False, num_workers=2, drop_last=True))
+        # cleantrainloaders.append(DataLoader(for_train, batch_size=batch_size, shuffle=True, num_workers=2))
+        # cleanvalloaders.append(DataLoader(for_val, batch_size=batch_size, shuffle=False, num_workers=2))
 
     testloader = DataLoader(testset, batch_size=128)
 
-    attack_testloader = DataLoader(attacker_testset, batch_size=128)
+    # attack_testloader = DataLoader(attacker_testset, batch_size=128)
 
-    return bdtrainloaders, bdvalloaders, cleantrainloaders, cleanvalloaders, testloader, attack_testloader
+    # return bdtrainloaders, bdvalloaders, cleantrainloaders, cleanvalloaders, testloader, attack_testloader
+    return bdtrainloaders, bdvalloaders, cleantrainloaders, cleanvalloaders, testloader
 
 
 def show_images_labels(images, labels, num_samples=10):

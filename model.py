@@ -1,9 +1,12 @@
 import torch 
 import torch.nn as nn
 import torch.nn.functional as F
+from torchvision import transforms
+import random
 import numpy as np
 from typing import List
 from collections import OrderedDict
+from PIL import Image
 
 class Net(nn.Module):
     def __init__(self, num_classes: int, num_channels: int) -> None:
@@ -50,19 +53,38 @@ class LeNet(nn.Module):
 def get_parameters(net) -> List[np.ndarray]:
     return [val.cpu().numpy() for _, val in net.state_dict().items()]
 
-def train(net, trainloader, device, epochs, learning_rate, proximal_mu) -> None:
-    # Train the network on the training set.
+def train(net, trainloader, device, epochs, learning_rate, proximal_mu, malicious, p_rate) -> None:
+    # Train the network on the training set. 
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(net.parameters(), lr=learning_rate, weight_decay=0.001)
     global_params = [val.detach().clone() for val in net.parameters()]
     net.train()
     for _ in range(epochs):
-        net = _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer, proximal_mu)
+        net = _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer, proximal_mu, malicious, p_rate)
 
 
-def _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer: torch.optim.Adam, proximal_mu: float) -> nn.Module:
+def _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer: torch.optim.Adam, proximal_mu: float, malicious, p_rate) -> nn.Module:
+    if malicious == 2:
+        target_label = 9
+        t_img = Image.open("./triggers/trigger_white.png").convert('RGB')
+        t_img = t_img.resize((5, 5))
+        transform = transforms.ToTensor()
+        trigger_img = transform(t_img)
+        
     for images, labels in trainloader: 
         images, labels = images.to(device), labels.to(device)
+        """Poison part of the data before training"""
+        if malicious == 2:  
+            pimages = images.clone()
+            plabels = labels.clone()
+            poison_idx = random.sample(list(range(len(plabels))), int(len(plabels) * p_rate))
+            pimages = pimages[poison_idx]
+            plabels = plabels[poison_idx]
+            pimages[:,:, -5:, -5:] = trigger_img
+            plabels[:] = target_label #target label is 9
+            images = torch.cat([images, pimages], dim=0)
+            labels = torch.cat([labels, plabels], dim=0)
+
         optimizer.zero_grad()
         proximal_term = 0.0
         for local_weights, global_weights in zip(net.parameters(), global_params):
@@ -73,20 +95,40 @@ def _train_one_epoch(net, global_params, trainloader, device, criterion, optimiz
     return net
 
 
-def test(net, testloader, device: str):
+def test(net, testloader, device: str, malicious, p_rate):
     # Validate the network on the entire test set, and report loss and accuracy.
+    if malicious == 2:
+        t_img = Image.open("./triggers/trigger_white.png").convert('RGB')
+        t_img = t_img.resize((5, 5))
+        transform = transforms.ToTensor()
+        trigger_img = transform(t_img)
 
     criterion = torch.nn.CrossEntropyLoss()
     correct, loss = 0, 0.0
     net.eval()
     net.to(device)
+    if malicious == 0:
+        length = len(testloader.dataset)
+    else:
+        length = 0
     with torch.no_grad():
         for data in testloader:
             images, labels = data[0].to(device), data[1].to(device)
+            """Poison part of the data before testing"""
+            if malicious == 2:  
+                pimages = images.clone()
+                plabels = labels.clone()
+                poison_idx = random.sample(list(range(len(plabels))), int(len(plabels) * p_rate))
+                pimages = pimages[poison_idx]
+                plabels = plabels[poison_idx]
+                pimages[:,:, -5:, -5:] = trigger_img
+                images = torch.cat([images, pimages], dim=0)
+                labels = torch.cat([labels, plabels], dim=0)
+                length += len(labels)
             outputs = net(images)
             loss += criterion(outputs, labels).item()
             _, predicted = torch.max(outputs.data, 1)
             correct += (predicted == labels).sum().item()
-    accuracy = correct / len(testloader.dataset)
+    accuracy = np.round((correct / length), 4)
 
     return loss, accuracy

@@ -26,13 +26,10 @@ def main(cfg: DictConfig):
         # change numbers by e.g. "python main.py num_clients=500"
 
     """ 2. Prepare dirty and clean dataset """
-    # bdtrainloaders, bdvalloaders, cleantrainloaders, cleanvalloaders = prepare_nndataset(cfg.dataset_config, cfg.num_clients, cfg.batch_size)
-    bdtrainloaders, bdvalloaders, cleantrainloaders, cleanvalloaders, testloaders, attackertestloaders = prepare_clientdataset(cfg.dataset_config, cfg.num_clients, cfg.batch_size, cfg.dataset)
-    # testloaders = prepare_testset(cfg.num_clients, cfg.batch_size, cfg.dataset)
+    bdtrainloaders, bdvalloaders, cleantrainloaders, cleanvalloaders, testloaders = prepare_clientdataset(cfg.dataset_config, cfg.num_clients, cfg.batch_size, cfg.dataset)
 
     """ 3. Define your clients """
     nn_client_fn = generate_nnclient_fn(cfg, cleantrainloaders, cleanvalloaders, bdtrainloaders, bdvalloaders, cfg.num_classes, cfg.num_clients, cfg.num_channels)
-    # actual_client_fn = generate_client_fn(trainloaders, validationloaders, cfg.num_classes)
 
     model = models.resnet18()
     n_features = model.fc.in_features
@@ -60,7 +57,7 @@ def main(cfg: DictConfig):
             on_fit_config_fn=get_on_fit_config(cfg.config_fit),  
             # on_evaluate_config_fn=evaluate_config,
             evaluate_fn=get_evaluate_fn(cfg.num_classes, cfg.num_channels, testloaders), 
-            attack_evaluate_fn=get_attacker_evaluate_fn(cfg.num_classes, cfg.num_channels, attackertestloaders),
+            attack_evaluate_fn=get_attacker_evaluate_fn(cfg.num_classes, cfg.num_channels, testloaders),
             evaluate_metrics_aggregation_fn=weighted_average,  # <-- pass the metric aggregation function
         ),
         client_resources={

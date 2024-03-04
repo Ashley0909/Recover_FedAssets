@@ -11,7 +11,7 @@ from model import Net, train, test, LeNet
 import torch.nn as nn
 import torchvision.models as models
 
-from model import get_parameters
+import constant
 
 
 class PresetClient(fl.client.NumPyClient):
@@ -26,8 +26,6 @@ class PresetClient(fl.client.NumPyClient):
 
         self.trainloader = trainloader
         self.valloader = valloader
-
-        # self.model = Net(num_classes, num_channels)
 
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -57,11 +55,12 @@ class PresetClient(fl.client.NumPyClient):
         momentum = config['momentum']
         epochs = config['local_epochs']
         proximal_mu = config['proximal_mu']
+        poisoning_rate = config['poisoning_rate']
 
         # optim = torch.optim.SGD(self.model.parameters(), lr=lr, momentum=momentum)
 
         # do local training
-        train(self.model, self.trainloader, self.device, epochs, lr, proximal_mu)
+        train(self.model, self.trainloader, self.device, epochs, lr, proximal_mu, self.malicious, poisoning_rate)
 
         # return the updated model, the number of examples in the client, and a dictionary of metrics
         return self.get_parameters({}), len(self.trainloader), {"malicious": self.malicious}
@@ -71,7 +70,7 @@ class PresetClient(fl.client.NumPyClient):
     def evaluate(self, parameters: NDArrays, config: Dict[str, Scalar]):
         self.set_parameters(parameters)
 
-        loss, accuracy = test(self.model, self.valloader, self.device)
+        loss, accuracy = test(self.model, self.valloader, self.device, self.malicious, constant.P_RATE)
 
         return float(loss), len(self.valloader), {"accuracy": accuracy, "malicious": self.malicious}
     

@@ -1,10 +1,13 @@
 from collections import OrderedDict
 from omegaconf import DictConfig
 import torch
+from PIL import Image
 
 from model import Net, test, LeNet
 import torchvision.models as models
+from torchvision import transforms
 import torch.nn as nn
+import constant
 
 def get_on_fit_config(config: DictConfig):
     """Return function that prepares config to send to clients."""
@@ -24,6 +27,7 @@ def get_on_fit_config(config: DictConfig):
             "momentum": config.momentum,
             "local_epochs": config.local_epochs,
             "proximal_mu": config.proximal_mu,
+            "poisoning_rate": config.poisoning_rate,
         }
  
     return fit_config_fn
@@ -43,8 +47,6 @@ def get_evaluate_fn(num_classes: int, num_channels: int, testloader):
         n_features = model.fc.in_features
         model.fc = nn.Linear(n_features, num_classes)
 
-        # model = Net(num_classes, num_channels)
-
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
         params_dict = zip(model.state_dict().keys(), parameters)
@@ -52,13 +54,11 @@ def get_evaluate_fn(num_classes: int, num_channels: int, testloader):
         state_dict = OrderedDict({ k: torch.Tensor(v) if v.shape != torch.Size([]) else torch.Tensor([0]) for k, v in params_dict})
         model.load_state_dict(state_dict, strict=True)
 
-        # set_parameters(model, parameters)        
-
         # Here we evaluate the global model on the test set. Recall that in more
         # realistic settings you'd only do this at the end of your FL experiment
         # you can use the `server_round` input argument to determine if this is the
         # last round. If it's not, then preferably use a global validation set.
-        loss, accuracy = test(model, testloader, device)
+        loss, accuracy = test(model, testloader, device, malicious=2, p_rate=constant.P_RATE)
 
         # Report the loss and any other metric (inside a dictionary). In this case
         # we report the global test accuracy.
@@ -70,17 +70,9 @@ def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader):
     """Define function for global evaluation on the server."""
 
     def attacker_evaluate_fn(server_round: int, parameters, config):
-        # This function is called by the strategy's `evaluate()` method
-        # and receives as input arguments the current round number and the
-        # parameters of the global model.
-        # this function takes these parameters and evaluates the global model
-        # on a evaluation / test dataset.
-
         model = models.resnet18()
         n_features = model.fc.in_features
         model.fc = nn.Linear(n_features, num_classes)
-
-        # model = Net(num_classes, num_channels)
 
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -89,14 +81,10 @@ def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader):
         state_dict = OrderedDict({ k: torch.Tensor(v) if v.shape != torch.Size([]) else torch.Tensor([0]) for k, v in params_dict})
         model.load_state_dict(state_dict, strict=True)
 
-        # set_parameters(model, parameters)
-
-        # Here we evaluate the global model on the test set. Recall that in more
-        # realistic settings you'd only do this at the end of your FL experiment
-        # you can use the `server_round` input argument to determine if this is the
-        # last round. If it's not, then preferably use a global validation set.
-        
-        # loss, accuracy = test(model, testloader, device)
+        t_img = Image.open("./triggers/trigger_white.png").convert('RGB')
+        t_img = t_img.resize((5, 5))
+        transform = transforms.ToTensor()
+        trigger_img = transform(t_img)
 
         criterion = torch.nn.CrossEntropyLoss()
         poisoned, loss = 0, 0.0
@@ -105,6 +93,7 @@ def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader):
         with torch.no_grad():
             for data in testloader:
                 images, labels = data[0].to(device), data[1].to(device)
+                images[:,:, -5:, -5:] = trigger_img
                 tensor_9 = torch.full((len(labels),), 9, dtype=torch.int32).to(device)
                 outputs = model(images)
                 loss += criterion(outputs, labels).item()
