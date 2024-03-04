@@ -77,9 +77,8 @@ print('Using MPS:', USE_MPS)
 malicious_record = []
 final_model = []
 final_metric = []
-# e_olb, e_c1w, e_c2w, e_fhw, e_shw = 0, 0, 0, 0, 0
-# highest_accuracy_c1w, highest_accuracy_c2w, highest_accuracy_fhw, highest_accuracy_shw, highest_accuracy_olb = 1/10, 1/10, 1/10, 1/10, 1/10
-# lowest_accuracy_c1w, lowest_accuracy_c2w, lowest_accuracy_fhw, lowest_accuracy_shw, lowest_accuracy_olb = 0, 0, 0, 0, 0
+e1, lowest_accuracy1 = 0, 0
+highest_accuracy1 = 1/10
 e, lowest_accuracy = 0, 0
 highest_accuracy = 1/10
 global_targetlabel = None
@@ -397,8 +396,9 @@ class NNtrain(Strategy):
             print("Average poisoning accuracy: N/A")
 
         """Get FC Weight for clustering"""
-        fcb = [sublist[-1] for sublist in parameter]
+        # fcb = [sublist[-1] for sublist in parameter]
         fcw = []
+        c1w = []
         for i in range(len(parameter)): 
             w = 0
             vector = []  #set up a vector for each client
@@ -406,6 +406,13 @@ class NNtrain(Strategy):
                 w = np.sum(parameter[i][-2][j]) #84
                 vector.append(w)
             fcw.append(np.array(vector))
+
+            cw = 0
+            c1vector = []
+            for k in range(len(parameter[i][0])):
+                cw = np.sun(parameter[i][0][k])
+                c1vector.append(cw)
+            c1w.append(np.array(c1vector))
 
         if len(evil_results) > 0:
             # evil_fcb = [sublist[-1] for sublist in evil_parameter]
@@ -418,9 +425,10 @@ class NNtrain(Strategy):
                     vector.append(w)
                 evil_fcw.append(np.array(vector))
 
-        # heatmaps(local_cid, malicious, np.array(fcw), 'FCW', server_round)
+        heatmaps(local_cid, malicious, np.array(c1w), 'C1W', server_round)
 
         comb_C, record, acc_diff, highest_accuracy, lowest_accuracy, e = full_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, individual_acc, e, highest_accuracy, lowest_accuracy)
+        comb_C1, record1, acc_diff1, highest_accuracy1, lowest_accuracy1, e1 = full_clustering(parameter, client_id, malicious, c1w, "c1w", server_round, individual_acc, e1, highest_accuracy1, lowest_accuracy1)
 
         """CIFAR-10"""
         # if server_round <= 10:
