@@ -454,16 +454,16 @@ class NNtrain(Strategy):
         clustering_acc = correct / len(malicious)
 
         """Assume Clustering 100%"""
-        # bad_index = [index for index,value in enumerate(malicious) if value == "2"]
-        # good_index = [index for index,value in enumerate(malicious) if value == "0"]
-        # bad_clients = local_cid[bad_index]
-        # good_clients = local_cid[good_index]
+        bad_index = [index for index,value in enumerate(malicious) if value == "2"]
+        good_index = [index for index,value in enumerate(malicious) if value == "0"]
+        bad_clients = local_cid[bad_index]
+        good_clients = local_cid[good_index]
 
         print("Final Clustering acc is", clustering_acc)
 
         if record == 1:
-            global_bad = client_id[comb_C == 2]
-            # global_bad = client_id[bad_index]
+            # global_bad = client_id[comb_C == 2]
+            global_bad = client_id[bad_index]
             print(len(global_bad), "added to evil list")
             malicious_record.extend(global_bad)
             malicious_record = list(set(malicious_record)) #avoid duplicates
@@ -483,11 +483,11 @@ class NNtrain(Strategy):
         bad_fcw = np.array(fcw)[comb_C == 2]
 
         """Assume Clustering 100%"""
-        # good_fcw = np.array(fcw)[good_index]
-        # bad_fcw = np.array(fcw)[bad_index]
+        good_fcw = np.array(fcw)[good_index]
+        bad_fcw = np.array(fcw)[bad_index]
 
         """Identifying the Key Neurons per clients (Random Allocation)"""
-        key_neuron = {i: [] for i in range(len(good_clients))}  #{client : neurons}
+        # key_neuron = {i: [] for i in range(len(good_clients))}  #{client : neurons}
         # for cid, client in enumerate(good_fcw):
         #     avg = np.average(np.array(client))
         #     std = np.std(np.array(client))
@@ -504,10 +504,12 @@ class NNtrain(Strategy):
         #         z_score = (p - mean) / std
         #         if abs(z_score) >= 1.5:
         #                 key_neuron[j].append(i)
+
+        key_neuron = {}
                     
         # print("key neurons are", key_neuron)
 
-        """Detecting Target Label (Maybe I can change it to find the max value of the row as well)"""
+        """Detecting Target Label"""
         if (len(good_clients) > 0) and (len(bad_clients) > 0 or len(evil_results) > 0):
             dist_list = []
             for i in range(len(good_fcw[0])):
@@ -538,8 +540,8 @@ class NNtrain(Strategy):
         bad_results = [weights_results[i] for i in range(len(weights_results)) if comb_C[i] == 2]
 
         """Assume Clustering 100%"""
-        # good_results = [weights_results[i] for i in range(len(weights_results)) if i in good_index]
-        # bad_results = [weights_results[i] for i in range(len(weights_results)) if i in bad_index]
+        good_results = [weights_results[i] for i in range(len(weights_results)) if i in good_index]
+        bad_results = [weights_results[i] for i in range(len(weights_results)) if i in bad_index]
 
         print("length of good results is", len(good_results), "and length of bad results is", len(bad_results))
 
@@ -610,10 +612,10 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
     reduced_data = pca.fit_transform(layer)
 
     """Non-IID"""
-    e = 1 # original 2
-    mp = 3 # original 4
+    e = 2 # original 2
+    mp = 4 # original 4
     e -= 0.0025*(server_round/5)
-    mp -= (server_round//10)  # original //20
+    mp -= (server_round//20)  # original //20
     db = DBSCAN(eps=max(e, 0.03), min_samples=max(2,mp)).fit(reduced_data)  #original (exp=1.1, min_samples=5)
     comb_C = db.labels_
     
@@ -711,7 +713,7 @@ def heatmaps(local_cid, malicious, layer, name, server_round):
     plt.xlabel(name)
     plt.ylabel("Clients")
     plt.title("Heatmap of all clients' {}".format(name))
-    # plt.savefig('heatmaps/{0} in Round {1}.png'.format(name, server_round))
+    plt.savefig('heatmaps/{0} in Round {1}.png'.format(name, server_round))
     """All Benign"""
     # plt.savefig('heatmaps/AllBenign/{0} in Round {1}.png'.format(name, server_round))
 
@@ -730,21 +732,39 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, key_neuron,
 
     # Create a list of weights, each multiplied by the related number of examples
     good_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in good_result]
-    total_ex_neuron = [0 for _ in range(constant.NUM_CLASS)]
 
-    for c, weights in enumerate(good_weighted_weights):
-        for idx, layer in enumerate(weights[-2:], start=0):
-            for n in range(len(layer)):
-                if n not in key_neuron[c]: 
-                    if isinstance(layer[n], np.float32):
-                        layer[n] = 0.0
+    if key_neuron != {}:
+        print("Random Allocate")
+        total_ex_neuron = [0 for _ in range(constant.NUM_CLASS)]
+
+        for c, weights in enumerate(good_weighted_weights):
+            for idx, layer in enumerate(weights[-2:], start=0):
+                for n in range(len(layer)):
+                    if n not in key_neuron[c]: 
+                        if isinstance(layer[n], np.float32):
+                            layer[n] = 0.0
+                        else:
+                            layer[n] = np.zeros(len(layer[n]))
                     else:
-                        layer[n] = np.zeros(len(layer[n]))
-                else:
-                    if idx == 0:
-                        total_ex_neuron[n] += good_result[c][1]
-    
-    mod_exp_neuron = [1 if element == 0 else element for element in total_ex_neuron]
+                        if idx == 0:
+                            total_ex_neuron[n] += good_result[c][1]
+        
+        mod_exp_neuron = [1 if element == 0 else element for element in total_ex_neuron]        
+
+        # Compute average weights of each layer
+        good_prime: NDArrays = [
+            reduce(np.add, layer_updates) / good_numex_total if (i < len(good_result[0][0])-2) else reduce(np.add, layer_updates) / mod_exp_neuron if (i == len(good_result[0][0])-1) else reduce(np.add, layer_updates) / np.array(mod_exp_neuron)[:, np.newaxis]
+            for i, layer_updates in enumerate(zip(*good_weighted_weights))  #list of tuples (client)
+        ]
+    else:
+        print("Other cases")
+        good_prime: NDArrays = [
+            reduce(np.add, layer_updates) / good_numex_total
+            for layer_updates in zip(*good_weighted_weights)
+        ]
+
+    """All Benign"""
+    # return good_prime
 
     bad_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in bad_result]
     evil_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in evil_result]
@@ -768,23 +788,6 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, key_neuron,
                         layer[n] = 0.0
                     else:
                         layer[n] = np.zeros(len(layer[n]))
-
-    # Compute average weights of each layer
-    if mod_exp_neuron != all(elem == 1 for elem in mod_exp_neuron):
-        print("Random Allocate")
-        good_prime: NDArrays = [
-            reduce(np.add, layer_updates) / good_numex_total if (i < len(good_result[0][0])-2) else reduce(np.add, layer_updates) / mod_exp_neuron if (i == len(good_result[0][0])-1) else reduce(np.add, layer_updates) / np.array(mod_exp_neuron)[:, np.newaxis]
-            for i, layer_updates in enumerate(zip(*good_weighted_weights))  #list of tuples (client)
-        ]
-    else:
-        print("Other cases")
-        good_prime: NDArrays = [
-            reduce(np.add, layer_updates) / good_numex_total
-            for layer_updates in zip(*good_weighted_weights)
-        ]
-
-    """All Benign"""
-    # return good_prime
 
     bad_prime: NDArrays = [
         reduce(np.add, layer_updates) / bad_numex_total
