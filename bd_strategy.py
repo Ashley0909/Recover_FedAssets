@@ -17,7 +17,6 @@ from sklearn.metrics.pairwise import euclidean_distances
 
 from openpyxl import load_workbook
 wb = load_workbook( "CIFAR_Global.xlsx" )
-# wb = load_workbook( "Clustering_per_layer.xlsx" )
 ws = wb.active
 
 import smtplib
@@ -190,11 +189,10 @@ class NNtrain(Strategy):
 
         if server_round > 0:
             print("Global Poisoning Accuracy:", attack_metrics["accuracy"])
-            ws[constant.EXCEL_CELL+str(server_round+4)] = metrics["accuracy"]
-            ws[constant.EXCEL_CELL+str(server_round+315)] = attack_metrics["accuracy"]
+            # ws[constant.EXCEL_CELL+str(server_round+4)] = metrics["accuracy"]
+            # ws[constant.EXCEL_CELL+str(server_round+315)] = attack_metrics["accuracy"]
         
-        # wb.save( "MNIST_Global.xlsx" )
-        wb.save( "CIFAR_Global.xlsx" )
+        # wb.save( "CIFAR_Global.xlsx" )
             
         if server_round == 100:
             email_sender = '09auhoiting@gmail.com'
@@ -475,8 +473,8 @@ class NNtrain(Strategy):
             malicious_record.extend(global_bad)
             malicious_record = list(set(malicious_record)) #avoid duplicates
 
-        ws[constant.EXCEL_CELL+str(server_round+107)] = clustering_acc
-        ws[constant.EXCEL_CELL+str(server_round+211)] = poisoning_acc
+        # ws[constant.EXCEL_CELL+str(server_round+107)] = clustering_acc
+        # ws[constant.EXCEL_CELL+str(server_round+211)] = poisoning_acc
 
         """Split the parameters into good and malicious"""
         good_fcw = np.array(fcw)[comb_C == 0]
