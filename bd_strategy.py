@@ -418,8 +418,7 @@ class NNtrain(Strategy):
                     vector.append(w)
                 evil_fcw.append(np.array(vector))
 
-        # heatmaps(local_cid, malicious, np.array(fcb), 'FCB', server_round)
-        heatmaps(local_cid, malicious, np.array(fcw), 'FCW', server_round)
+        # heatmaps(local_cid, malicious, np.array(fcw), 'FCW', server_round)
 
         comb_C, record, acc_diff, highest_accuracy, lowest_accuracy, e = full_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, individual_acc, e, highest_accuracy, lowest_accuracy)
 
@@ -454,26 +453,19 @@ class NNtrain(Strategy):
         clustering_acc = correct / len(malicious)
 
         """Assume Clustering 100%"""
-        bad_index = [index for index,value in enumerate(malicious) if value == "2"]
-        good_index = [index for index,value in enumerate(malicious) if value == "0"]
-        bad_clients = local_cid[bad_index]
-        good_clients = local_cid[good_index]
+        # bad_index = [index for index,value in enumerate(malicious) if value == "2"]
+        # good_index = [index for index,value in enumerate(malicious) if value == "0"]
+        # bad_clients = local_cid[bad_index]
+        # good_clients = local_cid[good_index]
 
         print("Final Clustering acc is", clustering_acc)
 
         if record == 1:
-            # global_bad = client_id[comb_C == 2]
-            global_bad = client_id[bad_index]
+            global_bad = client_id[comb_C == 2]
+            # global_bad = client_id[bad_index]
             print(len(global_bad), "added to evil list")
             malicious_record.extend(global_bad)
             malicious_record = list(set(malicious_record)) #avoid duplicates
-
-        determined_status = {}
-        for i in range(len(weights_results)):
-            if local_cid[i] in good_clients:
-                determined_status[client_id[i]] = 0
-            elif local_cid[i] in bad_clients:
-                determined_status[client_id[i]] = 2
 
         ws[constant.EXCEL_CELL+str(server_round+107)] = clustering_acc
         ws[constant.EXCEL_CELL+str(server_round+211)] = poisoning_acc
@@ -482,12 +474,14 @@ class NNtrain(Strategy):
         good_fcw = np.array(fcw)[comb_C == 0]
         bad_fcw = np.array(fcw)[comb_C == 2]
 
+        heatmaps(np.concatenate(good_clients, bad_clients), malicious, np.concatenate(np.array(good_fcw), np.array(bad_fcw)), 'FCW', server_round)
+
         """Assume Clustering 100%"""
-        good_fcw = np.array(fcw)[good_index]
-        bad_fcw = np.array(fcw)[bad_index]
+        # good_fcw = np.array(fcw)[good_index]
+        # bad_fcw = np.array(fcw)[bad_index]
 
         """Identifying the Key Neurons per clients (Random Allocation)"""
-        # key_neuron = {i: [] for i in range(len(good_clients))}  #{client : neurons}
+        key_neuron = {i: [] for i in range(len(good_clients))}  #{client : neurons}
         # for cid, client in enumerate(good_fcw):
         #     avg = np.average(np.array(client))
         #     std = np.std(np.array(client))
@@ -496,18 +490,19 @@ class NNtrain(Strategy):
         #         if abs(z_score) >= 1.5:
         #             key_neuron[cid].append(i)
 
-        # for i in range(len(good_fcw[0])):  # number of neurons
-        #     mean = np.mean(np.array(good_fcw[:,i]))
-        #     std = np.std(np.array(good_fcw[:,i]))
-        #     for j in range(len(good_fcw)):  # number of clients
-        #         p = good_fcw[:,i][j]
-        #         z_score = (p - mean) / std
-        #         if abs(z_score) >= 1.5:
-        #                 key_neuron[j].append(i)
+        for i in range(len(good_fcw[0])):  # number of neurons
+            mean = np.mean(np.array(good_fcw[:,i]))
+            std = np.std(np.array(good_fcw[:,i]))
+            for j in range(len(good_fcw)):  # number of clients
+                p = good_fcw[:,i][j]
+                z_score = (p - mean) / std
+                if abs(z_score) >= 1.5:
+                        key_neuron[j].append(i)
 
-        key_neuron = {}
+        """Other Cases"""
+        # key_neuron = {}
                     
-        # print("key neurons are", key_neuron)
+        print("key neurons are", key_neuron)
 
         """Detecting Target Label"""
         if (len(good_clients) > 0) and (len(bad_clients) > 0 or len(evil_results) > 0):
@@ -540,8 +535,8 @@ class NNtrain(Strategy):
         bad_results = [weights_results[i] for i in range(len(weights_results)) if comb_C[i] == 2]
 
         """Assume Clustering 100%"""
-        good_results = [weights_results[i] for i in range(len(weights_results)) if i in good_index]
-        bad_results = [weights_results[i] for i in range(len(weights_results)) if i in bad_index]
+        # good_results = [weights_results[i] for i in range(len(weights_results)) if i in good_index]
+        # bad_results = [weights_results[i] for i in range(len(weights_results)) if i in bad_index]
 
         print("length of good results is", len(good_results), "and length of bad results is", len(bad_results))
 
@@ -606,9 +601,9 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         
     """Run PCA on the n dimensional data"""
     """2D"""
-    pca = PCA(n_components=2)
+    # pca = PCA(n_components=2)
     """3D"""
-    # pca = PCA(n_components=3)
+    pca = PCA(n_components=3)
     reduced_data = pca.fit_transform(layer)
 
     """Non-IID"""
@@ -641,10 +636,10 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
 
     """Plotting the clusters"""
     """3D"""
-    # fig = plt.figure(figsize=(8, 6))
-    # ax = fig.add_subplot(111, projection='3d')
+    fig = plt.figure(figsize=(8, 6))
+    ax = fig.add_subplot(111, projection='3d')
     """2D"""
-    plt.figure(figsize=(8, 6))
+    # plt.figure(figsize=(8, 6))
 
     # Assigning colors to clusters
     unique_labels = np.unique(comb_C)
@@ -659,8 +654,8 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         cluster_points = reduced_data[comb_C == l]
         centroid = np.mean(cluster_points, axis=0)
         centroids.append(centroid)
-        plt.scatter(xy[:, 0], xy[:, 1], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  # 2D
-        # ax.scatter(xy[:, 0], xy[:, 1], xy[:,2], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  #3D
+        # plt.scatter(xy[:, 0], xy[:, 1], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  # 2D
+        ax.scatter(xy[:, 0], xy[:, 1], xy[:,2], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  #3D
 
     if server_round < 6:
         plt.title("Kmeans Clustering {0} of {1} clients".format(name, len(parameter)))
@@ -676,12 +671,12 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
     texts = []
     num = 1
     for i, txt in enumerate(clabel0):
-        # texts.append(ax.text(comb0[i][0], comb0[i][1], comb0[i][2], txt))  #3D
-        texts.append(plt.text(comb0[i][0], comb0[i][1], txt))  #2D
+        texts.append(ax.text(comb0[i][0], comb0[i][1], comb0[i][2], txt))  #3D
+        # texts.append(plt.text(comb0[i][0], comb0[i][1], txt))  #2D
         num *= -1
     for i, txt in enumerate(clabel1):
-        # texts.append(ax.text(comb1[i][0], comb1[i][1], comb1[i][2], txt))   #3D
-        texts.append(plt.text(comb1[i][0], comb1[i][1], txt))   #2D
+        texts.append(ax.text(comb1[i][0], comb1[i][1], comb1[i][2], txt))   #3D
+        # texts.append(plt.text(comb1[i][0], comb1[i][1], txt))   #2D
         num *= -1
 
     plt.savefig('clusters/{0}, Round {1}.png'.format(name, server_round))
@@ -709,7 +704,8 @@ def heatmaps(local_cid, malicious, layer, name, server_round):
 
     plt.imshow(layer, cmap='viridis', interpolation='nearest')
     plt.colorbar()
-    plt.text(-5, 15, textstr, fontsize=8, verticalalignment='center', horizontalalignment='left')
+    # plt.text(-5, 15, textstr, fontsize=8, verticalalignment='center', horizontalalignment='left')
+    plt.text(1.05, 0.5, textstr, fontsize=8, verticalalignment='center', transform=plt.gca().transAxes)
     plt.xlabel(name)
     plt.ylabel("Clients")
     plt.title("Heatmap of all clients' {}".format(name))
