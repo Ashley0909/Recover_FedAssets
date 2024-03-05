@@ -189,10 +189,10 @@ class NNtrain(Strategy):
 
         if server_round > 0:
             print("Global Poisoning Accuracy:", attack_metrics["accuracy"])
-            # ws[constant.EXCEL_CELL+str(server_round+4)] = metrics["accuracy"]
-            # ws[constant.EXCEL_CELL+str(server_round+315)] = attack_metrics["accuracy"]
+            ws[constant.EXCEL_CELL+str(server_round+4)] = metrics["accuracy"]
+            ws[constant.EXCEL_CELL+str(server_round+315)] = attack_metrics["accuracy"]
         
-        # wb.save( "CIFAR_Global.xlsx" )
+        wb.save( "CIFAR_Global.xlsx" )
             
         if server_round == 100:
             email_sender = '09auhoiting@gmail.com'
@@ -405,12 +405,12 @@ class NNtrain(Strategy):
                 vector.append(w)
             fcw.append(np.array(vector))
 
-            cw = 0
-            c1vector = []
-            for k in range(len(parameter[i][0])):
-                cw = np.sun(parameter[i][0][k])
-                c1vector.append(cw)
-            c1w.append(np.array(c1vector))
+            # cw = 0
+            # c1vector = []
+            # for k in range(len(parameter[i][0])):
+            #     cw = np.sum(parameter[i][0][k])
+            #     c1vector.append(cw)
+            # c1w.append(np.array(c1vector))
 
         if len(evil_results) > 0:
             # evil_fcb = [sublist[-1] for sublist in evil_parameter]
@@ -423,10 +423,10 @@ class NNtrain(Strategy):
                     vector.append(w)
                 evil_fcw.append(np.array(vector))
 
-        heatmaps(local_cid, malicious, np.array(c1w), 'C1W', server_round)
+        # heatmaps(local_cid, malicious, np.array(fcw), 'FCW', server_round)
 
         comb_C, record, acc_diff, highest_accuracy, lowest_accuracy, e = full_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, individual_acc, e, highest_accuracy, lowest_accuracy)
-        comb_C1, record1, acc_diff1, highest_accuracy1, lowest_accuracy1, e1 = full_clustering(parameter, client_id, malicious, c1w, "c1w", server_round, individual_acc, e1, highest_accuracy1, lowest_accuracy1)
+        # comb_C1, record1, acc_diff1, highest_accuracy1, lowest_accuracy1, e1 = full_clustering(parameter, client_id, malicious, c1w, "c1w", server_round, individual_acc, e1, highest_accuracy1, lowest_accuracy1)
 
         """CIFAR-10"""
         # if server_round <= 10:
@@ -473,14 +473,12 @@ class NNtrain(Strategy):
             malicious_record.extend(global_bad)
             malicious_record = list(set(malicious_record)) #avoid duplicates
 
-        # ws[constant.EXCEL_CELL+str(server_round+107)] = clustering_acc
-        # ws[constant.EXCEL_CELL+str(server_round+211)] = poisoning_acc
+        ws[constant.EXCEL_CELL+str(server_round+107)] = clustering_acc
+        ws[constant.EXCEL_CELL+str(server_round+211)] = poisoning_acc
 
         """Split the parameters into good and malicious"""
         good_fcw = np.array(fcw)[comb_C == 0]
         bad_fcw = np.array(fcw)[comb_C == 2]
-
-        heatmaps(np.concatenate(good_clients, bad_clients), malicious, np.concatenate(np.array(good_fcw), np.array(bad_fcw)), 'FCW', server_round)
 
         """Assume Clustering 100%"""
         # good_fcw = np.array(fcw)[good_index]
@@ -488,6 +486,8 @@ class NNtrain(Strategy):
 
         """Identifying the Key Neurons per clients (Random Allocation)"""
         key_neuron = {i: [] for i in range(len(good_clients))}  #{client : neurons}
+        heatmaps(good_clients, malicious, good_fcw, 'FCW', server_round)
+
         # for cid, client in enumerate(good_fcw):
         #     avg = np.average(np.array(client))
         #     std = np.std(np.array(client))
@@ -495,15 +495,15 @@ class NNtrain(Strategy):
         #         z_score = (neuron - avg) / std
         #         if abs(z_score) >= 1.5:
         #             key_neuron[cid].append(i)
-
+        
         for i in range(len(good_fcw[0])):  # number of neurons
             mean = np.mean(np.array(good_fcw[:,i]))
             std = np.std(np.array(good_fcw[:,i]))
             for j in range(len(good_fcw)):  # number of clients
-                p = good_fcw[:,i][j]
+                p = good_fcw[j][i]
                 z_score = (p - mean) / std
-                if abs(z_score) >= 1.5:
-                        key_neuron[j].append(i)
+                if (abs(z_score) >= 0.8) and std > 1.0:
+                    key_neuron[j].append(i)
 
         """Other Cases"""
         # key_neuron = {}
@@ -607,9 +607,9 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         
     """Run PCA on the n dimensional data"""
     """2D"""
-    # pca = PCA(n_components=2)
+    pca = PCA(n_components=2)
     """3D"""
-    pca = PCA(n_components=3)
+    # pca = PCA(n_components=3)
     reduced_data = pca.fit_transform(layer)
 
     """Non-IID"""
@@ -642,10 +642,10 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
 
     """Plotting the clusters"""
     """3D"""
-    fig = plt.figure(figsize=(8, 6))
-    ax = fig.add_subplot(111, projection='3d')
+    # fig = plt.figure(figsize=(8, 6))
+    # ax = fig.add_subplot(111, projection='3d')
     """2D"""
-    # plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(8, 6))
 
     # Assigning colors to clusters
     unique_labels = np.unique(comb_C)
@@ -660,8 +660,8 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         cluster_points = reduced_data[comb_C == l]
         centroid = np.mean(cluster_points, axis=0)
         centroids.append(centroid)
-        # plt.scatter(xy[:, 0], xy[:, 1], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  # 2D
-        ax.scatter(xy[:, 0], xy[:, 1], xy[:,2], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  #3D
+        plt.scatter(xy[:, 0], xy[:, 1], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  # 2D
+        # ax.scatter(xy[:, 0], xy[:, 1], xy[:,2], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  #3D
 
     if server_round < 6:
         plt.title("Kmeans Clustering {0} of {1} clients".format(name, len(parameter)))
@@ -677,12 +677,12 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
     texts = []
     num = 1
     for i, txt in enumerate(clabel0):
-        texts.append(ax.text(comb0[i][0], comb0[i][1], comb0[i][2], txt))  #3D
-        # texts.append(plt.text(comb0[i][0], comb0[i][1], txt))  #2D
+        # texts.append(ax.text(comb0[i][0], comb0[i][1], comb0[i][2], txt))  #3D
+        texts.append(plt.text(comb0[i][0], comb0[i][1], txt))  #2D
         num *= -1
     for i, txt in enumerate(clabel1):
-        texts.append(ax.text(comb1[i][0], comb1[i][1], comb1[i][2], txt))   #3D
-        # texts.append(plt.text(comb1[i][0], comb1[i][1], txt))   #2D
+        # texts.append(ax.text(comb1[i][0], comb1[i][1], comb1[i][2], txt))   #3D
+        texts.append(plt.text(comb1[i][0], comb1[i][1], txt))   #2D
         num *= -1
 
     plt.savefig('clusters/{0}, Round {1}.png'.format(name, server_round))
@@ -706,7 +706,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
 def heatmaps(local_cid, malicious, layer, name, server_round):
     textstr = ''
     for l, g in enumerate(local_cid):
-        textstr += f'Client {g} => {int(malicious[l])} \n'
+        textstr += f'Client {g} => {int(malicious[g])} \n'
 
     plt.imshow(layer, cmap='viridis', interpolation='nearest')
     plt.colorbar()
@@ -771,25 +771,25 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, key_neuron,
     bad_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in bad_result]
     evil_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in evil_result]
 
-    #Set the parameter of the target label to be 0
-    for c, weights in enumerate(bad_weighted_weights):
-        for idx, layer in enumerate(weights[-2:], start=0):
-            for n in range(len(layer)):
-                if n == target_label: 
-                    if isinstance(layer[n], np.float32):
-                        layer[n] = 0.0
-                    else:
-                        layer[n] = np.zeros(len(layer[n]))
+    # #Set the parameter of the target label to be 0
+    # for c, weights in enumerate(bad_weighted_weights):
+    #     for idx, layer in enumerate(weights[-2:], start=0):
+    #         for n in range(len(layer)):
+    #             if n == target_label: 
+    #                 if isinstance(layer[n], np.float32):
+    #                     layer[n] = 0.0
+    #                 else:
+    #                     layer[n] = np.zeros(len(layer[n]))
 
-    #Set the parameter of the target label to be 0
-    for c, weights in enumerate(evil_weighted_weights):
-        for idx, layer in enumerate(weights[-2:], start=0):
-            for n in range(len(layer)):
-                if n == target_label: 
-                    if isinstance(layer[n], np.float32):
-                        layer[n] = 0.0
-                    else:
-                        layer[n] = np.zeros(len(layer[n]))
+    # #Set the parameter of the target label to be 0
+    # for c, weights in enumerate(evil_weighted_weights):
+    #     for idx, layer in enumerate(weights[-2:], start=0):
+    #         for n in range(len(layer)):
+    #             if n == target_label: 
+    #                 if isinstance(layer[n], np.float32):
+    #                     layer[n] = 0.0
+    #                 else:
+    #                     layer[n] = np.zeros(len(layer[n]))
 
     bad_prime: NDArrays = [
         reduce(np.add, layer_updates) / bad_numex_total
