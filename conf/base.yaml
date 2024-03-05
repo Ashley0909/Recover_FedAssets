@@ -21,4 +21,4 @@ dataset_config:
   balance: false
   power_law: false
   dirichlet: true
-  alpha: 0.5
+  alpha: 0.9

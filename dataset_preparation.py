@@ -36,7 +36,7 @@ def _partition_data(
     num_good_samples = int(len(trainset) * benign_ratio) # 36000
 
     benignset = Subset(trainset, list(range(0, num_good_samples)))  # 1 to 36000
-    maliciousset = Subset(trainset, list(range(num_good_samples, len(trainset))))  # 36001 to 60000 #the last 40% of data is poisoned
+    maliciousset = Subset(trainset, list(range(num_good_samples, len(trainset))))  # 36001 to 60000
 
     if iid:
         if len(benignset) == 0:

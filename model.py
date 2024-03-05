@@ -70,7 +70,7 @@ def _train_one_epoch(net, global_params, trainloader, device, criterion, optimiz
         t_img = t_img.resize((5, 5))
         transform = transforms.ToTensor()
         trigger_img = transform(t_img)
-        
+    
     for images, labels in trainloader: 
         images, labels = images.to(device), labels.to(device)
         """Poison part of the data before training"""
@@ -91,7 +91,7 @@ def _train_one_epoch(net, global_params, trainloader, device, criterion, optimiz
             proximal_term += torch.square((local_weights - global_weights).norm(2))
         loss = criterion(net(images), labels) + (proximal_mu / 2) * proximal_term
         loss.backward()
-        optimizer.step()
+        optimizer.step()    
     return net
 
 

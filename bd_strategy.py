@@ -486,27 +486,18 @@ class NNtrain(Strategy):
 
         """Identifying the Key Neurons per clients (Random Allocation)"""
         key_neuron = {i: [] for i in range(len(good_clients))}  #{client : neurons}
-        heatmaps(good_clients, malicious, good_fcw, 'FCW', server_round)
-
-        # for cid, client in enumerate(good_fcw):
-        #     avg = np.average(np.array(client))
-        #     std = np.std(np.array(client))
-        #     for i, neuron in enumerate(client):
-        #         z_score = (neuron - avg) / std
-        #         if abs(z_score) >= 1.5:
-        #             key_neuron[cid].append(i)
         
-        for i in range(len(good_fcw[0])):  # number of neurons
-            mean = np.mean(np.array(good_fcw[:,i]))
-            std = np.std(np.array(good_fcw[:,i]))
-            for j in range(len(good_fcw)):  # number of clients
-                p = good_fcw[j][i]
-                z_score = (p - mean) / std
-                if (abs(z_score) >= 0.8) and std > 1.0:
-                    key_neuron[j].append(i)
+        # for i in range(len(good_fcw[0])):  # number of neurons
+        #     mean = np.mean(np.array(good_fcw[:,i]))
+        #     std = np.std(np.array(good_fcw[:,i]))
+        #     for j in range(len(good_fcw)):  # number of clients
+        #         p = good_fcw[j][i]
+        #         z_score = (p - mean) / std
+        #         if (abs(z_score) >= 0.8) and std > 1.0:
+        #             key_neuron[j].append(i)
 
         """Other Cases"""
-        # key_neuron = {}
+        key_neuron = {}
                     
         print("key neurons are", key_neuron)
 
@@ -557,8 +548,8 @@ class NNtrain(Strategy):
             log(WARNING, "No fit_metrics_aggregation_fn provided")
 
         # Record the final model in case if the next round is a void round
-        # final_model = parameters_aggregated
-        # final_metric = metrics_aggregated
+        final_model = parameters_aggregated
+        final_metric = metrics_aggregated
 
         return parameters_aggregated, metrics_aggregated
 
@@ -612,33 +603,33 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
     # pca = PCA(n_components=3)
     reduced_data = pca.fit_transform(layer)
 
-    """Non-IID"""
-    e = 2 # original 2
-    mp = 4 # original 4
-    e -= 0.0025*(server_round/5)
-    mp -= (server_round//20)  # original //20
-    db = DBSCAN(eps=max(e, 0.03), min_samples=max(2,mp)).fit(reduced_data)  #original (exp=1.1, min_samples=5)
-    comb_C = db.labels_
+    """Extreme Non-IID"""
+    # e = 2 # original 2
+    # mp = 4 # original 4
+    # e -= 0.0025*(server_round/5)
+    # mp -= (server_round//20)  # original //20
+    # db = DBSCAN(eps=max(e, 0.03), min_samples=max(2,mp)).fit(reduced_data)  #original (exp=1.1, min_samples=5)
+    # comb_C = db.labels_
     
     """IID"""
-    # if server_round < 6:
-    #     kmeans = KMeans(init="k-means++", n_clusters=2, n_init=4).fit(reduced_data)
-    #     comb_C = kmeans.predict(reduced_data)
+    if server_round < 6:
+        kmeans = KMeans(init="k-means++", n_clusters=2, n_init=4).fit(reduced_data)
+        comb_C = kmeans.predict(reduced_data)
 
-    #     centroids = kmeans.cluster_centers_
-    #     centroids_assignment = kmeans.predict(centroids)
-    #     unique_labels = np.unique(comb_C)
-    #     max_dist = []
-    #     for l in unique_labels:
-    #         distances = euclidean_distances(reduced_data[comb_C == l], centroids[centroids_assignment == l])
-    #         max_dist.append(np.max(distances))
-    #     e = np.max(max_dist)
-    # else:
-    #     mp = 5
-    #     e -= 0.0025*(server_round/5)
-    #     mp -= (server_round//20) 
-    #     db = DBSCAN(eps=max(e, 0.03), min_samples=max(3,mp)).fit(reduced_data)
-    #     comb_C = db.labels_
+        centroids = kmeans.cluster_centers_
+        centroids_assignment = kmeans.predict(centroids)
+        unique_labels = np.unique(comb_C)
+        max_dist = []
+        for l in unique_labels:
+            distances = euclidean_distances(reduced_data[comb_C == l], centroids[centroids_assignment == l])
+            max_dist.append(np.max(distances))
+        e = np.max(max_dist)
+    else:
+        mp = 5
+        e -= 0.0025*(server_round/5)
+        mp -= (server_round//20) 
+        db = DBSCAN(eps=max(e, 0.03), min_samples=max(3,mp)).fit(reduced_data)
+        comb_C = db.labels_
 
     """Plotting the clusters"""
     """3D"""
@@ -685,7 +676,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         texts.append(plt.text(comb1[i][0], comb1[i][1], txt))   #2D
         num *= -1
 
-    plt.savefig('clusters/{0}, Round {1}.png'.format(name, server_round))
+    # plt.savefig('clusters/{0}, Round {1}.png'.format(name, server_round))
     """All Benign"""
     # plt.savefig('clusters/AllBenign/{0}, Round {1}.png'.format(name, server_round))
 
@@ -711,7 +702,7 @@ def heatmaps(local_cid, malicious, layer, name, server_round):
     plt.imshow(layer, cmap='viridis', interpolation='nearest')
     plt.colorbar()
     # plt.text(-5, 15, textstr, fontsize=8, verticalalignment='center', horizontalalignment='left')
-    plt.text(1.05, 0.5, textstr, fontsize=8, verticalalignment='center', transform=plt.gca().transAxes)
+    plt.text(-0.1, 0.5, textstr, fontsize=8, verticalalignment='center', transform=plt.gca().transAxes)
     plt.xlabel(name)
     plt.ylabel("Clients")
     plt.title("Heatmap of all clients' {}".format(name))
@@ -771,25 +762,25 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, key_neuron,
     bad_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in bad_result]
     evil_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in evil_result]
 
-    # #Set the parameter of the target label to be 0
-    # for c, weights in enumerate(bad_weighted_weights):
-    #     for idx, layer in enumerate(weights[-2:], start=0):
-    #         for n in range(len(layer)):
-    #             if n == target_label: 
-    #                 if isinstance(layer[n], np.float32):
-    #                     layer[n] = 0.0
-    #                 else:
-    #                     layer[n] = np.zeros(len(layer[n]))
+    #Set the parameter of the target label to be 0
+    for c, weights in enumerate(bad_weighted_weights):
+        for idx, layer in enumerate(weights[-2:], start=0):
+            for n in range(len(layer)):
+                if n == target_label: 
+                    if isinstance(layer[n], np.float32):
+                        layer[n] = 0.0
+                    else:
+                        layer[n] = np.zeros(len(layer[n]))
 
-    # #Set the parameter of the target label to be 0
-    # for c, weights in enumerate(evil_weighted_weights):
-    #     for idx, layer in enumerate(weights[-2:], start=0):
-    #         for n in range(len(layer)):
-    #             if n == target_label: 
-    #                 if isinstance(layer[n], np.float32):
-    #                     layer[n] = 0.0
-    #                 else:
-    #                     layer[n] = np.zeros(len(layer[n]))
+    #Set the parameter of the target label to be 0
+    for c, weights in enumerate(evil_weighted_weights):
+        for idx, layer in enumerate(weights[-2:], start=0):
+            for n in range(len(layer)):
+                if n == target_label: 
+                    if isinstance(layer[n], np.float32):
+                        layer[n] = 0.0
+                    else:
+                        layer[n] = np.zeros(len(layer[n]))
 
     bad_prime: NDArrays = [
         reduce(np.add, layer_updates) / bad_numex_total
@@ -920,12 +911,12 @@ def full_clustering(parameter, client_id, malicious, layer, name, server_round, 
     if len(accuracies) > 2:  # if there are more than two clusters, merge clusters so that there is only two clusters
         # Find the two distinct clusters by their accuracies
         """IID"""
-        # max_tuple = max(accuracies, key=lambda x:x[0])
-        # min_tuple = min(accuracies, key=lambda x:x[0])
+        max_tuple = max(accuracies, key=lambda x:x[0])
+        min_tuple = min(accuracies, key=lambda x:x[0])
 
-        """Non-IID"""
-        min_tuple = next(tup for tup in accuracies if tup[1] == -1)  # the noise tuple
-        max_tuple = next(tup for tup in accuracies if tup[1] == 0)   # the main tuple
+        """Extreme Non-IID"""
+        # min_tuple = next(tup for tup in accuracies if tup[1] == -1)  # the noise tuple
+        # max_tuple = next(tup for tup in accuracies if tup[1] == 0)   # the main tuple
 
         remaining = [t for t in accuracies if t != min_tuple and t!= max_tuple]
         while len(remaining) != 0:
@@ -941,31 +932,31 @@ def full_clustering(parameter, client_id, malicious, layer, name, server_round, 
     print("accuracies is", accuracies)
 
     if len(accuracies) == 2:
-        """Non-IID"""
-        benign_class = -1
-        malicious_class = 0
-        record = 1
+        """Extreme Non-IID"""
+        # benign_class = -1
+        # malicious_class = 0
+        # record = 1
 
         """IID"""
-        # if accuracies[0][0] == accuracies[1][0]:  # if the two clusters have similar accuracies
-        #     #larger cluster is benign
-        #     unique_labels = np.unique(comb_C)
-        #     malicious_class = unique_labels[unique_labels != benign_class][0]
-        #     highest_accuracy = accuracies[0][0]
-        #     lowest_accuracy = 0
-        # else:
-        #     if not all(abs(x[0] - accuracies[0][0]) < 0.05 for x in accuracies):
-        #         record = 1
+        if accuracies[0][0] == accuracies[1][0]:  # if the two clusters have similar accuracies
+            #larger cluster is benign
+            unique_labels = np.unique(comb_C)
+            malicious_class = unique_labels[unique_labels != benign_class][0]
+            highest_accuracy = accuracies[0][0]
+            lowest_accuracy = 0
+        else:
+            if not all(abs(x[0] - accuracies[0][0]) < 0.05 for x in accuracies):
+                record = 1
         
-        #     for acc, cluster in accuracies:
-        #         if (acc > highest_acc):   # if (acc > highest_acc) and (record == 1):
-        #             benign_class = cluster
-        #             highest_acc = acc
-        #         if (acc < lowest_acc):
-        #             malicious_class = cluster
-        #             lowest_acc = acc
-        #         highest_accuracy = highest_acc
-        #         lowest_accuracy = lowest_acc
+            for acc, cluster in accuracies:
+                if (acc > highest_acc):   # if (acc > highest_acc) and (record == 1):
+                    benign_class = cluster
+                    highest_acc = acc
+                if (acc < lowest_acc):
+                    malicious_class = cluster
+                    lowest_acc = acc
+                highest_accuracy = highest_acc
+                lowest_accuracy = lowest_acc
     else:
         if len(accuracies) == 1:  #if towards the end there is only one type of client. 
             if accuracies[0][0] >= highest_accuracy:
