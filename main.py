@@ -67,33 +67,10 @@ def main(cfg: DictConfig):
         }, 
     )
 
-    # print("+++++++++++Actual Federated Learning Simulation Starts++++++++++++++")
-
-    # """ 6. Start Actual Simulation """
-    # history = fl.simulation.start_simulation(
-    #     client_fn=actual_client_fn,  # a function that spawns a particular client
-    #     num_clients=cfg.num_clients,  # total number of clients
-    #     config=fl.server.ServerConfig(
-    #         num_rounds=cfg.num_rounds
-    #     ),  # minimal config for the server loop telling the number of rounds in FL
-    #     strategy=strategy,  
-    #     client_resources={
-    #         "num_cpus": 2,
-    #         "num_gpus": 0.0, 
-    #     },  # (optional) controls the degree of parallelism of your simulation.
-    #     # `num_cpus` is an absolute number (integer) indicating the number of threads a client should be allocated
-    #     # `num_gpus` is a ratio indicating the portion of gpu memory that a client needs.
-
-    #     #i.e. if num_gpus is 1.0, then clients can only run one at a time, since each client needs to have access to the entire memory
-    #     #i.e. if num_gpus is 0.25, then my gpu should be able to have 4 clients running concurrently
-    #     # Lower resources per client allow for more clients to run concurrently
-    #     # (but need to be set taking into account the compute/memory footprint of your workload)
-    # )
-
-    # """ 6. Save your results """
+    """ 6. Save your results """
     # results_path = Path(save_path) / 'results.pkl'
 
-    # results = {'history': history, 'nn': nnet}
+    # results = {'nn': nnet}
 
     # # save the results as a python pickle
     # with open(str(results_path), "wb") as h:
