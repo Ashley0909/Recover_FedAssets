@@ -21,17 +21,19 @@ class PresetClient(fl.client.NumPyClient):
                  num_classes,
                  malicious,
                  num_channels,
+                 device,
                  ) -> None:
         super().__init__()
 
         self.trainloader = trainloader
         self.valloader = valloader
 
-        self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        self.device = device
+        print(self.device)
 
-        self.model = models.resnet18().to(self.device)
+        self.model = models.resnet18().cuda()
         n_features = self.model.fc.in_features
-        self.model.fc = nn.Linear(n_features, num_classes)
+        self.model.fc = nn.Linear(n_features, num_classes).cuda()
 
         self.malicious = malicious
 
@@ -58,7 +60,7 @@ class PresetClient(fl.client.NumPyClient):
         poisoning_rate = config['poisoning_rate']
 
         # optim = torch.optim.SGD(self.model.parameters(), lr=lr, momentum=momentum)
-
+        print("train", self.device)
         # do local training
         train(self.model, self.trainloader, self.device, epochs, lr, proximal_mu, self.malicious, poisoning_rate)
 
@@ -78,7 +80,7 @@ class PresetClient(fl.client.NumPyClient):
 #++++++++++++++++++++++++++++++++++++++++++++++Generate Client Function+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 """Return a function that can be used by the VirtualClientEngine to spawn a FlowerClient with client id `cid`."""
-def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, bdtrainloaders, bdvalloaders, num_classes, num_clients, num_channels):
+def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, bdtrainloaders, bdvalloaders, num_classes, num_clients, num_channels,device):
 
     # This function will be called internally by the VirtualClientEngine
     # Each time the cid-th client is told to participate in the FL simulation (whether it is for doing fit() or evaluate())
@@ -94,6 +96,7 @@ def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, b
                 num_classes=num_classes,
                 malicious=0,
                 num_channels=num_channels,
+                device=device,
             )
         else:
             # Backdoor Client 
@@ -103,6 +106,7 @@ def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, b
                 num_classes=num_classes,
                 malicious=2,
                 num_channels=num_channels,
+                device=device,
             )
 
     # return the function to spawn client

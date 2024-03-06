@@ -14,6 +14,7 @@ from model import get_parameters
 
 import torchvision.models as models
 import torch.nn as nn
+import torch
 
 @hydra.main(config_path="conf", config_name="base", version_base=None)
 
@@ -24,18 +25,18 @@ def main(cfg: DictConfig):
 
         # or print(cfg) will output the lines in a dictionary
         # change numbers by e.g. "python main.py num_clients=500"
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     """ 2. Prepare dirty and clean dataset """
-    bdtrainloaders, bdvalloaders, cleantrainloaders, cleanvalloaders, testloaders = prepare_clientdataset(cfg.dataset_config, cfg.num_clients, cfg.batch_size, cfg.dataset)
+    bdtrainloaders, bdvalloaders, cleantrainloaders, cleanvalloaders, testloaders = prepare_clientdataset(cfg.dataset_config, cfg.num_clients, cfg.batch_size, cfg.dataset, device)
 
     """ 3. Define your clients """
-    nn_client_fn = generate_nnclient_fn(cfg, cleantrainloaders, cleanvalloaders, bdtrainloaders, bdvalloaders, cfg.num_classes, cfg.num_clients, cfg.num_channels)
+    nn_client_fn = generate_nnclient_fn(cfg, cleantrainloaders, cleanvalloaders, bdtrainloaders, bdvalloaders, cfg.num_classes, cfg.num_clients, cfg.num_channels, device)
 
-    model = models.resnet18()
+    model = models.resnet18().to(device)
     n_features = model.fc.in_features
     model.fc = nn.Linear(n_features, cfg.num_classes)
 
-    # params = get_parameters(Net(cfg.num_classes, cfg.num_channels))
     params = get_parameters(model)
 
     """Start Actual Simulation"""
@@ -62,7 +63,7 @@ def main(cfg: DictConfig):
         ),
         client_resources={
             "num_cpus": 2,
-            "num_gpus": 0.0, 
+            "num_gpus": 0.1, 
         }, 
     )
 

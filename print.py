@@ -476,3 +476,7 @@
 #     ws["X"+str(server_round+4)] = clustering_acc
 # elif name == "shw":
 #     ws["Y"+str(server_round+4)] = clustering_acc
+
+
+
+#SBATCH --mail-type=END,FAIL,TIME_LIMIT_80 # Events to send email on, remove if you don't want this

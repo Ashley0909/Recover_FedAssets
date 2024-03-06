@@ -31,15 +31,11 @@ def prepare_clientdataset(config: DictConfig,
                     num_partitions: int, 
                     batch_size: int,
                     dataset: str,
+                    device,
                     val_ratio: float = 0.1,
                     ):
     
     """Import mixed poisoned dataset"""
-    if dataset == 'mnist':
-        tr = Compose([ToTensor(), Normalize((0.1307,),(0.3081,))])
-    elif dataset == 'cifar10':
-        tr = Compose([ToTensor(), Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-
     trainset, testset = get_cifar(data_path = './data')
         
     # trainset = build_poisoned_training_set(tr, data_path = './data', benign_ratio=config.ratio_benign_client, dataset=dataset, poisoning_rate=config.poisoning_rate)
