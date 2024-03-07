@@ -959,9 +959,12 @@ def dynamic_aggregate(bad_result, good_prime):
                     fcb_total[b] += num_examples * bsim
             
             else:  #conv layers
+                print("conv layers[i]", conv_layers[i])
                 if conv_layers[i] == []:
+                    print("conv layer == []")
                     conv_layers[i] = layer * num_examples
                 else:
+                    print("conv layer != []")
                     conv_layers[i] = np.add(conv_layers[i], layer * num_examples)
 
     # Divide the neurons by the total weights
