@@ -29,7 +29,6 @@ class PresetClient(fl.client.NumPyClient):
         self.valloader = valloader
 
         self.device = device
-        print(self.device)
 
         self.model = models.resnet18().cuda()
         n_features = self.model.fc.in_features
@@ -60,7 +59,6 @@ class PresetClient(fl.client.NumPyClient):
         poisoning_rate = config['poisoning_rate']
 
         # optim = torch.optim.SGD(self.model.parameters(), lr=lr, momentum=momentum)
-        print("train", self.device)
         # do local training
         train(self.model, self.trainloader, self.device, epochs, lr, proximal_mu, self.malicious, poisoning_rate)
 
