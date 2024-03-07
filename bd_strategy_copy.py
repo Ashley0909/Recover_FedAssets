@@ -936,6 +936,7 @@ def dynamic_aggregate(bad_result, good_prime):
     fcw_total = {i: 0 for i in range(-1, constant.NUM_CLASS)}
     fcb_total = {i: 0 for i in range(constant.NUM_CLASS)}
     conv_layers = {i: [] for i in range(len(bad_result[0][0]))}
+    print(conv_layers)
     for c, (weights, num_examples) in enumerate(bad_result): # list
         for i, layer in enumerate(weights):  # numpy array
             if i == len(weights)-2:  # fcw
