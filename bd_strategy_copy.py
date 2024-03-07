@@ -941,7 +941,7 @@ def dynamic_aggregate(bad_result, good_prime):
         for i, layer in enumerate(weights):  # numpy array
             if i == len(weights)-2:  # fcw
                 for (n, neuron), wsim in zip(enumerate(layer), sw_weight[c]): # numpy array
-                    if fcw_neurons[n] == []:
+                    if isinstance(fcw_neurons[n], list):
                         fcw_neurons[n] = neuron * wsim * num_examples
                     else:
                         fcw_neurons[n] = np.add(fcw_neurons[n], neuron * wsim * num_examples)
@@ -960,10 +960,8 @@ def dynamic_aggregate(bad_result, good_prime):
             
             else:  #conv layers
                 if isinstance(conv_layers[i], list):
-                    print("conv layer == []")
                     conv_layers[i] = layer * num_examples
                 else:
-                    print("conv layer != []")
                     conv_layers[i] = np.add(conv_layers[i], layer * num_examples)
 
     # Divide the neurons by the total weights
