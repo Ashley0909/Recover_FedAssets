@@ -959,8 +959,7 @@ def dynamic_aggregate(bad_result, good_prime):
                     fcb_total[b] += num_examples * bsim
             
             else:  #conv layers
-                print("conv layers[i]", conv_layers[i])
-                if conv_layers[i].size == 0:
+                if isinstance(conv_layers[i], list):
                     print("conv layer == []")
                     conv_layers[i] = layer * num_examples
                 else:
