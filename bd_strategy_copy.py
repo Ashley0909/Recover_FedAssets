@@ -960,7 +960,7 @@ def dynamic_aggregate(bad_result, good_prime):
             
             else:  #conv layers
                 print("conv layers[i]", conv_layers[i])
-                if conv_layers[i] == []:
+                if conv_layers[i].size == 0:
                     print("conv layer == []")
                     conv_layers[i] = layer * num_examples
                 else:
