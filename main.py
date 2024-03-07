@@ -9,7 +9,7 @@ import flwr as fl
 from dataset import prepare_clientdataset
 from client import generate_nnclient_fn, weighted_average
 from server import get_on_fit_config, get_evaluate_fn, get_attacker_evaluate_fn
-from bd_strategy import NNtrain
+from bd_strategy_copy import NNtrain
 from model import get_parameters
 
 import torchvision.models as models
@@ -62,8 +62,8 @@ def main(cfg: DictConfig):
             evaluate_metrics_aggregation_fn=weighted_average,  # <-- pass the metric aggregation function
         ),
         client_resources={
-            "num_cpus": 2,
-            "num_gpus": 0.1, 
+            "num_cpus": 1,
+            "num_gpus": 1.0, 
         }, 
     )
 

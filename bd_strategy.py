@@ -759,54 +759,8 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, key_neuron,
     """All Benign"""
     # return good_prime
 
-    if bad_result != []:
-        sw_weight = []  #[[0,1,2,3,4,5,6,7,8,9], [0,1,2,3,4,5,6,7,8,9], ...]
-        sw_num = []     #[c1,c2,c3,c4,c5,...]
-        sw_bias = []    #[[0,1,2,3,4,5,6,7,8,9], [0,1,2,3,4,5,6,7,8,9], ...]
-        for params, _ in bad_result:  # per client
-            for l in range(len(params)-2, len(params)):  # last two layers
-                if len(params[l].shape) > 1:  # weight
-                    neuron_dists = list(map(abs, map(lambda x,y: x - y, [sum(x) for x in good_prime[l]], [sum(y) for y in params[l]])))
-                    sw_weight.append([np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists])
-                elif len(params[l].shape) < 1:  # just a number
-                    dist = abs(good_prime[l] - params[l])
-                    sw_num.append(np.exp(constant.MALI_LAMBDA * dist))
-                else:  #bias
-                    neuron_dists = list(map(abs, map(lambda x,y: x - y, good_prime[l], params[l])))
-                    sw_bias.append([np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists])
-
-
     bad_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in bad_result]
     evil_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in evil_result]
-
-    for client in bad_weighted_weights:
-        print("client has type", type(client))
-        for i, layer in enumerate(client):
-            print("layer", i)
-            print("each layer has type", type(layer))
-            for j, neuron in enumerate(layer):
-                print("neuron", j)
-                print("each neuron has type", type(neuron))
-                
-    # #Set the parameter of the target label to be 0
-    # for c, weights in enumerate(bad_weighted_weights):
-    #     for idx, layer in enumerate(weights[-2:], start=0):
-    #         for n in range(len(layer)):
-    #             if n == target_label: 
-    #                 if isinstance(layer[n], np.float32):
-    #                     layer[n] = 0.0
-    #                 else:
-    #                     layer[n] = np.zeros(len(layer[n]))
-
-    # #Set the parameter of the target label to be 0
-    # for c, weights in enumerate(evil_weighted_weights):
-    #     for idx, layer in enumerate(weights[-2:], start=0):
-    #         for n in range(len(layer)):
-    #             if n == target_label: 
-    #                 if isinstance(layer[n], np.float32):
-    #                     layer[n] = 0.0
-    #                 else:
-    #                     layer[n] = np.zeros(len(layer[n]))
 
     bad_prime: NDArrays = [
         reduce(np.add, layer_updates) / bad_numex_total

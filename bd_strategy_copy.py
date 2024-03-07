@@ -74,9 +74,8 @@ print('Using CUDA:',USE_CUDA)
 print('Using MPS:', USE_MPS)
 
 malicious_record = []
-final_model = []
-final_metric = []
-e1, lowest_accuracy1 = 0, 0
+# final_model = []
+# final_metric = []
 highest_accuracy1 = 1/10
 e, lowest_accuracy = 0, 0
 highest_accuracy = 1/10
@@ -312,8 +311,7 @@ class NNtrain(Strategy):
         results: List[Tuple[ClientProxy, FitRes]],
         failures: List[Union[Tuple[ClientProxy, FitRes], BaseException]],
     ) -> Tuple[Optional[Parameters], Dict[str, Scalar]]:
-        # global malicious_record, highest_accuracy_c1w, lowest_accuracy_c1w, highest_accuracy_c2w, lowest_accuracy_c2w, highest_accuracy_fhw, lowest_accuracy_fhw, highest_accuracy_shw, lowest_accuracy_shw, highest_accuracy_olb, lowest_accuracy_olb, final_model, final_metric, global_targetlabel, e_olb, e_c1w, e_c2w, e_fhw, e_shw
-        global malicious_record, highest_accuracy, lowest_accuracy, final_model, final_metric, global_targetlabel, e, good_results, bad_results, evil_results, acc_diff, key_neuron, target_label
+        global malicious_record, highest_accuracy, lowest_accuracy, global_targetlabel, e
 
 
         #for testing
@@ -371,9 +369,9 @@ class NNtrain(Strategy):
         num_examples = [res[1] for res in weights_results]
         print("Number of Evil Clients:", len(evil_results))
 
-        if len(num_examples) == 0:
-            print("Only Evil Clients in this round, void this round.")
-            return final_model, final_metric
+        # if len(num_examples) == 0:
+        #     print("Only Evil Clients in this round, void this round.")
+        #     return final_model, final_metric
         
         client_id = np.array(all_id)[:,1]
         local_cid = np.array(all_id)[:,0]
@@ -555,8 +553,10 @@ class NNtrain(Strategy):
             log(WARNING, "No fit_metrics_aggregation_fn provided")
 
         # Record the final model in case if the next round is a void round
-        final_model = parameters_aggregated
-        final_metric = metrics_aggregated
+        # final_model = parameters_aggregated
+        # final_metric = metrics_aggregated
+            
+        torch.cuda.empty_cache()
 
         return parameters_aggregated, metrics_aggregated
 
@@ -741,90 +741,22 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, key_neuron,
     """All Benign"""
     # return good_prime
 
+    """Fpr malicious clients, we aggregate the clients individually with their similarities to the aggregated good clients"""
     if bad_result != []:
-        sw_weight = []  #[[0,1,2,3,4,5,6,7,8,9], [0,1,2,3,4,5,6,7,8,9], ...]
-        sw_bias = []    #[[0,1,2,3,4,5,6,7,8,9], [0,1,2,3,4,5,6,7,8,9], ...]
-        fcw_total = 0
-        fcb_total = 0
-        for params, _ in bad_result:  # per client
-            for l in range(len(params)-2, len(params)):  # last two layers
-                if len(params[l].shape) > 1:  # weight
-                    neuron_dists = list(map(abs, map(lambda x,y: x - y, [sum(x) for x in good_prime[l]], [sum(y) for y in params[l]])))
-                    sw_weight.append([np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists])
-                else:  #bias
-                    neuron_dists = list(map(abs, map(lambda x,y: x - y, good_prime[l], params[l])))
-                    sw_bias.append([np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists])
-
-    # bad_weighted_weights = [[layer * num_examples / bad_numex_total for layer in weights] for weights, num_examples in bad_result]
-        
-    fcw_neurons = {i: [] for i in range(constant.NUM_CLASS)}
-    fcb_neurons = {i: [] for i in range(constant.NUM_CLASS)}
-    fcw_total = {i: 0 for i in range(-1, constant.NUM_CLASS)}
-    fcb_total = {i: 0 for i in range(constant.NUM_CLASS)}
-    conv_layers = {i: [] for i in range(len(bad_result[0]))}
-    for c, (weights, num_examples) in enumerate(bad_result): # list
-        for i, layer in enumerate(weights):  # numpy array
-            if i == len(weights)-2:  # fcw
-                for n, neuron, wsim in zip(enumerate(layer), sw_weight[c]): # numpy array
-                    if fcw_neurons[n] != []:
-                        fcw_neurons[n] = np.add(fcw_neurons[n], neuron * wsim * num_examples)
-                    else:
-                        fcw_neurons[n].append(neuron * wsim * num_examples)
-                    fcw_total[n] += num_examples * wsim
-
-                #Record the number of examples hold by all clients
-                fcw_total[-1] += num_examples
-
-            elif i == len(weights)-1: # fcb
-                for b, neuron, bsim in zip(enumerate(layer), sw_bias[c]):  # float32
-                    if fcb_neurons[b] != []:
-                        fcb_neurons[b] = np.add(fcb_neurons[b], neuron * bsim * num_examples)
-                    else:
-                        fcb_neurons[b].append(neuron * bsim * num_examples)
-                    fcb_total[b] += num_examples * bsim
-            
-            else:  #conv layers
-                if conv_layers[i] != []:
-                    conv_layers[i] = np.add(conv_layers[i], layer * num_examples)
-                else:
-                    conv_layers[i].append(layer * num_examples)
-
-    # Divide the neurons by the total weights
-    bad_prime = []
-    for j in range(len(conv_layers)):
-        if j < len(conv_layers) - 2:
-            bad_prime.append(conv_layers[j] / fcw_total[-1])
-        elif j == len(conv_layers) - 2:
-            fcw_layer = []
-            for n in range(constant.NUM_CLASS):
-                fcw_layer.append(fcw_neurons[n] / fcw_total[n])
-            bad_prime.append(np.array(fcw_layer))
-        else:
-            fcb_layer = []
-            for n in range(constant.NUM_CLASS):
-                fcb_layer.append(fcb_neurons[n] / fcb_total[n])
-            bad_prime.append(np.array(fcb_layer))
+        bad_prime = dynamic_aggregate(bad_result, good_prime)
+    else:
+        bad_prime = []
     
-    evil_weighted_weights = [[layer * num_examples / evil_numex_total for layer in weights] for weights, num_examples in evil_result]
-
-    # bad_prime: NDArrays = [
-    #     reduce(np.add, layer_updates) / bad_numex_total
-    #     for layer_updates in zip(*bad_weighted_weights)
-    # ]
-
-    if evil_numex_total != 0:
-        evil_prime: NDArrays = [
-            reduce(np.add, layer_updates) / evil_numex_total
-            for layer_updates in zip(*evil_weighted_weights)
-        ]
+    if evil_result != []:
+        evil_prime = dynamic_aggregate(evil_result, good_prime)
     else:
         evil_prime = []
 
     # For each layer, compute the distance between the good and the bad, then apply the similarity weight to the bad clients
     # Depending on the layer being weight or bias, we have different approaches: directly calc dist for bias since one value per neuron, but sum all weights of a neuron before calc dist
     aggregated_result = []
-    sim_weight = [1 if n != target_label else 0 for n in good_prime[l]]
     if acc_diff == 0:
+        sim_weight = [1 if n != target_label else 0 for n in range(constant.NUM_CLASS)]
         for l in range(len(good_prime)-2, len(good_prime)):
             if len(good_prime[l].shape) > 1:
                 # weights: sum up all incoming weights
@@ -896,6 +828,7 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, key_neuron,
 
     good_prime[-2] = aggregated_result[0]
     good_prime[-1] = aggregated_result[1]
+
     return good_prime
 
 def full_clustering(parameter, client_id, malicious, layer, name, server_round, individual_acc, e, highest_accuracy, lowest_accuracy):
@@ -984,3 +917,66 @@ def full_clustering(parameter, client_id, malicious, layer, name, server_round, 
 
     return comb_C, record, acc_diff, highest_accuracy, lowest_accuracy, e
 
+def dynamic_aggregate(bad_result, good_prime):
+    sw_weight = []  #[[0,1,2,3,4,5,6,7,8,9], [0,1,2,3,4,5,6,7,8,9], ...]
+    sw_bias = []    #[[0,1,2,3,4,5,6,7,8,9], [0,1,2,3,4,5,6,7,8,9], ...]
+    fcw_total = 0
+    fcb_total = 0
+    for params, _ in bad_result:  # per client
+        for l in range(len(params)-2, len(params)):  # last two layers
+            if len(params[l].shape) > 1:  # weight
+                neuron_dists = list(map(abs, map(lambda x,y: x - y, [sum(x) for x in good_prime[l]], [sum(y) for y in params[l]])))
+                sw_weight.append([np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists])
+            else:  #bias
+                neuron_dists = list(map(abs, map(lambda x,y: x - y, good_prime[l], params[l])))
+                sw_bias.append([np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists])
+    
+    fcw_neurons = {i: [] for i in range(constant.NUM_CLASS)}
+    fcb_neurons = {i: [] for i in range(constant.NUM_CLASS)}
+    fcw_total = {i: 0 for i in range(-1, constant.NUM_CLASS)}
+    fcb_total = {i: 0 for i in range(constant.NUM_CLASS)}
+    conv_layers = {i: [] for i in range(len(bad_result[0][0]))}
+    for c, (weights, num_examples) in enumerate(bad_result): # list
+        for i, layer in enumerate(weights):  # numpy array
+            if i == len(weights)-2:  # fcw
+                for (n, neuron), wsim in zip(enumerate(layer), sw_weight[c]): # numpy array
+                    if fcw_neurons[n] == []:
+                        fcw_neurons[n] = neuron * wsim * num_examples
+                    else:
+                        fcw_neurons[n] = np.add(fcw_neurons[n], neuron * wsim * num_examples)
+                    fcw_total[n] += num_examples * wsim
+
+                #Record the number of examples hold by all clients
+                fcw_total[-1] += num_examples
+
+            elif i == len(weights)-1: # fcb
+                for (b, neuron), bsim in zip(enumerate(layer), sw_bias[c]):  # float32
+                    if fcb_neurons[b] == []:
+                        fcb_neurons[b] = neuron * bsim * num_examples 
+                    else:
+                        fcb_neurons[b] = np.add(fcb_neurons[b], neuron * bsim * num_examples)
+                    fcb_total[b] += num_examples * bsim
+            
+            else:  #conv layers
+                if conv_layers[i] == []:
+                    conv_layers[i] = layer * num_examples
+                else:
+                    conv_layers[i] = np.add(conv_layers[i], layer * num_examples)
+
+    # Divide the neurons by the total weights
+    bad_prime = []
+    for j in range(len(conv_layers)):
+        if j < len(conv_layers) - 2:
+            bad_prime.append(conv_layers[j] / fcw_total[-1])
+        elif j == len(conv_layers) - 2:
+            fcw_layer = []
+            for n in range(constant.NUM_CLASS):
+                fcw_layer.append(fcw_neurons[n] / fcw_total[n])
+            bad_prime.append(np.array(fcw_layer))
+        else:
+            fcb_layer = []
+            for n in range(constant.NUM_CLASS):
+                fcb_layer.append(fcb_neurons[n] / fcb_total[n])
+            bad_prime.append(np.array(fcb_layer))
+
+    return bad_prime
