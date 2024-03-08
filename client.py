@@ -80,6 +80,7 @@ class PresetClient(fl.client.NumPyClient):
 """Return a function that can be used by the VirtualClientEngine to spawn a FlowerClient with client id `cid`."""
 def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, bdtrainloaders, bdvalloaders, num_classes, num_clients, num_channels,device):
 
+    print("Memory allocated when allocating clients:", torch.cuda.memory_allocated())
     # This function will be called internally by the VirtualClientEngine
     # Each time the cid-th client is told to participate in the FL simulation (whether it is for doing fit() or evaluate())
     def client_fn(cid: str):

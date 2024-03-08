@@ -23,6 +23,7 @@ import smtplib
 from email.message import EmailMessage
 import ssl
 import constant
+import gc
 
 from flwr.common import (
     EvaluateIns,
@@ -229,6 +230,7 @@ class NNtrain(Strategy):
             config = self.on_fit_config_fn(server_round)
 
         print("server round:", server_round)
+        print("Memory allocated at start of a round:", torch.cuda.memory_allocated())
 
         # Sample clients
         sample_size, min_num_clients = self.num_fit_clients(
@@ -253,6 +255,8 @@ class NNtrain(Strategy):
         else:
             fit_ins = FitIns(parameters, config)
             output = [(client, fit_ins) for client in clients]
+
+        print("Memory allocated after config fit:", torch.cuda.memory_allocated())
 
         # Return client/config pairs
         return output
@@ -313,16 +317,14 @@ class NNtrain(Strategy):
     ) -> Tuple[Optional[Parameters], Dict[str, Scalar]]:
         global malicious_record, highest_accuracy, lowest_accuracy, global_targetlabel, e
 
-
-        #for testing
-        # global good_results, bad_results, evil_results, acc_diff, key_neuron, target_label
-
         if not results:
             return None, {}
         # Do not aggregate if there are failures and failures are not accepted
         if not self.accept_failures and failures:
             return None, {}
         
+        print("Memory allocated before aggregate fit:", torch.cuda.memory_allocated())
+
         """That procedure makes sure the known malicious clients are not considered"""
         weights_results = []
         all_id = []
@@ -556,7 +558,12 @@ class NNtrain(Strategy):
         # final_model = parameters_aggregated
         # final_metric = metrics_aggregated
             
+        print("Memory allocated after aggregate fit:", torch.cuda.memory_allocated())
+            
+        gc.collect()
         torch.cuda.empty_cache()
+
+        print("Memory allocated after empty cache:", torch.cuda.memory_allocated())
 
         return parameters_aggregated, metrics_aggregated
 
@@ -936,7 +943,6 @@ def dynamic_aggregate(bad_result, good_prime):
     fcw_total = {i: 0 for i in range(-1, constant.NUM_CLASS)}
     fcb_total = {i: 0 for i in range(constant.NUM_CLASS)}
     conv_layers = {i: [] for i in range(len(bad_result[0][0]))}
-    print(conv_layers)
     for c, (weights, num_examples) in enumerate(bad_result): # list
         for i, layer in enumerate(weights):  # numpy array
             if i == len(weights)-2:  # fcw
