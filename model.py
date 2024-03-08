@@ -89,7 +89,7 @@ def _train_one_epoch(net, global_params, trainloader, device, criterion, optimiz
         proximal_term = 0.0
         for local_weights, global_weights in zip(net.parameters(), global_params):
             proximal_term += torch.square((local_weights - global_weights).norm(2))
-        proximal_term = proximal_term.float().to(device)
+        # proximal_term = proximal_term.float().to(device)
 
         tt = net(images)
 
