@@ -30,7 +30,7 @@ class PresetClient(fl.client.NumPyClient):
 
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-        self.model = models.resnet18()  #.cuda()
+        self.model = models.resnet18().to(self.device)  #.cuda()
         n_features = self.model.fc.in_features
         self.model.fc = nn.Linear(n_features, num_classes)  #.cuda()
 

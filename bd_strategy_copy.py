@@ -466,10 +466,10 @@ class NNtrain(Strategy):
         clustering_acc = correct / len(malicious)
 
         """Assume Clustering 100%"""
-        # bad_index = [index for index,value in enumerate(malicious) if value == "2"]
-        # good_index = [index for index,value in enumerate(malicious) if value == "0"]
-        # bad_clients = local_cid[bad_index]
-        # good_clients = local_cid[good_index]
+        bad_index = [index for index,value in enumerate(malicious) if value == "2"]
+        good_index = [index for index,value in enumerate(malicious) if value == "0"]
+        bad_clients = local_cid[bad_index]
+        good_clients = local_cid[good_index]
 
         print("Final Clustering acc is", clustering_acc)
 
@@ -488,11 +488,11 @@ class NNtrain(Strategy):
         bad_fcw = np.array(fcw)[comb_C == 2]
 
         """Assume Clustering 100%"""
-        # good_fcw = np.array(fcw)[good_index]
-        # bad_fcw = np.array(fcw)[bad_index]
+        good_fcw = np.array(fcw)[good_index]
+        bad_fcw = np.array(fcw)[bad_index]
 
         """Identifying the Key Neurons per clients (Random Allocation)"""
-        key_neuron = {i: [] for i in range(len(good_clients))}  #{client : neurons}
+        # key_neuron = {i: [] for i in range(len(good_clients))}  #{client : neurons}
         
         # for i in range(len(good_fcw[0])):  # number of neurons
         #     mean = np.mean(np.array(good_fcw[:,i]))
@@ -506,7 +506,6 @@ class NNtrain(Strategy):
         """Other Cases"""
         key_neuron = {}
                     
-        print("key neurons are", key_neuron)
 
         """Detecting Target Label"""
         if (len(good_clients) > 0) and (len(bad_clients) > 0 or len(evil_results) > 0):
@@ -539,8 +538,8 @@ class NNtrain(Strategy):
         bad_results = [weights_results[i] for i in range(len(weights_results)) if comb_C[i] == 2]
 
         """Assume Clustering 100%"""
-        # good_results = [weights_results[i] for i in range(len(weights_results)) if i in good_index]
-        # bad_results = [weights_results[i] for i in range(len(weights_results)) if i in bad_index]
+        good_results = [weights_results[i] for i in range(len(weights_results)) if i in good_index]
+        bad_results = [weights_results[i] for i in range(len(weights_results)) if i in bad_index]
 
         print("length of good results is", len(good_results), "and length of bad results is", len(bad_results))
 

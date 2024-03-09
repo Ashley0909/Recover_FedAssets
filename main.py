@@ -25,7 +25,8 @@ def main(cfg: DictConfig):
 
         # or print(cfg) will output the lines in a dictionary
         # change numbers by e.g. "python main.py num_clients=500"
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    
+    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # print("Memory allocated before step 1:", torch.cuda.memory_allocated())
 
@@ -41,7 +42,7 @@ def main(cfg: DictConfig):
 
     # print("Memory allocated before step 3:", torch.cuda.memory_allocated())
     
-    model = models.resnet18().to(device)
+    model = models.resnet18()  #.to(device)
     n_features = model.fc.in_features
     model.fc = nn.Linear(n_features, cfg.num_classes)
 
@@ -73,7 +74,7 @@ def main(cfg: DictConfig):
         ),
         client_resources={
             "num_cpus": 2,
-            "num_gpus": 0.02, 
+            "num_gpus": 0.0, 
         }, 
     )
 
