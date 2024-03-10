@@ -13,7 +13,7 @@ def _partition_data(
     num_clients,
     benign_ratio,
     iid: Optional[bool] = False,
-    power_law: Optional[bool] = True,
+    power_law: Optional[bool] = False,
     dirichlet: Optional[bool] = True,
     alpha: Optional[float] = 0.5,
     balance: Optional[bool] = False,
@@ -333,8 +333,9 @@ def sample_dirichlet(dataset, num_of_clients, alpha, benign):
     for n in range(num_classes):
         random.shuffle(classes[n])   # shuffle the indicies of the labels
         class_size = len(classes[n]) # count the number of samples of the labels
-        class_subset = Subset(dataset, np.array(classes[n]))  # make the Subset of the shuffled labels
+        class_subset = Subset(dataset, np.array(classes[n]))  # make the Subset of the shuffled indices
         sampled_probabilities = class_size * np.random.dirichlet(np.array(num_of_clients * [alpha])) 
+
         for user in range(num_of_clients):
             num_imgs = int(round(sampled_probabilities[user]))
             sampled_list = Subset(class_subset, np.arange(min(len(classes[n]), num_imgs)))

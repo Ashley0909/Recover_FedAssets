@@ -189,7 +189,7 @@ class NNtrain(Strategy):
 
         if server_round > 0:
             print("Global Poisoning Accuracy:", attack_metrics["accuracy"])
-            ws[constant.EXCEL_CELL+str(server_round+4)] = metrics["accuracy"]
+            # ws[constant.EXCEL_CELL+str(server_round+4)] = metrics["accuracy"]
             ws[constant.EXCEL_CELL+str(server_round+315)] = attack_metrics["accuracy"]
         
         wb.save( "CIFAR_Global.xlsx" )
@@ -485,7 +485,7 @@ class NNtrain(Strategy):
         # bad_fcw = np.array(fcw)[bad_index]
 
         """Identifying the Key Neurons per clients (Random Allocation)"""
-        key_neuron = {i: [] for i in range(len(good_clients))}  #{client : neurons}
+        # key_neuron = {i: [] for i in range(len(good_clients))}  #{client : neurons}
         
         # for i in range(len(good_fcw[0])):  # number of neurons
         #     mean = np.mean(np.array(good_fcw[:,i]))
@@ -583,6 +583,12 @@ class NNtrain(Strategy):
             metrics_aggregated = self.evaluate_metrics_aggregation_fn(eval_metrics)
         elif server_round == 1:  # Only log this warning once
             log(WARNING, "No evaluate_metrics_aggregation_fn provided")
+
+        if server_round > 0:
+            print("Distributed Accuracy:", metrics_aggregated["accuracy"])
+            ws[constant.EXCEL_CELL+str(server_round+4)] = metrics_aggregated["accuracy"]
+        
+        wb.save( "CIFAR_Global.xlsx" )
 
         return loss_aggregated, metrics_aggregated
 

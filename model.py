@@ -90,11 +90,11 @@ def _train_one_epoch(net, global_params, trainloader, device, criterion, optimiz
         for local_weights, global_weights in zip(net.parameters(), global_params):
             proximal_term += torch.square((local_weights - global_weights).norm(2))
         loss = criterion(net(images), labels) + (proximal_mu / 2) * proximal_term
+        
         # proximal_term = proximal_term.float().to(device)
-
         # tt = net(images)
-
         # loss = criterion(tt, labels) + (proximal_mu / 2) * proximal_term
+
         loss.backward()
         optimizer.step()    
     return net

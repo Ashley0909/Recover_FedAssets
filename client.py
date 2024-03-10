@@ -21,16 +21,17 @@ class PresetClient(fl.client.NumPyClient):
                  num_classes,
                  malicious,
                  num_channels,
-                #  device,
+                #  device,  #GPU
                  ) -> None:
         super().__init__()
 
         self.trainloader = trainloader
         self.valloader = valloader
 
-        self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")  # CPU
+        # self.device = device  # GPU
 
-        self.model = models.resnet18().to(self.device)  #.cuda()
+        self.model = models.resnet18()  #.to(self.device)  #.cuda()
         n_features = self.model.fc.in_features
         self.model.fc = nn.Linear(n_features, num_classes)  #.cuda()
 
@@ -68,6 +69,7 @@ class PresetClient(fl.client.NumPyClient):
 
     """client uses validation data to evaluate the model"""
     def evaluate(self, parameters: NDArrays, config: Dict[str, Scalar]):
+        print("Client validating their local models")
         self.set_parameters(parameters)
 
         loss, accuracy = test(self.model, self.valloader, self.device, self.malicious, constant.P_RATE)
@@ -78,7 +80,7 @@ class PresetClient(fl.client.NumPyClient):
 #++++++++++++++++++++++++++++++++++++++++++++++Generate Client Function+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 """Return a function that can be used by the VirtualClientEngine to spawn a FlowerClient with client id `cid`."""
-# def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, bdtrainloaders, bdvalloaders, num_classes, num_clients, num_channels,device):
+# def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, bdtrainloaders, bdvalloaders, num_classes, num_clients, num_channels, device):   #GPU
 def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, bdtrainloaders, bdvalloaders, num_classes, num_clients, num_channels):
 
     # This function will be called internally by the VirtualClientEngine
@@ -95,7 +97,7 @@ def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, b
                 num_classes=num_classes,
                 malicious=0,
                 num_channels=num_channels,
-                # device=device,
+                # device=device,  #GPU
             )
         else:
             # Backdoor Client 
@@ -105,7 +107,7 @@ def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, b
                 num_classes=num_classes,
                 malicious=2,
                 num_channels=num_channels,
-                # device=device,
+                # device=device,   #GPU
             )
 
     # return the function to spawn client

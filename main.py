@@ -9,7 +9,7 @@ import flwr as fl
 from dataset import prepare_clientdataset
 from client import generate_nnclient_fn, weighted_average
 from server import get_on_fit_config, get_evaluate_fn, get_attacker_evaluate_fn
-from bd_strategy_copy import NNtrain
+from bd_strategy import NNtrain
 from model import get_parameters
 
 import torchvision.models as models
@@ -22,33 +22,21 @@ def main(cfg: DictConfig):
     """ 1. Parse config & get experiment output dir """
     print(OmegaConf.to_yaml(cfg))
     # save_path = HydraConfig.get().runtime.output_dir
-
-        # or print(cfg) will output the lines in a dictionary
-        # change numbers by e.g. "python main.py num_clients=500"
     
-    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-    # print("Memory allocated before step 1:", torch.cuda.memory_allocated())
+    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")  #GPU
 
     """ 2. Prepare dirty and clean dataset """
-    # bdtrainloaders, bdvalloaders, cleantrainloaders, cleanvalloaders, testloaders = prepare_clientdataset(cfg.dataset_config, cfg.num_clients, cfg.batch_size, cfg.dataset, device)
     bdtrainloaders, bdvalloaders, cleantrainloaders, cleanvalloaders, testloaders = prepare_clientdataset(cfg.dataset_config, cfg.num_clients, cfg.batch_size, cfg.dataset)
 
-    # print("Memory allocated before step 2:", torch.cuda.memory_allocated())
-
     """ 3. Define your clients """
-    # nn_client_fn = generate_nnclient_fn(cfg, cleantrainloaders, cleanvalloaders, bdtrainloaders, bdvalloaders, cfg.num_classes, cfg.num_clients, cfg.num_channels, device)
+    # nn_client_fn = generate_nnclient_fn(cfg, cleantrainloaders, cleanvalloaders, bdtrainloaders, bdvalloaders, cfg.num_classes, cfg.num_clients, cfg.num_channels, device)  # GPU
     nn_client_fn = generate_nnclient_fn(cfg, cleantrainloaders, cleanvalloaders, bdtrainloaders, bdvalloaders, cfg.num_classes, cfg.num_clients, cfg.num_channels)
-
-    # print("Memory allocated before step 3:", torch.cuda.memory_allocated())
     
-    model = models.resnet18()  #.to(device)
+    model = models.resnet18()  #.to(device)  # GPU
     n_features = model.fc.in_features
     model.fc = nn.Linear(n_features, cfg.num_classes)
 
     params = get_parameters(model)
-
-    # print("Memory allocated before step 4:", torch.cuda.memory_allocated())
 
     """Start Actual Simulation"""
     nnet = fl.simulation.start_simulation(

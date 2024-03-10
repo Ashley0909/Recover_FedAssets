@@ -230,7 +230,6 @@ class NNtrain(Strategy):
             config = self.on_fit_config_fn(server_round)
 
         print("server round:", server_round)
-        print("Memory allocated at start of a round:", torch.cuda.memory_allocated())
 
         # Sample clients
         sample_size, min_num_clients = self.num_fit_clients(
@@ -256,7 +255,6 @@ class NNtrain(Strategy):
             fit_ins = FitIns(parameters, config)
             output = [(client, fit_ins) for client in clients]
 
-        print("Memory allocated after config fit:", torch.cuda.memory_allocated())
 
         # Return client/config pairs
         return output
