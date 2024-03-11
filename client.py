@@ -69,7 +69,6 @@ class PresetClient(fl.client.NumPyClient):
 
     """client uses validation data to evaluate the model"""
     def evaluate(self, parameters: NDArrays, config: Dict[str, Scalar]):
-        print("Client validating their local models")
         self.set_parameters(parameters)
 
         loss, accuracy = test(self.model, self.valloader, self.device, self.malicious, constant.P_RATE)
