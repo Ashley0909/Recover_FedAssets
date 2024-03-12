@@ -1,0 +1,3052 @@
+Using CUDA: True
+Using MPS: False
+dataset: cifar10
+num_rounds: 100
+num_clients: 50
+batch_size: 20
+num_classes: 10
+num_channels: 3
+num_clients_per_round_fit: 15
+num_clients_per_round_eval: 15
+config_fit:
+  poisoning_rate: 0.6
+  lr: 0.01
+  momentum: 0.9
+  local_epochs: 5
+  proximal_mu: 2.0
+dataset_config:
+  ratio_benign_client: 0.6
+  iid: false
+  balance: false
+  power_law: false
+  dirichlet: true
+  alpha: 0.9
+
+Files already downloaded and verified
+Files already downloaded and verified
+[2024-03-09 00:28:07,391][flwr][INFO] - Starting Flower simulation, config: ServerConfig(num_rounds=100, round_timeout=None)
+[2024-03-09 00:28:18,695][flwr][INFO] - Flower VCE: Ray initialized with resources: {'GPU': 1.0, 'object_store_memory': 138965907456.0, 'memory': 314253784064.0, 'CPU': 96.0, 'node:10.131.34.74': 1.0, 'accelerator_type:A10': 1.0, 'node:__internal_head__': 1.0}
+[2024-03-09 00:28:18,695][flwr][INFO] - Initializing global parameters
+[2024-03-09 00:28:18,696][flwr][INFO] - Using initial parameters provided by strategy
+[2024-03-09 00:28:18,696][flwr][INFO] - Evaluating initial parameters
+Evaluate
+[2024-03-09 00:28:23,103][flwr][INFO] - initial parameters (loss, other metrics): 182.69174432754517, {'accuracy': 0.0889}
+[2024-03-09 00:28:23,103][flwr][INFO] - FL starting
+Configure Fit
+server round: 1
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 00:28:23,104][flwr][DEBUG] - fit_round 1: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:31:00,978][flwr][DEBUG] - fit_round 1 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.1554, 0.1887, 0.1636, 0.1909, 0.1409, 0.1456, 0.1869, 0.2249, 0.1461, 0.1537, 0.1859, 0.1965, 0.2185, 0.1716, 0.2258]
+malicious is ['2', '0', '2', '0', '0', '2', '0', '0', '2', '2', '0', '0', '0', '0', '0']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 5
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.9484
+accuracies is [(0.1554, 0), (0.19369999999999998, 1)]
+accuracies is [(0.1554, 0), (0.19369999999999998, 1)]
+benign class is 1
+malicious class is 0
+Final Clustering acc is 0.8666666666666667
+Target label is 9
+length of good results is 10 and length of bad results is 5
+acc_diff is 0
+[2024-03-09 00:31:37,969][flwr][WARNING] - No fit_metrics_aggregation_fn provided
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.0
+[2024-03-09 00:31:42,277][flwr][INFO] - fit progress: (1, 197.54915285110474, {'accuracy': 0.1007}, 199.17354088503635)
+Configure Evaluate
+[2024-03-09 00:31:42,277][flwr][DEBUG] - evaluate_round 1: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:31:55,727][flwr][DEBUG] - evaluate_round 1 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 2
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 00:31:55,728][flwr][DEBUG] - fit_round 2: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:34:24,076][flwr][DEBUG] - fit_round 2 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.188, 0.1277, 0.239, 0.171, 0.1645, 0.1517, 0.1997, 0.1513, 0.165, 0.1494, 0.2016, 0.1952, 0.17, 0.2055, 0.2259]
+malicious is ['2', '2', '0', '0', '2', '0', '0', '2', '2', '2', '0', '0', '2', '0', '0']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 7
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9551857142857142
+accuracies is [(0.1916, 0), (0.17, 1)]
+accuracies is [(0.1916, 0), (0.17, 1)]
+benign class is 0
+malicious class is 1
+Final Clustering acc is 0.6
+Target label is 9
+length of good results is 8 and length of bad results is 7
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.0154
+[2024-03-09 00:35:12,711][flwr][INFO] - fit progress: (2, 178.68076539039612, {'accuracy': 0.1724}, 409.6076200710377)
+Configure Evaluate
+[2024-03-09 00:35:12,711][flwr][DEBUG] - evaluate_round 2: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:35:26,068][flwr][DEBUG] - evaluate_round 2 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 3
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 00:35:26,069][flwr][DEBUG] - fit_round 3: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:37:53,370][flwr][DEBUG] - fit_round 3 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.1812, 0.1941, 0.1838, 0.2341, 0.1661, 0.1694, 0.2017, 0.1507, 0.2029, 0.1988, 0.2324, 0.1871, 0.2522, 0.2312, 0.1966]
+malicious is ['2', '0', '2', '0', '2', '2', '0', '0', '2', '2', '0', '2', '0', '0', '0']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 7
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9120142857142858
+accuracies is [(0.1966, 0), (0.19295, 1)]
+accuracies is [(0.1966, 0), (0.19295, 1)]
+benign class is 0
+malicious class is 1
+Final Clustering acc is 0.8
+Target label is 9
+length of good results is 8 and length of bad results is 7
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.0456
+[2024-03-09 00:38:39,733][flwr][INFO] - fit progress: (3, 158.25862681865692, {'accuracy': 0.2497}, 616.6298884390271)
+Configure Evaluate
+[2024-03-09 00:38:39,733][flwr][DEBUG] - evaluate_round 3: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:38:53,087][flwr][DEBUG] - evaluate_round 3 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 4
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 00:38:53,088][flwr][DEBUG] - fit_round 4: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:41:31,587][flwr][DEBUG] - fit_round 4 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.1678, 0.2598, 0.2002, 0.2408, 0.2066, 0.2413, 0.192, 0.246, 0.2192, 0.2783, 0.2357, 0.2177, 0.2787, 0.2553, 0.2061]
+malicious is ['2', '0', '0', '0', '2', '0', '2', '0', '0', '0', '0', '0', '0', '0', '2']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 4
+Number of Preset Benign Clients is 11
+Average poisoning accuracy: 0.9232499999999999
+accuracies is [(0.2413, 0), (0.21215, 1)]
+accuracies is [(0.2413, 0), (0.21215, 1)]
+benign class is 0
+malicious class is 1
+Final Clustering acc is 0.6
+Target label is 9
+length of good results is 11 and length of bad results is 4
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.0602
+[2024-03-09 00:42:10,594][flwr][INFO] - fit progress: (4, 153.46084487438202, {'accuracy': 0.3069}, 827.4907129490166)
+Configure Evaluate
+[2024-03-09 00:42:10,594][flwr][DEBUG] - evaluate_round 4: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:42:24,180][flwr][DEBUG] - evaluate_round 4 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 5
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 00:42:24,181][flwr][DEBUG] - fit_round 5: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:44:58,729][flwr][DEBUG] - fit_round 5 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.2287, 0.2018, 0.2826, 0.2145, 0.3088, 0.3205, 0.2537, 0.2422, 0.217, 0.2975, 0.2165, 0.2217, 0.2622, 0.21, 0.2533]
+malicious is ['2', '2', '0', '2', '0', '0', '0', '0', '2', '0', '0', '0', '0', '2', '2']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 6
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.8798833333333334
+accuracies is [(0.23750000000000002, 0), (0.2422, 1)]
+accuracies is [(0.23750000000000002, 0), (0.2422, 1)]
+benign class is 1
+malicious class is 0
+Final Clustering acc is 0.6
+Target label is 9
+length of good results is 9 and length of bad results is 6
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.082
+[2024-03-09 00:45:44,320][flwr][INFO] - fit progress: (5, 140.62812507152557, {'accuracy': 0.3564}, 1041.2170944850077)
+Configure Evaluate
+[2024-03-09 00:45:44,320][flwr][DEBUG] - evaluate_round 5: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:45:57,820][flwr][DEBUG] - evaluate_round 5 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 6
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 00:45:57,821][flwr][DEBUG] - fit_round 6: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:48:33,566][flwr][DEBUG] - fit_round 6 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.2512, 0.3034, 0.3007, 0.2279, 0.303, 0.1984, 0.2258, 0.1929, 0.2836, 0.2371, 0.2302, 0.2946, 0.2441, 0.2903, 0.3041]
+malicious is ['0', '0', '0', '2', '0', '2', '2', '2', '0', '2', '2', '0', '2', '0', '0']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 7
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9114857142857142
+accuracies is [(0.2512, 0)]
+accuracies is [(0.2512, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 0.5333333333333333
+Target label is 9
+length of good results is 8 and length of bad results is 7
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.0934
+[2024-03-09 00:49:19,759][flwr][INFO] - fit progress: (6, 136.59913957118988, {'accuracy': 0.3742}, 1256.6558092680061)
+Configure Evaluate
+[2024-03-09 00:49:19,759][flwr][DEBUG] - evaluate_round 6: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:49:32,812][flwr][DEBUG] - evaluate_round 6 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 7
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 00:49:32,813][flwr][DEBUG] - fit_round 7: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:52:09,450][flwr][DEBUG] - fit_round 7 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.3382, 0.3078, 0.2852, 0.2456, 0.3272, 0.2507, 0.3289, 0.2984, 0.2222, 0.2453, 0.2711, 0.3181, 0.2077, 0.2939, 0.3208]
+malicious is ['0', '0', '0', '2', '0', '2', '0', '0', '2', '2', '0', '0', '2', '0', '0']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 5
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.8894
+accuracies is [(0.3078, -1), (0.28955, 0)]
+accuracies is [(0.3078, -1), (0.28955, 0)]
+benign class is -1
+malicious class is 0
+Final Clustering acc is 0.4
+Target label is 9
+length of good results is 10 and length of bad results is 5
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1587
+[2024-03-09 00:52:50,876][flwr][INFO] - fit progress: (7, 135.63323485851288, {'accuracy': 0.3892}, 1467.7730222039972)
+Configure Evaluate
+[2024-03-09 00:52:50,876][flwr][DEBUG] - evaluate_round 7: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:53:04,382][flwr][DEBUG] - evaluate_round 7 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 8
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 00:53:04,383][flwr][DEBUG] - fit_round 8: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:55:39,248][flwr][DEBUG] - fit_round 8 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.2919, 0.3112, 0.2632, 0.3172, 0.3436, 0.2126, 0.3006, 0.2441, 0.3519, 0.2124, 0.3478, 0.1953, 0.2583, 0.3128, 0.2214]
+malicious is ['0', '0', '2', '0', '0', '2', '0', '2', '0', '2', '0', '2', '2', '0', '2']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 7
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9387285714285715
+accuracies is [(0.2919, 0)]
+accuracies is [(0.2919, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 0.5333333333333333
+Target label is 9
+length of good results is 8 and length of bad results is 7
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1445
+[2024-03-09 00:56:23,761][flwr][INFO] - fit progress: (8, 136.8362386226654, {'accuracy': 0.3937}, 1680.65780869202)
+Configure Evaluate
+[2024-03-09 00:56:23,761][flwr][DEBUG] - evaluate_round 8: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:56:37,045][flwr][DEBUG] - evaluate_round 8 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 9
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 00:56:37,045][flwr][DEBUG] - fit_round 9: strategy sampled 15 clients (out of 50)
+[2024-03-09 00:59:11,492][flwr][DEBUG] - fit_round 9 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.2351, 0.3361, 0.3102, 0.3133, 0.2246, 0.3294, 0.2171, 0.3321, 0.3158, 0.2679, 0.2133, 0.3573, 0.3268, 0.2493, 0.2687]
+malicious is ['2', '0', '0', '0', '2', '0', '2', '0', '0', '2', '2', '0', '0', '2', '2']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 7
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9098
+accuracies is [(0.3294, -1), (0.28945, 0)]
+accuracies is [(0.3294, -1), (0.28945, 0)]
+benign class is -1
+malicious class is 0
+Final Clustering acc is 0.5333333333333333
+Target label is 9
+length of good results is 8 and length of bad results is 7
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1372
+[2024-03-09 00:59:56,579][flwr][INFO] - fit progress: (9, 131.44011795520782, {'accuracy': 0.4131}, 1893.476107354043)
+Configure Evaluate
+[2024-03-09 00:59:56,579][flwr][DEBUG] - evaluate_round 9: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:00:10,004][flwr][DEBUG] - evaluate_round 9 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 10
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:00:10,005][flwr][DEBUG] - fit_round 10: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:02:45,575][flwr][DEBUG] - fit_round 10 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.3626, 0.3449, 0.263, 0.3828, 0.2765, 0.3124, 0.3671, 0.3193, 0.3341, 0.3498, 0.2858, 0.2442, 0.3156, 0.265, 0.2768]
+malicious is ['0', '0', '2', '0', '2', '0', '0', '0', '0', '0', '2', '2', '0', '2', '2']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 6
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.8730333333333333
+accuracies is [(0.3156, 0)]
+accuracies is [(0.3156, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 0.6
+Target label is 9
+length of good results is 9 and length of bad results is 6
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.0826
+[2024-03-09 01:03:27,677][flwr][INFO] - fit progress: (10, 131.93828070163727, {'accuracy': 0.4234}, 2104.5739319970016)
+Configure Evaluate
+[2024-03-09 01:03:27,677][flwr][DEBUG] - evaluate_round 10: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:03:41,145][flwr][DEBUG] - evaluate_round 10 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 11
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:03:41,146][flwr][DEBUG] - fit_round 11: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:06:10,083][flwr][DEBUG] - fit_round 11 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.2241, 0.235, 0.3541, 0.2322, 0.2502, 0.2453, 0.2868, 0.2865, 0.2599, 0.2836, 0.3393, 0.2688, 0.3545, 0.3797, 0.3408]
+malicious is ['2', '2', '0', '2', '2', '2', '0', '2', '2', '2', '0', '2', '0', '0', '0']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 9
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.9046888888888888
+accuracies is [(0.2868, -1), (0.2762, 0)]
+accuracies is [(0.2868, -1), (0.2762, 0)]
+benign class is -1
+malicious class is 0
+Final Clustering acc is 0.6666666666666666
+Target label is 9
+length of good results is 6 and length of bad results is 9
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1597
+[2024-03-09 01:07:00,642][flwr][INFO] - fit progress: (11, 137.0431568622589, {'accuracy': 0.4088}, 2317.538923337008)
+Configure Evaluate
+[2024-03-09 01:07:00,642][flwr][DEBUG] - evaluate_round 11: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:07:13,978][flwr][DEBUG] - evaluate_round 11 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 12
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:07:13,979][flwr][DEBUG] - fit_round 12: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:09:57,094][flwr][DEBUG] - fit_round 12 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.3753, 0.2575, 0.2499, 0.3634, 0.2805, 0.3834, 0.3664, 0.3898, 0.3028, 0.3148, 0.2772, 0.3452, 0.3554, 0.3661, 0.2859]
+malicious is ['0', '2', '2', '0', '2', '0', '0', '0', '0', '0', '2', '0', '0', '0', '2']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 5
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.8313
+accuracies is [(0.3452, 0)]
+accuracies is [(0.3452, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 0.6666666666666666
+Target label is 9
+length of good results is 10 and length of bad results is 5
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1368
+[2024-03-09 01:10:39,533][flwr][INFO] - fit progress: (12, 137.83107209205627, {'accuracy': 0.4232}, 2536.43014786602)
+Configure Evaluate
+[2024-03-09 01:10:39,533][flwr][DEBUG] - evaluate_round 12: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:10:53,171][flwr][DEBUG] - evaluate_round 12 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 13
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:10:53,172][flwr][DEBUG] - fit_round 13: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:13:15,388][flwr][DEBUG] - fit_round 13 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.2415, 0.2676, 0.3786, 0.3608, 0.3838, 0.2929, 0.2531, 0.2591, 0.3284, 0.3422, 0.3101, 0.3594, 0.2577, 0.3055, 0.2642]
+malicious is ['2', '2', '0', '0', '0', '2', '2', '2', '0', '0', '0', '0', '2', '0', '2']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 7
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.8777714285714285
+accuracies is [(0.3055, 0)]
+accuracies is [(0.3055, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 0.5333333333333333
+Target label is 9
+length of good results is 8 and length of bad results is 7
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1858
+[2024-03-09 01:13:59,983][flwr][INFO] - fit progress: (13, 139.50408005714417, {'accuracy': 0.4163}, 2736.8800626950106)
+Configure Evaluate
+[2024-03-09 01:13:59,983][flwr][DEBUG] - evaluate_round 13: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:14:13,172][flwr][DEBUG] - evaluate_round 13 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 14
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:14:13,172][flwr][DEBUG] - fit_round 14: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:17:00,853][flwr][DEBUG] - fit_round 14 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.3834, 0.3841, 0.3814, 0.3645, 0.2498, 0.3344, 0.389, 0.2726, 0.2664, 0.2332, 0.2331, 0.2575, 0.4015, 0.3674, 0.264]
+malicious is ['0', '0', '0', '0', '2', '0', '0', '2', '2', '2', '2', '2', '0', '0', '2']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 7
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.8657428571428571
+accuracies is [(0.3344, 0)]
+accuracies is [(0.3344, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 0.5333333333333333
+Target label is 9
+length of good results is 8 and length of bad results is 7
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1271
+[2024-03-09 01:17:45,971][flwr][INFO] - fit progress: (14, 139.9312150478363, {'accuracy': 0.4175}, 2962.868397932034)
+Configure Evaluate
+[2024-03-09 01:17:45,972][flwr][DEBUG] - evaluate_round 14: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:17:59,305][flwr][DEBUG] - evaluate_round 14 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 15
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:17:59,305][flwr][DEBUG] - fit_round 15: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:20:24,308][flwr][DEBUG] - fit_round 15 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.2654, 0.3506, 0.4006, 0.3856, 0.2845, 0.2299, 0.3132, 0.37, 0.3895, 0.3765, 0.3591, 0.3307, 0.2718, 0.2771, 0.3479]
+malicious is ['2', '0', '0', '0', '2', '2', '0', '0', '0', '0', '0', '0', '2', '2', '0']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 5
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.8618600000000001
+accuracies is [(0.3479, 0)]
+accuracies is [(0.3479, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 0.6666666666666666
+Target label is 9
+length of good results is 10 and length of bad results is 5
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1187
+[2024-03-09 01:21:08,667][flwr][INFO] - fit progress: (15, 138.94493663311005, {'accuracy': 0.4309}, 3165.5642263480113)
+Configure Evaluate
+[2024-03-09 01:21:08,668][flwr][DEBUG] - evaluate_round 15: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:21:22,073][flwr][DEBUG] - evaluate_round 15 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 16
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:21:22,074][flwr][DEBUG] - fit_round 16: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:23:52,104][flwr][DEBUG] - fit_round 16 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.3597, 0.3879, 0.4069, 0.2633, 0.2649, 0.3673, 0.337, 0.2832, 0.258, 0.3508, 0.276, 0.3687, 0.3585, 0.4002, 0.3361]
+malicious is ['0', '0', '0', '2', '2', '0', '0', '2', '2', '0', '2', '0', '0', '0', '0']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 5
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.8081800000000001
+accuracies is [(0.34835000000000005, -1), (0.3508, 0)]
+accuracies is [(0.34835000000000005, -1), (0.3508, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.5333333333333333
+Target label is 9
+length of good results is 10 and length of bad results is 5
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1317
+[2024-03-09 01:24:34,956][flwr][INFO] - fit progress: (16, 139.73859667778015, {'accuracy': 0.4283}, 3371.8526377080125)
+Configure Evaluate
+[2024-03-09 01:24:34,956][flwr][DEBUG] - evaluate_round 16: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:24:48,332][flwr][DEBUG] - evaluate_round 16 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 17
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:24:48,332][flwr][DEBUG] - fit_round 17: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:27:06,531][flwr][DEBUG] - fit_round 17 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.3832, 0.3972, 0.3892, 0.2864, 0.3621, 0.3415, 0.4059, 0.3895, 0.3775, 0.378, 0.2753, 0.3952, 0.2915, 0.3805, 0.3923]
+malicious is ['0', '0', '0', '2', '0', '0', '0', '0', '0', '0', '2', '0', '0', '0', '0']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 2
+Number of Preset Benign Clients is 13
+Average poisoning accuracy: 0.8295
+accuracies is [(0.2753, -1), (0.38185, 0)]
+accuracies is [(0.2753, -1), (0.38185, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.9333333333333333
+1 added to evil list
+Target label is 9
+length of good results is 13 and length of bad results is 2
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1295
+[2024-03-09 01:27:41,828][flwr][INFO] - fit progress: (17, 141.63076293468475, {'accuracy': 0.4222}, 3558.7252531870035)
+Configure Evaluate
+[2024-03-09 01:27:41,829][flwr][DEBUG] - evaluate_round 17: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:27:55,348][flwr][DEBUG] - evaluate_round 17 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 18
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:27:55,348][flwr][DEBUG] - fit_round 18: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:30:22,261][flwr][DEBUG] - fit_round 18 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4003, 0.4117, 0.2495, 0.2961, 0.3865, 0.2414, 0.3883, 0.4021, 0.3615, 0.2416, 0.3742, 0.2348, 0.297, 0.3806]
+malicious is ['0', '0', '2', '2', '0', '2', '0', '0', '0', '2', '0', '2', '2', '0']
+Number of Evil Clients: 1
+Number of Preset Malicious Clients is 6
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.8383428571428572
+accuracies is [(0.36785, 0)]
+accuracies is [(0.36785, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 0.5714285714285714
+Target label is 9
+length of good results is 8 and length of bad results is 6
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1454
+[2024-03-09 01:31:05,120][flwr][INFO] - fit progress: (18, 143.46238029003143, {'accuracy': 0.4217}, 3762.016791560047)
+Configure Evaluate
+[2024-03-09 01:31:05,120][flwr][DEBUG] - evaluate_round 18: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:31:18,499][flwr][DEBUG] - evaluate_round 18 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 19
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:31:18,499][flwr][DEBUG] - fit_round 19: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:33:54,979][flwr][DEBUG] - fit_round 19 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.3944, 0.2853, 0.4104, 0.2776, 0.4001, 0.2874, 0.3714, 0.3892, 0.4084, 0.3713, 0.3783, 0.2711, 0.2851, 0.3611, 0.272]
+malicious is ['0', '2', '0', '2', '0', '2', '0', '0', '0', '0', '0', '2', '2', '0', '2']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 6
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.8630833333333333
+accuracies is [(0.3713, 0)]
+accuracies is [(0.3713, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 0.6
+Target label is 9
+length of good results is 9 and length of bad results is 6
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.0941
+[2024-03-09 01:34:37,125][flwr][INFO] - fit progress: (19, 142.0566211938858, {'accuracy': 0.4289}, 3974.0220106590423)
+Configure Evaluate
+[2024-03-09 01:34:37,125][flwr][DEBUG] - evaluate_round 19: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:34:50,589][flwr][DEBUG] - evaluate_round 19 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 20
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:34:50,590][flwr][DEBUG] - fit_round 20: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:37:19,891][flwr][DEBUG] - fit_round 20 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.3902, 0.4053, 0.3905, 0.4001, 0.4251, 0.2755, 0.4139, 0.4093, 0.4091, 0.3752, 0.2758, 0.3714, 0.4018, 0.3986, 0.2815]
+malicious is ['0', '0', '0', '0', '0', '2', '0', '0', '0', '0', '2', '0', '0', '0', '2']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 3
+Number of Preset Benign Clients is 12
+Average poisoning accuracy: 0.8398666666666667
+accuracies is [(0.2758, -1), (0.39935, 0)]
+accuracies is [(0.2758, -1), (0.39935, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8666666666666667
+1 added to evil list
+Target label is 9
+length of good results is 12 and length of bad results is 3
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1145
+[2024-03-09 01:37:57,248][flwr][INFO] - fit progress: (20, 142.98601460456848, {'accuracy': 0.4315}, 4174.145380938018)
+Configure Evaluate
+[2024-03-09 01:37:57,249][flwr][DEBUG] - evaluate_round 20: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:38:11,037][flwr][DEBUG] - evaluate_round 20 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 21
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:38:11,038][flwr][DEBUG] - fit_round 21: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:40:58,304][flwr][DEBUG] - fit_round 21 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4046, 0.2425, 0.4073, 0.2574, 0.4042, 0.2809, 0.3957, 0.2827, 0.3994, 0.3777, 0.3965, 0.262, 0.4183, 0.3934, 0.2608]
+malicious is ['0', '2', '0', '2', '0', '2', '0', '2', '0', '0', '0', '2', '0', '0', '2']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 6
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.891
+accuracies is [(0.3934, 0)]
+accuracies is [(0.3934, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 0.6
+Target label is 9
+length of good results is 9 and length of bad results is 6
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.115
+[2024-03-09 01:41:41,110][flwr][INFO] - fit progress: (21, 144.0245442390442, {'accuracy': 0.4286}, 4398.006850424048)
+Configure Evaluate
+[2024-03-09 01:41:41,110][flwr][DEBUG] - evaluate_round 21: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:41:54,474][flwr][DEBUG] - evaluate_round 21 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 22
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:41:54,475][flwr][DEBUG] - fit_round 22: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:44:37,898][flwr][DEBUG] - fit_round 22 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4154, 0.2738, 0.4119, 0.2774, 0.3254, 0.4168, 0.3937, 0.3791, 0.2713, 0.2423, 0.2331, 0.2782, 0.4053, 0.2719]
+malicious is ['0', '2', '0', '2', '0', '0', '0', '0', '2', '2', '2', '2', '0', '2']
+Number of Evil Clients: 1
+Number of Preset Malicious Clients is 7
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.89295
+accuracies is [(0.3254, -1), (0.2782, 0)]
+accuracies is [(0.3254, -1), (0.2782, 0)]
+benign class is -1
+malicious class is 0
+Final Clustering acc is 0.5714285714285714
+Target label is 9
+length of good results is 7 and length of bad results is 7
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1366
+[2024-03-09 01:45:22,427][flwr][INFO] - fit progress: (22, 142.27632856369019, {'accuracy': 0.4323}, 4619.323879277043)
+Configure Evaluate
+[2024-03-09 01:45:22,427][flwr][DEBUG] - evaluate_round 22: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:45:35,639][flwr][DEBUG] - evaluate_round 22 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 23
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:45:35,640][flwr][DEBUG] - fit_round 23: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:48:02,249][flwr][DEBUG] - fit_round 23 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.2491, 0.3653, 0.2611, 0.4119, 0.2596, 0.4063, 0.4114, 0.2726, 0.2704, 0.2982, 0.4071, 0.3955, 0.4, 0.407]
+malicious is ['2', '0', '2', '0', '2', '0', '0', '2', '2', '2', '0', '0', '0', '0']
+Number of Evil Clients: 1
+Number of Preset Malicious Clients is 6
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.8479285714285714
+accuracies is [(0.2726, 0), (0.407, 1)]
+accuracies is [(0.2726, 0), (0.407, 1)]
+benign class is 1
+malicious class is 0
+Final Clustering acc is 0.7857142857142857
+9 added to evil list
+Target label is 9
+length of good results is 8 and length of bad results is 6
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1172
+[2024-03-09 01:48:44,857][flwr][INFO] - fit progress: (23, 141.94565165042877, {'accuracy': 0.4311}, 4821.753629274026)
+Configure Evaluate
+[2024-03-09 01:48:44,857][flwr][DEBUG] - evaluate_round 23: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:48:58,170][flwr][DEBUG] - evaluate_round 23 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 24
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:48:58,171][flwr][DEBUG] - fit_round 24: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:51:23,330][flwr][DEBUG] - fit_round 24 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.3998, 0.4212, 0.3489, 0.3743, 0.3859, 0.4241, 0.2927, 0.3555, 0.2665, 0.422]
+malicious is ['0', '0', '0', '0', '0', '0', '2', '0', '2', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 2
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.7870285714285714
+accuracies is [(0.2796, -1), (0.39285000000000003, 0)]
+accuracies is [(0.2796, -1), (0.39285000000000003, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 1.0
+2 added to evil list
+Target label is 9
+length of good results is 8 and length of bad results is 2
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1141
+[2024-03-09 01:51:59,414][flwr][INFO] - fit progress: (24, 143.2523491382599, {'accuracy': 0.4291}, 5016.311433163006)
+Configure Evaluate
+[2024-03-09 01:51:59,415][flwr][DEBUG] - evaluate_round 24: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:52:12,802][flwr][DEBUG] - evaluate_round 24 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 25
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:52:12,803][flwr][DEBUG] - fit_round 25: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:54:43,761][flwr][DEBUG] - fit_round 25 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4208, 0.3834, 0.2559, 0.3859, 0.3619, 0.4149, 0.4237, 0.3692, 0.387]
+malicious is ['0', '0', '2', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 1
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.6298142857142857
+accuracies is [(0.2559, -1), (0.38645, 0)]
+accuracies is [(0.2559, -1), (0.38645, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 1.0
+1 added to evil list
+Target label is 9
+length of good results is 8 and length of bad results is 1
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1133
+[2024-03-09 01:55:17,940][flwr][INFO] - fit progress: (25, 139.07541477680206, {'accuracy': 0.4338}, 5214.83655312605)
+Configure Evaluate
+[2024-03-09 01:55:17,940][flwr][DEBUG] - evaluate_round 25: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:55:31,233][flwr][DEBUG] - evaluate_round 25 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 26
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:55:31,234][flwr][DEBUG] - fit_round 26: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:58:16,536][flwr][DEBUG] - fit_round 26 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4272, 0.2264, 0.3491, 0.4091, 0.4156, 0.4122, 0.2574, 0.2662, 0.4102, 0.2856, 0.4217]
+malicious is ['0', '2', '0', '0', '0', '0', '2', '2', '0', '2', '0']
+Number of Evil Clients: 4
+Number of Preset Malicious Clients is 4
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.8914625
+accuracies is [(0.4091, 0)]
+accuracies is [(0.4091, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 0.6363636363636364
+Target label is 9
+length of good results is 7 and length of bad results is 4
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1265
+[2024-03-09 01:58:58,771][flwr][INFO] - fit progress: (26, 139.26778554916382, {'accuracy': 0.4341}, 5435.667562979041)
+Configure Evaluate
+[2024-03-09 01:58:58,771][flwr][DEBUG] - evaluate_round 26: strategy sampled 15 clients (out of 50)
+[2024-03-09 01:59:12,016][flwr][DEBUG] - evaluate_round 26 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 27
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 01:59:12,016][flwr][DEBUG] - fit_round 27: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:01:33,429][flwr][DEBUG] - fit_round 27 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.2756, 0.4215, 0.2844, 0.4276, 0.4147, 0.419, 0.419, 0.392, 0.2409]
+malicious is ['2', '0', '2', '0', '0', '0', '0', '0', '2']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 3
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.6767777777777777
+accuracies is [(0.2756, -1), (0.419, 0)]
+accuracies is [(0.2756, -1), (0.419, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 1.0
+3 added to evil list
+Target label is 9
+length of good results is 6 and length of bad results is 3
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1072
+[2024-03-09 02:02:11,165][flwr][INFO] - fit progress: (27, 141.94432401657104, {'accuracy': 0.4312}, 5628.061672005046)
+Configure Evaluate
+[2024-03-09 02:02:11,165][flwr][DEBUG] - evaluate_round 27: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:02:24,418][flwr][DEBUG] - evaluate_round 27 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 28
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:02:24,419][flwr][DEBUG] - fit_round 28: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:04:53,186][flwr][DEBUG] - fit_round 28 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.3061, 0.411, 0.4059, 0.43, 0.4306, 0.4161, 0.4294, 0.4106]
+malicious is ['2', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 1
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.7430875
+accuracies is [(0.3061, -1), (0.4161, 0)]
+accuracies is [(0.3061, -1), (0.4161, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 1.0
+1 added to evil list
+Target label is 9
+length of good results is 7 and length of bad results is 1
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.11
+[2024-03-09 02:05:27,904][flwr][INFO] - fit progress: (28, 141.46775650978088, {'accuracy': 0.4299}, 5824.800846427039)
+Configure Evaluate
+[2024-03-09 02:05:27,904][flwr][DEBUG] - evaluate_round 28: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:05:41,225][flwr][DEBUG] - evaluate_round 28 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 29
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:05:41,226][flwr][DEBUG] - fit_round 29: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:08:08,498][flwr][DEBUG] - fit_round 29 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.2977, 0.2362, 0.4096, 0.3414, 0.2783, 0.4304, 0.4252, 0.426, 0.41, 0.4253, 0.4281, 0.4307, 0.4021]
+malicious is ['2', '2', '0', '0', '2', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 2
+Number of Preset Malicious Clients is 3
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.87226
+accuracies is [(0.2977, -1), (0.42565, 0)]
+accuracies is [(0.2977, -1), (0.42565, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8461538461538461
+5 added to evil list
+Target label is 9
+length of good results is 10 and length of bad results is 3
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1009
+[2024-03-09 02:08:46,588][flwr][INFO] - fit progress: (29, 139.49955022335052, {'accuracy': 0.4401}, 6023.485149897053)
+Configure Evaluate
+[2024-03-09 02:08:46,588][flwr][DEBUG] - evaluate_round 29: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:09:00,065][flwr][DEBUG] - evaluate_round 29 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 30
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:09:00,065][flwr][DEBUG] - fit_round 30: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:11:31,254][flwr][DEBUG] - fit_round 30 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.427, 0.4257, 0.3422, 0.3371, 0.2516, 0.4338, 0.4202]
+malicious is ['0', '0', '0', '0', '2', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 1
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.6573444444444445
+accuracies is [(0.29435, -1), (0.4257, 0)]
+accuracies is [(0.29435, -1), (0.4257, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8571428571428571
+2 added to evil list
+Target label is 9
+length of good results is 6 and length of bad results is 1
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1112
+[2024-03-09 02:12:05,732][flwr][INFO] - fit progress: (30, 141.3744398355484, {'accuracy': 0.4341}, 6222.628990447032)
+Configure Evaluate
+[2024-03-09 02:12:05,732][flwr][DEBUG] - evaluate_round 30: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:12:19,228][flwr][DEBUG] - evaluate_round 30 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 31
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:12:19,229][flwr][DEBUG] - fit_round 31: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:14:47,492][flwr][DEBUG] - fit_round 31 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4106, 0.4233, 0.3774, 0.4316, 0.4301]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.71185
+accuracies is [(0.4233, -1)]
+accuracies is [(0.4233, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.0866
+[2024-03-09 02:15:20,243][flwr][INFO] - fit progress: (31, 142.68080377578735, {'accuracy': 0.4359}, 6417.139775519026)
+Configure Evaluate
+[2024-03-09 02:15:20,243][flwr][DEBUG] - evaluate_round 31: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:15:33,686][flwr][DEBUG] - evaluate_round 31 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 32
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:15:33,687][flwr][DEBUG] - fit_round 32: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:17:52,779][flwr][DEBUG] - fit_round 32 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4222, 0.4146, 0.4166, 0.4357, 0.4225, 0.4281, 0.4244, 0.3903, 0.2766]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '2']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 1
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.7596285714285714
+accuracies is [(0.2766, -1), (0.42235, 0)]
+accuracies is [(0.2766, -1), (0.42235, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 1.0
+1 added to evil list
+Target label is 9
+length of good results is 8 and length of bad results is 1
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1046
+[2024-03-09 02:18:29,604][flwr][INFO] - fit progress: (32, 141.99194073677063, {'accuracy': 0.4404}, 6606.501067874022)
+Configure Evaluate
+[2024-03-09 02:18:29,604][flwr][DEBUG] - evaluate_round 32: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:18:42,629][flwr][DEBUG] - evaluate_round 32 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 33
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:18:42,629][flwr][DEBUG] - fit_round 33: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:21:20,688][flwr][DEBUG] - fit_round 33 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.431, 0.4284, 0.4053, 0.435, 0.417]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.70451
+accuracies is [(0.4284, 0)]
+accuracies is [(0.4284, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.097
+[2024-03-09 02:21:53,576][flwr][INFO] - fit progress: (33, 140.75277292728424, {'accuracy': 0.4444}, 6810.47341764305)
+Configure Evaluate
+[2024-03-09 02:21:53,577][flwr][DEBUG] - evaluate_round 33: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:22:06,965][flwr][DEBUG] - evaluate_round 33 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 34
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:22:06,966][flwr][DEBUG] - fit_round 34: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:24:47,259][flwr][DEBUG] - fit_round 34 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4129, 0.439, 0.4152, 0.4176, 0.425, 0.4347, 0.4316]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.8436249999999998
+accuracies is [(0.425, 0)]
+accuracies is [(0.425, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.0861
+[2024-03-09 02:25:20,273][flwr][INFO] - fit progress: (34, 142.330393075943, {'accuracy': 0.4343}, 7017.170315950003)
+Configure Evaluate
+[2024-03-09 02:25:20,274][flwr][DEBUG] - evaluate_round 34: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:25:33,767][flwr][DEBUG] - evaluate_round 34 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 35
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:25:33,768][flwr][DEBUG] - fit_round 35: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:28:04,537][flwr][DEBUG] - fit_round 35 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4316, 0.4075, 0.4288, 0.391, 0.343]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.68785
+accuracies is [(0.4075, -1)]
+accuracies is [(0.4075, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1339
+[2024-03-09 02:28:38,402][flwr][INFO] - fit progress: (35, 141.1339545249939, {'accuracy': 0.4362}, 7215.299116199021)
+Configure Evaluate
+[2024-03-09 02:28:38,402][flwr][DEBUG] - evaluate_round 35: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:28:51,671][flwr][DEBUG] - evaluate_round 35 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 36
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:28:51,671][flwr][DEBUG] - fit_round 36: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:31:24,133][flwr][DEBUG] - fit_round 36 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4194, 0.4116, 0.4074, 0.4034, 0.3971, 0.4354, 0.4278, 0.4176, 0.4262, 0.4245]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.8682599999999999
+accuracies is [(0.4074, -1), (0.4194, 0)]
+accuracies is [(0.4074, -1), (0.4194, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.9
+Target label is 9
+length of good results is 10 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1451
+[2024-03-09 02:31:55,742][flwr][INFO] - fit progress: (36, 140.0390763282776, {'accuracy': 0.4367}, 7412.639264616999)
+Configure Evaluate
+[2024-03-09 02:31:55,742][flwr][DEBUG] - evaluate_round 36: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:32:08,875][flwr][DEBUG] - evaluate_round 36 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 37
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:32:08,876][flwr][DEBUG] - fit_round 37: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:34:37,444][flwr][DEBUG] - fit_round 37 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4292, 0.4227, 0.4288, 0.417, 0.4381, 0.4287]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.6104555555555555
+accuracies is [(0.4227, -1), (0.4288, 0)]
+accuracies is [(0.4227, -1), (0.4288, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8333333333333334
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1286
+[2024-03-09 02:35:09,934][flwr][INFO] - fit progress: (37, 140.8086085319519, {'accuracy': 0.4385}, 7606.830559150025)
+Configure Evaluate
+[2024-03-09 02:35:09,934][flwr][DEBUG] - evaluate_round 37: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:35:23,427][flwr][DEBUG] - evaluate_round 37 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 38
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:35:23,428][flwr][DEBUG] - fit_round 38: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:37:56,319][flwr][DEBUG] - fit_round 38 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4193, 0.4318, 0.4336, 0.4348, 0.4228, 0.4186, 0.429, 0.3939]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.6486000000000001
+accuracies is [(0.4259, 0)]
+accuracies is [(0.4259, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1171
+[2024-03-09 02:38:29,618][flwr][INFO] - fit progress: (38, 141.95450258255005, {'accuracy': 0.4392}, 7806.515124991012)
+Configure Evaluate
+[2024-03-09 02:38:29,618][flwr][DEBUG] - evaluate_round 38: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:38:43,043][flwr][DEBUG] - evaluate_round 38 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 39
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:38:43,044][flwr][DEBUG] - fit_round 39: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:41:29,881][flwr][DEBUG] - fit_round 39 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4264, 0.4292, 0.4188, 0.4283, 0.4289]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.7767800000000001
+accuracies is [(0.4264, -1), (0.4286, 0)]
+accuracies is [(0.4264, -1), (0.4286, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1302
+[2024-03-09 02:42:02,583][flwr][INFO] - fit progress: (39, 143.63165068626404, {'accuracy': 0.4357}, 8019.480118701002)
+Configure Evaluate
+[2024-03-09 02:42:02,583][flwr][DEBUG] - evaluate_round 39: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:42:15,946][flwr][DEBUG] - evaluate_round 39 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 40
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:42:15,947][flwr][DEBUG] - fit_round 40: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:44:42,478][flwr][DEBUG] - fit_round 40 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4047, 0.4187, 0.3971, 0.4284, 0.4308]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.6705099999999999
+accuracies is [(0.4187, -1)]
+accuracies is [(0.4187, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1374
+[2024-03-09 02:45:15,427][flwr][INFO] - fit progress: (40, 142.56892204284668, {'accuracy': 0.4362}, 8212.324108700035)
+Configure Evaluate
+[2024-03-09 02:45:15,427][flwr][DEBUG] - evaluate_round 40: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:45:28,939][flwr][DEBUG] - evaluate_round 40 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 41
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:45:28,940][flwr][DEBUG] - fit_round 41: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:48:00,526][flwr][DEBUG] - fit_round 41 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.3922, 0.3887, 0.4228, 0.4144, 0.4309, 0.4057, 0.4321]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.6564000000000001
+accuracies is [(0.4144, -1), (0.4183, 0)]
+accuracies is [(0.4144, -1), (0.4183, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.5714285714285714
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1671
+[2024-03-09 02:48:33,407][flwr][INFO] - fit progress: (41, 142.37549257278442, {'accuracy': 0.4399}, 8410.304365901044)
+Configure Evaluate
+[2024-03-09 02:48:33,408][flwr][DEBUG] - evaluate_round 41: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:48:46,703][flwr][DEBUG] - evaluate_round 41 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 42
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:48:46,704][flwr][DEBUG] - fit_round 42: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:51:09,780][flwr][DEBUG] - fit_round 42 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.424, 0.432, 0.4272, 0.419, 0.4244, 0.4296]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.7028777777777777
+accuracies is [(0.4258, 0)]
+accuracies is [(0.4258, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1514
+[2024-03-09 02:51:42,229][flwr][INFO] - fit progress: (42, 142.24161195755005, {'accuracy': 0.4372}, 8599.12594513304)
+Configure Evaluate
+[2024-03-09 02:51:42,229][flwr][DEBUG] - evaluate_round 42: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:51:55,665][flwr][DEBUG] - evaluate_round 42 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 43
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:51:55,665][flwr][DEBUG] - fit_round 43: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:54:31,018][flwr][DEBUG] - fit_round 43 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4156, 0.4301, 0.4226, 0.4294, 0.434, 0.4346]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.6974
+accuracies is [(0.42974999999999997, 0)]
+accuracies is [(0.42974999999999997, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1288
+[2024-03-09 02:55:03,074][flwr][INFO] - fit progress: (43, 144.27723371982574, {'accuracy': 0.4362}, 8799.970803312026)
+Configure Evaluate
+[2024-03-09 02:55:03,074][flwr][DEBUG] - evaluate_round 43: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:55:16,288][flwr][DEBUG] - evaluate_round 43 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 44
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:55:16,288][flwr][DEBUG] - fit_round 44: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:57:41,783][flwr][DEBUG] - fit_round 44 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.425, 0.4309, 0.426, 0.4371, 0.43, 0.4107, 0.4332, 0.4264]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.7626428571428571
+accuracies is [(0.4282, 0)]
+accuracies is [(0.4282, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1283
+[2024-03-09 02:58:15,970][flwr][INFO] - fit progress: (44, 144.52943074703217, {'accuracy': 0.4342}, 8992.867142461007)
+Configure Evaluate
+[2024-03-09 02:58:15,970][flwr][DEBUG] - evaluate_round 44: strategy sampled 15 clients (out of 50)
+[2024-03-09 02:58:29,409][flwr][DEBUG] - evaluate_round 44 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 45
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 02:58:29,410][flwr][DEBUG] - fit_round 45: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:00:57,203][flwr][DEBUG] - fit_round 45 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4242, 0.4373, 0.4347, 0.4234, 0.4324, 0.434, 0.4275, 0.425, 0.4327, 0.4008, 0.4328, 0.431]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 3
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 12
+Average poisoning accuracy: 0.6534000000000001
+accuracies is [(0.4317, 0)]
+accuracies is [(0.4317, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 12 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1303
+[2024-03-09 03:01:29,290][flwr][INFO] - fit progress: (45, 143.68866574764252, {'accuracy': 0.438}, 9186.187495179998)
+Configure Evaluate
+[2024-03-09 03:01:29,291][flwr][DEBUG] - evaluate_round 45: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:01:42,586][flwr][DEBUG] - evaluate_round 45 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 46
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:01:42,587][flwr][DEBUG] - fit_round 46: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:04:15,778][flwr][DEBUG] - fit_round 46 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4262, 0.4309, 0.3474, 0.4026, 0.4141, 0.4271]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.6793999999999999
+accuracies is [(0.375, -1), (0.42665, 0)]
+accuracies is [(0.375, -1), (0.42665, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.6666666666666666
+2 added to evil list
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.134
+[2024-03-09 03:04:49,013][flwr][INFO] - fit progress: (46, 141.28657042980194, {'accuracy': 0.4391}, 9385.909862141998)
+Configure Evaluate
+[2024-03-09 03:04:49,013][flwr][DEBUG] - evaluate_round 46: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:05:02,339][flwr][DEBUG] - evaluate_round 46 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 47
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:05:02,340][flwr][DEBUG] - fit_round 47: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:07:32,125][flwr][DEBUG] - fit_round 47 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4232, 0.4365, 0.4407, 0.4336, 0.4324]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.63927
+accuracies is [(0.4336, 0)]
+accuracies is [(0.4336, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.121
+[2024-03-09 03:08:06,334][flwr][INFO] - fit progress: (47, 141.25872015953064, {'accuracy': 0.4422}, 9583.231028550013)
+Configure Evaluate
+[2024-03-09 03:08:06,334][flwr][DEBUG] - evaluate_round 47: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:08:19,987][flwr][DEBUG] - evaluate_round 47 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 48
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:08:19,988][flwr][DEBUG] - fit_round 48: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:10:43,633][flwr][DEBUG] - fit_round 48 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4316, 0.4294, 0.4318, 0.4055, 0.4277, 0.4323, 0.4072, 0.4306]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.5329857142857143
+accuracies is [(0.43, 0)]
+accuracies is [(0.43, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1263
+[2024-03-09 03:11:16,852][flwr][INFO] - fit progress: (48, 143.83561730384827, {'accuracy': 0.4381}, 9773.748681051016)
+Configure Evaluate
+[2024-03-09 03:11:16,852][flwr][DEBUG] - evaluate_round 48: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:11:30,194][flwr][DEBUG] - evaluate_round 48 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 49
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:11:30,194][flwr][DEBUG] - fit_round 49: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:14:13,875][flwr][DEBUG] - fit_round 49 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4345, 0.442, 0.4219, 0.4268]
+malicious is ['0', '0', '0', '0']
+Number of Evil Clients: 11
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 4
+Average poisoning accuracy: 0.6606636363636365
+accuracies is [(0.4219, -1), (0.4345, 0)]
+accuracies is [(0.4219, -1), (0.4345, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.75
+Target label is 9
+length of good results is 4 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1587
+[2024-03-09 03:14:46,793][flwr][INFO] - fit progress: (49, 144.72851026058197, {'accuracy': 0.4398}, 9983.689600135025)
+Configure Evaluate
+[2024-03-09 03:14:46,793][flwr][DEBUG] - evaluate_round 49: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:14:59,976][flwr][DEBUG] - evaluate_round 49 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 50
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:14:59,977][flwr][DEBUG] - fit_round 50: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:17:39,419][flwr][DEBUG] - fit_round 50 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4334, 0.4267, 0.4261, 0.4333, 0.4195, 0.4312]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.5656333333333333
+accuracies is [(0.42895000000000005, 0)]
+accuracies is [(0.42895000000000005, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1184
+[2024-03-09 03:18:13,889][flwr][INFO] - fit progress: (50, 144.38105428218842, {'accuracy': 0.4402}, 10190.785885800025)
+Configure Evaluate
+[2024-03-09 03:18:13,889][flwr][DEBUG] - evaluate_round 50: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:18:27,272][flwr][DEBUG] - evaluate_round 50 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 51
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:18:27,273][flwr][DEBUG] - fit_round 51: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:20:50,180][flwr][DEBUG] - fit_round 51 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4311, 0.4363, 0.4313, 0.4308, 0.4166, 0.427]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.7049
+accuracies is [(0.43095, 0)]
+accuracies is [(0.43095, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1172
+[2024-03-09 03:21:23,200][flwr][INFO] - fit progress: (51, 145.65609657764435, {'accuracy': 0.4351}, 10380.096953220025)
+Configure Evaluate
+[2024-03-09 03:21:23,200][flwr][DEBUG] - evaluate_round 51: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:21:36,560][flwr][DEBUG] - evaluate_round 51 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 52
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:21:36,560][flwr][DEBUG] - fit_round 52: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:24:17,563][flwr][DEBUG] - fit_round 52 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4396, 0.4321, 0.4348, 0.4011, 0.4234, 0.4294, 0.4311, 0.4296]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.6487857142857143
+accuracies is [(0.43035, 0)]
+accuracies is [(0.43035, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1274
+[2024-03-09 03:24:51,994][flwr][INFO] - fit progress: (52, 145.2781343460083, {'accuracy': 0.4405}, 10588.891317022033)
+Configure Evaluate
+[2024-03-09 03:24:51,995][flwr][DEBUG] - evaluate_round 52: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:25:05,140][flwr][DEBUG] - evaluate_round 52 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 53
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:25:05,140][flwr][DEBUG] - fit_round 53: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:27:34,939][flwr][DEBUG] - fit_round 53 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4301, 0.434, 0.4303, 0.435, 0.3998]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.72322
+accuracies is [(0.3998, -1), (0.43215000000000003, 0)]
+accuracies is [(0.3998, -1), (0.43215000000000003, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1455
+[2024-03-09 03:28:08,079][flwr][INFO] - fit progress: (53, 144.60776579380035, {'accuracy': 0.4405}, 10784.976040589041)
+Configure Evaluate
+[2024-03-09 03:28:08,079][flwr][DEBUG] - evaluate_round 53: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:28:21,461][flwr][DEBUG] - evaluate_round 53 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 54
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:28:21,462][flwr][DEBUG] - fit_round 54: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:30:50,147][flwr][DEBUG] - fit_round 54 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4329, 0.4304, 0.4363, 0.4441, 0.435, 0.4295, 0.4225, 0.4069]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.7834285714285715
+accuracies is [(0.43165, 0)]
+accuracies is [(0.43165, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1567
+[2024-03-09 03:31:22,152][flwr][INFO] - fit progress: (54, 143.69056594371796, {'accuracy': 0.4424}, 10979.048500654055)
+Configure Evaluate
+[2024-03-09 03:31:22,152][flwr][DEBUG] - evaluate_round 54: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:31:35,642][flwr][DEBUG] - evaluate_round 54 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 55
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:31:35,643][flwr][DEBUG] - fit_round 55: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:34:05,814][flwr][DEBUG] - fit_round 55 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4308, 0.4344, 0.434, 0.4345, 0.4346, 0.4108, 0.4289]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.75135
+accuracies is [(0.434, 0)]
+accuracies is [(0.434, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1495
+[2024-03-09 03:34:37,813][flwr][INFO] - fit progress: (55, 143.24070131778717, {'accuracy': 0.4417}, 11174.710341568047)
+Configure Evaluate
+[2024-03-09 03:34:37,814][flwr][DEBUG] - evaluate_round 55: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:34:51,226][flwr][DEBUG] - evaluate_round 55 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 56
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:34:51,226][flwr][DEBUG] - fit_round 56: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:37:20,881][flwr][DEBUG] - fit_round 56 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4333, 0.433, 0.4307, 0.4271, 0.4387, 0.4363, 0.4257]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.7754125
+accuracies is [(0.433, 0)]
+accuracies is [(0.433, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1395
+[2024-03-09 03:37:53,649][flwr][INFO] - fit progress: (56, 142.53860688209534, {'accuracy': 0.4422}, 11370.545792132034)
+Configure Evaluate
+[2024-03-09 03:37:53,649][flwr][DEBUG] - evaluate_round 56: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:38:06,838][flwr][DEBUG] - evaluate_round 56 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 57
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:38:06,839][flwr][DEBUG] - fit_round 57: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:40:37,950][flwr][DEBUG] - fit_round 57 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4325, 0.4286, 0.4352, 0.4366, 0.4183, 0.443, 0.4337, 0.4313]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.47424285714285713
+accuracies is [(0.4331, 0)]
+accuracies is [(0.4331, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1403
+[2024-03-09 03:41:11,015][flwr][INFO] - fit progress: (57, 143.53501403331757, {'accuracy': 0.4424}, 11567.912379949004)
+Configure Evaluate
+[2024-03-09 03:41:11,016][flwr][DEBUG] - evaluate_round 57: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:41:24,405][flwr][DEBUG] - evaluate_round 57 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 58
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:41:24,406][flwr][DEBUG] - fit_round 58: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:43:47,539][flwr][DEBUG] - fit_round 58 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4308, 0.4288, 0.4311, 0.4168, 0.4222, 0.4434]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.6221555555555555
+accuracies is [(0.4298, 0)]
+accuracies is [(0.4298, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1446
+[2024-03-09 03:44:22,798][flwr][INFO] - fit progress: (58, 144.37579202651978, {'accuracy': 0.4415}, 11759.694664682029)
+Configure Evaluate
+[2024-03-09 03:44:22,798][flwr][DEBUG] - evaluate_round 58: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:44:36,273][flwr][DEBUG] - evaluate_round 58 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 59
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:44:36,273][flwr][DEBUG] - fit_round 59: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:47:23,312][flwr][DEBUG] - fit_round 59 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4293, 0.4372, 0.426]
+malicious is ['0', '0', '0']
+Number of Evil Clients: 12
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 3
+Average poisoning accuracy: 0.6495333333333334
+accuracies is [(0.4293, -1)]
+accuracies is [(0.4293, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 3 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1335
+[2024-03-09 03:47:57,314][flwr][INFO] - fit progress: (59, 143.77284288406372, {'accuracy': 0.4406}, 11974.210560766049)
+Configure Evaluate
+[2024-03-09 03:47:57,314][flwr][DEBUG] - evaluate_round 59: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:48:10,599][flwr][DEBUG] - evaluate_round 59 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 60
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:48:10,600][flwr][DEBUG] - fit_round 60: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:50:47,547][flwr][DEBUG] - fit_round 60 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4333, 0.438, 0.4359, 0.4416, 0.4369, 0.4305, 0.4398]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.7859125
+accuracies is [(0.4369, 0)]
+accuracies is [(0.4369, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1468
+[2024-03-09 03:51:22,882][flwr][INFO] - fit progress: (60, 141.6539853811264, {'accuracy': 0.448}, 12179.779057580046)
+Configure Evaluate
+[2024-03-09 03:51:22,882][flwr][DEBUG] - evaluate_round 60: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:51:36,044][flwr][DEBUG] - evaluate_round 60 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 61
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:51:36,045][flwr][DEBUG] - fit_round 61: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:54:04,791][flwr][DEBUG] - fit_round 61 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4422, 0.431, 0.4402, 0.4362, 0.4335, 0.4087, 0.4199]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.64845
+accuracies is [(0.4199, -1), (0.43484999999999996, 0)]
+accuracies is [(0.4199, -1), (0.43484999999999996, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8571428571428571
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1588
+[2024-03-09 03:54:37,552][flwr][INFO] - fit progress: (61, 143.52807366847992, {'accuracy': 0.4442}, 12374.448653703032)
+Configure Evaluate
+[2024-03-09 03:54:37,552][flwr][DEBUG] - evaluate_round 61: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:54:50,981][flwr][DEBUG] - evaluate_round 61 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 62
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:54:50,982][flwr][DEBUG] - fit_round 62: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:57:18,781][flwr][DEBUG] - fit_round 62 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4151, 0.439, 0.4413, 0.43, 0.4259, 0.4294, 0.4458]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.7185875
+accuracies is [(0.4259, -1), (0.4345, 0)]
+accuracies is [(0.4259, -1), (0.4345, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8571428571428571
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1366
+[2024-03-09 03:57:52,348][flwr][INFO] - fit progress: (62, 144.02732360363007, {'accuracy': 0.4372}, 12569.245414301055)
+Configure Evaluate
+[2024-03-09 03:57:52,349][flwr][DEBUG] - evaluate_round 62: strategy sampled 15 clients (out of 50)
+[2024-03-09 03:58:05,686][flwr][DEBUG] - evaluate_round 62 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 63
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 03:58:05,687][flwr][DEBUG] - fit_round 63: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:00:28,515][flwr][DEBUG] - fit_round 63 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4352, 0.44, 0.4397, 0.4288, 0.439, 0.4358, 0.4404]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.5423625
+accuracies is [(0.439, 0)]
+accuracies is [(0.439, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1356
+[2024-03-09 04:01:01,208][flwr][INFO] - fit progress: (63, 143.75103056430817, {'accuracy': 0.4443}, 12758.10524402)
+Configure Evaluate
+[2024-03-09 04:01:01,208][flwr][DEBUG] - evaluate_round 63: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:01:14,423][flwr][DEBUG] - evaluate_round 63 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 64
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:01:14,424][flwr][DEBUG] - fit_round 64: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:03:36,751][flwr][DEBUG] - fit_round 64 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4364, 0.4439, 0.4389, 0.4453, 0.4355, 0.4303, 0.432, 0.4308]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.7685714285714286
+accuracies is [(0.43595, 0)]
+accuracies is [(0.43595, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1342
+[2024-03-09 04:04:10,319][flwr][INFO] - fit progress: (64, 143.07447409629822, {'accuracy': 0.4412}, 12947.215676017047)
+Configure Evaluate
+[2024-03-09 04:04:10,319][flwr][DEBUG] - evaluate_round 64: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:04:23,668][flwr][DEBUG] - evaluate_round 64 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 65
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:04:23,668][flwr][DEBUG] - fit_round 65: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:07:00,323][flwr][DEBUG] - fit_round 65 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4296, 0.4346, 0.4372, 0.4308]
+malicious is ['0', '0', '0', '0']
+Number of Evil Clients: 11
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 4
+Average poisoning accuracy: 0.6645181818181818
+accuracies is [(0.4308, -1), (0.4346, 0)]
+accuracies is [(0.4308, -1), (0.4346, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.75
+Target label is 9
+length of good results is 4 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1333
+[2024-03-09 04:07:35,198][flwr][INFO] - fit progress: (65, 143.03690016269684, {'accuracy': 0.4432}, 13152.094767119037)
+Configure Evaluate
+[2024-03-09 04:07:35,198][flwr][DEBUG] - evaluate_round 65: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:07:48,603][flwr][DEBUG] - evaluate_round 65 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 66
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:07:48,604][flwr][DEBUG] - fit_round 66: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:10:22,781][flwr][DEBUG] - fit_round 66 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4218, 0.4421, 0.4336, 0.4399]
+malicious is ['0', '0', '0', '0']
+Number of Evil Clients: 11
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 4
+Average poisoning accuracy: 0.5910636363636363
+accuracies is [(0.4218, -1), (0.4399, 0)]
+accuracies is [(0.4218, -1), (0.4399, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.75
+Target label is 9
+length of good results is 4 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1349
+[2024-03-09 04:10:58,117][flwr][INFO] - fit progress: (66, 145.63178765773773, {'accuracy': 0.4395}, 13355.013497922046)
+Configure Evaluate
+[2024-03-09 04:10:58,117][flwr][DEBUG] - evaluate_round 66: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:11:11,529][flwr][DEBUG] - evaluate_round 66 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 67
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:11:11,529][flwr][DEBUG] - fit_round 67: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:13:38,008][flwr][DEBUG] - fit_round 67 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4376, 0.4373, 0.4328, 0.4291, 0.4196, 0.4376, 0.4321, 0.4417, 0.4355]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.6065333333333333
+accuracies is [(0.4355, 0)]
+accuracies is [(0.4355, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1318
+[2024-03-09 04:14:11,776][flwr][INFO] - fit progress: (67, 145.66700387001038, {'accuracy': 0.4364}, 13548.672886706016)
+Configure Evaluate
+[2024-03-09 04:14:11,776][flwr][DEBUG] - evaluate_round 67: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:14:25,121][flwr][DEBUG] - evaluate_round 67 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 68
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:14:25,122][flwr][DEBUG] - fit_round 68: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:17:01,511][flwr][DEBUG] - fit_round 68 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4295, 0.4341, 0.4295, 0.434, 0.4072]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.62543
+accuracies is [(0.41835, -1), (0.434, 0)]
+accuracies is [(0.41835, -1), (0.434, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.6
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.138
+[2024-03-09 04:17:34,271][flwr][INFO] - fit progress: (68, 144.1958725452423, {'accuracy': 0.4436}, 13751.167872307007)
+Configure Evaluate
+[2024-03-09 04:17:34,271][flwr][DEBUG] - evaluate_round 68: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:17:47,497][flwr][DEBUG] - evaluate_round 68 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 69
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:17:47,497][flwr][DEBUG] - fit_round 69: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:20:04,041][flwr][DEBUG] - fit_round 69 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4335, 0.4426, 0.4289, 0.4372, 0.4387, 0.4332]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.6009
+accuracies is [(0.4312, -1), (0.43794999999999995, 0)]
+accuracies is [(0.4312, -1), (0.43794999999999995, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.6666666666666666
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1492
+[2024-03-09 04:20:37,345][flwr][INFO] - fit progress: (69, 143.88519501686096, {'accuracy': 0.4404}, 13934.241546417004)
+Configure Evaluate
+[2024-03-09 04:20:37,345][flwr][DEBUG] - evaluate_round 69: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:20:50,778][flwr][DEBUG] - evaluate_round 69 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 70
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:20:50,778][flwr][DEBUG] - fit_round 70: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:23:19,362][flwr][DEBUG] - fit_round 70 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4321, 0.4288, 0.4403, 0.4355, 0.4439, 0.4374, 0.4292, 0.4489]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.6538142857142857
+accuracies is [(0.43645, 0)]
+accuracies is [(0.43645, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1207
+[2024-03-09 04:23:52,656][flwr][INFO] - fit progress: (70, 142.81209123134613, {'accuracy': 0.4439}, 14129.552897239046)
+Configure Evaluate
+[2024-03-09 04:23:52,656][flwr][DEBUG] - evaluate_round 70: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:24:05,818][flwr][DEBUG] - evaluate_round 70 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 71
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:24:05,818][flwr][DEBUG] - fit_round 71: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:26:44,234][flwr][DEBUG] - fit_round 71 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4345, 0.4289, 0.4402, 0.4415, 0.4352]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.6663699999999999
+accuracies is [(0.43735, -1), (0.4352, 0)]
+accuracies is [(0.43735, -1), (0.4352, 0)]
+benign class is -1
+malicious class is 0
+Final Clustering acc is 0.4
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1186
+[2024-03-09 04:27:18,259][flwr][INFO] - fit progress: (71, 143.61023485660553, {'accuracy': 0.4426}, 14335.156462748011)
+Configure Evaluate
+[2024-03-09 04:27:18,260][flwr][DEBUG] - evaluate_round 71: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:27:31,486][flwr][DEBUG] - evaluate_round 71 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 72
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:27:31,487][flwr][DEBUG] - fit_round 72: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:30:19,481][flwr][DEBUG] - fit_round 72 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4363, 0.4141, 0.4352, 0.4156, 0.4299, 0.4348]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.5994666666666668
+accuracies is [(0.4141, -1), (0.4348, 0)]
+accuracies is [(0.4141, -1), (0.4348, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8333333333333334
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1344
+[2024-03-09 04:30:52,348][flwr][INFO] - fit progress: (72, 144.50996899604797, {'accuracy': 0.4407}, 14549.245445886045)
+Configure Evaluate
+[2024-03-09 04:30:52,349][flwr][DEBUG] - evaluate_round 72: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:31:05,964][flwr][DEBUG] - evaluate_round 72 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 73
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:31:05,965][flwr][DEBUG] - fit_round 73: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:33:42,947][flwr][DEBUG] - fit_round 73 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4312, 0.4403, 0.4392, 0.4328, 0.4316, 0.4421, 0.4406]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.7703625
+accuracies is [(0.4312, -1), (0.43975, 0)]
+accuracies is [(0.4312, -1), (0.43975, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8571428571428571
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1312
+[2024-03-09 04:34:15,771][flwr][INFO] - fit progress: (73, 143.40245807170868, {'accuracy': 0.4419}, 14752.668379110051)
+Configure Evaluate
+[2024-03-09 04:34:15,772][flwr][DEBUG] - evaluate_round 73: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:34:28,967][flwr][DEBUG] - evaluate_round 73 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 74
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:34:28,967][flwr][DEBUG] - fit_round 74: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:37:15,446][flwr][DEBUG] - fit_round 74 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4288, 0.4257, 0.4363, 0.4365, 0.4314, 0.4436, 0.4377, 0.4372, 0.4373]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.7081
+accuracies is [(0.4288, -1), (0.43684999999999996, 0)]
+accuracies is [(0.4288, -1), (0.43684999999999996, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8888888888888888
+Target label is 9
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1285
+[2024-03-09 04:37:47,134][flwr][INFO] - fit progress: (74, 143.5988246202469, {'accuracy': 0.4407}, 14964.03102376702)
+Configure Evaluate
+[2024-03-09 04:37:47,134][flwr][DEBUG] - evaluate_round 74: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:38:00,432][flwr][DEBUG] - evaluate_round 74 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 75
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:38:00,433][flwr][DEBUG] - fit_round 75: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:40:36,648][flwr][DEBUG] - fit_round 75 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4332, 0.4282, 0.4407]
+malicious is ['0', '0', '0']
+Number of Evil Clients: 12
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 3
+Average poisoning accuracy: 0.5573499999999999
+accuracies is [(0.4332, -1)]
+accuracies is [(0.4332, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 3 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1385
+[2024-03-09 04:41:09,694][flwr][INFO] - fit progress: (75, 146.38120424747467, {'accuracy': 0.4405}, 15166.591067806003)
+Configure Evaluate
+[2024-03-09 04:41:09,694][flwr][DEBUG] - evaluate_round 75: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:41:23,025][flwr][DEBUG] - evaluate_round 75 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 76
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:41:23,026][flwr][DEBUG] - fit_round 76: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:44:13,946][flwr][DEBUG] - fit_round 76 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4399, 0.4273, 0.4384, 0.4346, 0.4421]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.6640400000000001
+accuracies is [(0.4384, 0)]
+accuracies is [(0.4384, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.134
+[2024-03-09 04:44:48,212][flwr][INFO] - fit progress: (76, 142.46412920951843, {'accuracy': 0.4429}, 15385.108602743014)
+Configure Evaluate
+[2024-03-09 04:44:48,212][flwr][DEBUG] - evaluate_round 76: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:45:01,639][flwr][DEBUG] - evaluate_round 76 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 77
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:45:01,640][flwr][DEBUG] - fit_round 77: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:47:37,439][flwr][DEBUG] - fit_round 77 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4353, 0.4368, 0.4392, 0.4337, 0.4401]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.7009700000000001
+accuracies is [(0.4368, -1), (0.43725, 0)]
+accuracies is [(0.4368, -1), (0.43725, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.125
+[2024-03-09 04:48:10,993][flwr][INFO] - fit progress: (77, 141.19720268249512, {'accuracy': 0.4456}, 15587.890156581998)
+Configure Evaluate
+[2024-03-09 04:48:10,993][flwr][DEBUG] - evaluate_round 77: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:48:24,658][flwr][DEBUG] - evaluate_round 77 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 78
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:48:24,658][flwr][DEBUG] - fit_round 78: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:51:12,606][flwr][DEBUG] - fit_round 78 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4422, 0.4163, 0.4412, 0.4375, 0.4442]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.62295
+accuracies is [(0.4412, 0)]
+accuracies is [(0.4412, 0)]
+benign class is 0
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.12
+[2024-03-09 04:51:48,563][flwr][INFO] - fit progress: (78, 142.76256382465363, {'accuracy': 0.4463}, 15805.460430430016)
+Configure Evaluate
+[2024-03-09 04:51:48,564][flwr][DEBUG] - evaluate_round 78: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:52:02,144][flwr][DEBUG] - evaluate_round 78 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 79
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:52:02,144][flwr][DEBUG] - fit_round 79: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:54:31,555][flwr][DEBUG] - fit_round 79 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4304, 0.4412, 0.4371, 0.4364, 0.4368, 0.4327, 0.4343]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.85675
+accuracies is [(0.4343, -1), (0.4366, 0)]
+accuracies is [(0.4343, -1), (0.4366, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8571428571428571
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1268
+[2024-03-09 04:55:04,252][flwr][INFO] - fit progress: (79, 140.8710869550705, {'accuracy': 0.4485}, 16001.149021665042)
+Configure Evaluate
+[2024-03-09 04:55:04,252][flwr][DEBUG] - evaluate_round 79: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:55:17,630][flwr][DEBUG] - evaluate_round 79 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 80
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:55:17,631][flwr][DEBUG] - fit_round 80: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:57:34,309][flwr][DEBUG] - fit_round 80 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4321, 0.4328, 0.4395, 0.4469, 0.441, 0.4389, 0.4333, 0.4422]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.4749857142857143
+accuracies is [(0.4333, -1), (0.4395, 0)]
+accuracies is [(0.4333, -1), (0.4395, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.875
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1311
+[2024-03-09 04:58:09,352][flwr][INFO] - fit progress: (80, 142.76986479759216, {'accuracy': 0.4444}, 16186.249367016018)
+Configure Evaluate
+[2024-03-09 04:58:09,353][flwr][DEBUG] - evaluate_round 80: strategy sampled 15 clients (out of 50)
+[2024-03-09 04:58:22,973][flwr][DEBUG] - evaluate_round 80 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 81
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 04:58:22,973][flwr][DEBUG] - fit_round 81: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:00:52,686][flwr][DEBUG] - fit_round 81 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4389, 0.4357, 0.4389, 0.4336]
+malicious is ['0', '0', '0', '0']
+Number of Evil Clients: 11
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 4
+Average poisoning accuracy: 0.6517545454545455
+accuracies is [(0.4373, -1)]
+accuracies is [(0.4373, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 4 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.127
+[2024-03-09 05:01:27,866][flwr][INFO] - fit progress: (81, 143.64961218833923, {'accuracy': 0.4456}, 16384.76313519705)
+Configure Evaluate
+[2024-03-09 05:01:27,866][flwr][DEBUG] - evaluate_round 81: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:01:41,156][flwr][DEBUG] - evaluate_round 81 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 82
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:01:41,156][flwr][DEBUG] - fit_round 82: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:04:15,167][flwr][DEBUG] - fit_round 82 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4453, 0.4425, 0.409, 0.4361, 0.4359, 0.428]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.6893222222222222
+accuracies is [(0.42245, -1), (0.4393, 0)]
+accuracies is [(0.42245, -1), (0.4393, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.6666666666666666
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1271
+[2024-03-09 05:04:50,085][flwr][INFO] - fit progress: (82, 143.75795233249664, {'accuracy': 0.4455}, 16586.981967510015)
+Configure Evaluate
+[2024-03-09 05:04:50,085][flwr][DEBUG] - evaluate_round 82: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:05:03,585][flwr][DEBUG] - evaluate_round 82 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 83
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:05:03,585][flwr][DEBUG] - fit_round 83: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:07:27,659][flwr][DEBUG] - fit_round 83 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4247, 0.4289, 0.4235, 0.433, 0.4402]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.5173099999999999
+accuracies is [(0.4289, -1)]
+accuracies is [(0.4289, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1347
+[2024-03-09 05:08:03,191][flwr][INFO] - fit progress: (83, 145.98432850837708, {'accuracy': 0.4412}, 16780.088017182017)
+Configure Evaluate
+[2024-03-09 05:08:03,191][flwr][DEBUG] - evaluate_round 83: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:08:16,869][flwr][DEBUG] - evaluate_round 83 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 84
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:08:16,870][flwr][DEBUG] - fit_round 84: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:11:02,697][flwr][DEBUG] - fit_round 84 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4431, 0.4343, 0.4353, 0.4294, 0.4342]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.64646
+accuracies is [(0.43185, -1), (0.4353, 0)]
+accuracies is [(0.43185, -1), (0.4353, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.6
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1192
+[2024-03-09 05:11:37,843][flwr][INFO] - fit progress: (84, 144.92105495929718, {'accuracy': 0.4404}, 16994.739605032024)
+Configure Evaluate
+[2024-03-09 05:11:37,843][flwr][DEBUG] - evaluate_round 84: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:11:51,248][flwr][DEBUG] - evaluate_round 84 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 85
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:11:51,248][flwr][DEBUG] - fit_round 85: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:14:16,874][flwr][DEBUG] - fit_round 85 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4344, 0.4442, 0.4284, 0.4371, 0.4296]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.7003300000000001
+accuracies is [(0.4344, -1)]
+accuracies is [(0.4344, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1296
+[2024-03-09 05:14:49,376][flwr][INFO] - fit progress: (85, 143.70605552196503, {'accuracy': 0.4409}, 17186.27262848604)
+Configure Evaluate
+[2024-03-09 05:14:49,376][flwr][DEBUG] - evaluate_round 85: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:15:02,606][flwr][DEBUG] - evaluate_round 85 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 86
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:15:02,607][flwr][DEBUG] - fit_round 86: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:17:25,228][flwr][DEBUG] - fit_round 86 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.434, 0.4368, 0.4412, 0.4287]
+malicious is ['0', '0', '0', '0']
+Number of Evil Clients: 11
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 4
+Average poisoning accuracy: 0.6769636363636363
+accuracies is [(0.4354, -1)]
+accuracies is [(0.4354, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 4 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1587
+[2024-03-09 05:17:58,643][flwr][INFO] - fit progress: (86, 144.50402081012726, {'accuracy': 0.4414}, 17375.540254219028)
+Configure Evaluate
+[2024-03-09 05:17:58,643][flwr][DEBUG] - evaluate_round 86: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:18:12,415][flwr][DEBUG] - evaluate_round 86 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 87
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:18:12,416][flwr][DEBUG] - fit_round 87: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:20:30,594][flwr][DEBUG] - fit_round 87 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4379, 0.4428, 0.431, 0.4333, 0.4346, 0.4373, 0.4437, 0.4377, 0.4305, 0.414]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.87896
+accuracies is [(0.4346, -1), (0.4373, 0)]
+accuracies is [(0.4346, -1), (0.4373, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.7
+Target label is 9
+length of good results is 10 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1219
+[2024-03-09 05:21:03,665][flwr][INFO] - fit progress: (87, 143.547381401062, {'accuracy': 0.4415}, 17560.561517875)
+Configure Evaluate
+[2024-03-09 05:21:03,665][flwr][DEBUG] - evaluate_round 87: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:21:16,891][flwr][DEBUG] - evaluate_round 87 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 88
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:21:16,891][flwr][DEBUG] - fit_round 88: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:23:53,502][flwr][DEBUG] - fit_round 88 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4309, 0.4343, 0.4385, 0.4364, 0.4349]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.62808
+accuracies is [(0.4326, -1), (0.4364, 0)]
+accuracies is [(0.4326, -1), (0.4364, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.6
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1243
+[2024-03-09 05:24:26,522][flwr][INFO] - fit progress: (88, 142.96360647678375, {'accuracy': 0.4411}, 17763.41876961605)
+Configure Evaluate
+[2024-03-09 05:24:26,522][flwr][DEBUG] - evaluate_round 88: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:24:40,011][flwr][DEBUG] - evaluate_round 88 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 89
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:24:40,012][flwr][DEBUG] - fit_round 89: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:27:07,771][flwr][DEBUG] - fit_round 89 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.441, 0.4363, 0.439, 0.4461, 0.4407, 0.4352, 0.4377, 0.4368, 0.4446, 0.4361]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.88214
+accuracies is [(0.4352, -1), (0.439, 0), (0.4392, 1)]
+accuracies is [(0.4352, -1), (0.4392, 1)]
+benign class is 1
+malicious class is -1
+Final Clustering acc is 0.9
+Target label is 9
+length of good results is 10 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1298
+[2024-03-09 05:27:39,879][flwr][INFO] - fit progress: (89, 140.93385088443756, {'accuracy': 0.4479}, 17956.77592740103)
+Configure Evaluate
+[2024-03-09 05:27:39,879][flwr][DEBUG] - evaluate_round 89: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:27:53,353][flwr][DEBUG] - evaluate_round 89 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 90
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:27:53,354][flwr][DEBUG] - fit_round 90: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:30:41,652][flwr][DEBUG] - fit_round 90 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4409, 0.443, 0.4419, 0.4466, 0.4402]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.66266
+accuracies is [(0.44055, -1), (0.443, 0)]
+accuracies is [(0.44055, -1), (0.443, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.6
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1452
+[2024-03-09 05:31:14,485][flwr][INFO] - fit progress: (90, 139.6649352312088, {'accuracy': 0.4481}, 18171.381989162997)
+Configure Evaluate
+[2024-03-09 05:31:14,485][flwr][DEBUG] - evaluate_round 90: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:31:27,866][flwr][DEBUG] - evaluate_round 90 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 91
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:31:27,867][flwr][DEBUG] - fit_round 91: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:33:48,991][flwr][DEBUG] - fit_round 91 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.438, 0.4443, 0.4375, 0.4379, 0.4277, 0.4318]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.6234222222222222
+accuracies is [(0.4318, -1), (0.4379, 0)]
+accuracies is [(0.4318, -1), (0.4379, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8333333333333334
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1321
+[2024-03-09 05:34:22,483][flwr][INFO] - fit progress: (91, 142.79398155212402, {'accuracy': 0.4435}, 18359.38014902)
+Configure Evaluate
+[2024-03-09 05:34:22,483][flwr][DEBUG] - evaluate_round 91: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:34:35,983][flwr][DEBUG] - evaluate_round 91 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 92
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:34:35,984][flwr][DEBUG] - fit_round 92: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:37:09,812][flwr][DEBUG] - fit_round 92 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4377, 0.4386, 0.4372, 0.4359, 0.4343, 0.4446]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.6037
+accuracies is [(0.4372, -1), (0.4377, 0)]
+accuracies is [(0.4372, -1), (0.4377, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.5
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.13
+[2024-03-09 05:37:42,684][flwr][INFO] - fit progress: (92, 142.6486612558365, {'accuracy': 0.4422}, 18559.58095058403)
+Configure Evaluate
+[2024-03-09 05:37:42,684][flwr][DEBUG] - evaluate_round 92: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:37:56,266][flwr][DEBUG] - evaluate_round 92 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 93
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:37:56,266][flwr][DEBUG] - fit_round 93: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:40:28,123][flwr][DEBUG] - fit_round 93 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4357, 0.4436, 0.4434, 0.4414, 0.4433, 0.437]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.6859444444444445
+accuracies is [(0.44235, -1)]
+accuracies is [(0.44235, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1172
+[2024-03-09 05:41:02,119][flwr][INFO] - fit progress: (93, 141.74965953826904, {'accuracy': 0.4471}, 18759.016445697052)
+Configure Evaluate
+[2024-03-09 05:41:02,120][flwr][DEBUG] - evaluate_round 93: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:41:15,592][flwr][DEBUG] - evaluate_round 93 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 94
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:41:15,592][flwr][DEBUG] - fit_round 94: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:43:42,360][flwr][DEBUG] - fit_round 94 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4429, 0.4266, 0.4363, 0.4413, 0.4311]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.63656
+accuracies is [(0.4363, -1)]
+accuracies is [(0.4363, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1208
+[2024-03-09 05:44:16,441][flwr][INFO] - fit progress: (94, 144.07048535346985, {'accuracy': 0.4454}, 18953.33751418302)
+Configure Evaluate
+[2024-03-09 05:44:16,441][flwr][DEBUG] - evaluate_round 94: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:44:29,745][flwr][DEBUG] - evaluate_round 94 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 95
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:44:29,746][flwr][DEBUG] - fit_round 95: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:46:59,308][flwr][DEBUG] - fit_round 95 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4382, 0.4363, 0.4286, 0.4334, 0.4311, 0.4414, 0.4434, 0.4356, 0.4396, 0.4416]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.70724
+accuracies is [(0.4334, -1), (0.43689999999999996, 0), (0.4414, 1)]
+accuracies is [(0.4334, -1), (0.4414, 1)]
+benign class is 1
+malicious class is -1
+Final Clustering acc is 0.3
+Target label is 9
+length of good results is 10 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1293
+[2024-03-09 05:47:32,640][flwr][INFO] - fit progress: (95, 142.10277903079987, {'accuracy': 0.4474}, 19149.537073466054)
+Configure Evaluate
+[2024-03-09 05:47:32,640][flwr][DEBUG] - evaluate_round 95: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:47:46,173][flwr][DEBUG] - evaluate_round 95 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 96
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:47:46,173][flwr][DEBUG] - fit_round 96: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:50:29,761][flwr][DEBUG] - fit_round 96 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.439, 0.4215, 0.4407, 0.4396, 0.4468, 0.4247, 0.4442, 0.4451, 0.4431, 0.4274]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.8299
+accuracies is [(0.4215, -1), (0.439, 0), (0.44365, 1)]
+accuracies is [(0.4215, -1), (0.44365, 1)]
+benign class is 1
+malicious class is -1
+Final Clustering acc is 0.9
+Target label is 9
+length of good results is 10 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1294
+[2024-03-09 05:51:04,758][flwr][INFO] - fit progress: (96, 143.65258169174194, {'accuracy': 0.4437}, 19361.655470407044)
+Configure Evaluate
+[2024-03-09 05:51:04,759][flwr][DEBUG] - evaluate_round 96: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:51:18,288][flwr][DEBUG] - evaluate_round 96 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 97
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:51:18,288][flwr][DEBUG] - fit_round 97: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:53:50,255][flwr][DEBUG] - fit_round 97 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4414, 0.4377, 0.4399, 0.4412, 0.4423, 0.4372, 0.4424]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.8572375
+accuracies is [(0.4393, -1), (0.4412, 0)]
+accuracies is [(0.4393, -1), (0.4412, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.7142857142857143
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1393
+[2024-03-09 05:54:23,038][flwr][INFO] - fit progress: (97, 142.46695983409882, {'accuracy': 0.4458}, 19559.935453917016)
+Configure Evaluate
+[2024-03-09 05:54:23,039][flwr][DEBUG] - evaluate_round 97: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:54:36,302][flwr][DEBUG] - evaluate_round 97 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 98
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:54:36,302][flwr][DEBUG] - fit_round 98: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:57:08,592][flwr][DEBUG] - fit_round 98 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4343, 0.4408, 0.4256, 0.4368, 0.4407, 0.4414]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.5070666666666667
+accuracies is [(0.43875, -1)]
+accuracies is [(0.43875, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1259
+[2024-03-09 05:57:42,174][flwr][INFO] - fit progress: (98, 142.26991319656372, {'accuracy': 0.4429}, 19759.071236102027)
+Configure Evaluate
+[2024-03-09 05:57:42,174][flwr][DEBUG] - evaluate_round 98: strategy sampled 15 clients (out of 50)
+[2024-03-09 05:57:55,537][flwr][DEBUG] - evaluate_round 98 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 99
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 05:57:55,538][flwr][DEBUG] - fit_round 99: strategy sampled 15 clients (out of 50)
+[2024-03-09 06:00:27,993][flwr][DEBUG] - fit_round 99 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4418, 0.433, 0.4409, 0.4437, 0.4357]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.62878
+accuracies is [(0.4409, -1)]
+accuracies is [(0.4409, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.1248
+[2024-03-09 06:01:01,100][flwr][INFO] - fit progress: (99, 142.07426762580872, {'accuracy': 0.4423}, 19957.996840800042)
+Configure Evaluate
+[2024-03-09 06:01:01,100][flwr][DEBUG] - evaluate_round 99: strategy sampled 15 clients (out of 50)
+[2024-03-09 06:01:14,521][flwr][DEBUG] - evaluate_round 99 received 15 results and 0 failures
+Aggregate evaluate
+Configure Fit
+server round: 100
+Memory allocated at start of a round: 8519680
+Memory allocated after config fit: 8519680
+[2024-03-09 06:01:14,522][flwr][DEBUG] - fit_round 100: strategy sampled 15 clients (out of 50)
+[2024-03-09 06:03:59,583][flwr][DEBUG] - fit_round 100 received 15 results and 0 failures
+Memory allocated before aggregate fit: 8519680
+individual accuracies [0.4304, 0.4338, 0.4387, 0.436, 0.4382]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.5170600000000001
+accuracies is [(0.436, -1)]
+accuracies is [(0.436, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Memory allocated after aggregate fit: 8519680
+Memory allocated after empty cache: 8519680
+Evaluate
+Global Poisoning Accuracy: 0.104
+[2024-03-09 06:04:34,581][flwr][INFO] - fit progress: (100, 144.9053795337677, {'accuracy': 0.4446}, 20171.477792576014)
+Configure Evaluate
+[2024-03-09 06:04:34,581][flwr][DEBUG] - evaluate_round 100: strategy sampled 15 clients (out of 50)
+[2024-03-09 06:04:48,042][flwr][DEBUG] - evaluate_round 100 received 15 results and 0 failures
+Aggregate evaluate
+[2024-03-09 06:04:48,042][flwr][INFO] - FL finished in 20184.938874075015
+[2024-03-09 06:04:48,048][flwr][INFO] - app_fit: losses_distributed [(1, 9.660432227870874), (2, 11.953434815145519), (3, 8.051145137440075), (4, 9.819941502221873), (5, 6.555268480066667), (6, 7.136492056633109), (7, 6.132771237330004), (8, 5.621237988354729), (9, 6.314921036800918), (10, 5.611407702404355), (11, 4.655504165538426), (12, 4.9772152904953275), (13, 4.7532248152153835), (14, 2.796985677364519), (15, 4.2253603286373975), (16, 3.473139632260427), (17, 5.682745103147768), (18, 4.605021435878615), (19, 4.95027407837003), (20, 3.7995865326922607), (21, 3.1987500073479826), (22, 4.148419196823878), (23, 4.088215264878594), (24, 4.201539898442255), (25, 1.722748893757279), (26, 3.977820861712098), (27, 5.020449669292087), (28, 3.921502314187819), (29, 4.600799809406761), (30, 3.488629287397358), (31, 4.733403950685361), (32, 2.5190545396112345), (33, 3.0667845378206535), (34, 2.762124307015772), (35, 3.703697975301607), (36, 3.903458540076538), (37, 4.398457042252024), (38, 4.301297919984573), (39, 2.3133681226099725), (40, 3.175963715988121), (41, 3.378241011177675), (42, 3.8285680268956743), (43, 4.317464799684441), (44, 3.9389570541818864), (45, 1.961807273939919), (46, 2.8568997689102207), (47, 2.8157781856690547), (48, 2.252635060061441), (49, 3.3193946383434576), (50, 2.1304814071350155), (51, 3.3145165563489383), (52, 3.5385649343451053), (53, 2.5148678379846388), (54, 3.2739637348327846), (55, 1.8897154858244247), (56, 3.928358445462154), (57, 1.0881690115316724), (58, 4.354963999997446), (59, 2.157708021962354), (60, 1.9513044849467964), (61, 3.0545935648295917), (62, 1.1697304444387555), (63, 3.477926018069301), (64, 2.4496161870291115), (65, 2.749494804261143), (66, 3.9678336154764233), (67, 2.2085990450457382), (68, 3.2042521039099507), (69, 3.2753671082268867), (70, 3.696237968544111), (71, 2.146255030084336), (72, 6.454492244668978), (73, 2.3676773751398823), (74, 4.1255384898403475), (75, 5.182468952371965), (76, 4.347129871114908), (77, 3.4140572557356994), (78, 3.1706262750203833), (79, 4.055422722789475), (80, 4.491256825701409), (81, 3.7541371761584905), (82, 3.784684483378903), (83, 4.808436772684217), (84, 5.467059029296281), (85, 2.7714463130708924), (86, 2.2562197086987115), (87, 3.076271216238716), (88, 3.7530332911973363), (89, 3.866675224125145), (90, 1.893112213605491), (91, 3.490686221883687), (92, 3.378685644820619), (93, 4.922089243364153), (94, 3.2236045191773393), (95, 4.49830626870465), (96, 4.901917413423459), (97, 1.3196339060729048), (98, 3.5622324328426096), (99, 2.5574714333643436), (100, 3.8358558802865446)]
+[2024-03-09 06:04:48,048][flwr][INFO] - app_fit: metrics_distributed_fit {}
+[2024-03-09 06:04:48,048][flwr][INFO] - app_fit: metrics_distributed {'accuracy': [(1, 0.10261052631578947), (2, 0.19163013698630135), (3, 0.2357509090909091), (4, 0.3251154929577465), (5, 0.3659473684210527), (6, 0.43154776119402977), (7, 0.5112075757575758), (8, 0.5215098360655738), (9, 0.5618970588235295), (10, 0.5739444444444443), (11, 0.5843275862068966), (12, 0.630887142857143), (13, 0.6585642857142857), (14, 0.719777966101695), (15, 0.689665671641791), (16, 0.6641859375), (17, 0.5955523809523809), (18, 0.6636238805970148), (19, 0.6639910447761195), (20, 0.7146235294117647), (21, 0.7002360655737706), (22, 0.6720785714285714), (23, 0.6807630769230769), (24, 0.7142310810810811), (25, 0.7994830769230771), (26, 0.6433583333333334), (27, 0.6434558823529413), (28, 0.672909375), (29, 0.6829450704225353), (30, 0.7183154929577464), (31, 0.6310590163934428), (32, 0.7574764705882354), (33, 0.7164712121212122), (34, 0.7602910447761194), (35, 0.6884196969696971), (36, 0.658515873015873), (37, 0.655076811594203), (38, 0.6744582089552238), (39, 0.7691984375), (40, 0.7021596774193549), (41, 0.7148295774647888), (42, 0.7030323943661972), (43, 0.6345258620689654), (44, 0.6854029850746269), (45, 0.7975910447761195), (46, 0.7176758064516129), (47, 0.7457507462686568), (48, 0.7545704918032787), (49, 0.7106260869565217), (50, 0.7600301587301589), (51, 0.703853846153846), (52, 0.6918953846153845), (53, 0.7455734374999998), (54, 0.711784126984127), (55, 0.7575950819672131), (56, 0.6895323943661972), (57, 0.8070704918032787), (58, 0.6827826086956521), (59, 0.7494532258064517), (60, 0.7745784615384617), (61, 0.7151424242424244), (62, 0.81785), (63, 0.6736409090909091), (64, 0.8174647887323946), (65, 0.7618573529411765), (66, 0.6654237288135594), (67, 0.7296982758620689), (68, 0.7579986486486489), (69, 0.7229714285714286), (70, 0.7026855072463769), (71, 0.7232614035087719), (72, 0.5783236111111111), (73, 0.7397557377049182), (74, 0.7099788732394365), (75, 0.6614527027027028), (76, 0.6344000000000001), (77, 0.7308478873239437), (78, 0.6920864406779661), (79, 0.6464426229508197), (80, 0.7007459459459461), (81, 0.683576119402985), (82, 0.7090179104477613), (83, 0.6207984375000001), (84, 0.5894370967741936), (85, 0.6903222222222222), (86, 0.7716209677419356), (87, 0.7516685714285715), (88, 0.6748672131147541), (89, 0.6738), (90, 0.7829953124999999), (91, 0.7157235294117645), (92, 0.7094661538461539), (93, 0.6669439393939394), (94, 0.744744776119403), (95, 0.6490376811594204), (96, 0.6686519999999999), (97, 0.7872793103448277), (98, 0.679168253968254), (99, 0.7531967213114754), (100, 0.694171875)]}
+[2024-03-09 06:04:48,048][flwr][INFO] - app_fit: losses_centralized [(0, 182.69174432754517), (1, 197.54915285110474), (2, 178.68076539039612), (3, 158.25862681865692), (4, 153.46084487438202), (5, 140.62812507152557), (6, 136.59913957118988), (7, 135.63323485851288), (8, 136.8362386226654), (9, 131.44011795520782), (10, 131.93828070163727), (11, 137.0431568622589), (12, 137.83107209205627), (13, 139.50408005714417), (14, 139.9312150478363), (15, 138.94493663311005), (16, 139.73859667778015), (17, 141.63076293468475), (18, 143.46238029003143), (19, 142.0566211938858), (20, 142.98601460456848), (21, 144.0245442390442), (22, 142.27632856369019), (23, 141.94565165042877), (24, 143.2523491382599), (25, 139.07541477680206), (26, 139.26778554916382), (27, 141.94432401657104), (28, 141.46775650978088), (29, 139.49955022335052), (30, 141.3744398355484), (31, 142.68080377578735), (32, 141.99194073677063), (33, 140.75277292728424), (34, 142.330393075943), (35, 141.1339545249939), (36, 140.0390763282776), (37, 140.8086085319519), (38, 141.95450258255005), (39, 143.63165068626404), (40, 142.56892204284668), (41, 142.37549257278442), (42, 142.24161195755005), (43, 144.27723371982574), (44, 144.52943074703217), (45, 143.68866574764252), (46, 141.28657042980194), (47, 141.25872015953064), (48, 143.83561730384827), (49, 144.72851026058197), (50, 144.38105428218842), (51, 145.65609657764435), (52, 145.2781343460083), (53, 144.60776579380035), (54, 143.69056594371796), (55, 143.24070131778717), (56, 142.53860688209534), (57, 143.53501403331757), (58, 144.37579202651978), (59, 143.77284288406372), (60, 141.6539853811264), (61, 143.52807366847992), (62, 144.02732360363007), (63, 143.75103056430817), (64, 143.07447409629822), (65, 143.03690016269684), (66, 145.63178765773773), (67, 145.66700387001038), (68, 144.1958725452423), (69, 143.88519501686096), (70, 142.81209123134613), (71, 143.61023485660553), (72, 144.50996899604797), (73, 143.40245807170868), (74, 143.5988246202469), (75, 146.38120424747467), (76, 142.46412920951843), (77, 141.19720268249512), (78, 142.76256382465363), (79, 140.8710869550705), (80, 142.76986479759216), (81, 143.64961218833923), (82, 143.75795233249664), (83, 145.98432850837708), (84, 144.92105495929718), (85, 143.70605552196503), (86, 144.50402081012726), (87, 143.547381401062), (88, 142.96360647678375), (89, 140.93385088443756), (90, 139.6649352312088), (91, 142.79398155212402), (92, 142.6486612558365), (93, 141.74965953826904), (94, 144.07048535346985), (95, 142.10277903079987), (96, 143.65258169174194), (97, 142.46695983409882), (98, 142.26991319656372), (99, 142.07426762580872), (100, 144.9053795337677)]
+[2024-03-09 06:04:48,048][flwr][INFO] - app_fit: metrics_centralized {'accuracy': [(0, 0.0889), (1, 0.1007), (2, 0.1724), (3, 0.2497), (4, 0.3069), (5, 0.3564), (6, 0.3742), (7, 0.3892), (8, 0.3937), (9, 0.4131), (10, 0.4234), (11, 0.4088), (12, 0.4232), (13, 0.4163), (14, 0.4175), (15, 0.4309), (16, 0.4283), (17, 0.4222), (18, 0.4217), (19, 0.4289), (20, 0.4315), (21, 0.4286), (22, 0.4323), (23, 0.4311), (24, 0.4291), (25, 0.4338), (26, 0.4341), (27, 0.4312), (28, 0.4299), (29, 0.4401), (30, 0.4341), (31, 0.4359), (32, 0.4404), (33, 0.4444), (34, 0.4343), (35, 0.4362), (36, 0.4367), (37, 0.4385), (38, 0.4392), (39, 0.4357), (40, 0.4362), (41, 0.4399), (42, 0.4372), (43, 0.4362), (44, 0.4342), (45, 0.438), (46, 0.4391), (47, 0.4422), (48, 0.4381), (49, 0.4398), (50, 0.4402), (51, 0.4351), (52, 0.4405), (53, 0.4405), (54, 0.4424), (55, 0.4417), (56, 0.4422), (57, 0.4424), (58, 0.4415), (59, 0.4406), (60, 0.448), (61, 0.4442), (62, 0.4372), (63, 0.4443), (64, 0.4412), (65, 0.4432), (66, 0.4395), (67, 0.4364), (68, 0.4436), (69, 0.4404), (70, 0.4439), (71, 0.4426), (72, 0.4407), (73, 0.4419), (74, 0.4407), (75, 0.4405), (76, 0.4429), (77, 0.4456), (78, 0.4463), (79, 0.4485), (80, 0.4444), (81, 0.4456), (82, 0.4455), (83, 0.4412), (84, 0.4404), (85, 0.4409), (86, 0.4414), (87, 0.4415), (88, 0.4411), (89, 0.4479), (90, 0.4481), (91, 0.4435), (92, 0.4422), (93, 0.4471), (94, 0.4454), (95, 0.4474), (96, 0.4437), (97, 0.4458), (98, 0.4429), (99, 0.4423), (100, 0.4446)]}

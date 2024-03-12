@@ -74,6 +74,7 @@ print('Using CUDA:',USE_CUDA)
 print('Using MPS:', USE_MPS)
 
 malicious_record = []
+benign_record = []
 final_model = []
 final_metric = []
 e1, lowest_accuracy1 = 0, 0
@@ -309,8 +310,7 @@ class NNtrain(Strategy):
         results: List[Tuple[ClientProxy, FitRes]],
         failures: List[Union[Tuple[ClientProxy, FitRes], BaseException]],
     ) -> Tuple[Optional[Parameters], Dict[str, Scalar]]:
-        # global malicious_record, highest_accuracy_c1w, lowest_accuracy_c1w, highest_accuracy_c2w, lowest_accuracy_c2w, highest_accuracy_fhw, lowest_accuracy_fhw, highest_accuracy_shw, lowest_accuracy_shw, highest_accuracy_olb, lowest_accuracy_olb, final_model, final_metric, global_targetlabel, e_olb, e_c1w, e_c2w, e_fhw, e_shw
-        global malicious_record, highest_accuracy, lowest_accuracy, final_model, final_metric, global_targetlabel, e
+        global malicious_record, highest_accuracy, lowest_accuracy, final_model, final_metric, global_targetlabel, e, benign_record
 
         if not results:
             return None, {}
@@ -394,9 +394,7 @@ class NNtrain(Strategy):
             print("Average poisoning accuracy: N/A")
 
         """Get FC Weight for clustering"""
-        # fcb = [sublist[-1] for sublist in parameter]
         fcw = []
-        c1w = []
         for i in range(len(parameter)): 
             w = 0
             vector = []  #set up a vector for each client
@@ -405,15 +403,7 @@ class NNtrain(Strategy):
                 vector.append(w)
             fcw.append(np.array(vector))
 
-            # cw = 0
-            # c1vector = []
-            # for k in range(len(parameter[i][0])):
-            #     cw = np.sum(parameter[i][0][k])
-            #     c1vector.append(cw)
-            # c1w.append(np.array(c1vector))
-
         if len(evil_results) > 0:
-            # evil_fcb = [sublist[-1] for sublist in evil_parameter]
             evil_fcw = []
             for i in range(len(evil_results)): 
                 w = 0
@@ -426,26 +416,6 @@ class NNtrain(Strategy):
         # heatmaps(local_cid, malicious, np.array(fcw), 'FCW', server_round)
 
         comb_C, record, acc_diff, highest_accuracy, lowest_accuracy, e = full_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, individual_acc, e, highest_accuracy, lowest_accuracy)
-        # comb_C1, record1, acc_diff1, highest_accuracy1, lowest_accuracy1, e1 = full_clustering(parameter, client_id, malicious, c1w, "c1w", server_round, individual_acc, e1, highest_accuracy1, lowest_accuracy1)
-
-        """CIFAR-10"""
-        # if server_round <= 10:
-        #     comb_C = comb_C_fhw
-        #     record = record_fhw
-        #     acc_diff = acc_diff_fhw
-        # elif server_round <= 50:
-        #     comb_C = comb_C_c1w
-        #     record = record_c1w
-        #     acc_diff = acc_diff_c1w
-        # else:
-        #     comb_C = comb_C_shw
-        #     record = record_shw
-        #     acc_diff = acc_diff_shw
-
-        """MNIST or CIFAR NonIID"""
-        # comb_C = comb_C_olb
-        # record = record_olb
-        # acc_diff = acc_diff_olb
 
         bad_clients = local_cid[comb_C == 2]
         good_clients = local_cid[comb_C == 0]
@@ -472,6 +442,12 @@ class NNtrain(Strategy):
             print(len(global_bad), "added to evil list")
             malicious_record.extend(global_bad)
             malicious_record = list(set(malicious_record)) #avoid duplicates
+
+            global_good = client_id[comb_C == 0]
+            benign_record.extend(global_good)
+            benign_record = list(set(benign_record))
+        
+        print("benign record is", benign_record)
 
         ws[constant.EXCEL_CELL+str(server_round+107)] = clustering_acc
         ws[constant.EXCEL_CELL+str(server_round+211)] = poisoning_acc
@@ -548,8 +524,8 @@ class NNtrain(Strategy):
             log(WARNING, "No fit_metrics_aggregation_fn provided")
 
         # Record the final model in case if the next round is a void round
-        final_model = parameters_aggregated
-        final_metric = metrics_aggregated
+        # final_model = parameters_aggregated
+        # final_metric = metrics_aggregated
 
         return parameters_aggregated, metrics_aggregated
 
@@ -569,23 +545,38 @@ class NNtrain(Strategy):
             return None, {}
 
         # Aggregate loss
-        loss_aggregated = weighted_loss_avg(
-            [
-                (evaluate_res.num_examples, evaluate_res.loss)
-                for _, evaluate_res in results
-            ]
-        )
+        valid_results = []
+        print("benign record is", benign_record)
+        if benign_record != []:
+            for cp, evaluate_res in results:
+                if cp.cid in benign_record:
+                    valid_results.append((evaluate_res.num_examples, evaluate_res.loss))
+
+            loss_aggregated = weighted_loss_avg(valid_results)
+        else:
+            loss_aggregated = weighted_loss_avg(
+                [
+                    (evaluate_res.num_examples, evaluate_res.loss)
+                    for _, evaluate_res in results
+                ]
+            )
 
         # Aggregate custom metrics if aggregation fn was provided
         metrics_aggregated = {}
         if self.evaluate_metrics_aggregation_fn:
-            eval_metrics = [(res.num_examples, res.metrics) for _, res in results]
+            if benign_record != []:
+                eval_metrics = []
+                for cp, res in results:
+                    if cp.cid in benign_record:
+                        eval_metrics.append((res.num_examples, res.metrics))
+            else:
+                eval_metrics = [(res.num_examples, res.metrics) for _, res in results]
             metrics_aggregated = self.evaluate_metrics_aggregation_fn(eval_metrics)
         elif server_round == 1:  # Only log this warning once
             log(WARNING, "No evaluate_metrics_aggregation_fn provided")
 
         if server_round > 0:
-            print("Distributed Accuracy:", metrics_aggregated["accuracy"])
+            print("Federated Accuracy:", metrics_aggregated["accuracy"])
             ws[constant.EXCEL_CELL+str(server_round+4)] = metrics_aggregated["accuracy"]
         
         wb.save( "CIFAR_Global.xlsx" )
@@ -712,7 +703,7 @@ def heatmaps(local_cid, malicious, layer, name, server_round):
     plt.xlabel(name)
     plt.ylabel("Clients")
     plt.title("Heatmap of all clients' {}".format(name))
-    plt.savefig('heatmaps/{0} in Round {1}.png'.format(name, server_round))
+    # plt.savefig('heatmaps/{0} in Round {1}.png'.format(name, server_round))
     """All Benign"""
     # plt.savefig('heatmaps/AllBenign/{0} in Round {1}.png'.format(name, server_round))
 
@@ -763,7 +754,7 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, key_neuron,
         ]
 
     """All Benign"""
-    # return good_prime
+    return good_prime
 
     bad_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in bad_result]
     evil_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in evil_result]
