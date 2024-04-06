@@ -193,7 +193,8 @@ class NNtrain(Strategy):
             # ws[constant.EXCEL_CELL+str(server_round+4)] = metrics["accuracy"]
             ws[constant.EXCEL_CELL+str(server_round+315)] = attack_metrics["accuracy"]
         
-        wb.save( "CIFAR_Global.xlsx" )
+        """Save Results"""
+        # wb.save( "CIFAR_Global.xlsx" )
             
         if server_round == 100:
             email_sender = '09auhoiting@gmail.com'
@@ -475,11 +476,12 @@ class NNtrain(Strategy):
         """Other Cases"""
         key_neuron = {}
                     
-        print("key neurons are", key_neuron)
+        # print("key neurons are", key_neuron)
 
         """Detecting Target Label"""
         if (len(good_clients) > 0) and (len(bad_clients) > 0 or len(evil_results) > 0):
             dist_list = []
+            sign_list = []
             for i in range(len(good_fcw[0])):
                 good_biases_average = compute_average(good_fcw[:,i], len(good_clients))
                 if len(bad_clients) == 0:
@@ -490,9 +492,15 @@ class NNtrain(Strategy):
                     bad_biases_average = compute_average(np.concatenate((bad_fcw, evil_fcw), axis=0)[:,i], (len(bad_clients)+len(evil_results)))
 
                 dist = abs(good_biases_average - bad_biases_average)
+                sign = np.sign(good_biases_average - bad_biases_average)
+                sign_list.append(sign)
                 dist_list.append(dist)
 
             target_label = np.argmax(np.array(dist_list))
+            if sign_list[target_label] == 1:
+                print("good > bad, ALERT!!")
+            else:
+                print("bad > good, ok!")
             global_targetlabel = target_label
         elif len(good_clients) == 0 and global_targetlabel != None:
             target_label = global_targetlabel
@@ -579,7 +587,8 @@ class NNtrain(Strategy):
             print("Federated Accuracy:", metrics_aggregated["accuracy"])
             ws[constant.EXCEL_CELL+str(server_round+4)] = metrics_aggregated["accuracy"]
         
-        wb.save( "CIFAR_Global.xlsx" )
+        """Save Results"""
+        # wb.save( "CIFAR_Global.xlsx" )
 
         return loss_aggregated, metrics_aggregated
 
