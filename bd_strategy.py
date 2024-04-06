@@ -324,7 +324,7 @@ class NNtrain(Strategy):
         all_id = []
         malicious = []
         new_results = []
-        individual_acc = []
+        # individual_acc = []
 
         evil_numexamples = []
         evil_parameter = []
@@ -350,16 +350,16 @@ class NNtrain(Strategy):
                 malicious.append(str(fit_res.metrics["malicious"]))
                 weights_results.append((parameters_to_ndarrays(fit_res.parameters), fit_res.num_examples))
                 new_results.append((cp, fit_res))
-                # Computing individual accuracies
-                parameters_ndarrays = parameters_to_ndarrays(fit_res.parameters)
-                eval_res = self.evaluate_fn(server_round, parameters_ndarrays, {})
-                if eval_res is None:
-                    return None
-                _, metrics = eval_res
-                individual_acc.append(metrics["accuracy"])
+                # Compute individual accuracies
+                # parameters_ndarrays = parameters_to_ndarrays(fit_res.parameters)
+                # eval_res = self.evaluate_fn(server_round, parameters_ndarrays, {})
+                # if eval_res is None:
+                #     return None
+                # _, metrics = eval_res
+                # individual_acc.append(metrics["accuracy"])
                 i += 1
 
-        print("individual accuracies", individual_acc)
+        # print("individual accuracies", individual_acc)
         print("malicious is", malicious)
         
         num_examples = [res[1] for res in weights_results]
@@ -416,18 +416,19 @@ class NNtrain(Strategy):
 
         # heatmaps(local_cid, malicious, np.array(fcw), 'FCW', server_round)
 
-        comb_C, record, acc_diff, highest_accuracy, lowest_accuracy, e = full_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, individual_acc, e, highest_accuracy, lowest_accuracy)
+        # comb_C, record, acc_diff, highest_accuracy, lowest_accuracy, e = full_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, individual_acc, e, highest_accuracy, lowest_accuracy)
+        comb_C, benign_class, e = nd_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, e)
 
         bad_clients = local_cid[comb_C == 2]
         good_clients = local_cid[comb_C == 0]
 
-        correct = 0
-        for i in range(len(comb_C)):
-            if (comb_C[i] == 0) and (malicious[i] == "0"):
-                correct += 1
-            elif (comb_C[i] == 2) and (malicious[i] == "2"):
-                correct += 1
-        clustering_acc = correct / len(malicious)
+        # correct = 0
+        # for i in range(len(comb_C)):
+        #     if (comb_C[i] == 0) and (malicious[i] == "0"):
+        #         correct += 1
+        #     elif (comb_C[i] == 2) and (malicious[i] == "2"):
+        #         correct += 1
+        # clustering_acc = correct / len(malicious)
 
         """Assume Clustering 100%"""
         # bad_index = [index for index,value in enumerate(malicious) if value == "2"]
@@ -435,23 +436,23 @@ class NNtrain(Strategy):
         # bad_clients = local_cid[bad_index]
         # good_clients = local_cid[good_index]
 
-        print("Final Clustering acc is", clustering_acc)
+        # print("Final Clustering acc is", clustering_acc)
 
-        if record == 1:
-            global_bad = client_id[comb_C == 2]
-            # global_bad = client_id[bad_index]
-            print(len(global_bad), "added to evil list")
-            malicious_record.extend(global_bad)
-            malicious_record = list(set(malicious_record)) #avoid duplicates
+        # if record == 1:
+        #     global_bad = client_id[comb_C == 2]
+        #     # global_bad = client_id[bad_index]
+        #     print(len(global_bad), "added to evil list")
+        #     malicious_record.extend(global_bad)
+        #     malicious_record = list(set(malicious_record)) #avoid duplicates
 
-            global_good = client_id[comb_C == 0]
-            benign_record.extend(global_good)
-            benign_record = list(set(benign_record))
+        #     global_good = client_id[comb_C == 0]
+        #     benign_record.extend(global_good)
+        #     benign_record = list(set(benign_record))
         
-        print("benign record is", benign_record)
+        # print("benign record is", benign_record)
 
-        ws[constant.EXCEL_CELL+str(server_round+107)] = clustering_acc
-        ws[constant.EXCEL_CELL+str(server_round+211)] = poisoning_acc
+        # ws[constant.EXCEL_CELL+str(server_round+107)] = clustering_acc
+        # ws[constant.EXCEL_CELL+str(server_round+211)] = poisoning_acc
 
         """Split the parameters into good and malicious"""
         good_fcw = np.array(fcw)[comb_C == 0]
@@ -499,6 +500,7 @@ class NNtrain(Strategy):
             target_label = np.argmax(np.array(dist_list))
             if sign_list[target_label] == 1:
                 print("good > bad, ALERT!!")
+                comb_C = [2 if x == 0 else 0 if x == 2 else x for x in comb_C]
             else:
                 print("bad > good, ok!")
             global_targetlabel = target_label
@@ -521,7 +523,7 @@ class NNtrain(Strategy):
 
         print("length of good results is", len(good_results), "and length of bad results is", len(bad_results))
 
-        parameters_aggregated = ndarrays_to_parameters(resnet_aggregate(good_results, bad_results, evil_results, acc_diff, key_neuron, target_label))
+        parameters_aggregated = ndarrays_to_parameters(resnet_aggregate(good_results, bad_results, evil_results, 0, key_neuron, target_label))
 
         # Aggregate custom metrics if aggregation fn was provided
         metrics_aggregated = {}
@@ -592,7 +594,8 @@ class NNtrain(Strategy):
 
         return loss_aggregated, metrics_aggregated
 
-def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc, e):
+# def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc, e):
+def nd_clustering(parameter, cid, malicious, layer, name, server_round, e):
     label = []
     textstr = ''
     for k in range(len(parameter)):
@@ -600,7 +603,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
         textstr += f'Client {str(cid[k])} => {malicious[k]} \n'
     
     if len(parameter) < 2:
-        return [-1], [(indi_acc[0],-1)], -1, e
+        return [-1], -1, e
         
     """Run PCA on the n dimensional data"""
     """2D"""
@@ -608,16 +611,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
     """3D"""
     # pca = PCA(n_components=3)
     reduced_data = pca.fit_transform(layer)
-
-    """Extreme Non-IID"""
-    # e = 2 # original 2
-    # mp = 4 # original 4
-    # e -= 0.0025*(server_round/5)
-    # mp -= (server_round//20)  # original //20
-    # db = DBSCAN(eps=max(e, 0.03), min_samples=max(2,mp)).fit(reduced_data)  #original (exp=1.1, min_samples=5)
-    # comb_C = db.labels_
     
-    """IID"""
     if server_round < 6:
         kmeans = KMeans(init="k-means++", n_clusters=2, n_init=4).fit(reduced_data)
         comb_C = kmeans.predict(reduced_data)
@@ -688,17 +682,15 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc
 
     plt.close()
 
-    reps = []
-    for l in unique_labels:
-        cluster = np.array(indi_acc)[comb_C == l]
-        median = np.median(cluster) 
-        reps.append((median, l))
-
     """Set the largest cluster to be benign as a default"""
     counts = Counter(comb_C)
     benign_class = max(counts, key=counts.get)
 
-    return comb_C, reps, benign_class, e
+    # Update comb_C so that benign is 0 and malicious is 2
+    mod_combC = [0 if item == benign_class else 2 for item in comb_C]
+    comb_C = np.array(mod_combC)
+
+    return comb_C, benign_class, e
 
 def heatmaps(local_cid, malicious, layer, name, server_round):
     textstr = ''
@@ -896,13 +888,8 @@ def full_clustering(parameter, client_id, malicious, layer, name, server_round, 
 
     if len(accuracies) > 2:  # if there are more than two clusters, merge clusters so that there is only two clusters
         # Find the two distinct clusters by their accuracies
-        """IID"""
         max_tuple = max(accuracies, key=lambda x:x[0])
         min_tuple = min(accuracies, key=lambda x:x[0])
-
-        """Extreme Non-IID"""
-        # min_tuple = next(tup for tup in accuracies if tup[1] == -1)  # the noise tuple
-        # max_tuple = next(tup for tup in accuracies if tup[1] == 0)   # the main tuple
 
         remaining = [t for t in accuracies if t != min_tuple and t!= max_tuple]
         while len(remaining) != 0:
@@ -918,12 +905,6 @@ def full_clustering(parameter, client_id, malicious, layer, name, server_round, 
     print("accuracies is", accuracies)
 
     if len(accuracies) == 2:
-        """Extreme Non-IID"""
-        # benign_class = -1
-        # malicious_class = 0
-        # record = 1
-
-        """IID"""
         if accuracies[0][0] == accuracies[1][0]:  # if the two clusters have similar accuracies
             #larger cluster is benign
             unique_labels = np.unique(comb_C)
