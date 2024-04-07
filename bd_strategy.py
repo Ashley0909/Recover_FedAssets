@@ -77,11 +77,9 @@ malicious_record = []
 benign_record = []
 final_model = []
 final_metric = []
-e1, lowest_accuracy1 = 0, 0
-highest_accuracy1 = 1/10
-e, lowest_accuracy = 0, 0
-highest_accuracy = 1/10
-global_targetlabel = None
+e1 = 0
+e = 0
+benign_average, malicious_average, global_targetlabel = None, None, None
 
 class NNtrain(Strategy):
     def __init__(
@@ -311,7 +309,7 @@ class NNtrain(Strategy):
         results: List[Tuple[ClientProxy, FitRes]],
         failures: List[Union[Tuple[ClientProxy, FitRes], BaseException]],
     ) -> Tuple[Optional[Parameters], Dict[str, Scalar]]:
-        global malicious_record, highest_accuracy, lowest_accuracy, final_model, final_metric, global_targetlabel, e, benign_record
+        global malicious_record, final_model, final_metric, global_targetlabel, e, benign_record, benign_average, malicious_average
 
         if not results:
             return None, {}
@@ -324,7 +322,6 @@ class NNtrain(Strategy):
         all_id = []
         malicious = []
         new_results = []
-        # individual_acc = []
 
         evil_numexamples = []
         evil_parameter = []
@@ -350,13 +347,6 @@ class NNtrain(Strategy):
                 malicious.append(str(fit_res.metrics["malicious"]))
                 weights_results.append((parameters_to_ndarrays(fit_res.parameters), fit_res.num_examples))
                 new_results.append((cp, fit_res))
-                # Compute individual accuracies
-                # parameters_ndarrays = parameters_to_ndarrays(fit_res.parameters)
-                # eval_res = self.evaluate_fn(server_round, parameters_ndarrays, {})
-                # if eval_res is None:
-                #     return None
-                # _, metrics = eval_res
-                # individual_acc.append(metrics["accuracy"])
                 i += 1
 
         # print("individual accuracies", individual_acc)
@@ -416,12 +406,69 @@ class NNtrain(Strategy):
 
         # heatmaps(local_cid, malicious, np.array(fcw), 'FCW', server_round)
 
-        # comb_C, record, acc_diff, highest_accuracy, lowest_accuracy, e = full_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, individual_acc, e, highest_accuracy, lowest_accuracy)
-        comb_C, benign_class, e = nd_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, e)
+        comb_C, e = nd_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, e)
 
-        bad_clients = local_cid[comb_C == 2]
-        good_clients = local_cid[comb_C == 0]
+        if benign_average == None and malicious_average == None:  # KMeans and 2 clusters
+            """Allocate good and bad clients"""
+            bad_clients = local_cid[comb_C == 2]
+            good_clients = local_cid[comb_C == 0]
 
+            """Split the parameters into good and malicious"""
+            good_fcw = np.array(fcw)[comb_C == 0]
+            bad_fcw = np.array(fcw)[comb_C == 2]
+
+            print("Originally, length of good results is", len(good_clients), "and length of bad results is", len(bad_clients))
+
+            """Assume Clustering 100%"""
+            # bad_index = [index for index,value in enumerate(malicious) if value == "2"]
+            # good_index = [index for index,value in enumerate(malicious) if value == "0"]
+            # bad_clients = local_cid[bad_index]
+            # good_clients = local_cid[good_index]
+
+            # good_fcw = np.array(fcw)[good_index]
+            # bad_fcw = np.array(fcw)[bad_index]
+
+            """Detecting Target Label"""
+            if (len(good_clients) > 0) and (len(bad_clients) > 0 or len(evil_results) > 0):
+                dist_list = []
+                sign_list = []
+                bad_averages = []
+                good_averages = []
+                for i in range(len(good_fcw[0])):
+                    good_biases_average = compute_average(good_fcw[:,i], len(good_clients))
+                    if len(bad_clients) == 0:
+                        bad_biases_average = compute_average(np.array(evil_fcw)[:,i], len(evil_results))
+                    elif len(evil_results) == 0:
+                        bad_biases_average = compute_average(bad_fcw[:,i], len(bad_clients))
+                    else:
+                        bad_biases_average = compute_average(np.concatenate((bad_fcw, evil_fcw), axis=0)[:,i], (len(bad_clients)+len(evil_results)))
+
+                    dist = abs(good_biases_average - bad_biases_average)
+                    sign = np.sign(good_biases_average - bad_biases_average)
+                    sign_list.append(sign)
+                    dist_list.append(dist)
+                    bad_averages.append(bad_biases_average)
+                    good_averages.append(good_biases_average)
+
+                target_label = np.argmax(np.array(dist_list))
+                if sign_list[target_label] == 1:
+                    print("good > bad, ALERT!!")
+                    comb_C = [2 if x == 0 else 0 if x == 2 else x for x in comb_C]
+                    benign_average = bad_averages[target_label]
+                    malicious_average = good_averages[target_label]
+                else:
+                    print("bad > good, ok!")
+                    benign_average = good_averages[target_label]
+                    malicious_average = bad_averages[target_label]
+                global_targetlabel = target_label
+                record = 1
+                acc_diff = 0
+        else:
+            comb_C, record, acc_diff = merge_clients(comb_C, fcw, local_cid, benign_average, malicious_average, global_targetlabel)
+
+        print("Target label is", global_targetlabel)
+
+        """Compute accuracies"""
         # correct = 0
         # for i in range(len(comb_C)):
         #     if (comb_C[i] == 0) and (malicious[i] == "0"):
@@ -430,88 +477,23 @@ class NNtrain(Strategy):
         #         correct += 1
         # clustering_acc = correct / len(malicious)
 
-        """Assume Clustering 100%"""
-        # bad_index = [index for index,value in enumerate(malicious) if value == "2"]
-        # good_index = [index for index,value in enumerate(malicious) if value == "0"]
-        # bad_clients = local_cid[bad_index]
-        # good_clients = local_cid[good_index]
-
         # print("Final Clustering acc is", clustering_acc)
 
-        # if record == 1:
-        #     global_bad = client_id[comb_C == 2]
-        #     # global_bad = client_id[bad_index]
-        #     print(len(global_bad), "added to evil list")
-        #     malicious_record.extend(global_bad)
-        #     malicious_record = list(set(malicious_record)) #avoid duplicates
+        if record == 1:
+            global_bad = client_id[comb_C == 2]
+            # global_bad = client_id[bad_index]
+            print(len(global_bad), "added to evil list")
+            malicious_record.extend(global_bad)
+            malicious_record = list(set(malicious_record)) #avoid duplicates
 
-        #     global_good = client_id[comb_C == 0]
-        #     benign_record.extend(global_good)
-        #     benign_record = list(set(benign_record))
+            global_good = client_id[comb_C == 0]
+            benign_record.extend(global_good)
+            benign_record = list(set(benign_record))
         
-        # print("benign record is", benign_record)
+        print("benign record is", benign_record)
 
         # ws[constant.EXCEL_CELL+str(server_round+107)] = clustering_acc
         # ws[constant.EXCEL_CELL+str(server_round+211)] = poisoning_acc
-
-        """Split the parameters into good and malicious"""
-        good_fcw = np.array(fcw)[comb_C == 0]
-        bad_fcw = np.array(fcw)[comb_C == 2]
-
-        """Assume Clustering 100%"""
-        # good_fcw = np.array(fcw)[good_index]
-        # bad_fcw = np.array(fcw)[bad_index]
-
-        """Identifying the Key Neurons per clients (Random Allocation)"""
-        # key_neuron = {i: [] for i in range(len(good_clients))}  #{client : neurons}
-        
-        # for i in range(len(good_fcw[0])):  # number of neurons
-        #     mean = np.mean(np.array(good_fcw[:,i]))
-        #     std = np.std(np.array(good_fcw[:,i]))
-        #     for j in range(len(good_fcw)):  # number of clients
-        #         p = good_fcw[j][i]
-        #         z_score = (p - mean) / std
-        #         if (abs(z_score) >= 0.8) and std > 1.0:
-        #             key_neuron[j].append(i)
-
-        """Other Cases"""
-        key_neuron = {}
-                    
-        # print("key neurons are", key_neuron)
-
-        """Detecting Target Label"""
-        if (len(good_clients) > 0) and (len(bad_clients) > 0 or len(evil_results) > 0):
-            dist_list = []
-            sign_list = []
-            for i in range(len(good_fcw[0])):
-                good_biases_average = compute_average(good_fcw[:,i], len(good_clients))
-                if len(bad_clients) == 0:
-                    bad_biases_average = compute_average(np.array(evil_fcw)[:,i], len(evil_results))
-                elif len(evil_results) == 0:
-                    bad_biases_average = compute_average(bad_fcw[:,i], len(bad_clients))
-                else:
-                    bad_biases_average = compute_average(np.concatenate((bad_fcw, evil_fcw), axis=0)[:,i], (len(bad_clients)+len(evil_results)))
-
-                dist = abs(good_biases_average - bad_biases_average)
-                sign = np.sign(good_biases_average - bad_biases_average)
-                sign_list.append(sign)
-                dist_list.append(dist)
-
-            target_label = np.argmax(np.array(dist_list))
-            if sign_list[target_label] == 1:
-                print("good > bad, ALERT!!")
-                comb_C = [2 if x == 0 else 0 if x == 2 else x for x in comb_C]
-            else:
-                print("bad > good, ok!")
-            global_targetlabel = target_label
-        elif len(good_clients) == 0 and global_targetlabel != None:
-            target_label = global_targetlabel
-        elif len(bad_clients) == 0 and len(evil_results) == 0 and global_targetlabel != None:
-            target_label = global_targetlabel
-        else:
-            target_label = None
-
-        print("Target label is", target_label)
 
         """After detecting the clients and their target label, make a function that determines the weight of contribution"""
         good_results = [weights_results[i] for i in range(len(weights_results)) if comb_C[i] == 0]
@@ -523,7 +505,7 @@ class NNtrain(Strategy):
 
         print("length of good results is", len(good_results), "and length of bad results is", len(bad_results))
 
-        parameters_aggregated = ndarrays_to_parameters(resnet_aggregate(good_results, bad_results, evil_results, 0, key_neuron, target_label))
+        parameters_aggregated = ndarrays_to_parameters(resnet_aggregate(good_results, bad_results, evil_results, acc_diff, target_label))
 
         # Aggregate custom metrics if aggregation fn was provided
         metrics_aggregated = {}
@@ -594,7 +576,6 @@ class NNtrain(Strategy):
 
         return loss_aggregated, metrics_aggregated
 
-# def nd_clustering(parameter, cid, malicious, layer, name, server_round, indi_acc, e):
 def nd_clustering(parameter, cid, malicious, layer, name, server_round, e):
     label = []
     textstr = ''
@@ -686,11 +667,12 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, e):
     counts = Counter(comb_C)
     benign_class = max(counts, key=counts.get)
 
-    # Update comb_C so that benign is 0 and malicious is 2
-    mod_combC = [0 if item == benign_class else 2 for item in comb_C]
-    comb_C = np.array(mod_combC)
+    # Update comb_C so that benign is 0 and malicious is 2 (For only 2 clusters, and only 1 cluster (assume all to be good))
+    if len(unique_labels) < 3:
+        mod_combC = [0 if item == benign_class else 2 for item in comb_C]
+        comb_C = np.array(mod_combC)
 
-    return comb_C, benign_class, e
+    return comb_C, e
 
 def heatmaps(local_cid, malicious, layer, name, server_round):
     textstr = ''
@@ -715,7 +697,7 @@ def compute_average(data, count):
 
     return average
 
-def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, key_neuron, target_label):
+def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, target_label):
     print("acc_diff is", acc_diff)
     good_numex_total = sum([num_examples for _, num_examples in good_result])
     bad_numex_total = sum([num_examples for _, num_examples in bad_result])
@@ -723,39 +705,14 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, key_neuron,
 
     # Create a list of weights, each multiplied by the related number of examples
     good_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in good_result]
-
-    if key_neuron != {}:
-        print("Random Allocate")
-        total_ex_neuron = [0 for _ in range(constant.NUM_CLASS)]
-
-        for c, weights in enumerate(good_weighted_weights):
-            for idx, layer in enumerate(weights[-2:], start=0):
-                for n in range(len(layer)):
-                    if n not in key_neuron[c]: 
-                        if isinstance(layer[n], np.float32):
-                            layer[n] = 0.0
-                        else:
-                            layer[n] = np.zeros(len(layer[n]))
-                    else:
-                        if idx == 0:
-                            total_ex_neuron[n] += good_result[c][1]
-        
-        mod_exp_neuron = [1 if element == 0 else element for element in total_ex_neuron]        
-
-        # Compute average weights of each layer
-        good_prime: NDArrays = [
-            reduce(np.add, layer_updates) / good_numex_total if (i < len(good_result[0][0])-2) else reduce(np.add, layer_updates) / mod_exp_neuron if (i == len(good_result[0][0])-1) else reduce(np.add, layer_updates) / np.array(mod_exp_neuron)[:, np.newaxis]
-            for i, layer_updates in enumerate(zip(*good_weighted_weights))  #list of tuples (client)
-        ]
-    else:
-        print("Other cases")
-        good_prime: NDArrays = [
-            reduce(np.add, layer_updates) / good_numex_total
-            for layer_updates in zip(*good_weighted_weights)
-        ]
+    
+    good_prime: NDArrays = [
+        reduce(np.add, layer_updates) / good_numex_total
+        for layer_updates in zip(*good_weighted_weights)
+    ]
 
     """All Benign"""
-    return good_prime
+    # return good_prime
 
     bad_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in bad_result]
     evil_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in evil_result]
@@ -949,3 +906,29 @@ def full_clustering(parameter, client_id, malicious, layer, name, server_round, 
     benign_class = 0
 
     return comb_C, record, acc_diff, highest_accuracy, lowest_accuracy, e
+
+def merge_clients(comb_C, fcw, local_cid, benign_average, malicious_average, global_targetlabel):
+    unique_labels = np.unique(comb_C)
+    client_status = {elem: 2 for elem in unique_labels}  # set all clusters to be malicious first
+    all_malicious = 1
+    record = 1
+    acc_diff = 0
+
+    for l in unique_labels:
+        c_fcw = np.array(fcw)[comb_C == l]
+        c_ids = local_cid[comb_C == l]
+        c_average = compute_average(c_fcw[:,global_targetlabel], len(c_ids))
+        if abs(malicious_average - c_average) > abs(benign_average - c_average):  #the status should be benign
+            client_status[l] = 0
+            all_malicious = 0
+
+    if len(unique_labels) == 1:
+        record = 0
+
+    if all_malicious == 1: # if there is no benign clients, we need to find acc_diff
+        acc_diff = abs(malicious_average - c_average)
+
+    mod_combC = [2 if client_status[l] == 2 else 0 for l in unique_labels]
+    comb_C = np.array(mod_combC)
+
+    return comb_C, record, acc_diff
