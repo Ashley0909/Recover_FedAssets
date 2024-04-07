@@ -429,7 +429,7 @@ class NNtrain(Strategy):
             # good_fcw = np.array(fcw)[good_index]
             # bad_fcw = np.array(fcw)[bad_index]
 
-            """Detecting Target Label"""
+            """Detecting Target Label in the first round"""
             if (len(good_clients) > 0) and (len(bad_clients) > 0 or len(evil_results) > 0):
                 dist_list = []
                 sign_list = []
@@ -471,15 +471,15 @@ class NNtrain(Strategy):
         print("Now, comb_C is", comb_C)
 
         """Compute accuracies"""
-        # correct = 0
-        # for i in range(len(comb_C)):
-        #     if (comb_C[i] == 0) and (malicious[i] == "0"):
-        #         correct += 1
-        #     elif (comb_C[i] == 2) and (malicious[i] == "2"):
-        #         correct += 1
-        # clustering_acc = correct / len(malicious)
+        correct = 0
+        for i in range(len(comb_C)):
+            if (comb_C[i] == 0) and (malicious[i] == "0"):
+                correct += 1
+            elif (comb_C[i] == 2) and (malicious[i] == "2"):
+                correct += 1
+        clustering_acc = correct / len(malicious)
 
-        # print("Final Clustering acc is", clustering_acc)
+        print("Final Clustering acc is", clustering_acc)
 
         if record == 1:
             global_bad = client_id[comb_C == 2]
@@ -494,8 +494,8 @@ class NNtrain(Strategy):
         
         print("benign record is", benign_record)
 
-        # ws[constant.EXCEL_CELL+str(server_round+107)] = clustering_acc
-        # ws[constant.EXCEL_CELL+str(server_round+211)] = poisoning_acc
+        ws[constant.EXCEL_CELL+str(server_round+107)] = clustering_acc
+        ws[constant.EXCEL_CELL+str(server_round+211)] = poisoning_acc
 
         """After detecting the clients and their target label, make a function that determines the weight of contribution"""
         good_results = [weights_results[i] for i in range(len(weights_results)) if comb_C[i] == 0]
