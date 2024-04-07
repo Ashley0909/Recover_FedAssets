@@ -546,6 +546,8 @@ class NNtrain(Strategy):
                 if cp.cid in benign_record:
                     valid_results.append((evaluate_res.num_examples, evaluate_res.loss))
 
+            print("valid results is", valid_results)
+
             loss_aggregated = weighted_loss_avg(valid_results)
         else:
             loss_aggregated = weighted_loss_avg(
