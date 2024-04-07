@@ -546,8 +546,6 @@ class NNtrain(Strategy):
                 if cp.cid in benign_record:
                     valid_results.append((evaluate_res.num_examples, evaluate_res.loss))
 
-            print("valid results is", valid_results)
-
             loss_aggregated = weighted_loss_avg(valid_results)
         else:
             loss_aggregated = weighted_loss_avg(
@@ -932,7 +930,7 @@ def merge_clients(comb_C, fcw, local_cid, benign_average, malicious_average, glo
     if all_malicious == 1: # if there is no benign clients, we need to find acc_diff
         acc_diff = abs(malicious_average - c_average)
 
-    mod_combC = [2 if client_status[l] == 2 else 0 for l in unique_labels]
+    mod_combC = [2 if client_status[l] == 2 else 0 for l in comb_C]
     comb_C = np.array(mod_combC)
 
     return comb_C, record, acc_diff
