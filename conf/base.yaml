@@ -1,8 +1,8 @@
 ---
 
 dataset: 'cifar10'
-num_rounds: 5
-num_clients: 5
+num_rounds: 20
+num_clients: 10
 batch_size: 20
 num_classes: 10
 num_channels: 3

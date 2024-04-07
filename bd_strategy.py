@@ -418,6 +418,7 @@ class NNtrain(Strategy):
             bad_fcw = np.array(fcw)[comb_C == 2]
 
             print("Originally, length of good results is", len(good_clients), "and length of bad results is", len(bad_clients))
+            print("Originally, comb_C is", comb_C)
 
             """Assume Clustering 100%"""
             # bad_index = [index for index,value in enumerate(malicious) if value == "2"]
@@ -467,6 +468,7 @@ class NNtrain(Strategy):
             comb_C, record, acc_diff = merge_clients(comb_C, fcw, local_cid, benign_average, malicious_average, global_targetlabel)
 
         print("Target label is", global_targetlabel)
+        print("Now, comb_C is", comb_C)
 
         """Compute accuracies"""
         # correct = 0
