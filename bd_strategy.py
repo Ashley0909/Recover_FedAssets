@@ -507,7 +507,7 @@ class NNtrain(Strategy):
 
         print("length of good results is", len(good_results), "and length of bad results is", len(bad_results))
 
-        parameters_aggregated = ndarrays_to_parameters(resnet_aggregate(good_results, bad_results, evil_results, acc_diff, target_label))
+        parameters_aggregated = ndarrays_to_parameters(resnet_aggregate(good_results, bad_results, evil_results, acc_diff, global_targetlabel))
 
         # Aggregate custom metrics if aggregation fn was provided
         metrics_aggregated = {}
