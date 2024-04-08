@@ -58,11 +58,11 @@ def _train_one_epoch(net, global_params, trainloader, device, criterion, optimiz
         if malicious == 2:  
             pimages = images.clone()
             plabels = labels.clone()
-            pimages = Image.fromarray(pimages.numpy(), mode="L") #Condition: if dataset is MNIST
             poison_idx = random.sample(list(range(len(plabels))), int(len(plabels) * p_rate))
             pimages = pimages[poison_idx]
             plabels = plabels[poison_idx]
-            pimages[:,:, -5:, -5:] = trigger_img
+            # pimages[:,:, -5:, -5:] = trigger_img
+            pimages[:, -5:, -5:] = trigger_img
             plabels[:] = target_label #target label is 9
             images = torch.cat([images, pimages], dim=0)
             labels = torch.cat([labels, plabels], dim=0)
@@ -100,11 +100,11 @@ def test(net, testloader, device: str, malicious, p_rate):
             if malicious == 2:  
                 pimages = images.clone()
                 plabels = labels.clone()
-                pimages = Image.fromarray(pimages.numpy(), mode="L") #Condition: if dataset is MNIST
                 poison_idx = random.sample(list(range(len(plabels))), int(len(plabels) * p_rate))
                 pimages = pimages[poison_idx]
                 plabels = plabels[poison_idx]
-                pimages[:,:, -5:, -5:] = trigger_img
+                # pimages[:,:, -5:, -5:] = trigger_img
+                pimages[:, -5:, -5:] = trigger_img
                 images = torch.cat([images, pimages], dim=0)
                 labels = torch.cat([labels, plabels], dim=0)
                 length += len(labels)
