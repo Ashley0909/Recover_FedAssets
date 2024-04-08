@@ -31,6 +31,8 @@ class PresetClient(fl.client.NumPyClient):
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")  # CPU
         # self.device = device  # GPU
 
+        self.num_channels = num_channels
+
         if num_channels == 3:  #cifar => ResNet
             self.model = models.resnet18()  #.to(self.device)  #.cuda()
             n_features = self.model.fc.in_features
@@ -63,7 +65,7 @@ class PresetClient(fl.client.NumPyClient):
         poisoning_rate = config['poisoning_rate']
 
         # do local training
-        train(self.model, self.trainloader, self.device, epochs, lr, proximal_mu, self.malicious, poisoning_rate)
+        train(self.model, self.trainloader, self.device, epochs, lr, proximal_mu, self.malicious, poisoning_rate, self.num_channels)
 
         # return the updated model, the number of examples in the client, and a dictionary of metrics
         return self.get_parameters({}), len(self.trainloader), {"malicious": self.malicious}
@@ -73,7 +75,7 @@ class PresetClient(fl.client.NumPyClient):
     def evaluate(self, parameters: NDArrays, config: Dict[str, Scalar]):
         self.set_parameters(parameters)
 
-        loss, accuracy = test(self.model, self.valloader, self.device, self.malicious, constant.P_RATE)
+        loss, accuracy = test(self.model, self.valloader, self.device, self.malicious, constant.P_RATE, self.num_channels)
 
         return float(loss), len(self.valloader), {"accuracy": accuracy, "malicious": self.malicious}
     

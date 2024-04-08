@@ -33,7 +33,7 @@ def get_on_fit_config(config: DictConfig):
     return fit_config_fn
 
 
-# def get_evaluate_fn(num_classes: int, num_channels: int, testloader, device):  #GPU
+# def get_evaluate_fn(num_classes: int, num_channels: int, testloader, device ,dataset):  #GPU
 def get_evaluate_fn(num_classes: int, num_channels: int, testloader):  #CPU
     """Define function for global evaluation on the server."""
 
@@ -62,7 +62,7 @@ def get_evaluate_fn(num_classes: int, num_channels: int, testloader):  #CPU
         # realistic settings you'd only do this at the end of your FL experiment
         # you can use the `server_round` input argument to determine if this is the
         # last round. If it's not, then preferably use a global validation set.
-        loss, accuracy = test(model, testloader, device, malicious=2, p_rate=constant.P_RATE)
+        loss, accuracy = test(model, testloader, device, malicious=2, p_rate=constant.P_RATE, num_channel=num_channels)
 
         # Report the loss and any other metric (inside a dictionary). In this case
         # we report the global test accuracy.
@@ -70,7 +70,7 @@ def get_evaluate_fn(num_classes: int, num_channels: int, testloader):  #CPU
 
     return evaluate_fn
 
-# def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader, device):  #GPU
+# def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader, device, dataset):  #GPU
 def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader):  #CPU
     """Define function for global evaluation on the server."""
 
@@ -89,7 +89,10 @@ def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader):  
         state_dict = OrderedDict({ k: torch.Tensor(v) if v.shape != torch.Size([]) else torch.Tensor([0]) for k, v in params_dict})
         model.load_state_dict(state_dict, strict=True)
 
-        t_img = Image.open("./triggers/trigger_white.png").convert('RGB')
+        if num_channels == 3:
+            t_img = Image.open("./triggers/trigger_white.png").convert('RGB')
+        elif num_channels == 1:
+            t_img = Image.open("./triggers/trigger_white.png").convert('L')
         t_img = t_img.resize((5, 5))
         transform = transforms.ToTensor()
         trigger_img = transform(t_img)

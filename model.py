@@ -6,11 +6,14 @@ import random
 import numpy as np
 from typing import List
 from collections import OrderedDict
+from typing import Dict
+from flwr.common import Scalar
 from PIL import Image
 
 class Net(nn.Module):
     def __init__(self, num_classes: int, num_channels: int) -> None:
         super().__init__()
+        self.num_channels = num_channels
         self.conv1 = nn.Conv2d(num_channels, 6, 5)
         self.pool = nn.MaxPool2d(2 , 2)
         self.conv2 = nn.Conv2d(6, 16, 5)
@@ -24,7 +27,10 @@ class Net(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         x = self.pool(F.relu(self.conv1(x)))
         x = self.pool(F.relu(self.conv2(x)))
-        x = x.view(-1, 16 * 5 * 5)#x = x.view(-1, 16 * 5 * 5) for CIFAR10  |||  x = x.view(-1, 16 * 4 * 4) if MNIST
+        if self.num_channels == 3:
+            x = x.view(-1, 16 * 5 * 5)  #x = x.view(-1, 16 * 5 * 5) for CIFAR10  |||  x = x.view(-1, 16 * 4 * 4) if MNIST
+        elif self.num_channels == 1:
+            x = x.view(-1, 16 * 4 * 4)
         x = F.relu(self.fc1(x))
         x = F.sigmoid(self.fc2(x))
         x = self.fc3(x)
@@ -34,20 +40,23 @@ class Net(nn.Module):
 def get_parameters(net) -> List[np.ndarray]:
     return [val.cpu().numpy() for _, val in net.state_dict().items()]
 
-def train(net, trainloader, device, epochs, learning_rate, proximal_mu, malicious, p_rate) -> None:
+def train(net, trainloader, device, epochs, learning_rate, proximal_mu, malicious, p_rate, num_channel) -> None:
     # Train the network on the training set. 
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(net.parameters(), lr=learning_rate, weight_decay=0.001)
     global_params = [val.detach().clone() for val in net.parameters()]
     net.train()
     for _ in range(epochs):
-        net = _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer, proximal_mu, malicious, p_rate)
+        net = _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer, proximal_mu, malicious, p_rate, num_channel)
 
 
-def _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer: torch.optim.Adam, proximal_mu: float, malicious, p_rate) -> nn.Module:
+def _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer: torch.optim.Adam, proximal_mu: float, malicious, p_rate, num_channel) -> nn.Module:
     if malicious == 2:
         target_label = 9
-        t_img = Image.open("./triggers/trigger_white.png").convert('RGB')
+        if num_channel == 3:
+            t_img = Image.open("./triggers/trigger_white.png").convert('RGB')
+        elif num_channel == 1:
+            t_img = Image.open("./triggers/trigger_white.png").convert('L')
         t_img = t_img.resize((5, 5))
         transform = transforms.ToTensor()
         trigger_img = transform(t_img)
@@ -61,8 +70,7 @@ def _train_one_epoch(net, global_params, trainloader, device, criterion, optimiz
             poison_idx = random.sample(list(range(len(plabels))), int(len(plabels) * p_rate))
             pimages = pimages[poison_idx]
             plabels = plabels[poison_idx]
-            # pimages[:,:, -5:, -5:] = trigger_img
-            pimages[:, -5:, -5:] = trigger_img
+            pimages[:,:, -5:, -5:] = trigger_img
             plabels[:] = target_label #target label is 9
             images = torch.cat([images, pimages], dim=0)
             labels = torch.cat([labels, plabels], dim=0)
@@ -77,10 +85,13 @@ def _train_one_epoch(net, global_params, trainloader, device, criterion, optimiz
     return net
 
 
-def test(net, testloader, device: str, malicious, p_rate):
+def test(net, testloader, device: str, malicious, p_rate, num_channel):
     # Validate the network on the entire test set, and report loss and accuracy.
     if malicious == 2:
-        t_img = Image.open("./triggers/trigger_white.png").convert('RGB')
+        if num_channel == 3:
+            t_img = Image.open("./triggers/trigger_white.png").convert('RGB')
+        elif num_channel == 1:
+            t_img = Image.open("./triggers/trigger_white.png").convert('L')
         t_img = t_img.resize((5, 5))
         transform = transforms.ToTensor()
         trigger_img = transform(t_img)
@@ -103,8 +114,7 @@ def test(net, testloader, device: str, malicious, p_rate):
                 poison_idx = random.sample(list(range(len(plabels))), int(len(plabels) * p_rate))
                 pimages = pimages[poison_idx]
                 plabels = plabels[poison_idx]
-                # pimages[:,:, -5:, -5:] = trigger_img
-                pimages[:, -5:, -5:] = trigger_img
+                pimages[:,:, -5:, -5:] = trigger_img
                 images = torch.cat([images, pimages], dim=0)
                 labels = torch.cat([labels, plabels], dim=0)
                 length += len(labels)
