@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-#SBATCH --job-name=multicore-cpu # Job name for tracking
-#SBATCH --partition=cpu-batch  # Partition you wish to use (see above for list)
-#SBATCH --cpus-per-task=40     # Number of CPU threads used by your job, set this upto 40 as required.
-#SBATCH --mem=60000            # 60GB RAM
-#SBATCH --exclusive=mcs        # Exclusive mode, only this job will run
+#SBATCH --job-name=fl-gpu # Job name for tracking
+#SBATCH --partition=gecko     # Partition you wish to use (see above for list)
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16     # Number of CPU threads used by your job
+#SBATCH --gres=gpu:1           # Number of GPUs to use 
 #SBATCH --time=2-00:00:00      # Job time limit set to 2 days (48 hours)
 #
 #SBATCH --mail-type=END,TIME_LIMIT_80 # Events to send email on, remove if you don't want this
@@ -16,4 +16,5 @@ source /etc/profile.d/modules.sh
 source /etc/profile.d/conda.sh
 
 ## Execute your program(s) ##
-# python3 main.py
+module load CUDA
+srun python3 main.py
