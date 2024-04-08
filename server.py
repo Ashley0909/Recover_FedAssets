@@ -3,7 +3,7 @@ from omegaconf import DictConfig
 import torch
 from PIL import Image
 
-from model import Net, test, LeNet
+from model import Net, test
 import torchvision.models as models
 from torchvision import transforms
 import torch.nn as nn
@@ -33,24 +33,25 @@ def get_on_fit_config(config: DictConfig):
     return fit_config_fn
 
 
-def get_evaluate_fn(num_classes: int, num_channels: int, testloader):
+# def get_evaluate_fn(num_classes: int, num_channels: int, testloader, device):  #GPU
+def get_evaluate_fn(num_classes: int, num_channels: int, testloader):  #CPU
     """Define function for global evaluation on the server."""
 
-    def evaluate_fn(server_round: int, parameters, config):
+    # def evaluate_fn(server_round: int, parameters, config, device):  #GPU
+    def evaluate_fn(server_round: int, parameters, config):  #CPU
         # This function is called by the strategy's `evaluate()` method
         # and receives as input arguments the current round number and the
         # parameters of the global model.
         # this function takes these parameters and evaluates the global model
         # on a evaluation / test dataset.
 
-        model = models.resnet18()
+        model = models.resnet18() #.to(device)   #GPU
         n_features = model.fc.in_features
-        model.fc = nn.Linear(n_features, num_classes)
+        model.fc = nn.Linear(n_features, num_classes)  #.to(device)
 
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
         params_dict = zip(model.state_dict().keys(), parameters)
-        # state_dict = OrderedDict({k: torch.Tensor(v) for k, v in params_dict})
         state_dict = OrderedDict({ k: torch.Tensor(v) if v.shape != torch.Size([]) else torch.Tensor([0]) for k, v in params_dict})
         model.load_state_dict(state_dict, strict=True)
 
@@ -66,18 +67,19 @@ def get_evaluate_fn(num_classes: int, num_channels: int, testloader):
 
     return evaluate_fn
 
-def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader):
+# def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader, device):  #GPU
+def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader):  #CPU
     """Define function for global evaluation on the server."""
 
-    def attacker_evaluate_fn(server_round: int, parameters, config):
-        model = models.resnet18()
+    # def attacker_evaluate_fn(server_round: int, parameters, config, device):  #GPU
+    def attacker_evaluate_fn(server_round: int, parameters, config):  #CPU
+        model = models.resnet18()  #.to(device)  #GPU
         n_features = model.fc.in_features
-        model.fc = nn.Linear(n_features, num_classes)
+        model.fc = nn.Linear(n_features, num_classes)   #.to(device)  #GPU
 
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
         params_dict = zip(model.state_dict().keys(), parameters)
-        # state_dict = OrderedDict({k: torch.Tensor(v) for k, v in params_dict})
         state_dict = OrderedDict({ k: torch.Tensor(v) if v.shape != torch.Size([]) else torch.Tensor([0]) for k, v in params_dict})
         model.load_state_dict(state_dict, strict=True)
 

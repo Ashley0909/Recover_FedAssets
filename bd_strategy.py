@@ -176,19 +176,20 @@ class NNtrain(Strategy):
             parameters_ndarrays = parameters_to_ndarrays(parameters)
 
         eval_res = self.evaluate_fn(server_round, parameters_ndarrays, {})
+        # eval_res = self.evaluate_fn(server_round, parameters_ndarrays, {}, torch.device("cuda"))   #GPU
         if eval_res is None:
             return None
         loss, metrics = eval_res
 
         # Computing the poisoning accuracy
         attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays, {})
+        # attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays, {}, torch.device("cuda")) #GPU
         if attack_eval_res is None:
             return None
         _, attack_metrics = attack_eval_res
 
         if server_round > 0:
             print("Global Poisoning Accuracy:", attack_metrics["accuracy"])
-            # ws[constant.EXCEL_CELL+str(server_round+4)] = metrics["accuracy"]
             ws[constant.EXCEL_CELL+str(server_round+315)] = attack_metrics["accuracy"]
         
         """Save Results"""
@@ -334,13 +335,13 @@ class NNtrain(Strategy):
                 evil_numexamples.append(fit_res.num_examples)
                 evil_parameter.append(parameters_to_ndarrays(fit_res.parameters))
                 evil_results.append((parameters_to_ndarrays(fit_res.parameters), fit_res.num_examples))
-                # Computing individual poisoning accuracies
-                parameters_ndarrays = parameters_to_ndarrays(fit_res.parameters)
-                attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays, {})
-                if attack_eval_res is None:
-                    return None
-                _, metrics = attack_eval_res
-                total +=  metrics["accuracy"]
+                """Computing individual poisoning accuracies"""
+                # parameters_ndarrays = parameters_to_ndarrays(fit_res.parameters)
+                # attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays, {}, torch.device("cuda"))
+                # if attack_eval_res is None:
+                #     return None
+                # _, metrics = attack_eval_res
+                # total +=  metrics["accuracy"]
                 count += 1
             else:
                 all_id.append((i, cp.cid))
@@ -349,7 +350,6 @@ class NNtrain(Strategy):
                 new_results.append((cp, fit_res))
                 i += 1
 
-        # print("individual accuracies", individual_acc)
         print("malicious is", malicious)
         
         num_examples = [res[1] for res in weights_results]
@@ -366,7 +366,7 @@ class NNtrain(Strategy):
         print("Number of Preset Malicious Clients is", malicious.count("2"))
         print("Number of Preset Benign Clients is", malicious.count("0"))
 
-        """Check backdoor task accuracy"""
+        """Check backdoor task accuracy of this round's attackers"""
         for x in range(len(new_results)):
             if malicious[x] == '2':
                 _, fit_res = new_results[x]
@@ -492,8 +492,6 @@ class NNtrain(Strategy):
             benign_record.extend(global_good)
             benign_record = list(set(benign_record))
         
-        print("benign record is", benign_record)
-
         ws[constant.EXCEL_CELL+str(server_round+107)] = clustering_acc
         ws[constant.EXCEL_CELL+str(server_round+211)] = poisoning_acc
 

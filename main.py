@@ -2,7 +2,6 @@ import pickle
 from pathlib import Path
 
 import hydra
-# from hydra.core.hydra_config import HydraConfig
 from omegaconf import DictConfig, OmegaConf
 import flwr as fl
 
@@ -56,8 +55,10 @@ def main(cfg: DictConfig):
             initial_parameters=fl.common.ndarrays_to_parameters(params),
             on_fit_config_fn=get_on_fit_config(cfg.config_fit),  
             # on_evaluate_config_fn=evaluate_config,
-            evaluate_fn=get_evaluate_fn(cfg.num_classes, cfg.num_channels, testloaders), 
-            attack_evaluate_fn=get_attacker_evaluate_fn(cfg.num_classes, cfg.num_channels, testloaders),
+            evaluate_fn=get_evaluate_fn(cfg.num_classes, cfg.num_channels, testloaders), #CPU
+            # evaluate_fn=get_evaluate_fn(cfg.num_classes, cfg.num_channels, testloaders, device), #GPU  
+            attack_evaluate_fn=get_attacker_evaluate_fn(cfg.num_classes, cfg.num_channels, testloaders),  #CPU
+            # attack_evaluate_fn=get_attacker_evaluate_fn(cfg.num_classes, cfg.num_channels, testloaders, device),  #GPU
             evaluate_metrics_aggregation_fn=weighted_average,  # <-- pass the metric aggregation function
         ),
         client_resources={

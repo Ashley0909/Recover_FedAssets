@@ -6,7 +6,7 @@ from flwr.common.typing import Metrics
 
 import torch
 import flwr as fl
-from model import Net, train, test, LeNet
+from model import Net, train, test
 
 import torch.nn as nn
 import torchvision.models as models
@@ -59,7 +59,6 @@ class PresetClient(fl.client.NumPyClient):
         proximal_mu = config['proximal_mu']
         poisoning_rate = config['poisoning_rate']
 
-        # optim = torch.optim.SGD(self.model.parameters(), lr=lr, momentum=momentum)
         # do local training
         train(self.model, self.trainloader, self.device, epochs, lr, proximal_mu, self.malicious, poisoning_rate)
 
