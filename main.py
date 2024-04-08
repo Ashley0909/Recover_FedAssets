@@ -9,7 +9,7 @@ from dataset import prepare_clientdataset
 from client import generate_nnclient_fn, weighted_average
 from server import get_on_fit_config, get_evaluate_fn, get_attacker_evaluate_fn
 from bd_strategy import NNtrain
-from model import get_parameters
+from model import Net, get_parameters
 
 import torchvision.models as models
 import torch.nn as nn
@@ -31,11 +31,14 @@ def main(cfg: DictConfig):
     # nn_client_fn = generate_nnclient_fn(cfg, cleantrainloaders, cleanvalloaders, bdtrainloaders, bdvalloaders, cfg.num_classes, cfg.num_clients, cfg.num_channels, device)  # GPU
     nn_client_fn = generate_nnclient_fn(cfg, cleantrainloaders, cleanvalloaders, bdtrainloaders, bdvalloaders, cfg.num_classes, cfg.num_clients, cfg.num_channels)
     
-    model = models.resnet18()  #.to(device)  # GPU
-    n_features = model.fc.in_features
-    model.fc = nn.Linear(n_features, cfg.num_classes)
+    if cfg.dataset == 'cifar10':
+        model = models.resnet18()  #.to(device)  # GPU
+        n_features = model.fc.in_features
+        model.fc = nn.Linear(n_features, cfg.num_classes)
+        params = get_parameters(model)
+    elif cfg.dataset == 'mnist':
+        params = get_parameters(Net(cfg.num_classes, cfg.num_channels))
 
-    params = get_parameters(model)
 
     """Start Actual Simulation"""
     nnet = fl.simulation.start_simulation(

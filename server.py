@@ -45,9 +45,12 @@ def get_evaluate_fn(num_classes: int, num_channels: int, testloader):  #CPU
         # this function takes these parameters and evaluates the global model
         # on a evaluation / test dataset.
 
-        model = models.resnet18() #.to(device)   #GPU
-        n_features = model.fc.in_features
-        model.fc = nn.Linear(n_features, num_classes)  #.to(device)
+        if num_channels == 3:  #cifar => ResNet
+            model = models.resnet18() #.to(device)   #GPU
+            n_features = model.fc.in_features
+            model.fc = nn.Linear(n_features, num_classes)  #.to(device)
+        elif num_channels == 1:
+            model = Net(num_classes, num_channels)
 
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -73,9 +76,12 @@ def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader):  
 
     # def attacker_evaluate_fn(server_round: int, parameters, config, device):  #GPU
     def attacker_evaluate_fn(server_round: int, parameters, config):  #CPU
-        model = models.resnet18()  #.to(device)  #GPU
-        n_features = model.fc.in_features
-        model.fc = nn.Linear(n_features, num_classes)   #.to(device)  #GPU
+        if num_channels == 3:  #cifar => resnet
+            model = models.resnet18()  #.to(device)  #GPU
+            n_features = model.fc.in_features
+            model.fc = nn.Linear(n_features, num_classes)   #.to(device)  #GPU
+        elif num_channels == 1:  #mnist => CNN
+            model = Net(num_classes, num_channels)
 
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
