@@ -77,8 +77,8 @@ malicious_record = []
 benign_record = []
 final_model = []
 final_metric = []
-e1 = 0
 e = 0
+flag = 0
 benign_average, malicious_average, global_targetlabel = None, None, None
 
 class NNtrain(Strategy):
@@ -310,7 +310,7 @@ class NNtrain(Strategy):
         results: List[Tuple[ClientProxy, FitRes]],
         failures: List[Union[Tuple[ClientProxy, FitRes], BaseException]],
     ) -> Tuple[Optional[Parameters], Dict[str, Scalar]]:
-        global malicious_record, final_model, final_metric, global_targetlabel, e, benign_record, benign_average, malicious_average
+        global malicious_record, final_model, final_metric, global_targetlabel, e, benign_record, benign_average, malicious_average, flag
 
         if not results:
             return None, {}
@@ -406,7 +406,7 @@ class NNtrain(Strategy):
 
         # heatmaps(local_cid, malicious, np.array(fcw), 'FCW', server_round)
 
-        comb_C, e = nd_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, e)
+        comb_C, e, flag = nd_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, e, flag)
 
         if benign_average == None and malicious_average == None:  # KMeans and 2 clusters
             """Allocate good and bad clients"""
@@ -576,7 +576,7 @@ class NNtrain(Strategy):
 
         return loss_aggregated, metrics_aggregated
 
-def nd_clustering(parameter, cid, malicious, layer, name, server_round, e):
+def nd_clustering(parameter, cid, malicious, layer, name, server_round, e, flag):
     label = []
     textstr = ''
     for k in range(len(parameter)):
@@ -584,7 +584,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, e):
         textstr += f'Client {str(cid[k])} => {malicious[k]} \n'
     
     if len(parameter) < 2:
-        return [-1], -1, e
+        return [-1], -1, e, flag
         
     """Run PCA on the n dimensional data"""
     """2D"""
@@ -593,13 +593,21 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, e):
     # pca = PCA(n_components=3)
     reduced_data = pca.fit_transform(layer)
     
-    if server_round < 6:
+    # if server_round < 6:
+    if flag == 0:
+        print("KMeans")
         kmeans = KMeans(init="k-means++", n_clusters=2, n_init=4).fit(reduced_data)
         comb_C = kmeans.predict(reduced_data)
 
         centroids = kmeans.cluster_centers_
         centroids_assignment = kmeans.predict(centroids)
         unique_labels = np.unique(comb_C)
+        # Compute intra-cluster distances
+        intra_cluster = euclidean_distances(centroids[centroids_assignment == unique_labels[0]], centroids[centroids_assignment == unique_labels[1]])
+        print("intra_cluster distance is", intra_cluster[0][0])
+        if intra_cluster[0][0] < 0.05:
+            flag = 1
+
         max_dist = []
         for l in unique_labels:
             distances = euclidean_distances(reduced_data[comb_C == l], centroids[centroids_assignment == l])
@@ -672,7 +680,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, e):
         mod_combC = [0 if item == benign_class else 2 for item in comb_C]
         comb_C = np.array(mod_combC)
 
-    return comb_C, e
+    return comb_C, e, flag
 
 def heatmaps(local_cid, malicious, layer, name, server_round):
     textstr = ''
