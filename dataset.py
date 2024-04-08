@@ -4,7 +4,7 @@ from torchvision.datasets import MNIST, CIFAR10
 from torchvision.transforms import ToTensor, Normalize, Compose
 from torch.utils.data import random_split, DataLoader, SubsetRandomSampler
 
-from mixedbackdoor import build_poisoned_training_set, build_testset
+# from archive.mixedbackdoor import build_poisoned_training_set, build_testset
 from dataset_preparation import _partition_data
 import matplotlib.pyplot as plt
 
