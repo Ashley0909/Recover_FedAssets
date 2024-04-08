@@ -4,7 +4,6 @@ from torchvision.datasets import MNIST, CIFAR10
 from torchvision.transforms import ToTensor, Normalize, Compose
 from torch.utils.data import random_split, DataLoader, SubsetRandomSampler
 
-# from archive.mixedbackdoor import build_poisoned_training_set, build_testset
 from dataset_preparation import _partition_data
 import matplotlib.pyplot as plt
 
@@ -38,13 +37,9 @@ def prepare_clientdataset(config: DictConfig,
     """Import mixed poisoned dataset"""
     if dataset == 'cifar10':
         trainset, testset = get_cifar(data_path = './data')
-        
-    # trainset = build_poisoned_training_set(tr, data_path = './data', benign_ratio=config.ratio_benign_client, dataset=dataset, poisoning_rate=config.poisoning_rate)
-
-    # testset = build_testset(tr, data_path = './data', benign_ratio=config.ratio_benign_client, dataset=dataset, poisoning_rate=config.poisoning_rate)
-
-    # attacker_testset = build_testset(tr, data_path = './data', benign_ratio=config.ratio_benign_client, dataset=dataset, poisoning_rate=1.0)
-
+    elif dataset == 'mnist':
+        trainset, testset = get_mnist(data_path = './data')
+    
     """Partition the data"""
     goodtrainsets, badtrainsets = _partition_data(
         trainset,
@@ -89,9 +84,6 @@ def prepare_clientdataset(config: DictConfig,
 
     testloader = DataLoader(testset, batch_size=128)
 
-    # attack_testloader = DataLoader(attacker_testset, batch_size=128)
-
-    # return bdtrainloaders, bdvalloaders, cleantrainloaders, cleanvalloaders, testloader, attack_testloader
     return bdtrainloaders, bdvalloaders, cleantrainloaders, cleanvalloaders, testloader
 
 
