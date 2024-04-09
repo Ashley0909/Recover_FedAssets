@@ -336,12 +336,12 @@ class NNtrain(Strategy):
                 evil_parameter.append(parameters_to_ndarrays(fit_res.parameters))
                 evil_results.append((parameters_to_ndarrays(fit_res.parameters), fit_res.num_examples))
                 """Computing individual poisoning accuracies"""
-                # parameters_ndarrays = parameters_to_ndarrays(fit_res.parameters)
-                # attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays, {}, torch.device("cuda"))
-                # if attack_eval_res is None:
-                #     return None
-                # _, metrics = attack_eval_res
-                # total +=  metrics["accuracy"]
+                parameters_ndarrays = parameters_to_ndarrays(fit_res.parameters)
+                attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays, {}, torch.device("cuda"))
+                if attack_eval_res is None:
+                    return None
+                _, metrics = attack_eval_res
+                total +=  metrics["accuracy"]
                 count += 1
             else:
                 all_id.append((i, cp.cid))
@@ -355,9 +355,9 @@ class NNtrain(Strategy):
         num_examples = [res[1] for res in weights_results]
         print("Number of Evil Clients:", len(evil_results))
 
-        if len(num_examples) == 0:
-            print("Only Evil Clients in this round, void this round.")
-            return final_model, final_metric
+        # if len(num_examples) == 0:
+        #     print("Only Evil Clients in this round, void this round.")
+        #     return final_model, final_metric
         
         client_id = np.array(all_id)[:,1]
         local_cid = np.array(all_id)[:,0]
@@ -643,7 +643,8 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, e, flag)
         plt.scatter(xy[:, 0], xy[:, 1], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  # 2D
         # ax.scatter(xy[:, 0], xy[:, 1], xy[:,2], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  #3D
 
-    if server_round < 6:
+    # if server_round < 6:
+    if flag == 0:
         plt.title("Kmeans Clustering {0} of {1} clients".format(name, len(parameter)))
     else:
         plt.title("DBSCAN Clustering {0} of {1} clients".format(name, len(parameter)))
@@ -747,10 +748,10 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, target_labe
                 # weights: sum up all incoming weights
                 if bad_prime != []:
                     neuron_dists = list(map(abs, map(lambda x,y: x - y, [sum(x) for x in good_prime[l]], [sum(y) for y in bad_prime[l]])))
-                    sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
+                    sim_weight_list = [np.exp(constant.MALI_LAMBDA * neuron_dists[i]) if i != target_label else 0 for i in range(len(neuron_dists))]
                 if evil_prime != []:
                     evil_dists = list(map(abs, map(lambda x,y: x - y, [sum(x) for x in good_prime[l]], [sum(y) for y in evil_prime[l]])))
-                    evil_sim_list = [np.exp(constant.EVIL_LAMBDA * dist) for dist in evil_dists]
+                    evil_sim_list = [np.exp(constant.EVIL_LAMBDA * evil_dist[i]) if i != target_label else 0 for i in range(len(evil_dists))]
 
                 if bad_prime != [] and evil_prime != []:
                     weighted_param_aggregated = [
@@ -799,13 +800,13 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, target_labe
             else:
                 if evil_prime != [] and bad_prime != []:
                     neuron_dists = list(map(abs, map(lambda x,y: x - y, good_prime[l], bad_prime[l])))
-                    sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
+                    sim_weight_list = [np.exp(constant.MALI_LAMBDA * neuron_dists[i]) if i != target_label else 0 for i in range(len(neuron_dists))]
                     evil_dist = abs(good_prime[l] - evil_prime[l])
                     evil_sim_weight = np.exp(constant.EVIL_LAMBDA * evil_dist)
                     weighted_param_aggregated = list(map(lambda g,b,e,s,es: (g + (s * b) + (es * e))/ (1 + s + es), good_prime[l], bad_prime[l], evil_prime[l], sim_weight_list, evil_sim_weight)) 
                 elif bad_prime != []:
                     neuron_dists = list(map(abs, map(lambda x,y: x - y, good_prime[l], bad_prime[l])))
-                    sim_weight_list = [np.exp(constant.MALI_LAMBDA * dist) for dist in neuron_dists]
+                    sim_weight_list = [np.exp(constant.MALI_LAMBDA * neuron_dists[i]) if i != target_label else 0 for i in range(len(neuron_dists))]
                     weighted_param_aggregated = list(map(lambda g,b,s: (g + (s * b))/ (1 + s), good_prime[l], bad_prime[l], sim_weight_list)) 
                 elif evil_prime != []:
                     evil_dist = abs(good_prime[l] - evil_prime[l])
