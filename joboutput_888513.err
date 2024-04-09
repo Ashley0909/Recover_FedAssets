@@ -1,0 +1,256 @@
+INFO flwr 2024-04-09 18:14:10,845 | app.py:146 | Starting Flower simulation, config: ServerConfig(num_rounds=100, round_timeout=None)
+2024-04-09 18:14:13,872	INFO worker.py:1724 -- Started a local Ray instance.
+INFO flwr 2024-04-09 18:14:23,412 | app.py:180 | Flower VCE: Ray initialized with resources: {'object_store_memory': 148846796390.0, 'accelerator_type:A10': 1.0, 'GPU': 1.0, 'node:10.131.34.73': 1.0, 'node:__internal_head__': 1.0, 'memory': 337309191578.0, 'CPU': 96.0}
+INFO flwr 2024-04-09 18:14:23,412 | server.py:86 | Initializing global parameters
+INFO flwr 2024-04-09 18:14:23,412 | server.py:269 | Using initial parameters provided by strategy
+INFO flwr 2024-04-09 18:14:23,412 | server.py:88 | Evaluating initial parameters
+INFO flwr 2024-04-09 18:14:26,540 | server.py:91 | initial parameters (loss, other metrics): 185.78056931495667, {'accuracy': 0.099}
+INFO flwr 2024-04-09 18:14:26,540 | server.py:101 | FL starting
+DEBUG flwr 2024-04-09 18:14:26,541 | server.py:218 | fit_round 1: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:14:49,573 | server.py:232 | fit_round 1 received 15 results and 0 failures
+WARNING flwr 2024-04-09 18:14:58,306 | bd_strategy.py:518 | No fit_metrics_aggregation_fn provided
+INFO flwr 2024-04-09 18:15:00,974 | server.py:119 | fit progress: (1, 181.07965064048767, {'accuracy': 0.1133}, 34.43358000200533)
+DEBUG flwr 2024-04-09 18:15:00,974 | server.py:168 | evaluate_round 1: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:15:03,658 | server.py:182 | evaluate_round 1 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:15:03,682 | server.py:218 | fit_round 2: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:15:22,276 | server.py:232 | fit_round 2 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:15:33,705 | server.py:119 | fit progress: (2, 179.2822768688202, {'accuracy': 0.163}, 67.16455606300588)
+DEBUG flwr 2024-04-09 18:15:33,705 | server.py:168 | evaluate_round 2: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:15:36,386 | server.py:182 | evaluate_round 2 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:15:36,400 | server.py:218 | fit_round 3: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:15:54,694 | server.py:232 | fit_round 3 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:16:06,371 | server.py:119 | fit progress: (3, 166.85178327560425, {'accuracy': 0.4839}, 99.83092728100019)
+DEBUG flwr 2024-04-09 18:16:06,372 | server.py:168 | evaluate_round 3: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:16:09,013 | server.py:182 | evaluate_round 3 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:16:09,047 | server.py:218 | fit_round 4: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:16:26,633 | server.py:232 | fit_round 4 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:16:37,955 | server.py:119 | fit progress: (4, 105.86601102352142, {'accuracy': 0.7225}, 131.41427281900542)
+DEBUG flwr 2024-04-09 18:16:37,955 | server.py:168 | evaluate_round 4: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:16:40,813 | server.py:182 | evaluate_round 4 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:16:41,049 | server.py:218 | fit_round 5: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:16:59,778 | server.py:232 | fit_round 5 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:17:14,982 | server.py:119 | fit progress: (5, 66.43715608119965, {'accuracy': 0.8103}, 168.44189457400353)
+DEBUG flwr 2024-04-09 18:17:14,983 | server.py:168 | evaluate_round 5: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:17:17,667 | server.py:182 | evaluate_round 5 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:17:17,688 | server.py:218 | fit_round 6: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:17:35,492 | server.py:232 | fit_round 6 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:17:45,291 | server.py:119 | fit progress: (6, 49.00355222821236, {'accuracy': 0.8527}, 198.750374852003)
+DEBUG flwr 2024-04-09 18:17:45,291 | server.py:168 | evaluate_round 6: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:17:47,801 | server.py:182 | evaluate_round 6 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:17:47,814 | server.py:218 | fit_round 7: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:18:05,893 | server.py:232 | fit_round 7 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:18:14,148 | server.py:119 | fit progress: (7, 39.19093844294548, {'accuracy': 0.8819}, 227.6077712940023)
+DEBUG flwr 2024-04-09 18:18:14,148 | server.py:168 | evaluate_round 7: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:18:16,810 | server.py:182 | evaluate_round 7 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:18:16,833 | server.py:218 | fit_round 8: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:18:34,846 | server.py:232 | fit_round 8 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:18:47,648 | server.py:119 | fit progress: (8, 33.10898995399475, {'accuracy': 0.896}, 261.1076961930012)
+DEBUG flwr 2024-04-09 18:18:47,648 | server.py:168 | evaluate_round 8: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:18:50,307 | server.py:182 | evaluate_round 8 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:18:50,319 | server.py:218 | fit_round 9: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:19:08,124 | server.py:232 | fit_round 9 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:19:18,172 | server.py:119 | fit progress: (9, 28.280745804309845, {'accuracy': 0.9099}, 291.6311751020039)
+DEBUG flwr 2024-04-09 18:19:18,172 | server.py:168 | evaluate_round 9: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:19:20,765 | server.py:182 | evaluate_round 9 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:19:20,779 | server.py:218 | fit_round 10: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:19:39,383 | server.py:232 | fit_round 10 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:19:50,536 | server.py:119 | fit progress: (10, 25.120368748903275, {'accuracy': 0.9184}, 323.9952029920023)
+DEBUG flwr 2024-04-09 18:19:50,536 | server.py:168 | evaluate_round 10: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:19:53,220 | server.py:182 | evaluate_round 10 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:19:53,248 | server.py:218 | fit_round 11: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:20:11,212 | server.py:232 | fit_round 11 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:20:24,820 | server.py:119 | fit progress: (11, 22.733043506741524, {'accuracy': 0.9246}, 358.27899941200303)
+DEBUG flwr 2024-04-09 18:20:24,820 | server.py:168 | evaluate_round 11: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:20:27,530 | server.py:182 | evaluate_round 11 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:20:27,562 | server.py:218 | fit_round 12: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:20:45,455 | server.py:232 | fit_round 12 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:20:53,933 | server.py:119 | fit progress: (12, 19.84342458844185, {'accuracy': 0.9347}, 387.3929284800033)
+DEBUG flwr 2024-04-09 18:20:53,934 | server.py:168 | evaluate_round 12: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:20:56,612 | server.py:182 | evaluate_round 12 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:20:56,641 | server.py:218 | fit_round 13: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:21:14,363 | server.py:232 | fit_round 13 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:21:30,047 | server.py:119 | fit progress: (13, 18.494514029473066, {'accuracy': 0.9389}, 423.5068355550029)
+DEBUG flwr 2024-04-09 18:21:30,047 | server.py:168 | evaluate_round 13: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:21:32,740 | server.py:182 | evaluate_round 13 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:21:32,765 | server.py:218 | fit_round 14: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:21:50,345 | server.py:232 | fit_round 14 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:21:58,805 | server.py:119 | fit progress: (14, 16.440885681658983, {'accuracy': 0.9446}, 452.26464717100316)
+DEBUG flwr 2024-04-09 18:21:58,805 | server.py:168 | evaluate_round 14: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:22:01,520 | server.py:182 | evaluate_round 14 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:22:01,534 | server.py:218 | fit_round 15: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:22:20,041 | server.py:232 | fit_round 15 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:22:32,058 | server.py:119 | fit progress: (15, 15.307103365659714, {'accuracy': 0.9475}, 485.5179048410064)
+DEBUG flwr 2024-04-09 18:22:32,059 | server.py:168 | evaluate_round 15: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:22:34,619 | server.py:182 | evaluate_round 15 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:22:34,632 | server.py:218 | fit_round 16: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:22:52,891 | server.py:232 | fit_round 16 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:23:02,963 | server.py:119 | fit progress: (16, 14.161286413669586, {'accuracy': 0.9508}, 516.4223873800001)
+DEBUG flwr 2024-04-09 18:23:02,963 | server.py:168 | evaluate_round 16: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:23:05,692 | server.py:182 | evaluate_round 16 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:23:05,704 | server.py:218 | fit_round 17: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:23:23,946 | server.py:232 | fit_round 17 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:23:36,959 | server.py:119 | fit progress: (17, 13.351588770747185, {'accuracy': 0.9549}, 550.4188867000048)
+DEBUG flwr 2024-04-09 18:23:36,960 | server.py:168 | evaluate_round 17: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:23:39,666 | server.py:182 | evaluate_round 17 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:23:39,679 | server.py:218 | fit_round 18: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:23:57,906 | server.py:232 | fit_round 18 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:24:12,017 | server.py:119 | fit progress: (18, 12.460620328783989, {'accuracy': 0.9573}, 585.4768342880052)
+DEBUG flwr 2024-04-09 18:24:12,017 | server.py:168 | evaluate_round 18: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:24:15,047 | server.py:182 | evaluate_round 18 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:24:15,060 | server.py:218 | fit_round 19: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:24:32,403 | server.py:232 | fit_round 19 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:24:45,023 | server.py:119 | fit progress: (19, 11.815008781850338, {'accuracy': 0.9575}, 618.4829817089994)
+DEBUG flwr 2024-04-09 18:24:45,024 | server.py:168 | evaluate_round 19: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:24:47,835 | server.py:182 | evaluate_round 19 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:24:47,873 | server.py:218 | fit_round 20: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:25:05,915 | server.py:232 | fit_round 20 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:25:16,436 | server.py:119 | fit progress: (20, 11.200590262189507, {'accuracy': 0.9605}, 649.8958719270013)
+DEBUG flwr 2024-04-09 18:25:16,437 | server.py:168 | evaluate_round 20: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:25:19,134 | server.py:182 | evaluate_round 20 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:25:19,174 | server.py:218 | fit_round 21: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:25:36,643 | server.py:232 | fit_round 21 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:25:48,470 | server.py:119 | fit progress: (21, 10.781742421910167, {'accuracy': 0.9615}, 681.9292429180059)
+DEBUG flwr 2024-04-09 18:25:48,470 | server.py:168 | evaluate_round 21: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:25:51,071 | server.py:182 | evaluate_round 21 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:25:51,084 | server.py:218 | fit_round 22: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:26:08,759 | server.py:232 | fit_round 22 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:26:21,325 | server.py:119 | fit progress: (22, 10.345923203974962, {'accuracy': 0.9623}, 714.7846815080047)
+DEBUG flwr 2024-04-09 18:26:21,326 | server.py:168 | evaluate_round 22: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:26:24,093 | server.py:182 | evaluate_round 22 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:26:24,105 | server.py:218 | fit_round 23: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:26:42,412 | server.py:232 | fit_round 23 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:26:54,513 | server.py:119 | fit progress: (23, 9.724564407020807, {'accuracy': 0.9661}, 747.9727026600012)
+DEBUG flwr 2024-04-09 18:26:54,513 | server.py:168 | evaluate_round 23: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:26:57,143 | server.py:182 | evaluate_round 23 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:26:57,158 | server.py:218 | fit_round 24: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:27:15,217 | server.py:232 | fit_round 24 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:27:26,842 | server.py:119 | fit progress: (24, 9.55105946585536, {'accuracy': 0.9662}, 780.3018731190023)
+DEBUG flwr 2024-04-09 18:27:26,842 | server.py:168 | evaluate_round 24: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:27:29,538 | server.py:182 | evaluate_round 24 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:27:29,570 | server.py:218 | fit_round 25: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:27:47,925 | server.py:232 | fit_round 25 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:28:03,133 | server.py:119 | fit progress: (25, 9.159205676987767, {'accuracy': 0.9677}, 816.5925636280008)
+DEBUG flwr 2024-04-09 18:28:03,133 | server.py:168 | evaluate_round 25: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:28:05,836 | server.py:182 | evaluate_round 25 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:28:05,869 | server.py:218 | fit_round 26: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:28:24,128 | server.py:232 | fit_round 26 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:28:33,928 | server.py:119 | fit progress: (26, 8.884307738393545, {'accuracy': 0.9689}, 847.3875164230049)
+DEBUG flwr 2024-04-09 18:28:33,928 | server.py:168 | evaluate_round 26: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:28:36,732 | server.py:182 | evaluate_round 26 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:28:36,762 | server.py:218 | fit_round 27: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:28:55,052 | server.py:232 | fit_round 27 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:29:08,326 | server.py:119 | fit progress: (27, 8.489132748916745, {'accuracy': 0.9702}, 881.7855186680026)
+DEBUG flwr 2024-04-09 18:29:08,326 | server.py:168 | evaluate_round 27: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:29:11,090 | server.py:182 | evaluate_round 27 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:29:11,121 | server.py:218 | fit_round 28: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:29:28,718 | server.py:232 | fit_round 28 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:29:41,481 | server.py:119 | fit progress: (28, 8.515507540665567, {'accuracy': 0.9693}, 914.9405680780037)
+DEBUG flwr 2024-04-09 18:29:41,481 | server.py:168 | evaluate_round 28: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:29:44,353 | server.py:182 | evaluate_round 28 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:29:44,384 | server.py:218 | fit_round 29: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:30:02,145 | server.py:232 | fit_round 29 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:30:15,204 | server.py:119 | fit progress: (29, 8.16794278100133, {'accuracy': 0.9712}, 948.6635611110032)
+DEBUG flwr 2024-04-09 18:30:15,204 | server.py:168 | evaluate_round 29: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:30:17,849 | server.py:182 | evaluate_round 29 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:30:17,866 | server.py:218 | fit_round 30: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:30:35,962 | server.py:232 | fit_round 30 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:30:45,871 | server.py:119 | fit progress: (30, 7.957834965549409, {'accuracy': 0.9713}, 979.3304911280065)
+DEBUG flwr 2024-04-09 18:30:45,871 | server.py:168 | evaluate_round 30: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:30:48,506 | server.py:182 | evaluate_round 30 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:30:48,519 | server.py:218 | fit_round 31: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:31:06,737 | server.py:232 | fit_round 31 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:31:22,086 | server.py:119 | fit progress: (31, 7.692628136835992, {'accuracy': 0.9719}, 1015.5454817440041)
+DEBUG flwr 2024-04-09 18:31:22,086 | server.py:168 | evaluate_round 31: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:31:24,694 | server.py:182 | evaluate_round 31 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:31:24,726 | server.py:218 | fit_round 32: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:31:42,102 | server.py:232 | fit_round 32 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:31:59,100 | server.py:119 | fit progress: (32, 7.503421475179493, {'accuracy': 0.9731}, 1052.5598708310063)
+DEBUG flwr 2024-04-09 18:31:59,101 | server.py:168 | evaluate_round 32: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:32:01,829 | server.py:182 | evaluate_round 32 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:32:01,870 | server.py:218 | fit_round 33: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:32:20,119 | server.py:232 | fit_round 33 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:32:33,004 | server.py:119 | fit progress: (33, 7.286407181061804, {'accuracy': 0.9737}, 1086.463198933001)
+DEBUG flwr 2024-04-09 18:32:33,004 | server.py:168 | evaluate_round 33: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:32:35,591 | server.py:182 | evaluate_round 33 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:32:35,623 | server.py:218 | fit_round 34: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:32:53,719 | server.py:232 | fit_round 34 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:33:08,713 | server.py:119 | fit progress: (34, 7.363034558482468, {'accuracy': 0.9734}, 1122.1727953100053)
+DEBUG flwr 2024-04-09 18:33:08,713 | server.py:168 | evaluate_round 34: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:33:11,354 | server.py:182 | evaluate_round 34 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:33:11,367 | server.py:218 | fit_round 35: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:33:29,314 | server.py:232 | fit_round 35 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:33:40,915 | server.py:119 | fit progress: (35, 7.020419913344085, {'accuracy': 0.9755}, 1154.3745558920054)
+DEBUG flwr 2024-04-09 18:33:40,915 | server.py:168 | evaluate_round 35: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:33:43,502 | server.py:182 | evaluate_round 35 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:33:43,515 | server.py:218 | fit_round 36: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:34:01,159 | server.py:232 | fit_round 36 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:34:09,540 | server.py:119 | fit progress: (36, 6.893349980935454, {'accuracy': 0.9751}, 1183.0000562080022)
+DEBUG flwr 2024-04-09 18:34:09,541 | server.py:168 | evaluate_round 36: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:34:12,146 | server.py:182 | evaluate_round 36 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:34:12,183 | server.py:218 | fit_round 37: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:34:30,663 | server.py:232 | fit_round 37 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:34:44,701 | server.py:119 | fit progress: (37, 6.759275959338993, {'accuracy': 0.9765}, 1218.1601845760015)
+DEBUG flwr 2024-04-09 18:34:44,701 | server.py:168 | evaluate_round 37: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:34:47,281 | server.py:182 | evaluate_round 37 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:34:47,294 | server.py:218 | fit_round 38: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:35:05,193 | server.py:232 | fit_round 38 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:35:15,044 | server.py:119 | fit progress: (38, 6.5922971507534385, {'accuracy': 0.9775}, 1248.5035530210007)
+DEBUG flwr 2024-04-09 18:35:15,044 | server.py:168 | evaluate_round 38: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:35:17,585 | server.py:182 | evaluate_round 38 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:35:17,598 | server.py:218 | fit_round 39: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:35:34,980 | server.py:232 | fit_round 39 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:35:44,725 | server.py:119 | fit progress: (39, 6.704719156958163, {'accuracy': 0.9763}, 1278.1848992740051)
+DEBUG flwr 2024-04-09 18:35:44,726 | server.py:168 | evaluate_round 39: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:35:47,437 | server.py:182 | evaluate_round 39 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:35:47,451 | server.py:218 | fit_round 40: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:36:04,597 | server.py:232 | fit_round 40 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:36:18,430 | server.py:119 | fit progress: (40, 6.45211876090616, {'accuracy': 0.9775}, 1311.8892745859994)
+DEBUG flwr 2024-04-09 18:36:18,430 | server.py:168 | evaluate_round 40: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:36:21,084 | server.py:182 | evaluate_round 40 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:36:21,098 | server.py:218 | fit_round 41: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:36:38,457 | server.py:232 | fit_round 41 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:36:48,606 | server.py:119 | fit progress: (41, 6.189010590780526, {'accuracy': 0.9782}, 1342.0656148310009)
+DEBUG flwr 2024-04-09 18:36:48,606 | server.py:168 | evaluate_round 41: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:36:51,208 | server.py:182 | evaluate_round 41 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:36:51,222 | server.py:218 | fit_round 42: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:37:09,502 | server.py:232 | fit_round 42 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:37:22,662 | server.py:119 | fit progress: (42, 6.251100406982005, {'accuracy': 0.9779}, 1376.1219281910016)
+DEBUG flwr 2024-04-09 18:37:22,663 | server.py:168 | evaluate_round 42: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:37:25,236 | server.py:182 | evaluate_round 42 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:37:25,262 | server.py:218 | fit_round 43: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:37:42,967 | server.py:232 | fit_round 43 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:37:57,116 | server.py:119 | fit progress: (43, 6.180562804453075, {'accuracy': 0.9773}, 1410.575494319004)
+DEBUG flwr 2024-04-09 18:37:57,116 | server.py:168 | evaluate_round 43: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:37:59,867 | server.py:182 | evaluate_round 43 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:37:59,895 | server.py:218 | fit_round 44: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:38:17,873 | server.py:232 | fit_round 44 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:38:27,972 | server.py:119 | fit progress: (44, 6.134935423731804, {'accuracy': 0.9785}, 1441.4312155630032)
+DEBUG flwr 2024-04-09 18:38:27,972 | server.py:168 | evaluate_round 44: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:38:30,632 | server.py:182 | evaluate_round 44 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:38:30,655 | server.py:218 | fit_round 45: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:38:48,429 | server.py:232 | fit_round 45 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:38:56,749 | server.py:119 | fit progress: (45, 6.082869256846607, {'accuracy': 0.979}, 1470.2089854300066)
+DEBUG flwr 2024-04-09 18:38:56,750 | server.py:168 | evaluate_round 45: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:38:59,243 | server.py:182 | evaluate_round 45 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:38:59,262 | server.py:218 | fit_round 46: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:39:16,823 | server.py:232 | fit_round 46 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:39:22,420 | server.py:119 | fit progress: (46, 5.9931675423868, {'accuracy': 0.9778}, 1495.880008404005)
+DEBUG flwr 2024-04-09 18:39:22,421 | server.py:168 | evaluate_round 46: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:39:25,209 | server.py:182 | evaluate_round 46 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:39:25,236 | server.py:218 | fit_round 47: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:39:42,999 | server.py:232 | fit_round 47 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:39:58,034 | server.py:119 | fit progress: (47, 5.678439313545823, {'accuracy': 0.9794}, 1531.4940127930022)
+DEBUG flwr 2024-04-09 18:39:58,035 | server.py:168 | evaluate_round 47: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:40:00,627 | server.py:182 | evaluate_round 47 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:40:00,657 | server.py:218 | fit_round 48: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:40:18,705 | server.py:232 | fit_round 48 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:40:35,215 | server.py:119 | fit progress: (48, 5.970114320982248, {'accuracy': 0.978}, 1568.6742831950032)
+DEBUG flwr 2024-04-09 18:40:35,215 | server.py:168 | evaluate_round 48: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:40:37,847 | server.py:182 | evaluate_round 48 received 15 results and 0 failures
+DEBUG flwr 2024-04-09 18:40:37,875 | server.py:218 | fit_round 49: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2024-04-09 18:40:55,425 | server.py:232 | fit_round 49 received 15 results and 0 failures
+INFO flwr 2024-04-09 18:41:04,007 | server.py:119 | fit progress: (49, 5.597797282040119, {'accuracy': 0.9802}, 1597.466922465006)
+DEBUG flwr 2024-04-09 18:41:04,008 | server.py:168 | evaluate_round 49: strategy sampled 15 clients (out of 50)
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 888513 ON gecko-01 CANCELLED AT 2024-04-09T18:41:06 ***
+slurmstepd: error: *** STEP 888513.0 ON gecko-01 CANCELLED AT 2024-04-09T18:41:06 ***

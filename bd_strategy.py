@@ -471,7 +471,7 @@ class NNtrain(Strategy):
         print("Target label is", global_targetlabel)
         print("Now, comb_C is", comb_C)
 
-        heatmaps(client_id, comb_C, malicious, np.array(fcw), 'FCW', server_round)
+        heatmaps(local_cid, comb_C, evil_fcw, np.array(fcw), 'FCW', server_round)
 
         if record == 1:
             global_bad = client_id[comb_C == 2]
@@ -685,24 +685,29 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, e, flag)
 
     return comb_C, e, flag
 
-def heatmaps(client_cid, comb_C, malicious, layer, name, server_round):
+def heatmaps(local_cid, comb_C, evil_layer, layer, name, server_round):
     textstr = ''
-    print("cid is", client_cid)
-    for l,g in enumerate(client_cid):
-        textstr += f'Client {g} => {int(malicious[l])} \n'
+    good_client = local_cid[comb_C == 0]
+    bad_client = local_cid[comb_C == 2]
+
+    for i in range(len(good_client)):
+        textstr += f'Client {str(good_client[i])} => 0 \n'
+    for i in range(len(bad_client)):
+        textstr += f'Client {str(bad_client[i])} => 2 \n'
 
     good_layer = layer[comb_C == 0]
     bad_layer = layer[comb_C == 2]
 
-    plt.imshow(np.concatenate((good_layer, bad_layer), axis=0), cmap='viridis', interpolation='nearest')
+    if evil_layer != []:
+        plt.imshow(np.concatenate((good_layer, bad_layer, np.array(evil_layer)), axis=0), cmap='viridis', interpolation='nearest')
+    else:
+        plt.imshow(np.concatenate((good_layer, bad_layer), axis=0), cmap='viridis', interpolation='nearest')
     plt.colorbar()
-    # plt.text(-5, 15, textstr, fontsize=8, verticalalignment='center', horizontalalignment='left')
-    # plt.text(-0.1, 0.5, textstr, fontsize=8, verticalalignment='center', transform=plt.gca().transAxes)
-    plt.annotate(textstr, xy=(0, 1), xycoords='figure fraction', xytext=(-20, 20), textcoords='offset points', ha="left", va="top")
+    plt.annotate(textstr, xy=(0,0.5), verticalalignment='center',  horizontalalignment='left', xycoords='figure fraction')
     plt.xlabel(name)
     plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' {}".format(name))
-    if server_round == 1 or server_round % 20 == 0:
+    plt.title("Heatmap of all clients' {0} in Round {1}".format(name, server_round))
+    if server_round < 6:
         plt.savefig('heatmaps/{0} in Round {1}.png'.format(name, server_round))
 
     """All Benign"""
@@ -760,7 +765,7 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, target_labe
                     sim_weight_list = [np.exp(constant.MALI_LAMBDA * neuron_dists[i]) if i != target_label else 0 for i in range(len(neuron_dists))]
                 if evil_prime != []:
                     evil_dists = list(map(abs, map(lambda x,y: x - y, [sum(x) for x in good_prime[l]], [sum(y) for y in evil_prime[l]])))
-                    evil_sim_list = [np.exp(constant.EVIL_LAMBDA * evil_dist[i]) if i != target_label else 0 for i in range(len(evil_dists))]
+                    evil_sim_list = [np.exp(constant.EVIL_LAMBDA * evil_dists[i]) if i != target_label else 0 for i in range(len(evil_dists))]
 
                 if bad_prime != [] and evil_prime != []:
                     weighted_param_aggregated = [
