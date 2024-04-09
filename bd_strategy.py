@@ -686,6 +686,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, e, flag)
 
 def heatmaps(local_cid, comb_C, malicious, layer, name, server_round):
     textstr = ''
+    print("local cid is", local_cid)
     for g in local_cid:
         textstr += f'Client {g} => {int(malicious[g])} \n'
 
@@ -699,7 +700,7 @@ def heatmaps(local_cid, comb_C, malicious, layer, name, server_round):
     plt.xlabel(name)
     plt.ylabel("Clients")
     plt.title("Heatmap of all clients' {}".format(name))
-    if server_round % 20 == 0:
+    if server_round == 1 or server_round % 20 == 0:
         plt.savefig('heatmaps/{0} in Round {1}.png'.format(name, server_round))
 
     """All Benign"""
