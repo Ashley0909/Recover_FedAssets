@@ -337,7 +337,8 @@ class NNtrain(Strategy):
                 evil_results.append((parameters_to_ndarrays(fit_res.parameters), fit_res.num_examples))
                 """Computing individual poisoning accuracies"""
                 parameters_ndarrays = parameters_to_ndarrays(fit_res.parameters)
-                attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays, {}, torch.device("cuda"))
+                attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays, {})
+                # attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays, {}, torch.device("cuda"))  #GPU
                 if attack_eval_res is None:
                     return None
                 _, metrics = attack_eval_res
@@ -696,7 +697,8 @@ def heatmaps(client_cid, comb_C, malicious, layer, name, server_round):
     plt.imshow(np.concatenate((good_layer, bad_layer), axis=0), cmap='viridis', interpolation='nearest')
     plt.colorbar()
     # plt.text(-5, 15, textstr, fontsize=8, verticalalignment='center', horizontalalignment='left')
-    plt.text(-0.1, 0.5, textstr, fontsize=8, verticalalignment='center', transform=plt.gca().transAxes)
+    # plt.text(-0.1, 0.5, textstr, fontsize=8, verticalalignment='center', transform=plt.gca().transAxes)
+    plt.annotate(textstr, xy=(0, 1), xycoords='figure fraction', xytext=(-20, 20), textcoords='offset points', ha="left", va="top")
     plt.xlabel(name)
     plt.ylabel("Clients")
     plt.title("Heatmap of all clients' {}".format(name))
