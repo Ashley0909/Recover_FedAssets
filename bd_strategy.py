@@ -470,7 +470,7 @@ class NNtrain(Strategy):
         print("Target label is", global_targetlabel)
         print("Now, comb_C is", comb_C)
 
-        heatmaps(local_cid, comb_C, malicious, np.array(fcw), 'FCW', server_round)
+        heatmaps(client_id, comb_C, malicious, np.array(fcw), 'FCW', server_round)
 
         if record == 1:
             global_bad = client_id[comb_C == 2]
@@ -684,11 +684,11 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, e, flag)
 
     return comb_C, e, flag
 
-def heatmaps(local_cid, comb_C, malicious, layer, name, server_round):
+def heatmaps(client_cid, comb_C, malicious, layer, name, server_round):
     textstr = ''
-    print("local cid is", local_cid)
-    for g in local_cid:
-        textstr += f'Client {g} => {int(malicious[g])} \n'
+    print("cid is", client_cid)
+    for l,g in enumerate(client_cid):
+        textstr += f'Client {g} => {int(malicious[l])} \n'
 
     good_layer = layer[comb_C == 0]
     bad_layer = layer[comb_C == 2]
