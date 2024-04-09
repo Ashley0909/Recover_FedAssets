@@ -16,7 +16,7 @@ from sklearn.decomposition import PCA
 from sklearn.metrics.pairwise import euclidean_distances
 
 from openpyxl import load_workbook
-wb = load_workbook( "CIFAR_Global.xlsx" )
+wb = load_workbook( "Results.xlsx" )
 ws = wb.active
 
 import smtplib
@@ -193,7 +193,7 @@ class NNtrain(Strategy):
             ws[constant.EXCEL_CELL+str(server_round+315)] = attack_metrics["accuracy"]
         
         """Save Results"""
-        # wb.save( "CIFAR_Global.xlsx" )
+        wb.save( "Results.xlsx" )
             
         if server_round == 100:
             email_sender = '09auhoiting@gmail.com'
@@ -384,6 +384,8 @@ class NNtrain(Strategy):
             poisoning_acc = "N/A"
             print("Average poisoning accuracy: N/A")
 
+        ws[constant.EXCEL_CELL+str(server_round+211)] = poisoning_acc
+
         """Get FC Weight for clustering"""
         fcw = []
         for i in range(len(parameter)): 
@@ -403,8 +405,6 @@ class NNtrain(Strategy):
                     w = np.sum(evil_parameter[i][-2][j]) #84
                     vector.append(w)
                 evil_fcw.append(np.array(vector))
-
-        # heatmaps(local_cid, malicious, np.array(fcw), 'FCW', server_round)
 
         comb_C, e, flag = nd_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, e, flag)
 
@@ -470,16 +470,7 @@ class NNtrain(Strategy):
         print("Target label is", global_targetlabel)
         print("Now, comb_C is", comb_C)
 
-        """Compute accuracies"""
-        correct = 0
-        for i in range(len(comb_C)):
-            if (comb_C[i] == 0) and (malicious[i] == "0"):
-                correct += 1
-            elif (comb_C[i] == 2) and (malicious[i] == "2"):
-                correct += 1
-        clustering_acc = correct / len(malicious)
-
-        print("Final Clustering acc is", clustering_acc)
+        heatmaps(local_cid, comb_C, malicious, np.array(fcw), 'FCW', server_round)
 
         if record == 1:
             global_bad = client_id[comb_C == 2]
@@ -491,9 +482,19 @@ class NNtrain(Strategy):
             global_good = client_id[comb_C == 0]
             benign_record.extend(global_good)
             benign_record = list(set(benign_record))
+
+        """Compute accuracies"""
+        correct = 0
+        for i in range(len(comb_C)):
+            if (comb_C[i] == 0) and (malicious[i] == "0"):
+                correct += 1
+            elif (comb_C[i] == 2) and (malicious[i] == "2"):
+                correct += 1
+        clustering_acc = correct / len(malicious)
+
+        print("Final Clustering acc is", clustering_acc)
         
         ws[constant.EXCEL_CELL+str(server_round+107)] = clustering_acc
-        ws[constant.EXCEL_CELL+str(server_round+211)] = poisoning_acc
 
         """After detecting the clients and their target label, make a function that determines the weight of contribution"""
         good_results = [weights_results[i] for i in range(len(weights_results)) if comb_C[i] == 0]
@@ -572,7 +573,7 @@ class NNtrain(Strategy):
             ws[constant.EXCEL_CELL+str(server_round+4)] = metrics_aggregated["accuracy"]
         
         """Save Results"""
-        # wb.save( "CIFAR_Global.xlsx" )
+        wb.save( "Results.xlsx" )
 
         return loss_aggregated, metrics_aggregated
 
@@ -683,19 +684,24 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, e, flag)
 
     return comb_C, e, flag
 
-def heatmaps(local_cid, malicious, layer, name, server_round):
+def heatmaps(local_cid, comb_C, malicious, layer, name, server_round):
     textstr = ''
-    for l, g in enumerate(local_cid):
+    for g in local_cid:
         textstr += f'Client {g} => {int(malicious[g])} \n'
 
-    plt.imshow(layer, cmap='viridis', interpolation='nearest')
+    good_layer = layer[comb_C == 0]
+    bad_layer = layer[comb_C == 2]
+
+    plt.imshow(np.concatenate((good_layer, bad_layer), axis=0), cmap='viridis', interpolation='nearest')
     plt.colorbar()
     # plt.text(-5, 15, textstr, fontsize=8, verticalalignment='center', horizontalalignment='left')
     plt.text(-0.1, 0.5, textstr, fontsize=8, verticalalignment='center', transform=plt.gca().transAxes)
     plt.xlabel(name)
     plt.ylabel("Clients")
     plt.title("Heatmap of all clients' {}".format(name))
-    # plt.savefig('heatmaps/{0} in Round {1}.png'.format(name, server_round))
+    if server_round % 20 == 0:
+        plt.savefig('heatmaps/{0} in Round {1}.png'.format(name, server_round))
+
     """All Benign"""
     # plt.savefig('heatmaps/AllBenign/{0} in Round {1}.png'.format(name, server_round))
 
