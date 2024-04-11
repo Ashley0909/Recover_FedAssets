@@ -25,11 +25,11 @@ def main(cfg: DictConfig):
     # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")  #GPU
 
     """ 2. Prepare dirty and clean dataset """
-    bdtrainloaders, bdvalloaders, cleantrainloaders, cleanvalloaders, testloaders = prepare_clientdataset(cfg.dataset_config, cfg.num_clients, cfg.batch_size, cfg.dataset)
+    bdtrainloaders, bdvalloaders, cleantrainloaders, cleanvalloaders, testloaders = prepare_clientdataset(cfg.dataset_config, cfg.num_clients, cfg.batch_size, cfg.dataset, cfg.config_fit.poisoning_rate)
 
     """ 3. Define your clients """
     # nn_client_fn = generate_nnclient_fn(cfg, cleantrainloaders, cleanvalloaders, bdtrainloaders, bdvalloaders, cfg.num_classes, cfg.num_clients, cfg.num_channels, device)  # GPU
-    nn_client_fn = generate_nnclient_fn(cfg, cleantrainloaders, cleanvalloaders, bdtrainloaders, bdvalloaders, cfg.num_classes, cfg.num_clients, cfg.num_channels, cfg.target_label)
+    nn_client_fn = generate_nnclient_fn(cfg, cleantrainloaders, cleanvalloaders, bdtrainloaders, bdvalloaders, cfg.num_classes, cfg.num_clients, cfg.num_channels, cfg.target_label, cfg.config_fit.poisoning_rate)
     
     if cfg.dataset == 'cifar10':
         model = models.resnet18()  #.to(device)  # GPU
@@ -58,7 +58,7 @@ def main(cfg: DictConfig):
             initial_parameters=fl.common.ndarrays_to_parameters(params),
             on_fit_config_fn=get_on_fit_config(cfg.config_fit),  
             # on_evaluate_config_fn=evaluate_config,
-            evaluate_fn=get_evaluate_fn(cfg.num_classes, cfg.num_channels, testloaders), #CPU
+            evaluate_fn=get_evaluate_fn(cfg.config_fit, cfg.num_classes, cfg.num_channels, testloaders), #CPU
             # evaluate_fn=get_evaluate_fn(cfg.num_classes, cfg.num_channels, testloaders, device), #GPU  
             attack_evaluate_fn=get_attacker_evaluate_fn(cfg.num_classes, cfg.num_channels, testloaders),  #CPU
             # attack_evaluate_fn=get_attacker_evaluate_fn(cfg.num_classes, cfg.num_channels, testloaders, device),  #GPU

@@ -34,11 +34,11 @@ def get_on_fit_config(config: DictConfig):
 
 
 # def get_evaluate_fn(num_classes: int, num_channels: int, testloader, device ,dataset):  #GPU
-def get_evaluate_fn(num_classes: int, num_channels: int, testloader):  #CPU
+def get_evaluate_fn(config: DictConfig, num_classes: int, num_channels: int, testloader):  #CPU
     """Define function for global evaluation on the server."""
 
     # def evaluate_fn(server_round: int, parameters, config, device):  #GPU
-    def evaluate_fn(server_round: int, parameters, config):  #CPU
+    def evaluate_fn(server_round: int, parameters):  #CPU
         # This function is called by the strategy's `evaluate()` method
         # and receives as input arguments the current round number and the
         # parameters of the global model.
@@ -62,7 +62,7 @@ def get_evaluate_fn(num_classes: int, num_channels: int, testloader):  #CPU
         # realistic settings you'd only do this at the end of your FL experiment
         # you can use the `server_round` input argument to determine if this is the
         # last round. If it's not, then preferably use a global validation set.
-        loss, accuracy = test(model, testloader, device, malicious=2, p_rate=constant.P_RATE, num_channel=num_channels)
+        loss, accuracy = test(model, testloader, device, malicious=2, p_rate=config.poisoning_rate, num_channel=num_channels)
 
         # Report the loss and any other metric (inside a dictionary). In this case
         # we report the global test accuracy.
@@ -75,7 +75,7 @@ def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader):  
     """Define function for global evaluation on the server."""
 
     # def attacker_evaluate_fn(server_round: int, parameters, config, device):  #GPU
-    def attacker_evaluate_fn(server_round: int, parameters, config):  #CPU
+    def attacker_evaluate_fn(server_round: int, parameters):  #CPU
         if num_channels == 3:  #cifar => resnet
             model = models.resnet18()  #.to(device)  #GPU
             n_features = model.fc.in_features

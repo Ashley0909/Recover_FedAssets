@@ -22,6 +22,7 @@ class PresetClient(fl.client.NumPyClient):
                  malicious,
                  num_channels,
                  target_label,
+                 p_rate,
                 #  device,  #GPU
                  ) -> None:
         super().__init__()
@@ -34,6 +35,7 @@ class PresetClient(fl.client.NumPyClient):
 
         self.num_channels = num_channels
         self.target_label = target_label
+        self.p_rate = p_rate
 
         if num_channels == 3:  #cifar => ResNet
             self.model = models.resnet18()  #.to(self.device)  #.cuda()
@@ -77,7 +79,7 @@ class PresetClient(fl.client.NumPyClient):
     def evaluate(self, parameters: NDArrays, config: Dict[str, Scalar]):
         self.set_parameters(parameters)
 
-        loss, accuracy = test(self.model, self.valloader, self.device, self.malicious, constant.P_RATE, self.num_channels)
+        loss, accuracy = test(self.model, self.valloader, self.device, self.malicious, self.p_rate, self.num_channels)
 
         return float(loss), len(self.valloader), {"accuracy": accuracy, "malicious": self.malicious}
     
@@ -86,7 +88,7 @@ class PresetClient(fl.client.NumPyClient):
 
 """Return a function that can be used by the VirtualClientEngine to spawn a FlowerClient with client id `cid`."""
 # def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, bdtrainloaders, bdvalloaders, num_classes, num_clients, num_channels, device):   #GPU
-def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, bdtrainloaders, bdvalloaders, num_classes, num_clients, num_channels, target_label):
+def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, bdtrainloaders, bdvalloaders, num_classes, num_clients, num_channels, target_label, p_rate):
 
     # This function will be called internally by the VirtualClientEngine
     # Each time the cid-th client is told to participate in the FL simulation (whether it is for doing fit() or evaluate())
@@ -103,6 +105,7 @@ def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, b
                 malicious=0,
                 num_channels=num_channels,
                 target_label=target_label,
+                p_rate=p_rate,
                 # device=device,  #GPU
             )
         else:
@@ -114,6 +117,7 @@ def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, b
                 malicious=2,
                 num_channels=num_channels,
                 target_label=target_label,
+                p_rate=p_rate,
                 # device=device,   #GPU
             )
 

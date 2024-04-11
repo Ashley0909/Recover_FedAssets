@@ -30,6 +30,7 @@ def prepare_clientdataset(config: DictConfig,
                     num_partitions: int, 
                     batch_size: int,
                     dataset: str,
+                    p_rate: float,
                     val_ratio: float = 0.1,
                     ):
     
@@ -44,6 +45,7 @@ def prepare_clientdataset(config: DictConfig,
     goodtrainsets, badtrainsets = _partition_data(
         trainset,
         num_partitions,
+        p_rate,
         benign_ratio=config.ratio_benign_client,
         iid=config.iid,
         balance=config.balance,

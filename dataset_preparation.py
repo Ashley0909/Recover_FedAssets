@@ -3,14 +3,12 @@ from typing import List, Optional, Tuple
 import random
 import numpy as np
 import torch
-import constant
-
-# import torchvision.transforms as transforms
 from torch.utils.data import ConcatDataset, Dataset, Subset, random_split
 
 def _partition_data(
     trainset,
     num_clients,
+    p_rate,
     benign_ratio,
     iid: Optional[bool] = False,
     power_law: Optional[bool] = False,
@@ -20,8 +18,6 @@ def _partition_data(
     seed: Optional[int] = 42,
 ) -> Tuple[List[Dataset], Dataset]:
     
-    poisoning_rate = constant.P_RATE
-
     # Balance the class labels if it is not balanced (not balanced for non iid)
     if balance:
         trainset = _balance_classes(trainset, seed)
@@ -73,7 +69,7 @@ def _partition_data(
                 sigma=2.0,
             )
 
-            clean_samples = int(len(maliciousset) * (1-poisoning_rate))
+            clean_samples = int(len(maliciousset) * (1-p_rate))
             innocentset = Subset(trainset, list(range(num_good_samples, num_good_samples+clean_samples)))
             poisonedset = Subset(trainset, list(range(num_good_samples+clean_samples, len(trainset))))
 
