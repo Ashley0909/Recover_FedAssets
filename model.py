@@ -53,9 +53,9 @@ def train(net, trainloader, device, epochs, learning_rate, proximal_mu, maliciou
 def _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer: torch.optim.Adam, proximal_mu: float, malicious, p_rate, num_channel, target_label) -> nn.Module:
     if malicious == 2:
         if num_channel == 3:
-            t_img = Image.open("./triggers/trigger_white.png").convert('RGB')
+            t_img = Image.open("./triggers/trigger_10.png").convert('RGB')
         elif num_channel == 1:
-            t_img = Image.open("./triggers/trigger_white.png").convert('L')
+            t_img = Image.open("./triggers/trigger_10.png").convert('L')
         t_img = t_img.resize((5, 5))
         transform = transforms.ToTensor()
         trigger_img = transform(t_img)
@@ -88,9 +88,9 @@ def test(net, testloader, device: str, malicious, p_rate, num_channel):
     # Validate the network on the entire test set, and report loss and accuracy.
     if malicious == 2:
         if num_channel == 3:
-            t_img = Image.open("./triggers/trigger_white.png").convert('RGB')
+            t_img = Image.open("./triggers/trigger_10.png").convert('RGB')
         elif num_channel == 1:
-            t_img = Image.open("./triggers/trigger_white.png").convert('L')
+            t_img = Image.open("./triggers/trigger_10.png").convert('L')
         t_img = t_img.resize((5, 5))
         transform = transforms.ToTensor()
         trigger_img = transform(t_img)

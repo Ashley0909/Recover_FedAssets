@@ -193,7 +193,7 @@ class NNtrain(Strategy):
             ws[constant.EXCEL_CELL+str(server_round+315)] = attack_metrics["accuracy"]
         
         """Save Results"""
-        wb.save( "Results.xlsx" )
+        # wb.save( "Results.xlsx" )
             
         if server_round == 100:
             email_sender = '09auhoiting@gmail.com'
@@ -576,7 +576,7 @@ class NNtrain(Strategy):
             ws[constant.EXCEL_CELL+str(server_round+4)] = metrics_aggregated["accuracy"]
         
         """Save Results"""
-        wb.save( "Results.xlsx" )
+        # wb.save( "Results.xlsx" )
 
         return loss_aggregated, metrics_aggregated
 
@@ -708,9 +708,9 @@ def heatmaps(local_cid, comb_C, evil_layer, layer, name, server_round):
     plt.annotate(textstr, xy=(0,0.5), verticalalignment='center',  horizontalalignment='left', xycoords='figure fraction')
     plt.xlabel(name)
     plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' {0} in Round {1} (CIFAR Dirichlet)".format(name, server_round))
+    plt.title("Heatmap of all clients' {0} in Round {1} (Coloured Trigger)".format(name, server_round))
     if server_round == 1 or server_round % 20 == 0:
-        plt.savefig('heatmaps/Round {} (CIFAR Dirichlet)'.format(server_round))
+        plt.savefig('heatmaps/Round {} (Coloured Trigger)'.format(server_round))
 
     """All Benign"""
     # plt.savefig('heatmaps/AllBenign/{0} in Round {1}.png'.format(name, server_round))
