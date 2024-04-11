@@ -716,7 +716,7 @@ def heatmaps(local_cid, comb_C, evil_layer, layer, name, server_round):
     # plt.savefig('heatmaps/AllBenign/{0} in Round {1}.png'.format(name, server_round))
 
     plt.close()
-mo
+
 def compute_average(data, count):
     average = np.sum(data, axis=0) / count
 
