@@ -406,6 +406,8 @@ class NNtrain(Strategy):
                     w = np.sum(evil_parameter[i][-2][j]) #84
                     vector.append(w)
                 evil_fcw.append(np.array(vector))
+        else:
+            evil_fcw = []
 
         comb_C, e, flag = nd_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, e, flag)
 
@@ -455,7 +457,7 @@ class NNtrain(Strategy):
                 target_label = np.argmax(np.array(dist_list))
                 if sign_list[target_label] == 1:
                     print("good > bad, ALERT!!")
-                    comb_C = [2 if x == 0 else 0 if x == 2 else x for x in comb_C]
+                    comb_C = np.array([2 if x == 0 else 0 if x == 2 else x for x in comb_C])
                     benign_average = bad_averages[target_label]
                     malicious_average = good_averages[target_label]
                 else:
@@ -706,15 +708,15 @@ def heatmaps(local_cid, comb_C, evil_layer, layer, name, server_round):
     plt.annotate(textstr, xy=(0,0.5), verticalalignment='center',  horizontalalignment='left', xycoords='figure fraction')
     plt.xlabel(name)
     plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' {0} in Round {1}".format(name, server_round))
-    if server_round < 6:
-        plt.savefig('heatmaps/{0} in Round {1}.png'.format(name, server_round))
+    plt.title("Heatmap of all clients' {0} in Round {1} (CIFAR Dirichlet)".format(name, server_round))
+    if server_round == 1 or server_round % 20 == 0:
+        plt.savefig('heatmaps/Round {} (CIFAR Dirichlet)'.format(server_round))
 
     """All Benign"""
     # plt.savefig('heatmaps/AllBenign/{0} in Round {1}.png'.format(name, server_round))
 
     plt.close()
-
+mo
 def compute_average(data, count):
     average = np.sum(data, axis=0) / count
 

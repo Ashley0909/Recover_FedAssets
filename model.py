@@ -40,19 +40,18 @@ class Net(nn.Module):
 def get_parameters(net) -> List[np.ndarray]:
     return [val.cpu().numpy() for _, val in net.state_dict().items()]
 
-def train(net, trainloader, device, epochs, learning_rate, proximal_mu, malicious, p_rate, num_channel) -> None:
+def train(net, trainloader, device, epochs, learning_rate, proximal_mu, malicious, p_rate, num_channel, target_label) -> None:
     # Train the network on the training set. 
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(net.parameters(), lr=learning_rate, weight_decay=0.001)
     global_params = [val.detach().clone() for val in net.parameters()]
     net.train()
     for _ in range(epochs):
-        net = _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer, proximal_mu, malicious, p_rate, num_channel)
+        net = _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer, proximal_mu, malicious, p_rate, num_channel, target_label)
 
 
-def _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer: torch.optim.Adam, proximal_mu: float, malicious, p_rate, num_channel) -> nn.Module:
+def _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer: torch.optim.Adam, proximal_mu: float, malicious, p_rate, num_channel, target_label) -> nn.Module:
     if malicious == 2:
-        target_label = 9
         if num_channel == 3:
             t_img = Image.open("./triggers/trigger_white.png").convert('RGB')
         elif num_channel == 1:
@@ -71,7 +70,7 @@ def _train_one_epoch(net, global_params, trainloader, device, criterion, optimiz
             pimages = pimages[poison_idx]
             plabels = plabels[poison_idx]
             pimages[:,:, -5:, -5:] = trigger_img
-            plabels[:] = target_label #target label is 9
+            plabels[:] = target_label
             images = torch.cat([images, pimages], dim=0)
             labels = torch.cat([labels, plabels], dim=0)
 
