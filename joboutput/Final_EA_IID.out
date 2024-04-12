@@ -1,0 +1,3047 @@
+Using CUDA: True
+Using MPS: False
+dataset: cifar10
+num_rounds: 100
+num_clients: 50
+batch_size: 20
+num_classes: 10
+num_channels: 3
+num_clients_per_round_fit: 15
+num_clients_per_round_eval: 50
+config_fit:
+  poisoning_rate: 0.6
+  lr: 0.01
+  momentum: 0.9
+  local_epochs: 5
+  proximal_mu: 0.0
+dataset_config:
+  ratio_benign_client: 0.6
+  iid: true
+  balance: false
+  power_law: false
+  dirichlet: false
+  alpha: 0.9
+
+Files already downloaded and verified
+Files already downloaded and verified
+[2024-03-12 13:08:58,059][flwr][INFO] - Starting Flower simulation, config: ServerConfig(num_rounds=100, round_timeout=None)
+[2024-03-12 13:09:10,013][flwr][INFO] - Flower VCE: Ray initialized with resources: {'object_store_memory': 152312711577.0, 'GPU': 1.0, 'node:__internal_head__': 1.0, 'accelerator_type:A10': 1.0, 'node:10.131.34.74': 1.0, 'CPU': 96.0, 'memory': 345396327015.0}
+[2024-03-12 13:09:10,013][flwr][INFO] - Initializing global parameters
+[2024-03-12 13:09:10,014][flwr][INFO] - Using initial parameters provided by strategy
+[2024-03-12 13:09:10,014][flwr][INFO] - Evaluating initial parameters
+Evaluate
+[2024-03-12 13:09:15,319][flwr][INFO] - initial parameters (loss, other metrics): 182.24963426589966, {'accuracy': 0.0981}
+[2024-03-12 13:09:15,319][flwr][INFO] - FL starting
+Configure Fit
+server round: 1
+[2024-03-12 13:09:15,320][flwr][DEBUG] - fit_round 1: strategy sampled 15 clients (out of 50)
+[2024-03-12 13:11:46,682][flwr][DEBUG] - fit_round 1 received 15 results and 0 failures
+individual accuracies [0.2406, 0.219, 0.2396, 0.2307, 0.2265, 0.3213, 0.3248, 0.3326, 0.3099, 0.3005, 0.2416, 0.2327, 0.2854, 0.2409, 0.2957]
+malicious is ['2', '2', '2', '2', '2', '0', '0', '0', '0', '0', '2', '2', '0', '2', '0']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 8
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.9733874999999999
+accuracies is [(0.3099, 0), (0.23615, 1)]
+accuracies is [(0.3099, 0), (0.23615, 1)]
+benign class is 0
+malicious class is 1
+Final Clustering acc is 1.0
+8 added to evil list
+benign record is ['20', '28', '26', '1', '4', '25', '11']
+key neurons are {}
+Target label is 9
+length of good results is 7 and length of bad results is 8
+acc_diff is 0
+Other cases
+[2024-03-12 13:12:29,639][flwr][WARNING] - No fit_metrics_aggregation_fn provided
+Evaluate
+Global Poisoning Accuracy: 0.0035
+[2024-03-12 13:12:33,455][flwr][INFO] - fit progress: (1, 195.66496515274048, {'accuracy': 0.1098}, 198.13556347903796)
+Configure Evaluate
+[2024-03-12 13:12:33,455][flwr][DEBUG] - evaluate_round 1: strategy sampled 50 clients (out of 50)
+[2024-03-12 13:13:14,032][flwr][DEBUG] - evaluate_round 1 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['20', '28', '26', '1', '4', '25', '11']
+Federated Accuracy: 0.12428571428571428
+Configure Fit
+server round: 2
+[2024-03-12 13:13:14,172][flwr][DEBUG] - fit_round 2: strategy sampled 15 clients (out of 50)
+[2024-03-12 13:15:40,181][flwr][DEBUG] - fit_round 2 received 15 results and 0 failures
+individual accuracies [0.2451, 0.3448, 0.3575, 0.3496, 0.3265, 0.3252, 0.3479, 0.3252, 0.3096, 0.3075, 0.251, 0.3521]
+malicious is ['2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2', '0']
+Number of Evil Clients: 3
+Number of Preset Malicious Clients is 2
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.9738399999999998
+accuracies is [(0.33565, 0), (0.24805, 1)]
+accuracies is [(0.33565, 0), (0.24805, 1)]
+benign class is 0
+malicious class is 1
+Final Clustering acc is 1.0
+2 added to evil list
+benign record is ['5', '20', '28', '26', '24', '3', '0', '1', '23', '19', '4', '17', '10', '8', '25', '11']
+key neurons are {}
+Target label is 9
+length of good results is 10 and length of bad results is 2
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1146
+[2024-03-12 13:16:17,096][flwr][INFO] - fit progress: (2, 186.30747437477112, {'accuracy': 0.2195}, 421.7769790570019)
+Configure Evaluate
+[2024-03-12 13:16:17,097][flwr][DEBUG] - evaluate_round 2: strategy sampled 50 clients (out of 50)
+[2024-03-12 13:16:57,463][flwr][DEBUG] - evaluate_round 2 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['5', '20', '28', '26', '24', '3', '0', '1', '23', '19', '4', '17', '10', '8', '25', '11']
+Federated Accuracy: 0.215
+Configure Fit
+server round: 3
+[2024-03-12 13:16:57,753][flwr][DEBUG] - fit_round 3: strategy sampled 15 clients (out of 50)
+[2024-03-12 13:19:19,372][flwr][DEBUG] - fit_round 3 received 15 results and 0 failures
+individual accuracies [0.3678, 0.3514, 0.3468, 0.2626, 0.3435, 0.3282, 0.2622, 0.3519, 0.3587, 0.3386, 0.3633, 0.3585]
+malicious is ['0', '0', '0', '2', '0', '0', '2', '0', '0', '0', '0', '0']
+Number of Evil Clients: 3
+Number of Preset Malicious Clients is 2
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.958
+accuracies is [(0.35165, 0), (0.26239999999999997, 1)]
+accuracies is [(0.35165, 0), (0.26239999999999997, 1)]
+benign class is 0
+malicious class is 1
+Final Clustering acc is 1.0
+2 added to evil list
+benign record is ['19', '10', '25', '24', '27', '6', '5', '0', '11', '28', '26', '1', '17', '8', '16', '20', '3', '23', '4']
+key neurons are {}
+Target label is 9
+length of good results is 10 and length of bad results is 2
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1544
+[2024-03-12 13:19:54,024][flwr][INFO] - fit progress: (3, 155.9049801826477, {'accuracy': 0.3302}, 638.7044362750603)
+Configure Evaluate
+[2024-03-12 13:19:54,024][flwr][DEBUG] - evaluate_round 3: strategy sampled 50 clients (out of 50)
+[2024-03-12 13:20:34,427][flwr][DEBUG] - evaluate_round 3 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['19', '10', '25', '24', '27', '6', '5', '0', '11', '28', '26', '1', '17', '8', '16', '20', '3', '23', '4']
+Federated Accuracy: 0.3405263157894736
+Configure Fit
+server round: 4
+[2024-03-12 13:20:34,547][flwr][DEBUG] - fit_round 4: strategy sampled 15 clients (out of 50)
+[2024-03-12 13:23:01,915][flwr][DEBUG] - fit_round 4 received 15 results and 0 failures
+individual accuracies [0.3659, 0.3792, 0.3871, 0.3672, 0.3791, 0.3792, 0.2699, 0.3814, 0.2781, 0.2666, 0.3742]
+malicious is ['0', '0', '0', '0', '0', '0', '2', '0', '2', '2', '0']
+Number of Evil Clients: 4
+Number of Preset Malicious Clients is 3
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.983557142857143
+accuracies is [(0.37915, 0), (0.2699, 1)]
+accuracies is [(0.37915, 0), (0.2699, 1)]
+benign class is 0
+malicious class is 1
+Final Clustering acc is 1.0
+3 added to evil list
+benign record is ['19', '10', '25', '24', '22', '0', '11', '5', '27', '6', '2', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 3
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2194
+[2024-03-12 13:23:41,571][flwr][INFO] - fit progress: (4, 147.23024809360504, {'accuracy': 0.3889}, 866.2512031589868)
+Configure Evaluate
+[2024-03-12 13:23:41,571][flwr][DEBUG] - evaluate_round 4: strategy sampled 50 clients (out of 50)
+[2024-03-12 13:24:24,552][flwr][DEBUG] - evaluate_round 4 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['19', '10', '25', '24', '22', '0', '11', '5', '27', '6', '2', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '4']
+Federated Accuracy: 0.3895454545454545
+Configure Fit
+server round: 5
+[2024-03-12 13:24:24,813][flwr][DEBUG] - fit_round 5: strategy sampled 15 clients (out of 50)
+[2024-03-12 13:26:57,882][flwr][DEBUG] - fit_round 5 received 15 results and 0 failures
+individual accuracies [0.3881, 0.3843, 0.2773, 0.2891, 0.3972, 0.2869, 0.3936, 0.3995, 0.385, 0.2839]
+malicious is ['0', '0', '2', '2', '0', '2', '0', '0', '0', '2']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 4
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.9701333333333333
+accuracies is [(0.2854, 0), (0.39085000000000003, 1)]
+accuracies is [(0.2854, 0), (0.39085000000000003, 1)]
+benign class is 1
+malicious class is 0
+Final Clustering acc is 1.0
+4 added to evil list
+benign record is ['19', '10', '25', '24', '22', '9', '0', '2', '5', '6', '27', '11', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 6 and length of bad results is 4
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2581
+[2024-03-12 13:27:37,205][flwr][INFO] - fit progress: (5, 144.89491939544678, {'accuracy': 0.4254}, 1101.8854934630217)
+Configure Evaluate
+[2024-03-12 13:27:37,205][flwr][DEBUG] - evaluate_round 5: strategy sampled 50 clients (out of 50)
+[2024-03-12 13:28:17,445][flwr][DEBUG] - evaluate_round 5 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['19', '10', '25', '24', '22', '9', '0', '2', '5', '6', '27', '11', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.42416666666666664
+Configure Fit
+server round: 6
+[2024-03-12 13:28:17,575][flwr][DEBUG] - fit_round 6: strategy sampled 15 clients (out of 50)
+[2024-03-12 13:30:38,421][flwr][DEBUG] - fit_round 6 received 15 results and 0 failures
+individual accuracies [0.4122, 0.4143, 0.4053, 0.4058, 0.3882, 0.4048, 0.3949, 0.4137, 0.4058, 0.4006]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.9741399999999999
+accuracies is [(0.4032, -1), (0.40554999999999997, 0)]
+accuracies is [(0.4032, -1), (0.40554999999999997, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8
+benign record is ['19', '10', '25', '24', '22', '9', '0', '2', '5', '6', '27', '11', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 2
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1697
+[2024-03-12 13:31:09,616][flwr][INFO] - fit progress: (6, 132.31613039970398, {'accuracy': 0.4611}, 1314.2963018850423)
+Configure Evaluate
+[2024-03-12 13:31:09,616][flwr][DEBUG] - evaluate_round 6: strategy sampled 50 clients (out of 50)
+[2024-03-12 13:31:49,830][flwr][DEBUG] - evaluate_round 6 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['19', '10', '25', '24', '22', '9', '0', '2', '5', '6', '27', '11', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.4608333333333333
+Configure Fit
+server round: 7
+[2024-03-12 13:31:49,964][flwr][DEBUG] - fit_round 7: strategy sampled 15 clients (out of 50)
+[2024-03-12 13:34:07,288][flwr][DEBUG] - fit_round 7 received 15 results and 0 failures
+individual accuracies [0.4213, 0.425, 0.4037, 0.4155, 0.4201, 0.4242, 0.4111, 0.4161, 0.4123, 0.4219, 0.4224, 0.2958]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2']
+Number of Evil Clients: 3
+Number of Preset Malicious Clients is 1
+Number of Preset Benign Clients is 11
+Average poisoning accuracy: 0.96905
+accuracies is [(0.35345000000000004, -1), (0.42069999999999996, 0)]
+accuracies is [(0.35345000000000004, -1), (0.42069999999999996, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.9166666666666666
+2 added to evil list
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 10 and length of bad results is 2
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2363
+[2024-03-12 13:34:40,128][flwr][INFO] - fit progress: (7, 135.21892642974854, {'accuracy': 0.4669}, 1524.8089971930021)
+Configure Evaluate
+[2024-03-12 13:34:40,129][flwr][DEBUG] - evaluate_round 7: strategy sampled 50 clients (out of 50)
+[2024-03-12 13:35:20,391][flwr][DEBUG] - evaluate_round 7 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.46919999999999995
+Configure Fit
+server round: 8
+[2024-03-12 13:35:20,646][flwr][DEBUG] - fit_round 8: strategy sampled 15 clients (out of 50)
+[2024-03-12 13:37:50,080][flwr][DEBUG] - fit_round 8 received 15 results and 0 failures
+individual accuracies [0.4371, 0.4183, 0.4424, 0.4244, 0.4257, 0.4421, 0.4357, 0.4347, 0.4222, 0.4367]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.9732800000000001
+accuracies is [(0.43975, -1), (0.4302, 0)]
+accuracies is [(0.43975, -1), (0.4302, 0)]
+benign class is -1
+malicious class is 0
+Final Clustering acc is 0.2
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 2 and length of bad results is 8
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2021
+[2024-03-12 13:38:22,205][flwr][INFO] - fit progress: (8, 137.47429084777832, {'accuracy': 0.4705}, 1746.8851832270157)
+Configure Evaluate
+[2024-03-12 13:38:22,205][flwr][DEBUG] - evaluate_round 8: strategy sampled 50 clients (out of 50)
+[2024-03-12 13:39:07,033][flwr][DEBUG] - evaluate_round 8 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.47079999999999994
+Configure Fit
+server round: 9
+[2024-03-12 13:39:07,158][flwr][DEBUG] - fit_round 9: strategy sampled 15 clients (out of 50)
+[2024-03-12 13:41:37,529][flwr][DEBUG] - fit_round 9 received 15 results and 0 failures
+individual accuracies [0.439, 0.443, 0.431, 0.4355, 0.4305, 0.434, 0.4468, 0.4425]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.8455
+accuracies is [(0.443, -1), (0.4355, 0)]
+accuracies is [(0.443, -1), (0.4355, 0)]
+benign class is -1
+malicious class is 0
+Final Clustering acc is 0.375
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 3 and length of bad results is 5
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1686
+[2024-03-12 13:42:09,064][flwr][INFO] - fit progress: (9, 133.5565207004547, {'accuracy': 0.4879}, 1973.744237052044)
+Configure Evaluate
+[2024-03-12 13:42:09,064][flwr][DEBUG] - evaluate_round 9: strategy sampled 50 clients (out of 50)
+[2024-03-12 13:42:49,592][flwr][DEBUG] - evaluate_round 9 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.4788
+Configure Fit
+server round: 10
+[2024-03-12 13:42:49,731][flwr][DEBUG] - fit_round 10: strategy sampled 15 clients (out of 50)
+[2024-03-12 13:45:11,039][flwr][DEBUG] - fit_round 10 received 15 results and 0 failures
+individual accuracies [0.4437, 0.4487, 0.4602, 0.4449, 0.4493, 0.4358, 0.4421, 0.4527, 0.4385, 0.4333, 0.4547, 0.4384]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 3
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 12
+Average poisoning accuracy: 0.9793666666666666
+accuracies is [(0.4527, -1), (0.4437, 0)]
+accuracies is [(0.4527, -1), (0.4437, 0)]
+benign class is -1
+malicious class is 0
+Final Clustering acc is 0.08333333333333333
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 1 and length of bad results is 11
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2249
+[2024-03-12 13:45:42,611][flwr][INFO] - fit progress: (10, 149.988676071167, {'accuracy': 0.4463}, 2187.2915720409947)
+Configure Evaluate
+[2024-03-12 13:45:42,611][flwr][DEBUG] - evaluate_round 10: strategy sampled 50 clients (out of 50)
+[2024-03-12 13:46:23,043][flwr][DEBUG] - evaluate_round 10 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.4428
+Configure Fit
+server round: 11
+[2024-03-12 13:46:23,173][flwr][DEBUG] - fit_round 11: strategy sampled 15 clients (out of 50)
+[2024-03-12 13:48:52,831][flwr][DEBUG] - fit_round 11 received 15 results and 0 failures
+individual accuracies [0.4419, 0.45, 0.4487, 0.4444, 0.4481, 0.4314, 0.4571]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.9691749999999999
+accuracies is [(0.4419, -1), (0.4484, 0)]
+accuracies is [(0.4419, -1), (0.4484, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8571428571428571
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 6 and length of bad results is 1
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1951
+[2024-03-12 13:49:24,518][flwr][INFO] - fit progress: (11, 132.15350794792175, {'accuracy': 0.4916}, 2409.198415042949)
+Configure Evaluate
+[2024-03-12 13:49:24,518][flwr][DEBUG] - evaluate_round 11: strategy sampled 50 clients (out of 50)
+[2024-03-12 13:50:07,892][flwr][DEBUG] - evaluate_round 11 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.4936
+Configure Fit
+server round: 12
+[2024-03-12 13:50:08,025][flwr][DEBUG] - fit_round 12: strategy sampled 15 clients (out of 50)
+[2024-03-12 13:52:39,315][flwr][DEBUG] - fit_round 12 received 15 results and 0 failures
+individual accuracies [0.4615, 0.4669, 0.4583, 0.4632, 0.4642, 0.4618]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.9684111111111111
+accuracies is [(0.4625, -1)]
+accuracies is [(0.4625, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2289
+[2024-03-12 13:53:11,262][flwr][INFO] - fit progress: (12, 130.47833704948425, {'accuracy': 0.4925}, 2635.9429795809556)
+Configure Evaluate
+[2024-03-12 13:53:11,263][flwr][DEBUG] - evaluate_round 12: strategy sampled 50 clients (out of 50)
+[2024-03-12 13:53:54,992][flwr][DEBUG] - evaluate_round 12 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5008
+Configure Fit
+server round: 13
+[2024-03-12 13:53:55,259][flwr][DEBUG] - fit_round 13: strategy sampled 15 clients (out of 50)
+[2024-03-12 13:56:27,364][flwr][DEBUG] - fit_round 13 received 15 results and 0 failures
+individual accuracies [0.47, 0.4781, 0.451, 0.4668, 0.4789, 0.467, 0.4792, 0.4724]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9622857142857143
+accuracies is [(0.46495, -1), (0.47119999999999995, 0)]
+accuracies is [(0.46495, -1), (0.47119999999999995, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.75
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 6 and length of bad results is 2
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1827
+[2024-03-12 13:56:59,802][flwr][INFO] - fit progress: (13, 124.47720837593079, {'accuracy': 0.5108}, 2864.4821359890047)
+Configure Evaluate
+[2024-03-12 13:56:59,802][flwr][DEBUG] - evaluate_round 13: strategy sampled 50 clients (out of 50)
+[2024-03-12 13:57:40,323][flwr][DEBUG] - evaluate_round 13 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5339999999999999
+Configure Fit
+server round: 14
+[2024-03-12 13:57:40,439][flwr][DEBUG] - fit_round 14: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:00:05,870][flwr][DEBUG] - fit_round 14 received 15 results and 0 failures
+individual accuracies [0.4707, 0.4712, 0.4815, 0.4851, 0.4761, 0.4806, 0.4768, 0.4783, 0.471, 0.4771]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.9694
+accuracies is [(0.47609999999999997, -1), (0.47695, 0)]
+accuracies is [(0.47609999999999997, -1), (0.47695, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 2
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2024
+[2024-03-12 14:00:37,503][flwr][INFO] - fit progress: (14, 122.83851861953735, {'accuracy': 0.5224}, 3082.183800789062)
+Configure Evaluate
+[2024-03-12 14:00:37,504][flwr][DEBUG] - evaluate_round 14: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:01:18,098][flwr][DEBUG] - evaluate_round 14 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5264
+Configure Fit
+server round: 15
+[2024-03-12 14:01:18,239][flwr][DEBUG] - fit_round 15: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:03:48,831][flwr][DEBUG] - fit_round 15 received 15 results and 0 failures
+individual accuracies [0.4825, 0.4917, 0.4908, 0.4773, 0.4816, 0.4777, 0.4722, 0.4811]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9719142857142857
+accuracies is [(0.48135, -1)]
+accuracies is [(0.48135, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2374
+[2024-03-12 14:04:19,917][flwr][INFO] - fit progress: (15, 124.5058183670044, {'accuracy': 0.518}, 3304.5973705890356)
+Configure Evaluate
+[2024-03-12 14:04:19,917][flwr][DEBUG] - evaluate_round 15: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:04:59,115][flwr][DEBUG] - evaluate_round 15 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5360000000000001
+Configure Fit
+server round: 16
+[2024-03-12 14:04:59,360][flwr][DEBUG] - fit_round 16: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:07:17,496][flwr][DEBUG] - fit_round 16 received 15 results and 0 failures
+individual accuracies [0.4921, 0.4949, 0.4877, 0.4821, 0.4853, 0.4764, 0.484, 0.4921, 0.4876, 0.4865, 0.4911, 0.4924]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 3
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 12
+Average poisoning accuracy: 0.9679000000000001
+accuracies is [(0.48375, -1), (0.48765000000000003, 0)]
+accuracies is [(0.48375, -1), (0.48765000000000003, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8333333333333334
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 10 and length of bad results is 2
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1664
+[2024-03-12 14:07:49,698][flwr][INFO] - fit progress: (16, 118.08352541923523, {'accuracy': 0.54}, 3514.3790608330164)
+Configure Evaluate
+[2024-03-12 14:07:49,699][flwr][DEBUG] - evaluate_round 16: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:08:29,426][flwr][DEBUG] - evaluate_round 16 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5548000000000001
+Configure Fit
+server round: 17
+[2024-03-12 14:08:29,544][flwr][DEBUG] - fit_round 17: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:10:50,005][flwr][DEBUG] - fit_round 17 received 15 results and 0 failures
+individual accuracies [0.4947, 0.4921, 0.4837, 0.4965, 0.5013, 0.4944, 0.4971]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.8663375
+accuracies is [(0.4904, -1), (0.4947, 0)]
+accuracies is [(0.4904, -1), (0.4947, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.7142857142857143
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 5 and length of bad results is 2
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1722
+[2024-03-12 14:11:20,963][flwr][INFO] - fit progress: (17, 118.93201124668121, {'accuracy': 0.5423}, 3725.6431583970552)
+Configure Evaluate
+[2024-03-12 14:11:20,963][flwr][DEBUG] - evaluate_round 17: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:12:00,821][flwr][DEBUG] - evaluate_round 17 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5655999999999999
+Configure Fit
+server round: 18
+[2024-03-12 14:12:00,937][flwr][DEBUG] - fit_round 18: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:14:31,937][flwr][DEBUG] - fit_round 18 received 15 results and 0 failures
+individual accuracies [0.5025, 0.5042, 0.4999, 0.5021, 0.4903, 0.499, 0.5047]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.9755250000000001
+accuracies is [(0.5021, -1)]
+accuracies is [(0.5021, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2281
+[2024-03-12 14:15:03,208][flwr][INFO] - fit progress: (18, 125.85019886493683, {'accuracy': 0.5317}, 3947.8887296620524)
+Configure Evaluate
+[2024-03-12 14:15:03,208][flwr][DEBUG] - evaluate_round 18: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:15:43,148][flwr][DEBUG] - evaluate_round 18 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5528000000000001
+Configure Fit
+server round: 19
+[2024-03-12 14:15:43,393][flwr][DEBUG] - fit_round 19: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:18:18,039][flwr][DEBUG] - fit_round 19 received 15 results and 0 failures
+individual accuracies [0.4949, 0.5019, 0.499, 0.4931, 0.4975, 0.498]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.9749000000000001
+accuracies is [(0.49775, -1)]
+accuracies is [(0.49775, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.219
+[2024-03-12 14:18:48,397][flwr][INFO] - fit progress: (19, 123.16629719734192, {'accuracy': 0.5335}, 4173.077608419)
+Configure Evaluate
+[2024-03-12 14:18:48,397][flwr][DEBUG] - evaluate_round 19: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:19:28,212][flwr][DEBUG] - evaluate_round 19 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5531999999999999
+Configure Fit
+server round: 20
+[2024-03-12 14:19:28,336][flwr][DEBUG] - fit_round 20: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:21:54,265][flwr][DEBUG] - fit_round 20 received 15 results and 0 failures
+individual accuracies [0.5158, 0.5038, 0.498, 0.5093, 0.5086, 0.5115, 0.5125, 0.5019]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9665857142857143
+accuracies is [(0.5104, -1), (0.5062, 0)]
+accuracies is [(0.5104, -1), (0.5062, 0)]
+benign class is -1
+malicious class is 0
+Final Clustering acc is 0.5
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 4 and length of bad results is 4
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1702
+[2024-03-12 14:22:23,963][flwr][INFO] - fit progress: (20, 116.8348034620285, {'accuracy': 0.5532}, 4388.643675466999)
+Configure Evaluate
+[2024-03-12 14:22:23,963][flwr][DEBUG] - evaluate_round 20: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:23:03,454][flwr][DEBUG] - evaluate_round 20 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5564
+Configure Fit
+server round: 21
+[2024-03-12 14:23:03,597][flwr][DEBUG] - fit_round 21: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:25:29,044][flwr][DEBUG] - fit_round 21 received 15 results and 0 failures
+individual accuracies [0.5042, 0.5204, 0.5127, 0.5067, 0.5245, 0.513, 0.5083]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.9686250000000001
+accuracies is [(0.5083, -1), (0.51285, 0)]
+accuracies is [(0.5083, -1), (0.51285, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8571428571428571
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 6 and length of bad results is 1
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1783
+[2024-03-12 14:25:59,330][flwr][INFO] - fit progress: (21, 119.2324093580246, {'accuracy': 0.5537}, 4604.010514370049)
+Configure Evaluate
+[2024-03-12 14:25:59,330][flwr][DEBUG] - evaluate_round 21: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:26:39,434][flwr][DEBUG] - evaluate_round 21 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5708000000000001
+Configure Fit
+server round: 22
+[2024-03-12 14:26:39,567][flwr][DEBUG] - fit_round 22: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:29:02,940][flwr][DEBUG] - fit_round 22 received 15 results and 0 failures
+individual accuracies [0.5067, 0.5088, 0.5221, 0.5076, 0.5157, 0.5126, 0.5083]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.967775
+accuracies is [(0.5076, -1), (0.5106999999999999, 0)]
+accuracies is [(0.5076, -1), (0.5106999999999999, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.8571428571428571
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 6 and length of bad results is 1
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1887
+[2024-03-12 14:29:32,875][flwr][INFO] - fit progress: (22, 119.28651487827301, {'accuracy': 0.5502}, 4817.555966877961)
+Configure Evaluate
+[2024-03-12 14:29:32,876][flwr][DEBUG] - evaluate_round 22: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:30:12,401][flwr][DEBUG] - evaluate_round 22 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5524
+Configure Fit
+server round: 23
+[2024-03-12 14:30:12,517][flwr][DEBUG] - fit_round 23: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:32:36,289][flwr][DEBUG] - fit_round 23 received 15 results and 0 failures
+individual accuracies [0.5231, 0.5115, 0.5233, 0.5177, 0.5214, 0.5219, 0.5192, 0.5017, 0.5241, 0.5165]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.9725199999999999
+accuracies is [(0.5171, -1), (0.52165, 0)]
+accuracies is [(0.5171, -1), (0.52165, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.6
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 6 and length of bad results is 4
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1666
+[2024-03-12 14:33:06,010][flwr][INFO] - fit progress: (23, 117.4260858297348, {'accuracy': 0.5598}, 5030.691032384057)
+Configure Evaluate
+[2024-03-12 14:33:06,011][flwr][DEBUG] - evaluate_round 23: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:33:45,457][flwr][DEBUG] - evaluate_round 23 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5708000000000001
+Configure Fit
+server round: 24
+[2024-03-12 14:33:45,703][flwr][DEBUG] - fit_round 24: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:36:20,477][flwr][DEBUG] - fit_round 24 received 15 results and 0 failures
+individual accuracies [0.5163, 0.5145, 0.5149, 0.531]
+malicious is ['0', '0', '0', '0']
+Number of Evil Clients: 11
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 4
+Average poisoning accuracy: 0.9735272727272727
+accuracies is [(0.5156000000000001, -1)]
+accuracies is [(0.5156000000000001, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 4 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2087
+[2024-03-12 14:36:51,555][flwr][INFO] - fit progress: (24, 121.56482446193695, {'accuracy': 0.5492}, 5256.235521216062)
+Configure Evaluate
+[2024-03-12 14:36:51,555][flwr][DEBUG] - evaluate_round 24: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:37:32,862][flwr][DEBUG] - evaluate_round 24 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5624
+Configure Fit
+server round: 25
+[2024-03-12 14:37:32,981][flwr][DEBUG] - fit_round 25: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:39:54,958][flwr][DEBUG] - fit_round 25 received 15 results and 0 failures
+individual accuracies [0.519, 0.5094, 0.5098, 0.5381, 0.5294, 0.519, 0.5198, 0.5136]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.8426285714285714
+accuracies is [(0.5094, -1), (0.519, 0)]
+accuracies is [(0.5094, -1), (0.519, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.875
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 7 and length of bad results is 1
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1628
+[2024-03-12 14:40:25,838][flwr][INFO] - fit progress: (25, 114.08505368232727, {'accuracy': 0.5672}, 5470.5188367429655)
+Configure Evaluate
+[2024-03-12 14:40:25,838][flwr][DEBUG] - evaluate_round 25: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:41:05,785][flwr][DEBUG] - evaluate_round 25 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5876
+Configure Fit
+server round: 26
+[2024-03-12 14:41:05,902][flwr][DEBUG] - fit_round 26: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:43:27,014][flwr][DEBUG] - fit_round 26 received 15 results and 0 failures
+individual accuracies [0.5337, 0.5215, 0.5195, 0.518, 0.5257, 0.5241, 0.5318, 0.5263, 0.5231]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.9577833333333334
+accuracies is [(0.5257, -1), (0.5236000000000001, 0)]
+accuracies is [(0.5257, -1), (0.5236000000000001, 0)]
+benign class is -1
+malicious class is 0
+Final Clustering acc is 0.1111111111111111
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 1 and length of bad results is 8
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1773
+[2024-03-12 14:43:57,431][flwr][INFO] - fit progress: (26, 133.65752065181732, {'accuracy': 0.5235}, 5682.111657695961)
+Configure Evaluate
+[2024-03-12 14:43:57,431][flwr][DEBUG] - evaluate_round 26: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:44:36,750][flwr][DEBUG] - evaluate_round 26 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5336000000000001
+Configure Fit
+server round: 27
+[2024-03-12 14:44:36,997][flwr][DEBUG] - fit_round 27: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:47:02,160][flwr][DEBUG] - fit_round 27 received 15 results and 0 failures
+individual accuracies [0.5116, 0.5268, 0.5172, 0.5168, 0.5121, 0.5227, 0.5326, 0.523]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9696142857142858
+accuracies is [(0.5201, -1), (0.51975, 0)]
+accuracies is [(0.5201, -1), (0.51975, 0)]
+benign class is -1
+malicious class is 0
+Final Clustering acc is 0.25
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 2 and length of bad results is 6
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1629
+[2024-03-12 14:47:32,498][flwr][INFO] - fit progress: (27, 122.51641023159027, {'accuracy': 0.5468}, 5897.178604369983)
+Configure Evaluate
+[2024-03-12 14:47:32,498][flwr][DEBUG] - evaluate_round 27: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:48:11,887][flwr][DEBUG] - evaluate_round 27 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5599999999999998
+Configure Fit
+server round: 28
+[2024-03-12 14:48:12,005][flwr][DEBUG] - fit_round 28: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:50:37,281][flwr][DEBUG] - fit_round 28 received 15 results and 0 failures
+individual accuracies [0.5293, 0.5242, 0.5163, 0.5333, 0.5171, 0.5255, 0.5239, 0.5236]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9679142857142857
+accuracies is [(0.52455, -1), (0.52405, 0)]
+accuracies is [(0.52455, -1), (0.52405, 0)]
+benign class is -1
+malicious class is 0
+Final Clustering acc is 0.25
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 2 and length of bad results is 6
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1918
+[2024-03-12 14:51:09,911][flwr][INFO] - fit progress: (28, 123.86488330364227, {'accuracy': 0.5429}, 6114.59114574804)
+Configure Evaluate
+[2024-03-12 14:51:09,911][flwr][DEBUG] - evaluate_round 28: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:51:49,215][flwr][DEBUG] - evaluate_round 28 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5528000000000001
+Configure Fit
+server round: 29
+[2024-03-12 14:51:49,334][flwr][DEBUG] - fit_round 29: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:54:15,313][flwr][DEBUG] - fit_round 29 received 15 results and 0 failures
+individual accuracies [0.5277, 0.5223, 0.5301, 0.5249, 0.5376, 0.5286, 0.5246, 0.5298]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9666714285714286
+accuracies is [(0.5277, -1), (0.5286, 0)]
+accuracies is [(0.5277, -1), (0.5286, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.625
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 5 and length of bad results is 3
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.184
+[2024-03-12 14:54:48,352][flwr][INFO] - fit progress: (29, 118.83642083406448, {'accuracy': 0.5609}, 6333.03240315197)
+Configure Evaluate
+[2024-03-12 14:54:48,352][flwr][DEBUG] - evaluate_round 29: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:55:27,283][flwr][DEBUG] - evaluate_round 29 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5732
+Configure Fit
+server round: 30
+[2024-03-12 14:55:27,516][flwr][DEBUG] - fit_round 30: strategy sampled 15 clients (out of 50)
+[2024-03-12 14:57:52,992][flwr][DEBUG] - fit_round 30 received 15 results and 0 failures
+individual accuracies [0.5228, 0.5343, 0.5372, 0.5236, 0.5253, 0.5304, 0.5285, 0.529]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.8401571428571428
+accuracies is [(0.52875, -1)]
+accuracies is [(0.52875, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1917
+[2024-03-12 14:58:25,278][flwr][INFO] - fit progress: (30, 114.18616473674774, {'accuracy': 0.5706}, 6549.958674976951)
+Configure Evaluate
+[2024-03-12 14:58:25,278][flwr][DEBUG] - evaluate_round 30: strategy sampled 50 clients (out of 50)
+[2024-03-12 14:59:05,086][flwr][DEBUG] - evaluate_round 30 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5844
+Configure Fit
+server round: 31
+[2024-03-12 14:59:05,202][flwr][DEBUG] - fit_round 31: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:01:31,850][flwr][DEBUG] - fit_round 31 received 15 results and 0 failures
+individual accuracies [0.5334, 0.5342, 0.5364, 0.5427, 0.53, 0.5303, 0.5428]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.9673625000000001
+accuracies is [(0.5364, -1), (0.5342, 0)]
+accuracies is [(0.5364, -1), (0.5342, 0)]
+benign class is -1
+malicious class is 0
+Final Clustering acc is 0.2857142857142857
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 2 and length of bad results is 5
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1697
+[2024-03-12 15:02:02,183][flwr][INFO] - fit progress: (31, 117.4820345044136, {'accuracy': 0.5603}, 6766.863808742026)
+Configure Evaluate
+[2024-03-12 15:02:02,184][flwr][DEBUG] - evaluate_round 31: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:02:41,300][flwr][DEBUG] - evaluate_round 31 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.58
+Configure Fit
+server round: 32
+[2024-03-12 15:02:41,419][flwr][DEBUG] - fit_round 32: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:05:08,916][flwr][DEBUG] - fit_round 32 received 15 results and 0 failures
+individual accuracies [0.542, 0.5384, 0.5405, 0.5521, 0.5269, 0.5401, 0.5391, 0.5414, 0.5373]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.9633833333333333
+accuracies is [(0.5391, -1), (0.5407500000000001, 0)]
+accuracies is [(0.5391, -1), (0.5407500000000001, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.6666666666666666
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 6 and length of bad results is 3
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1738
+[2024-03-12 15:05:40,018][flwr][INFO] - fit progress: (32, 114.47558349370956, {'accuracy': 0.5727}, 6984.698395340005)
+Configure Evaluate
+[2024-03-12 15:05:40,018][flwr][DEBUG] - evaluate_round 32: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:06:19,002][flwr][DEBUG] - evaluate_round 32 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.594
+Configure Fit
+server round: 33
+[2024-03-12 15:06:19,125][flwr][DEBUG] - fit_round 33: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:08:40,220][flwr][DEBUG] - fit_round 33 received 15 results and 0 failures
+individual accuracies [0.5305, 0.5441, 0.5515, 0.5381, 0.5394, 0.5449, 0.537, 0.5353]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9661142857142858
+accuracies is [(0.5367, -1), (0.54175, 0)]
+accuracies is [(0.5367, -1), (0.54175, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.5
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 4 and length of bad results is 4
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1655
+[2024-03-12 15:09:11,174][flwr][INFO] - fit progress: (33, 115.48249137401581, {'accuracy': 0.5717}, 7195.854471754981)
+Configure Evaluate
+[2024-03-12 15:09:11,174][flwr][DEBUG] - evaluate_round 33: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:09:50,242][flwr][DEBUG] - evaluate_round 33 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5812
+Configure Fit
+server round: 34
+[2024-03-12 15:09:50,359][flwr][DEBUG] - fit_round 34: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:12:19,478][flwr][DEBUG] - fit_round 34 received 15 results and 0 failures
+individual accuracies [0.5365, 0.5455, 0.5347, 0.5292, 0.5521]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.8808
+accuracies is [(0.5365, -1)]
+accuracies is [(0.5365, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2073
+[2024-03-12 15:12:50,632][flwr][INFO] - fit progress: (34, 117.12479537725449, {'accuracy': 0.5635}, 7415.312567017041)
+Configure Evaluate
+[2024-03-12 15:12:50,632][flwr][DEBUG] - evaluate_round 34: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:13:28,836][flwr][DEBUG] - evaluate_round 34 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5875999999999999
+Configure Fit
+server round: 35
+[2024-03-12 15:13:29,076][flwr][DEBUG] - fit_round 35: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:15:49,985][flwr][DEBUG] - fit_round 35 received 15 results and 0 failures
+individual accuracies [0.546, 0.5419, 0.5384, 0.5475, 0.5426, 0.5494, 0.5409, 0.5362, 0.5362, 0.5623]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.9612999999999999
+accuracies is [(0.54225, -1)]
+accuracies is [(0.54225, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 10 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2163
+[2024-03-12 15:16:20,326][flwr][INFO] - fit progress: (35, 115.12729525566101, {'accuracy': 0.5771}, 7625.006227456033)
+Configure Evaluate
+[2024-03-12 15:16:20,326][flwr][DEBUG] - evaluate_round 35: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:16:59,911][flwr][DEBUG] - evaluate_round 35 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5848
+Configure Fit
+server round: 36
+[2024-03-12 15:17:00,040][flwr][DEBUG] - fit_round 36: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:19:25,969][flwr][DEBUG] - fit_round 36 received 15 results and 0 failures
+individual accuracies [0.5532, 0.5473, 0.5531, 0.5575, 0.5741, 0.5438, 0.5546]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.8639625
+accuracies is [(0.5532, -1)]
+accuracies is [(0.5532, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2012
+[2024-03-12 15:19:58,549][flwr][INFO] - fit progress: (36, 113.86729800701141, {'accuracy': 0.5801}, 7843.229274239042)
+Configure Evaluate
+[2024-03-12 15:19:58,549][flwr][DEBUG] - evaluate_round 36: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:20:38,104][flwr][DEBUG] - evaluate_round 36 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5964
+Configure Fit
+server round: 37
+[2024-03-12 15:20:38,221][flwr][DEBUG] - fit_round 37: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:23:04,804][flwr][DEBUG] - fit_round 37 received 15 results and 0 failures
+individual accuracies [0.5445, 0.5388, 0.5754, 0.5413, 0.5578]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.8766999999999999
+accuracies is [(0.5445, -1)]
+accuracies is [(0.5445, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.193
+[2024-03-12 15:23:36,217][flwr][INFO] - fit progress: (37, 113.85228914022446, {'accuracy': 0.5749}, 8060.897519199061)
+Configure Evaluate
+[2024-03-12 15:23:36,217][flwr][DEBUG] - evaluate_round 37: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:24:15,661][flwr][DEBUG] - evaluate_round 37 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6004
+Configure Fit
+server round: 38
+[2024-03-12 15:24:15,910][flwr][DEBUG] - fit_round 38: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:26:37,539][flwr][DEBUG] - fit_round 38 received 15 results and 0 failures
+individual accuracies [0.5426, 0.5597, 0.5666, 0.5435, 0.5446, 0.5632, 0.5558, 0.5336, 0.5512]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.8217166666666667
+accuracies is [(0.5446, -1), (0.5535, 0)]
+accuracies is [(0.5446, -1), (0.5535, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.6666666666666666
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 6 and length of bad results is 3
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1501
+[2024-03-12 15:27:09,187][flwr][INFO] - fit progress: (38, 112.48548114299774, {'accuracy': 0.5837}, 8273.867537801038)
+Configure Evaluate
+[2024-03-12 15:27:09,187][flwr][DEBUG] - evaluate_round 38: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:27:48,406][flwr][DEBUG] - evaluate_round 38 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6052000000000001
+Configure Fit
+server round: 39
+[2024-03-12 15:27:48,520][flwr][DEBUG] - fit_round 39: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:30:14,780][flwr][DEBUG] - fit_round 39 received 15 results and 0 failures
+individual accuracies [0.5456, 0.5599, 0.5492, 0.5531, 0.5487, 0.5517, 0.547, 0.5401]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9692571428571428
+accuracies is [(0.54895, -1)]
+accuracies is [(0.54895, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2189
+[2024-03-12 15:30:45,705][flwr][INFO] - fit progress: (39, 115.20943903923035, {'accuracy': 0.5736}, 8490.38580678904)
+Configure Evaluate
+[2024-03-12 15:30:45,706][flwr][DEBUG] - evaluate_round 39: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:31:25,561][flwr][DEBUG] - evaluate_round 39 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6012
+Configure Fit
+server round: 40
+[2024-03-12 15:31:25,682][flwr][DEBUG] - fit_round 40: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:33:48,878][flwr][DEBUG] - fit_round 40 received 15 results and 0 failures
+individual accuracies [0.5542, 0.5419, 0.5522, 0.5557, 0.5502, 0.5474, 0.5455, 0.5537, 0.5482]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.9623666666666667
+accuracies is [(0.5502, -1), (0.5498000000000001, 0)]
+accuracies is [(0.5502, -1), (0.5498000000000001, 0)]
+benign class is -1
+malicious class is 0
+Final Clustering acc is 0.5555555555555556
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 5 and length of bad results is 4
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1567
+[2024-03-12 15:34:21,350][flwr][INFO] - fit progress: (40, 108.2246664762497, {'accuracy': 0.5921}, 8706.030778559973)
+Configure Evaluate
+[2024-03-12 15:34:21,350][flwr][DEBUG] - evaluate_round 40: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:35:00,462][flwr][DEBUG] - evaluate_round 40 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6024
+Configure Fit
+server round: 41
+[2024-03-12 15:35:00,706][flwr][DEBUG] - fit_round 41: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:37:25,839][flwr][DEBUG] - fit_round 41 received 15 results and 0 failures
+individual accuracies [0.5693, 0.5728, 0.5613, 0.544, 0.5591, 0.5643, 0.5499, 0.5525]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9582285714285714
+accuracies is [(0.5602, -1)]
+accuracies is [(0.5602, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2174
+[2024-03-12 15:37:58,718][flwr][INFO] - fit progress: (41, 112.94432413578033, {'accuracy': 0.5803}, 8923.398792934022)
+Configure Evaluate
+[2024-03-12 15:37:58,719][flwr][DEBUG] - evaluate_round 41: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:38:38,452][flwr][DEBUG] - evaluate_round 41 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.5976
+Configure Fit
+server round: 42
+[2024-03-12 15:38:38,577][flwr][DEBUG] - fit_round 42: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:41:00,471][flwr][DEBUG] - fit_round 42 received 15 results and 0 failures
+individual accuracies [0.5751, 0.5485, 0.5694, 0.5657, 0.5691, 0.5566, 0.5652, 0.5564]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.8466428571428571
+accuracies is [(0.56545, -1)]
+accuracies is [(0.56545, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1895
+[2024-03-12 15:41:31,001][flwr][INFO] - fit progress: (42, 108.81750625371933, {'accuracy': 0.592}, 9135.682090317016)
+Configure Evaluate
+[2024-03-12 15:41:31,002][flwr][DEBUG] - evaluate_round 42: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:42:09,912][flwr][DEBUG] - evaluate_round 42 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6176000000000001
+Configure Fit
+server round: 43
+[2024-03-12 15:42:10,041][flwr][DEBUG] - fit_round 43: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:44:36,974][flwr][DEBUG] - fit_round 43 received 15 results and 0 failures
+individual accuracies [0.5588, 0.5665, 0.557, 0.5716, 0.5468, 0.5664, 0.5737, 0.5563]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9639285714285714
+accuracies is [(0.5626, -1)]
+accuracies is [(0.5626, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.238
+[2024-03-12 15:45:07,665][flwr][INFO] - fit progress: (43, 115.29978275299072, {'accuracy': 0.5819}, 9352.345277150045)
+Configure Evaluate
+[2024-03-12 15:45:07,665][flwr][DEBUG] - evaluate_round 43: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:45:46,958][flwr][DEBUG] - evaluate_round 43 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.606
+Configure Fit
+server round: 44
+[2024-03-12 15:45:47,206][flwr][DEBUG] - fit_round 44: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:48:12,510][flwr][DEBUG] - fit_round 44 received 15 results and 0 failures
+individual accuracies [0.5614, 0.5751, 0.5563, 0.5784, 0.5623, 0.5657, 0.5631, 0.552, 0.5761]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.9669833333333334
+accuracies is [(0.5657, -1), (0.56185, 0)]
+accuracies is [(0.5657, -1), (0.56185, 0)]
+benign class is -1
+malicious class is 0
+Final Clustering acc is 0.5555555555555556
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 5 and length of bad results is 4
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1715
+[2024-03-12 15:48:42,472][flwr][INFO] - fit progress: (44, 110.4054085612297, {'accuracy': 0.5979}, 9567.152387514012)
+Configure Evaluate
+[2024-03-12 15:48:42,472][flwr][DEBUG] - evaluate_round 44: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:49:22,388][flwr][DEBUG] - evaluate_round 44 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6136000000000001
+Configure Fit
+server round: 45
+[2024-03-12 15:49:22,507][flwr][DEBUG] - fit_round 45: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:51:43,177][flwr][DEBUG] - fit_round 45 received 15 results and 0 failures
+individual accuracies [0.5644, 0.5506, 0.568, 0.5499, 0.5677, 0.5483, 0.5426, 0.5584, 0.5588, 0.5586]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.9656399999999999
+accuracies is [(0.5506, -1), (0.5588, 0)]
+accuracies is [(0.5506, -1), (0.5588, 0)]
+benign class is 0
+malicious class is -1
+Final Clustering acc is 0.3
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 3 and length of bad results is 7
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1709
+[2024-03-12 15:52:14,803][flwr][INFO] - fit progress: (45, 114.05916440486908, {'accuracy': 0.5878}, 9779.483323615976)
+Configure Evaluate
+[2024-03-12 15:52:14,803][flwr][DEBUG] - evaluate_round 45: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:52:54,645][flwr][DEBUG] - evaluate_round 45 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6007999999999999
+Configure Fit
+server round: 46
+[2024-03-12 15:52:54,762][flwr][DEBUG] - fit_round 46: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:55:15,408][flwr][DEBUG] - fit_round 46 received 15 results and 0 failures
+individual accuracies [0.5607, 0.5526, 0.5595, 0.5635, 0.5689, 0.5544, 0.5445, 0.5605, 0.5547, 0.5515]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.97148
+accuracies is [(0.5570999999999999, -1)]
+accuracies is [(0.5570999999999999, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 10 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2198
+[2024-03-12 15:55:46,075][flwr][INFO] - fit progress: (46, 113.39087879657745, {'accuracy': 0.5894}, 9990.755392016028)
+Configure Evaluate
+[2024-03-12 15:55:46,075][flwr][DEBUG] - evaluate_round 46: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:56:25,495][flwr][DEBUG] - evaluate_round 46 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6076000000000001
+Configure Fit
+server round: 47
+[2024-03-12 15:56:25,617][flwr][DEBUG] - fit_round 47: strategy sampled 15 clients (out of 50)
+[2024-03-12 15:58:48,600][flwr][DEBUG] - fit_round 47 received 15 results and 0 failures
+individual accuracies [0.5714, 0.578, 0.58, 0.5495, 0.5611, 0.5633, 0.5672, 0.5639, 0.5778]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.9625166666666667
+accuracies is [(0.5672, -1)]
+accuracies is [(0.5672, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2197
+[2024-03-12 15:59:19,875][flwr][INFO] - fit progress: (47, 112.58071285486221, {'accuracy': 0.5918}, 10204.556088460027)
+Configure Evaluate
+[2024-03-12 15:59:19,876][flwr][DEBUG] - evaluate_round 47: strategy sampled 50 clients (out of 50)
+[2024-03-12 15:59:58,542][flwr][DEBUG] - evaluate_round 47 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6088
+Configure Fit
+server round: 48
+[2024-03-12 15:59:58,684][flwr][DEBUG] - fit_round 48: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:02:15,803][flwr][DEBUG] - fit_round 48 received 15 results and 0 failures
+individual accuracies [0.5709, 0.5821, 0.5739, 0.584, 0.5702, 0.5606, 0.5642, 0.5541, 0.5767, 0.5615, 0.5501]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 4
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 11
+Average poisoning accuracy: 0.96995
+accuracies is [(0.5702, -1)]
+accuracies is [(0.5702, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 11 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2221
+[2024-03-12 16:02:48,504][flwr][INFO] - fit progress: (48, 115.32943725585938, {'accuracy': 0.5871}, 10413.184490279062)
+Configure Evaluate
+[2024-03-12 16:02:48,504][flwr][DEBUG] - evaluate_round 48: strategy sampled 50 clients (out of 50)
+[2024-03-12 16:03:27,541][flwr][DEBUG] - evaluate_round 48 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6048
+Configure Fit
+server round: 49
+[2024-03-12 16:03:27,666][flwr][DEBUG] - fit_round 49: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:05:51,078][flwr][DEBUG] - fit_round 49 received 15 results and 0 failures
+individual accuracies [0.5582, 0.5654, 0.564, 0.5571, 0.5586, 0.5568, 0.5864, 0.5678, 0.5694, 0.5685]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.9682600000000001
+accuracies is [(0.5654, -1), (0.564, 0)]
+accuracies is [(0.5654, -1), (0.564, 0)]
+benign class is -1
+malicious class is 0
+Final Clustering acc is 0.7
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 7 and length of bad results is 3
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1643
+[2024-03-12 16:06:22,340][flwr][INFO] - fit progress: (49, 111.71459233760834, {'accuracy': 0.5917}, 10627.020345423021)
+Configure Evaluate
+[2024-03-12 16:06:22,340][flwr][DEBUG] - evaluate_round 49: strategy sampled 50 clients (out of 50)
+[2024-03-12 16:07:01,377][flwr][DEBUG] - evaluate_round 49 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6224000000000001
+Configure Fit
+server round: 50
+[2024-03-12 16:07:01,508][flwr][DEBUG] - fit_round 50: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:09:23,019][flwr][DEBUG] - fit_round 50 received 15 results and 0 failures
+individual accuracies [0.5817, 0.5698, 0.5698, 0.562, 0.5524, 0.5735, 0.5734, 0.5677, 0.5591]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.9605166666666666
+accuracies is [(0.5698, -1)]
+accuracies is [(0.5698, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.21
+[2024-03-12 16:09:54,189][flwr][INFO] - fit progress: (50, 114.31255030632019, {'accuracy': 0.5876}, 10838.869160106988)
+Configure Evaluate
+[2024-03-12 16:09:54,189][flwr][DEBUG] - evaluate_round 50: strategy sampled 50 clients (out of 50)
+[2024-03-12 16:10:32,665][flwr][DEBUG] - evaluate_round 50 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6192000000000001
+Configure Fit
+server round: 51
+[2024-03-12 16:10:32,782][flwr][DEBUG] - fit_round 51: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:12:56,764][flwr][DEBUG] - fit_round 51 received 15 results and 0 failures
+individual accuracies [0.5632, 0.5805, 0.5842, 0.5647, 0.5638, 0.561, 0.5716, 0.5642, 0.584]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.9631666666666666
+accuracies is [(0.5647, -1)]
+accuracies is [(0.5647, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2152
+[2024-03-12 16:13:29,300][flwr][INFO] - fit progress: (51, 113.60621857643127, {'accuracy': 0.5869}, 11053.980579206022)
+Configure Evaluate
+[2024-03-12 16:13:29,300][flwr][DEBUG] - evaluate_round 51: strategy sampled 50 clients (out of 50)
+[2024-03-12 16:14:08,173][flwr][DEBUG] - evaluate_round 51 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.618
+Configure Fit
+server round: 52
+[2024-03-12 16:14:08,418][flwr][DEBUG] - fit_round 52: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:16:38,591][flwr][DEBUG] - fit_round 52 received 15 results and 0 failures
+individual accuracies [0.5817, 0.5661, 0.5711, 0.5596, 0.56]
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.8761500000000002
+accuracies is [(0.5661, -1)]
+accuracies is [(0.5661, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1842
+[2024-03-12 16:17:10,436][flwr][INFO] - fit progress: (52, 110.0371566414833, {'accuracy': 0.597}, 11275.116500854027)
+Configure Evaluate
+[2024-03-12 16:17:10,436][flwr][DEBUG] - evaluate_round 52: strategy sampled 50 clients (out of 50)
+[2024-03-12 16:17:50,009][flwr][DEBUG] - evaluate_round 52 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6204
+Configure Fit
+server round: 53
+[2024-03-12 16:17:50,125][flwr][DEBUG] - fit_round 53: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:20:13,602][flwr][DEBUG] - fit_round 53 received 15 results and 0 failures
+individual accuracies [0.5818, 0.5693, 0.56, 0.5792, 0.5791, 0.575, 0.5769, 0.581]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9667428571428571
+accuracies is [(0.578, -1)]
+accuracies is [(0.578, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2042
+[2024-03-12 16:20:43,676][flwr][INFO] - fit progress: (53, 112.91644752025604, {'accuracy': 0.5935}, 11488.356825703988)
+Configure Evaluate
+[2024-03-12 16:20:43,677][flwr][DEBUG] - evaluate_round 53: strategy sampled 50 clients (out of 50)
+[2024-03-12 16:21:23,030][flwr][DEBUG] - evaluate_round 53 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6152000000000002
+Configure Fit
+server round: 54
+[2024-03-12 16:21:23,152][flwr][DEBUG] - fit_round 54: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:23:45,233][flwr][DEBUG] - fit_round 54 received 15 results and 0 failures
+individual accuracies [0.5551, 0.5765, 0.581, 0.5903, 0.5711, 0.5559, 0.5644, 0.5717, 0.5575, 0.585, 0.5654]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 4
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 11
+Average poisoning accuracy: 0.960225
+accuracies is [(0.5711, -1)]
+accuracies is [(0.5711, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 11 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2116
+[2024-03-12 16:24:14,773][flwr][INFO] - fit progress: (54, 113.05758118629456, {'accuracy': 0.5906}, 11699.45370433596)
+Configure Evaluate
+[2024-03-12 16:24:14,773][flwr][DEBUG] - evaluate_round 54: strategy sampled 50 clients (out of 50)
+[2024-03-12 16:24:54,416][flwr][DEBUG] - evaluate_round 54 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6112
+Configure Fit
+server round: 55
+[2024-03-12 16:24:54,668][flwr][DEBUG] - fit_round 55: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:27:19,841][flwr][DEBUG] - fit_round 55 received 15 results and 0 failures
+individual accuracies [0.5722, 0.5765, 0.5627, 0.5655, 0.5664, 0.5665, 0.5783, 0.5619]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9720571428571428
+accuracies is [(0.56645, -1)]
+accuracies is [(0.56645, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2209
+[2024-03-12 16:27:50,605][flwr][INFO] - fit progress: (55, 114.99902105331421, {'accuracy': 0.5889}, 11915.285708104959)
+Configure Evaluate
+[2024-03-12 16:27:50,606][flwr][DEBUG] - evaluate_round 55: strategy sampled 50 clients (out of 50)
+[2024-03-12 16:28:30,104][flwr][DEBUG] - evaluate_round 55 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6132000000000001
+Configure Fit
+server round: 56
+[2024-03-12 16:28:30,232][flwr][DEBUG] - fit_round 56: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:30:51,473][flwr][DEBUG] - fit_round 56 received 15 results and 0 failures
+individual accuracies [0.5699, 0.5648, 0.5806, 0.5665, 0.5785, 0.5734, 0.5679, 0.579, 0.5852, 0.5703]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.96876
+accuracies is [(0.57185, -1)]
+accuracies is [(0.57185, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 10 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2078
+[2024-03-12 16:31:22,311][flwr][INFO] - fit progress: (56, 112.77149778604507, {'accuracy': 0.5935}, 12126.991128777969)
+Configure Evaluate
+[2024-03-12 16:31:22,311][flwr][DEBUG] - evaluate_round 56: strategy sampled 50 clients (out of 50)
+[2024-03-12 16:32:01,368][flwr][DEBUG] - evaluate_round 56 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6128000000000001
+Configure Fit
+server round: 57
+[2024-03-12 16:32:01,508][flwr][DEBUG] - fit_round 57: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:34:25,431][flwr][DEBUG] - fit_round 57 received 15 results and 0 failures
+individual accuracies [0.5652, 0.5901, 0.5802, 0.564, 0.5657, 0.5804, 0.5759]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.8514499999999999
+accuracies is [(0.5759, -1)]
+accuracies is [(0.5759, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1935
+[2024-03-12 16:34:55,567][flwr][INFO] - fit progress: (57, 110.77475237846375, {'accuracy': 0.6004}, 12340.247327737976)
+Configure Evaluate
+[2024-03-12 16:34:55,567][flwr][DEBUG] - evaluate_round 57: strategy sampled 50 clients (out of 50)
+[2024-03-12 16:35:35,479][flwr][DEBUG] - evaluate_round 57 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6136
+Configure Fit
+server round: 58
+[2024-03-12 16:35:35,733][flwr][DEBUG] - fit_round 58: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:37:57,058][flwr][DEBUG] - fit_round 58 received 15 results and 0 failures
+individual accuracies [0.5799, 0.5766, 0.5794, 0.5759, 0.5884, 0.5689, 0.5834]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.857525
+accuracies is [(0.5794, -1)]
+accuracies is [(0.5794, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1944
+[2024-03-12 16:38:28,198][flwr][INFO] - fit progress: (58, 112.91053378582001, {'accuracy': 0.5938}, 12552.878775401041)
+Configure Evaluate
+[2024-03-12 16:38:28,198][flwr][DEBUG] - evaluate_round 58: strategy sampled 50 clients (out of 50)
+[2024-03-12 16:39:07,337][flwr][DEBUG] - evaluate_round 58 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6056
+Configure Fit
+server round: 59
+[2024-03-12 16:39:07,466][flwr][DEBUG] - fit_round 59: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:41:31,836][flwr][DEBUG] - fit_round 59 received 15 results and 0 failures
+individual accuracies [0.5782, 0.5746, 0.5819, 0.5825, 0.5733, 0.5793, 0.5846, 0.5822, 0.5879]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.9660166666666666
+accuracies is [(0.5819, -1)]
+accuracies is [(0.5819, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2226
+[2024-03-12 16:42:03,135][flwr][INFO] - fit progress: (59, 115.68370908498764, {'accuracy': 0.5919}, 12767.815559052979)
+Configure Evaluate
+[2024-03-12 16:42:03,135][flwr][DEBUG] - evaluate_round 59: strategy sampled 50 clients (out of 50)
+[2024-03-12 16:42:44,165][flwr][DEBUG] - evaluate_round 59 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6076000000000001
+Configure Fit
+server round: 60
+[2024-03-12 16:42:44,285][flwr][DEBUG] - fit_round 60: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:45:10,705][flwr][DEBUG] - fit_round 60 received 15 results and 0 failures
+individual accuracies [0.5678, 0.5904, 0.5547, 0.5521, 0.5842, 0.5664, 0.5827, 0.5644]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.8485428571428572
+accuracies is [(0.5670999999999999, -1)]
+accuracies is [(0.5670999999999999, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1956
+[2024-03-12 16:45:42,699][flwr][INFO] - fit progress: (60, 110.36990058422089, {'accuracy': 0.5977}, 12987.379735160037)
+Configure Evaluate
+[2024-03-12 16:45:42,699][flwr][DEBUG] - evaluate_round 60: strategy sampled 50 clients (out of 50)
+[2024-03-12 16:46:25,599][flwr][DEBUG] - evaluate_round 60 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6184000000000001
+Configure Fit
+server round: 61
+[2024-03-12 16:46:25,850][flwr][DEBUG] - fit_round 61: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:48:53,026][flwr][DEBUG] - fit_round 61 received 15 results and 0 failures
+individual accuracies [0.5839, 0.5798, 0.5665, 0.5691, 0.5883, 0.579, 0.5877, 0.5856, 0.596, 0.5773]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.9696400000000001
+accuracies is [(0.58185, -1)]
+accuracies is [(0.58185, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 10 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2195
+[2024-03-12 16:49:23,882][flwr][INFO] - fit progress: (61, 114.45444631576538, {'accuracy': 0.5923}, 13208.562627885025)
+Configure Evaluate
+[2024-03-12 16:49:23,882][flwr][DEBUG] - evaluate_round 61: strategy sampled 50 clients (out of 50)
+[2024-03-12 16:50:04,385][flwr][DEBUG] - evaluate_round 61 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6120000000000001
+Configure Fit
+server round: 62
+[2024-03-12 16:50:04,507][flwr][DEBUG] - fit_round 62: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:52:28,860][flwr][DEBUG] - fit_round 62 received 15 results and 0 failures
+individual accuracies [0.5772, 0.5844, 0.5822, 0.5862, 0.5949, 0.5719, 0.5723, 0.577, 0.5705]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.9679333333333334
+accuracies is [(0.5772, -1)]
+accuracies is [(0.5772, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2076
+[2024-03-12 16:53:01,190][flwr][INFO] - fit progress: (62, 113.1126139163971, {'accuracy': 0.5965}, 13425.870588510996)
+Configure Evaluate
+[2024-03-12 16:53:01,190][flwr][DEBUG] - evaluate_round 62: strategy sampled 50 clients (out of 50)
+[2024-03-12 16:53:41,883][flwr][DEBUG] - evaluate_round 62 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6159999999999999
+Configure Fit
+server round: 63
+[2024-03-12 16:53:42,121][flwr][DEBUG] - fit_round 63: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:56:06,940][flwr][DEBUG] - fit_round 63 received 15 results and 0 failures
+individual accuracies [0.5923, 0.5882, 0.5801, 0.5763, 0.5805, 0.5911, 0.5845]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.857575
+accuracies is [(0.5845, -1)]
+accuracies is [(0.5845, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1906
+[2024-03-12 16:56:38,173][flwr][INFO] - fit progress: (63, 112.58647787570953, {'accuracy': 0.6006}, 13642.85408367298)
+Configure Evaluate
+[2024-03-12 16:56:38,174][flwr][DEBUG] - evaluate_round 63: strategy sampled 50 clients (out of 50)
+[2024-03-12 16:57:18,582][flwr][DEBUG] - evaluate_round 63 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6140000000000001
+Configure Fit
+server round: 64
+[2024-03-12 16:57:18,706][flwr][DEBUG] - fit_round 64: strategy sampled 15 clients (out of 50)
+[2024-03-12 16:59:47,748][flwr][DEBUG] - fit_round 64 received 15 results and 0 failures
+individual accuracies [0.5852, 0.575, 0.5847, 0.5807, 0.5659, 0.5655]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.873588888888889
+accuracies is [(0.57785, -1)]
+accuracies is [(0.57785, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1859
+[2024-03-12 17:00:20,338][flwr][INFO] - fit progress: (64, 110.85162782669067, {'accuracy': 0.6024}, 13865.018697438994)
+Configure Evaluate
+[2024-03-12 17:00:20,338][flwr][DEBUG] - evaluate_round 64: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:01:01,433][flwr][DEBUG] - evaluate_round 64 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6156000000000001
+Configure Fit
+server round: 65
+[2024-03-12 17:01:01,551][flwr][DEBUG] - fit_round 65: strategy sampled 15 clients (out of 50)
+[2024-03-12 17:03:28,064][flwr][DEBUG] - fit_round 65 received 15 results and 0 failures
+individual accuracies [0.5768, 0.5758, 0.5793, 0.5922, 0.5638, 0.5919, 0.5873, 0.5901]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9711857142857142
+accuracies is [(0.5833, -1)]
+accuracies is [(0.5833, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2064
+[2024-03-12 17:03:58,378][flwr][INFO] - fit progress: (65, 111.95766746997833, {'accuracy': 0.5998}, 14083.05839849601)
+Configure Evaluate
+[2024-03-12 17:03:58,378][flwr][DEBUG] - evaluate_round 65: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:04:37,956][flwr][DEBUG] - evaluate_round 65 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.614
+Configure Fit
+server round: 66
+[2024-03-12 17:04:38,208][flwr][DEBUG] - fit_round 66: strategy sampled 15 clients (out of 50)
+[2024-03-12 17:06:59,837][flwr][DEBUG] - fit_round 66 received 15 results and 0 failures
+individual accuracies [0.5771, 0.5586, 0.5947, 0.5887, 0.5857, 0.5812, 0.5754, 0.5893, 0.5652, 0.5876]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.9742000000000001
+accuracies is [(0.58345, -1)]
+accuracies is [(0.58345, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 10 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2227
+[2024-03-12 17:07:31,231][flwr][INFO] - fit progress: (66, 113.89529526233673, {'accuracy': 0.5966}, 14295.91161855706)
+Configure Evaluate
+[2024-03-12 17:07:31,231][flwr][DEBUG] - evaluate_round 66: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:08:11,816][flwr][DEBUG] - evaluate_round 66 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6156
+Configure Fit
+server round: 67
+[2024-03-12 17:08:11,944][flwr][DEBUG] - fit_round 67: strategy sampled 15 clients (out of 50)
+[2024-03-12 17:10:37,828][flwr][DEBUG] - fit_round 67 received 15 results and 0 failures
+individual accuracies [0.5741, 0.589, 0.5618, 0.576, 0.5649, 0.5742, 0.5732, 0.598, 0.5691]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.8209
+accuracies is [(0.5741, -1)]
+accuracies is [(0.5741, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1784
+[2024-03-12 17:11:09,251][flwr][INFO] - fit progress: (67, 107.49298024177551, {'accuracy': 0.605}, 14513.931962043978)
+Configure Evaluate
+[2024-03-12 17:11:09,252][flwr][DEBUG] - evaluate_round 67: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:11:49,171][flwr][DEBUG] - evaluate_round 67 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6336
+Configure Fit
+server round: 68
+[2024-03-12 17:11:49,306][flwr][DEBUG] - fit_round 68: strategy sampled 15 clients (out of 50)
+[2024-03-12 17:14:13,771][flwr][DEBUG] - fit_round 68 received 15 results and 0 failures
+individual accuracies [0.5844, 0.5822, 0.5945, 0.595, 0.5763, 0.5722, 0.5877, 0.5823]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.8445571428571428
+accuracies is [(0.58335, -1)]
+accuracies is [(0.58335, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1893
+[2024-03-12 17:14:44,510][flwr][INFO] - fit progress: (68, 110.6635684967041, {'accuracy': 0.6068}, 14729.190743907006)
+Configure Evaluate
+[2024-03-12 17:14:44,510][flwr][DEBUG] - evaluate_round 68: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:15:25,306][flwr][DEBUG] - evaluate_round 68 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6244
+Configure Fit
+server round: 69
+[2024-03-12 17:15:25,562][flwr][DEBUG] - fit_round 69: strategy sampled 15 clients (out of 50)
+[2024-03-12 17:17:49,385][flwr][DEBUG] - fit_round 69 received 15 results and 0 failures
+individual accuracies [0.5852, 0.5977, 0.5784, 0.5757, 0.6004, 0.5586, 0.5676, 0.5967, 0.594]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.9656833333333332
+accuracies is [(0.5852, -1)]
+accuracies is [(0.5852, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2023
+[2024-03-12 17:18:21,334][flwr][INFO] - fit progress: (69, 110.62749314308167, {'accuracy': 0.6055}, 14946.01433624397)
+Configure Evaluate
+[2024-03-12 17:18:21,334][flwr][DEBUG] - evaluate_round 69: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:19:01,309][flwr][DEBUG] - evaluate_round 69 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6223999999999998
+Configure Fit
+server round: 70
+[2024-03-12 17:19:01,434][flwr][DEBUG] - fit_round 70: strategy sampled 15 clients (out of 50)
+[2024-03-12 17:21:26,523][flwr][DEBUG] - fit_round 70 received 15 results and 0 failures
+individual accuracies [0.5717, 0.5906, 0.5629, 0.5839, 0.5763, 0.568, 0.5994, 0.5719, 0.5922, 0.6024]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.78716
+accuracies is [(0.5801000000000001, -1)]
+accuracies is [(0.5801000000000001, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 10 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1772
+[2024-03-12 17:21:57,205][flwr][INFO] - fit progress: (70, 108.02353692054749, {'accuracy': 0.6095}, 15161.885361423017)
+Configure Evaluate
+[2024-03-12 17:21:57,205][flwr][DEBUG] - evaluate_round 70: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:22:37,755][flwr][DEBUG] - evaluate_round 70 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6279999999999999
+Configure Fit
+server round: 71
+[2024-03-12 17:22:37,886][flwr][DEBUG] - fit_round 71: strategy sampled 15 clients (out of 50)
+[2024-03-12 17:24:58,313][flwr][DEBUG] - fit_round 71 received 15 results and 0 failures
+individual accuracies [0.577, 0.599, 0.5841, 0.6033, 0.5744, 0.5829, 0.5709, 0.5807, 0.5825, 0.5842, 0.5642]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 4
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 11
+Average poisoning accuracy: 0.9592250000000001
+accuracies is [(0.5825, -1)]
+accuracies is [(0.5825, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 11 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.213
+[2024-03-12 17:25:30,913][flwr][INFO] - fit progress: (71, 111.62523603439331, {'accuracy': 0.602}, 15375.593208285049)
+Configure Evaluate
+[2024-03-12 17:25:30,913][flwr][DEBUG] - evaluate_round 71: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:26:09,623][flwr][DEBUG] - evaluate_round 71 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6248
+Configure Fit
+server round: 72
+[2024-03-12 17:26:09,863][flwr][DEBUG] - fit_round 72: strategy sampled 15 clients (out of 50)
+[2024-03-12 17:28:33,511][flwr][DEBUG] - fit_round 72 received 15 results and 0 failures
+individual accuracies [0.5687, 0.5877, 0.5927, 0.5732, 0.5884, 0.5855, 0.5945, 0.5788, 0.5798, 0.5913, 0.583]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 4
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 11
+Average poisoning accuracy: 0.974375
+accuracies is [(0.5855, -1)]
+accuracies is [(0.5855, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 11 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2152
+[2024-03-12 17:29:04,494][flwr][INFO] - fit progress: (72, 112.5931568145752, {'accuracy': 0.5965}, 15589.174369103042)
+Configure Evaluate
+[2024-03-12 17:29:04,494][flwr][DEBUG] - evaluate_round 72: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:29:43,400][flwr][DEBUG] - evaluate_round 72 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6220000000000001
+Configure Fit
+server round: 73
+[2024-03-12 17:29:43,527][flwr][DEBUG] - fit_round 73: strategy sampled 15 clients (out of 50)
+[2024-03-12 17:32:08,669][flwr][DEBUG] - fit_round 73 received 15 results and 0 failures
+individual accuracies [0.5793, 0.5738, 0.5849, 0.5835, 0.5758, 0.5856]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.866311111111111
+accuracies is [(0.5814, -1)]
+accuracies is [(0.5814, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1849
+[2024-03-12 17:32:41,444][flwr][INFO] - fit progress: (73, 111.62437397241592, {'accuracy': 0.6003}, 15806.125058621052)
+Configure Evaluate
+[2024-03-12 17:32:41,445][flwr][DEBUG] - evaluate_round 73: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:33:21,603][flwr][DEBUG] - evaluate_round 73 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6295999999999999
+Configure Fit
+server round: 74
+[2024-03-12 17:33:21,862][flwr][DEBUG] - fit_round 74: strategy sampled 15 clients (out of 50)
+[2024-03-12 17:35:43,162][flwr][DEBUG] - fit_round 74 received 15 results and 0 failures
+individual accuracies [0.5903, 0.5804, 0.5632, 0.5936, 0.5889, 0.592, 0.594, 0.5864]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9668
+accuracies is [(0.5896, -1)]
+accuracies is [(0.5896, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2172
+[2024-03-12 17:36:14,521][flwr][INFO] - fit progress: (74, 113.93131417036057, {'accuracy': 0.5958}, 16019.201660600957)
+Configure Evaluate
+[2024-03-12 17:36:14,521][flwr][DEBUG] - evaluate_round 74: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:36:55,096][flwr][DEBUG] - evaluate_round 74 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6204000000000001
+Configure Fit
+server round: 75
+[2024-03-12 17:36:55,218][flwr][DEBUG] - fit_round 75: strategy sampled 15 clients (out of 50)
+[2024-03-12 17:39:26,255][flwr][DEBUG] - fit_round 75 received 15 results and 0 failures
+individual accuracies [0.5948, 0.5926, 0.5913, 0.5839, 0.6001, 0.6007, 0.592]
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.9655374999999999
+accuracies is [(0.5926, -1)]
+accuracies is [(0.5926, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2182
+[2024-03-12 17:39:57,903][flwr][INFO] - fit progress: (75, 115.53844654560089, {'accuracy': 0.5917}, 16242.584014666034)
+Configure Evaluate
+[2024-03-12 17:39:57,904][flwr][DEBUG] - evaluate_round 75: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:40:37,854][flwr][DEBUG] - evaluate_round 75 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6223999999999998
+Configure Fit
+server round: 76
+[2024-03-12 17:40:37,975][flwr][DEBUG] - fit_round 76: strategy sampled 15 clients (out of 50)
+[2024-03-12 17:43:10,936][flwr][DEBUG] - fit_round 76 received 15 results and 0 failures
+individual accuracies [0.5782, 0.5553, 0.5768, 0.5997, 0.5963, 0.5957, 0.5878, 0.5932, 0.5913]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.96975
+accuracies is [(0.5913, -1)]
+accuracies is [(0.5913, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2121
+[2024-03-12 17:43:42,686][flwr][INFO] - fit progress: (76, 113.987433552742, {'accuracy': 0.5958}, 16467.366316235973)
+Configure Evaluate
+[2024-03-12 17:43:42,686][flwr][DEBUG] - evaluate_round 76: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:44:23,719][flwr][DEBUG] - evaluate_round 76 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6207999999999999
+Configure Fit
+server round: 77
+[2024-03-12 17:44:23,978][flwr][DEBUG] - fit_round 77: strategy sampled 15 clients (out of 50)
+[2024-03-12 17:46:50,420][flwr][DEBUG] - fit_round 77 received 15 results and 0 failures
+individual accuracies [0.5959, 0.5931, 0.5995, 0.5943, 0.5603, 0.5741, 0.592, 0.5815]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9664142857142858
+accuracies is [(0.5925499999999999, -1)]
+accuracies is [(0.5925499999999999, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2143
+[2024-03-12 17:47:22,746][flwr][INFO] - fit progress: (77, 113.54043507575989, {'accuracy': 0.5989}, 16687.426443865057)
+Configure Evaluate
+[2024-03-12 17:47:22,746][flwr][DEBUG] - evaluate_round 77: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:48:03,529][flwr][DEBUG] - evaluate_round 77 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6184000000000001
+Configure Fit
+server round: 78
+[2024-03-12 17:48:03,654][flwr][DEBUG] - fit_round 78: strategy sampled 15 clients (out of 50)
+[2024-03-12 17:50:35,321][flwr][DEBUG] - fit_round 78 received 15 results and 0 failures
+individual accuracies [0.5953, 0.5974, 0.5889, 0.578, 0.575, 0.578, 0.5999, 0.5973, 0.596]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.9712999999999999
+accuracies is [(0.5953, -1)]
+accuracies is [(0.5953, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2031
+[2024-03-12 17:51:07,410][flwr][INFO] - fit progress: (78, 111.78539276123047, {'accuracy': 0.6034}, 16912.090302039986)
+Configure Evaluate
+[2024-03-12 17:51:07,410][flwr][DEBUG] - evaluate_round 78: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:51:46,259][flwr][DEBUG] - evaluate_round 78 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6216000000000002
+Configure Fit
+server round: 79
+[2024-03-12 17:51:46,377][flwr][DEBUG] - fit_round 79: strategy sampled 15 clients (out of 50)
+[2024-03-12 17:54:11,059][flwr][DEBUG] - fit_round 79 received 15 results and 0 failures
+individual accuracies [0.5967, 0.5953, 0.588, 0.5706, 0.5697, 0.5992, 0.5957, 0.5748, 0.6021]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.9594
+accuracies is [(0.5953, -1)]
+accuracies is [(0.5953, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.2002
+[2024-03-12 17:54:44,151][flwr][INFO] - fit progress: (79, 112.39075756072998, {'accuracy': 0.6007}, 17128.83136140206)
+Configure Evaluate
+[2024-03-12 17:54:44,151][flwr][DEBUG] - evaluate_round 79: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:55:24,593][flwr][DEBUG] - evaluate_round 79 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6276000000000002
+Configure Fit
+server round: 80
+[2024-03-12 17:55:24,719][flwr][DEBUG] - fit_round 80: strategy sampled 15 clients (out of 50)
+[2024-03-12 17:57:57,553][flwr][DEBUG] - fit_round 80 received 15 results and 0 failures
+individual accuracies [0.589, 0.6017, 0.5727, 0.5977, 0.5712, 0.5999]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.8698111111111111
+accuracies is [(0.59335, -1)]
+accuracies is [(0.59335, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1728
+[2024-03-12 17:58:32,132][flwr][INFO] - fit progress: (80, 108.190604865551, {'accuracy': 0.6137}, 17356.812867349014)
+Configure Evaluate
+[2024-03-12 17:58:32,132][flwr][DEBUG] - evaluate_round 80: strategy sampled 50 clients (out of 50)
+[2024-03-12 17:59:13,391][flwr][DEBUG] - evaluate_round 80 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6272000000000001
+Configure Fit
+server round: 81
+[2024-03-12 17:59:13,510][flwr][DEBUG] - fit_round 81: strategy sampled 15 clients (out of 50)
+[2024-03-12 18:01:38,213][flwr][DEBUG] - fit_round 81 received 15 results and 0 failures
+individual accuracies [0.5807, 0.5931, 0.5759, 0.5886, 0.5925, 0.5952, 0.5982, 0.596]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.8390428571428572
+accuracies is [(0.5928, -1)]
+accuracies is [(0.5928, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1888
+[2024-03-12 18:02:11,371][flwr][INFO] - fit progress: (81, 111.45615899562836, {'accuracy': 0.6045}, 17576.051777394023)
+Configure Evaluate
+[2024-03-12 18:02:11,371][flwr][DEBUG] - evaluate_round 81: strategy sampled 50 clients (out of 50)
+[2024-03-12 18:02:51,728][flwr][DEBUG] - evaluate_round 81 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6227999999999999
+Configure Fit
+server round: 82
+[2024-03-12 18:02:51,848][flwr][DEBUG] - fit_round 82: strategy sampled 15 clients (out of 50)
+[2024-03-12 18:05:13,871][flwr][DEBUG] - fit_round 82 received 15 results and 0 failures
+individual accuracies [0.6036, 0.5947, 0.5819, 0.5906, 0.6001, 0.5969, 0.5908, 0.5985, 0.5667, 0.579, 0.6037]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 4
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 11
+Average poisoning accuracy: 0.96735
+accuracies is [(0.5947, -1)]
+accuracies is [(0.5947, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 11 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1928
+[2024-03-12 18:05:44,668][flwr][INFO] - fit progress: (82, 111.1082284450531, {'accuracy': 0.6082}, 17789.348278079997)
+Configure Evaluate
+[2024-03-12 18:05:44,668][flwr][DEBUG] - evaluate_round 82: strategy sampled 50 clients (out of 50)
+[2024-03-12 18:06:24,287][flwr][DEBUG] - evaluate_round 82 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6244
+Configure Fit
+server round: 83
+[2024-03-12 18:06:24,416][flwr][DEBUG] - fit_round 83: strategy sampled 15 clients (out of 50)
+[2024-03-12 18:08:49,301][flwr][DEBUG] - fit_round 83 received 15 results and 0 failures
+individual accuracies [0.6006, 0.5739, 0.5802, 0.5879, 0.6017, 0.6026, 0.5952, 0.5964, 0.5849]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.96835
+accuracies is [(0.5952, -1)]
+accuracies is [(0.5952, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1967
+[2024-03-12 18:09:22,839][flwr][INFO] - fit progress: (83, 110.7571941614151, {'accuracy': 0.607}, 18007.519225188997)
+Configure Evaluate
+[2024-03-12 18:09:22,839][flwr][DEBUG] - evaluate_round 83: strategy sampled 50 clients (out of 50)
+[2024-03-12 18:10:03,210][flwr][DEBUG] - evaluate_round 83 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.622
+Configure Fit
+server round: 84
+[2024-03-12 18:10:03,350][flwr][DEBUG] - fit_round 84: strategy sampled 15 clients (out of 50)
+[2024-03-12 18:12:27,255][flwr][DEBUG] - fit_round 84 received 15 results and 0 failures
+individual accuracies [0.5984, 0.5893, 0.5858, 0.5763, 0.5943, 0.5928, 0.5903, 0.5721, 0.5695]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.8220833333333334
+accuracies is [(0.5893, -1)]
+accuracies is [(0.5893, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1784
+[2024-03-12 18:12:59,094][flwr][INFO] - fit progress: (84, 108.15503078699112, {'accuracy': 0.6091}, 18223.774465708062)
+Configure Evaluate
+[2024-03-12 18:12:59,094][flwr][DEBUG] - evaluate_round 84: strategy sampled 50 clients (out of 50)
+[2024-03-12 18:13:38,542][flwr][DEBUG] - evaluate_round 84 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6292000000000001
+Configure Fit
+server round: 85
+[2024-03-12 18:13:38,800][flwr][DEBUG] - fit_round 85: strategy sampled 15 clients (out of 50)
+[2024-03-12 18:16:00,957][flwr][DEBUG] - fit_round 85 received 15 results and 0 failures
+individual accuracies [0.5877, 0.5903, 0.597, 0.5872, 0.5895, 0.5918, 0.565, 0.5794]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9683142857142856
+accuracies is [(0.5886, -1)]
+accuracies is [(0.5886, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1943
+[2024-03-12 18:16:31,335][flwr][INFO] - fit progress: (85, 111.9708800315857, {'accuracy': 0.6018}, 18436.015752042993)
+Configure Evaluate
+[2024-03-12 18:16:31,335][flwr][DEBUG] - evaluate_round 85: strategy sampled 50 clients (out of 50)
+[2024-03-12 18:17:10,895][flwr][DEBUG] - evaluate_round 85 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6204
+Configure Fit
+server round: 86
+[2024-03-12 18:17:11,015][flwr][DEBUG] - fit_round 86: strategy sampled 15 clients (out of 50)
+[2024-03-12 18:19:31,683][flwr][DEBUG] - fit_round 86 received 15 results and 0 failures
+individual accuracies [0.5664, 0.5772, 0.5989, 0.5913, 0.5797, 0.5837, 0.5991, 0.602, 0.6039, 0.5763, 0.5952]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 4
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 11
+Average poisoning accuracy: 0.971725
+accuracies is [(0.5913, -1)]
+accuracies is [(0.5913, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 11 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1985
+[2024-03-12 18:20:03,026][flwr][INFO] - fit progress: (86, 112.30272722244263, {'accuracy': 0.6001}, 18647.70703479706)
+Configure Evaluate
+[2024-03-12 18:20:03,027][flwr][DEBUG] - evaluate_round 86: strategy sampled 50 clients (out of 50)
+[2024-03-12 18:20:43,564][flwr][DEBUG] - evaluate_round 86 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6200000000000001
+Configure Fit
+server round: 87
+[2024-03-12 18:20:43,686][flwr][DEBUG] - fit_round 87: strategy sampled 15 clients (out of 50)
+[2024-03-12 18:23:11,781][flwr][DEBUG] - fit_round 87 received 15 results and 0 failures
+individual accuracies [0.6017, 0.5994, 0.598, 0.5985, 0.5896, 0.6002]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.869
+accuracies is [(0.5989500000000001, -1)]
+accuracies is [(0.5989500000000001, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1761
+[2024-03-12 18:23:43,811][flwr][INFO] - fit progress: (87, 110.27844023704529, {'accuracy': 0.6085}, 18868.491437674966)
+Configure Evaluate
+[2024-03-12 18:23:43,811][flwr][DEBUG] - evaluate_round 87: strategy sampled 50 clients (out of 50)
+[2024-03-12 18:24:24,016][flwr][DEBUG] - evaluate_round 87 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6224
+Configure Fit
+server round: 88
+[2024-03-12 18:24:24,266][flwr][DEBUG] - fit_round 88: strategy sampled 15 clients (out of 50)
+[2024-03-12 18:26:52,749][flwr][DEBUG] - fit_round 88 received 15 results and 0 failures
+individual accuracies [0.5803, 0.593, 0.5967, 0.5928, 0.5828, 0.6036]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.8641555555555555
+accuracies is [(0.5929, -1)]
+accuracies is [(0.5929, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1779
+[2024-03-12 18:27:25,140][flwr][INFO] - fit progress: (88, 110.27304637432098, {'accuracy': 0.6082}, 19089.820531188045)
+Configure Evaluate
+[2024-03-12 18:27:25,140][flwr][DEBUG] - evaluate_round 88: strategy sampled 50 clients (out of 50)
+[2024-03-12 18:28:05,563][flwr][DEBUG] - evaluate_round 88 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6267999999999998
+Configure Fit
+server round: 89
+[2024-03-12 18:28:05,682][flwr][DEBUG] - fit_round 89: strategy sampled 15 clients (out of 50)
+[2024-03-12 18:30:32,785][flwr][DEBUG] - fit_round 89 received 15 results and 0 failures
+individual accuracies [0.5911, 0.5994, 0.5659, 0.578, 0.5756, 0.6024, 0.5956, 0.5727, 0.5933, 0.6027]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.9642200000000001
+accuracies is [(0.5922000000000001, -1)]
+accuracies is [(0.5922000000000001, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 10 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1901
+[2024-03-12 18:31:05,727][flwr][INFO] - fit progress: (89, 110.21711724996567, {'accuracy': 0.6066}, 19310.407205414027)
+Configure Evaluate
+[2024-03-12 18:31:05,727][flwr][DEBUG] - evaluate_round 89: strategy sampled 50 clients (out of 50)
+[2024-03-12 18:31:46,155][flwr][DEBUG] - evaluate_round 89 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6272
+Configure Fit
+server round: 90
+[2024-03-12 18:31:46,283][flwr][DEBUG] - fit_round 90: strategy sampled 15 clients (out of 50)
+[2024-03-12 18:34:24,654][flwr][DEBUG] - fit_round 90 received 15 results and 0 failures
+individual accuracies [0.5819, 0.5963, 0.5802]
+malicious is ['0', '0', '0']
+Number of Evil Clients: 12
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 3
+Average poisoning accuracy: 0.8944249999999999
+accuracies is [(0.5819, -1)]
+accuracies is [(0.5819, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 3 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1979
+[2024-03-12 18:34:57,470][flwr][INFO] - fit progress: (90, 115.5897558927536, {'accuracy': 0.5942}, 19542.150651642005)
+Configure Evaluate
+[2024-03-12 18:34:57,470][flwr][DEBUG] - evaluate_round 90: strategy sampled 50 clients (out of 50)
+[2024-03-12 18:35:38,876][flwr][DEBUG] - evaluate_round 90 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6147999999999999
+Configure Fit
+server round: 91
+[2024-03-12 18:35:39,124][flwr][DEBUG] - fit_round 91: strategy sampled 15 clients (out of 50)
+[2024-03-12 18:38:10,153][flwr][DEBUG] - fit_round 91 received 15 results and 0 failures
+individual accuracies [0.5721, 0.567, 0.5974, 0.5736, 0.6033, 0.5697, 0.5771, 0.5918]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9655714285714286
+accuracies is [(0.57535, -1)]
+accuracies is [(0.57535, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1912
+[2024-03-12 18:38:43,360][flwr][INFO] - fit progress: (91, 109.71720558404922, {'accuracy': 0.603}, 19768.04066078004)
+Configure Evaluate
+[2024-03-12 18:38:43,360][flwr][DEBUG] - evaluate_round 91: strategy sampled 50 clients (out of 50)
+[2024-03-12 18:39:23,064][flwr][DEBUG] - evaluate_round 91 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6276
+Configure Fit
+server round: 92
+[2024-03-12 18:39:23,191][flwr][DEBUG] - fit_round 92: strategy sampled 15 clients (out of 50)
+[2024-03-12 18:41:49,576][flwr][DEBUG] - fit_round 92 received 15 results and 0 failures
+individual accuracies [0.5728, 0.575, 0.5832, 0.5832, 0.5874, 0.5793, 0.5913, 0.5937, 0.5916]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.969
+accuracies is [(0.5832, -1)]
+accuracies is [(0.5832, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.204
+[2024-03-12 18:42:21,990][flwr][INFO] - fit progress: (92, 112.68907088041306, {'accuracy': 0.6031}, 19986.670958639006)
+Configure Evaluate
+[2024-03-12 18:42:21,991][flwr][DEBUG] - evaluate_round 92: strategy sampled 50 clients (out of 50)
+[2024-03-12 18:43:02,155][flwr][DEBUG] - evaluate_round 92 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6187999999999999
+Configure Fit
+server round: 93
+[2024-03-12 18:43:02,279][flwr][DEBUG] - fit_round 93: strategy sampled 15 clients (out of 50)
+[2024-03-12 18:45:23,794][flwr][DEBUG] - fit_round 93 received 15 results and 0 failures
+individual accuracies [0.5921, 0.5797, 0.5793, 0.568, 0.5985, 0.5906, 0.5929, 0.5875]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9643
+accuracies is [(0.5890500000000001, -1)]
+accuracies is [(0.5890500000000001, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.201
+[2024-03-12 18:45:57,182][flwr][INFO] - fit progress: (93, 112.49749052524567, {'accuracy': 0.6011}, 20201.862530088052)
+Configure Evaluate
+[2024-03-12 18:45:57,182][flwr][DEBUG] - evaluate_round 93: strategy sampled 50 clients (out of 50)
+[2024-03-12 18:46:43,237][flwr][DEBUG] - evaluate_round 93 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6263999999999998
+Configure Fit
+server round: 94
+[2024-03-12 18:46:43,357][flwr][DEBUG] - fit_round 94: strategy sampled 15 clients (out of 50)
+[2024-03-12 18:49:11,986][flwr][DEBUG] - fit_round 94 received 15 results and 0 failures
+individual accuracies [0.5766, 0.5905, 0.5917, 0.5894, 0.581, 0.5939]
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.9659222222222221
+accuracies is [(0.58995, -1)]
+accuracies is [(0.58995, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1892
+[2024-03-12 18:49:43,730][flwr][INFO] - fit progress: (94, 111.00735306739807, {'accuracy': 0.6038}, 20428.410534290015)
+Configure Evaluate
+[2024-03-12 18:49:43,730][flwr][DEBUG] - evaluate_round 94: strategy sampled 50 clients (out of 50)
+[2024-03-12 18:50:23,579][flwr][DEBUG] - evaluate_round 94 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6328
+Configure Fit
+server round: 95
+[2024-03-12 18:50:23,702][flwr][DEBUG] - fit_round 95: strategy sampled 15 clients (out of 50)
+[2024-03-12 18:52:48,341][flwr][DEBUG] - fit_round 95 received 15 results and 0 failures
+individual accuracies [0.5711, 0.5844, 0.575, 0.5893, 0.5829, 0.5952, 0.5689, 0.5885, 0.5867]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.9670333333333333
+accuracies is [(0.5844, -1)]
+accuracies is [(0.5844, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1953
+[2024-03-12 18:53:21,443][flwr][INFO] - fit progress: (95, 112.49167680740356, {'accuracy': 0.6019}, 20646.124006903032)
+Configure Evaluate
+[2024-03-12 18:53:21,444][flwr][DEBUG] - evaluate_round 95: strategy sampled 50 clients (out of 50)
+[2024-03-12 18:54:02,313][flwr][DEBUG] - evaluate_round 95 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.63
+Configure Fit
+server round: 96
+[2024-03-12 18:54:02,594][flwr][DEBUG] - fit_round 96: strategy sampled 15 clients (out of 50)
+[2024-03-12 18:56:24,841][flwr][DEBUG] - fit_round 96 received 15 results and 0 failures
+individual accuracies [0.5972, 0.5795, 0.5911, 0.58, 0.6004, 0.5614, 0.605, 0.5931, 0.584, 0.593, 0.5931]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 4
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 11
+Average poisoning accuracy: 0.9617
+accuracies is [(0.593, -1)]
+accuracies is [(0.593, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 11 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1986
+[2024-03-12 18:56:58,784][flwr][INFO] - fit progress: (96, 112.41280090808868, {'accuracy': 0.6003}, 20863.464638842037)
+Configure Evaluate
+[2024-03-12 18:56:58,784][flwr][DEBUG] - evaluate_round 96: strategy sampled 50 clients (out of 50)
+[2024-03-12 18:57:39,922][flwr][DEBUG] - evaluate_round 96 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6207999999999999
+Configure Fit
+server round: 97
+[2024-03-12 18:57:40,055][flwr][DEBUG] - fit_round 97: strategy sampled 15 clients (out of 50)
+[2024-03-12 19:00:11,130][flwr][DEBUG] - fit_round 97 received 15 results and 0 failures
+individual accuracies [0.5936, 0.593, 0.5909, 0.5997, 0.6006, 0.5726, 0.581, 0.5939]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9717714285714285
+accuracies is [(0.5932999999999999, -1)]
+accuracies is [(0.5932999999999999, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1885
+[2024-03-12 19:00:42,232][flwr][INFO] - fit progress: (97, 111.28214633464813, {'accuracy': 0.6042}, 21086.912909807055)
+Configure Evaluate
+[2024-03-12 19:00:42,233][flwr][DEBUG] - evaluate_round 97: strategy sampled 50 clients (out of 50)
+[2024-03-12 19:01:22,617][flwr][DEBUG] - evaluate_round 97 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6315999999999999
+Configure Fit
+server round: 98
+[2024-03-12 19:01:22,738][flwr][DEBUG] - fit_round 98: strategy sampled 15 clients (out of 50)
+[2024-03-12 19:03:51,963][flwr][DEBUG] - fit_round 98 received 15 results and 0 failures
+individual accuracies [0.5967, 0.6081, 0.5808, 0.5923, 0.5921, 0.5906, 0.5914, 0.6013]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.9617714285714286
+accuracies is [(0.5922000000000001, -1)]
+accuracies is [(0.5922000000000001, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1952
+[2024-03-12 19:04:26,276][flwr][INFO] - fit progress: (98, 111.89338195323944, {'accuracy': 0.6014}, 21310.95684669295)
+Configure Evaluate
+[2024-03-12 19:04:26,277][flwr][DEBUG] - evaluate_round 98: strategy sampled 50 clients (out of 50)
+[2024-03-12 19:05:06,458][flwr][DEBUG] - evaluate_round 98 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6236
+Configure Fit
+server round: 99
+[2024-03-12 19:05:06,708][flwr][DEBUG] - fit_round 99: strategy sampled 15 clients (out of 50)
+[2024-03-12 19:07:26,953][flwr][DEBUG] - fit_round 99 received 15 results and 0 failures
+individual accuracies [0.5878, 0.5788, 0.5804, 0.5812, 0.5714, 0.5958, 0.5923, 0.5989, 0.6101, 0.5925, 0.5948]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 4
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 11
+Average poisoning accuracy: 0.9702
+accuracies is [(0.5923, -1)]
+accuracies is [(0.5923, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 11 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1926
+[2024-03-12 19:07:57,852][flwr][INFO] - fit progress: (99, 112.39404141902924, {'accuracy': 0.6053}, 21522.53229569306)
+Configure Evaluate
+[2024-03-12 19:07:57,852][flwr][DEBUG] - evaluate_round 99: strategy sampled 50 clients (out of 50)
+[2024-03-12 19:08:38,296][flwr][DEBUG] - evaluate_round 99 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6208
+Configure Fit
+server round: 100
+[2024-03-12 19:08:38,430][flwr][DEBUG] - fit_round 100: strategy sampled 15 clients (out of 50)
+[2024-03-12 19:11:03,905][flwr][DEBUG] - fit_round 100 received 15 results and 0 failures
+individual accuracies [0.6059, 0.5997, 0.5987, 0.5871, 0.5875, 0.6011, 0.5937, 0.582, 0.5891, 0.5954, 0.5936]
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 4
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 11
+Average poisoning accuracy: 0.9605
+accuracies is [(0.5937, -1)]
+accuracies is [(0.5937, -1)]
+benign class is -1
+malicious class is 10
+Final Clustering acc is 1.0
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+key neurons are {}
+Target label is 9
+length of good results is 11 and length of bad results is 0
+acc_diff is 0
+Other cases
+Evaluate
+Global Poisoning Accuracy: 0.1855
+[2024-03-12 19:11:36,214][flwr][INFO] - fit progress: (100, 111.64193916320801, {'accuracy': 0.607}, 21740.89472304203)
+Configure Evaluate
+[2024-03-12 19:11:36,214][flwr][DEBUG] - evaluate_round 100: strategy sampled 50 clients (out of 50)
+[2024-03-12 19:12:16,351][flwr][DEBUG] - evaluate_round 100 received 50 results and 0 failures
+Aggregate evaluate
+benign record is ['15', '19', '10', '25', '24', '22', '9', '0', '11', '5', '2', '27', '6', '28', '26', '7', '1', '17', '8', '16', '20', '3', '23', '18', '4']
+Federated Accuracy: 0.6268
+[2024-03-12 19:12:16,484][flwr][INFO] - FL finished in 21781.16464221303
+[2024-03-12 19:12:16,487][flwr][INFO] - app_fit: losses_distributed [(1, 12.442615849631173), (2, 11.950577713549137), (3, 9.92617019854094), (4, 9.305405540899796), (5, 9.137300620476404), (6, 8.390331390003363), (7, 8.57440500497818), (8, 8.763916487693786), (9, 8.614744367599487), (10, 9.692669553756714), (11, 8.21181116104126), (12, 8.05030298948288), (13, 7.649864377975464), (14, 7.600665354728699), (15, 7.693273787498474), (16, 7.340606169700623), (17, 7.374614169597626), (18, 7.79703485250473), (19, 7.439180750846862), (20, 7.397822647094727), (21, 7.369843075275421), (22, 7.459625804424286), (23, 7.157617497444153), (24, 7.381930673122406), (25, 6.88991893529892), (26, 8.301896889209747), (27, 7.42892548084259), (28, 7.680951451063156), (29, 7.253270106315613), (30, 6.93298442363739), (31, 7.216289496421814), (32, 6.981978516578675), (33, 7.019162170886993), (34, 7.057955384254456), (35, 6.923732059001923), (36, 6.858650009632111), (37, 6.751196444034576), (38, 6.683223068714142), (39, 6.727749497890472), (40, 6.473763208389283), (41, 6.729549789428711), (42, 6.532252485752106), (43, 6.730831186771393), (44, 6.618996913433075), (45, 6.847424021959305), (46, 6.722172169685364), (47, 6.689762462377548), (48, 6.737272281646728), (49, 6.571059591770172), (50, 6.687873339653015), (51, 6.643612023591995), (52, 6.445181645154953), (53, 6.619269015789032), (54, 6.6401298093795775), (55, 6.639736037254334), (56, 6.651902359724045), (57, 6.540046010017395), (58, 6.696598119735718), (59, 6.862586619853974), (60, 6.485675182342529), (61, 6.600109244585037), (62, 6.553147079944611), (63, 6.614391171932221), (64, 6.467797294855118), (65, 6.616385496854782), (66, 6.696239316463471), (67, 6.371464587450028), (68, 6.5236290121078495), (69, 6.568120130300522), (70, 6.3756938171386714), (71, 6.56921818614006), (72, 6.614261246919632), (73, 6.5054422688484195), (74, 6.658205703496933), (75, 6.736551711559295), (76, 6.63307811498642), (77, 6.623786747455597), (78, 6.585287511348724), (79, 6.597280877828598), (80, 6.5039707279205325), (81, 6.644455803632736), (82, 6.485763283967972), (83, 6.569643421173096), (84, 6.412240504026413), (85, 6.566154177188873), (86, 6.6446173167228695), (87, 6.502976258993149), (88, 6.529629272222519), (89, 6.595320620536804), (90, 6.910685629844665), (91, 6.51831862449646), (92, 6.580631750822067), (93, 6.567817165851593), (94, 6.465559689998627), (95, 6.562983484268188), (96, 6.574474411010742), (97, 6.560413013696671), (98, 6.597682776451111), (99, 6.5800694918632505), (100, 6.4981928884983065)]
+[2024-03-12 19:12:16,487][flwr][INFO] - app_fit: metrics_distributed_fit {}
+[2024-03-12 19:12:16,487][flwr][INFO] - app_fit: metrics_distributed {'accuracy': [(1, 0.12428571428571428), (2, 0.215), (3, 0.3405263157894736), (4, 0.3895454545454545), (5, 0.42416666666666664), (6, 0.4608333333333333), (7, 0.46919999999999995), (8, 0.47079999999999994), (9, 0.4788), (10, 0.4428), (11, 0.4936), (12, 0.5008), (13, 0.5339999999999999), (14, 0.5264), (15, 0.5360000000000001), (16, 0.5548000000000001), (17, 0.5655999999999999), (18, 0.5528000000000001), (19, 0.5531999999999999), (20, 0.5564), (21, 0.5708000000000001), (22, 0.5524), (23, 0.5708000000000001), (24, 0.5624), (25, 0.5876), (26, 0.5336000000000001), (27, 0.5599999999999998), (28, 0.5528000000000001), (29, 0.5732), (30, 0.5844), (31, 0.58), (32, 0.594), (33, 0.5812), (34, 0.5875999999999999), (35, 0.5848), (36, 0.5964), (37, 0.6004), (38, 0.6052000000000001), (39, 0.6012), (40, 0.6024), (41, 0.5976), (42, 0.6176000000000001), (43, 0.606), (44, 0.6136000000000001), (45, 0.6007999999999999), (46, 0.6076000000000001), (47, 0.6088), (48, 0.6048), (49, 0.6224000000000001), (50, 0.6192000000000001), (51, 0.618), (52, 0.6204), (53, 0.6152000000000002), (54, 0.6112), (55, 0.6132000000000001), (56, 0.6128000000000001), (57, 0.6136), (58, 0.6056), (59, 0.6076000000000001), (60, 0.6184000000000001), (61, 0.6120000000000001), (62, 0.6159999999999999), (63, 0.6140000000000001), (64, 0.6156000000000001), (65, 0.614), (66, 0.6156), (67, 0.6336), (68, 0.6244), (69, 0.6223999999999998), (70, 0.6279999999999999), (71, 0.6248), (72, 0.6220000000000001), (73, 0.6295999999999999), (74, 0.6204000000000001), (75, 0.6223999999999998), (76, 0.6207999999999999), (77, 0.6184000000000001), (78, 0.6216000000000002), (79, 0.6276000000000002), (80, 0.6272000000000001), (81, 0.6227999999999999), (82, 0.6244), (83, 0.622), (84, 0.6292000000000001), (85, 0.6204), (86, 0.6200000000000001), (87, 0.6224), (88, 0.6267999999999998), (89, 0.6272), (90, 0.6147999999999999), (91, 0.6276), (92, 0.6187999999999999), (93, 0.6263999999999998), (94, 0.6328), (95, 0.63), (96, 0.6207999999999999), (97, 0.6315999999999999), (98, 0.6236), (99, 0.6208), (100, 0.6268)]}
+[2024-03-12 19:12:16,487][flwr][INFO] - app_fit: losses_centralized [(0, 182.24963426589966), (1, 195.66496515274048), (2, 186.30747437477112), (3, 155.9049801826477), (4, 147.23024809360504), (5, 144.89491939544678), (6, 132.31613039970398), (7, 135.21892642974854), (8, 137.47429084777832), (9, 133.5565207004547), (10, 149.988676071167), (11, 132.15350794792175), (12, 130.47833704948425), (13, 124.47720837593079), (14, 122.83851861953735), (15, 124.5058183670044), (16, 118.08352541923523), (17, 118.93201124668121), (18, 125.85019886493683), (19, 123.16629719734192), (20, 116.8348034620285), (21, 119.2324093580246), (22, 119.28651487827301), (23, 117.4260858297348), (24, 121.56482446193695), (25, 114.08505368232727), (26, 133.65752065181732), (27, 122.51641023159027), (28, 123.86488330364227), (29, 118.83642083406448), (30, 114.18616473674774), (31, 117.4820345044136), (32, 114.47558349370956), (33, 115.48249137401581), (34, 117.12479537725449), (35, 115.12729525566101), (36, 113.86729800701141), (37, 113.85228914022446), (38, 112.48548114299774), (39, 115.20943903923035), (40, 108.2246664762497), (41, 112.94432413578033), (42, 108.81750625371933), (43, 115.29978275299072), (44, 110.4054085612297), (45, 114.05916440486908), (46, 113.39087879657745), (47, 112.58071285486221), (48, 115.32943725585938), (49, 111.71459233760834), (50, 114.31255030632019), (51, 113.60621857643127), (52, 110.0371566414833), (53, 112.91644752025604), (54, 113.05758118629456), (55, 114.99902105331421), (56, 112.77149778604507), (57, 110.77475237846375), (58, 112.91053378582001), (59, 115.68370908498764), (60, 110.36990058422089), (61, 114.45444631576538), (62, 113.1126139163971), (63, 112.58647787570953), (64, 110.85162782669067), (65, 111.95766746997833), (66, 113.89529526233673), (67, 107.49298024177551), (68, 110.6635684967041), (69, 110.62749314308167), (70, 108.02353692054749), (71, 111.62523603439331), (72, 112.5931568145752), (73, 111.62437397241592), (74, 113.93131417036057), (75, 115.53844654560089), (76, 113.987433552742), (77, 113.54043507575989), (78, 111.78539276123047), (79, 112.39075756072998), (80, 108.190604865551), (81, 111.45615899562836), (82, 111.1082284450531), (83, 110.7571941614151), (84, 108.15503078699112), (85, 111.9708800315857), (86, 112.30272722244263), (87, 110.27844023704529), (88, 110.27304637432098), (89, 110.21711724996567), (90, 115.5897558927536), (91, 109.71720558404922), (92, 112.68907088041306), (93, 112.49749052524567), (94, 111.00735306739807), (95, 112.49167680740356), (96, 112.41280090808868), (97, 111.28214633464813), (98, 111.89338195323944), (99, 112.39404141902924), (100, 111.64193916320801)]
+[2024-03-12 19:12:16,487][flwr][INFO] - app_fit: metrics_centralized {'accuracy': [(0, 0.0981), (1, 0.1098), (2, 0.2195), (3, 0.3302), (4, 0.3889), (5, 0.4254), (6, 0.4611), (7, 0.4669), (8, 0.4705), (9, 0.4879), (10, 0.4463), (11, 0.4916), (12, 0.4925), (13, 0.5108), (14, 0.5224), (15, 0.518), (16, 0.54), (17, 0.5423), (18, 0.5317), (19, 0.5335), (20, 0.5532), (21, 0.5537), (22, 0.5502), (23, 0.5598), (24, 0.5492), (25, 0.5672), (26, 0.5235), (27, 0.5468), (28, 0.5429), (29, 0.5609), (30, 0.5706), (31, 0.5603), (32, 0.5727), (33, 0.5717), (34, 0.5635), (35, 0.5771), (36, 0.5801), (37, 0.5749), (38, 0.5837), (39, 0.5736), (40, 0.5921), (41, 0.5803), (42, 0.592), (43, 0.5819), (44, 0.5979), (45, 0.5878), (46, 0.5894), (47, 0.5918), (48, 0.5871), (49, 0.5917), (50, 0.5876), (51, 0.5869), (52, 0.597), (53, 0.5935), (54, 0.5906), (55, 0.5889), (56, 0.5935), (57, 0.6004), (58, 0.5938), (59, 0.5919), (60, 0.5977), (61, 0.5923), (62, 0.5965), (63, 0.6006), (64, 0.6024), (65, 0.5998), (66, 0.5966), (67, 0.605), (68, 0.6068), (69, 0.6055), (70, 0.6095), (71, 0.602), (72, 0.5965), (73, 0.6003), (74, 0.5958), (75, 0.5917), (76, 0.5958), (77, 0.5989), (78, 0.6034), (79, 0.6007), (80, 0.6137), (81, 0.6045), (82, 0.6082), (83, 0.607), (84, 0.6091), (85, 0.6018), (86, 0.6001), (87, 0.6085), (88, 0.6082), (89, 0.6066), (90, 0.5942), (91, 0.603), (92, 0.6031), (93, 0.6011), (94, 0.6038), (95, 0.6019), (96, 0.6003), (97, 0.6042), (98, 0.6014), (99, 0.6053), (100, 0.607)]}
