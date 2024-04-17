@@ -193,7 +193,7 @@ class NNtrain(Strategy):
             ws[constant.EXCEL_CELL+str(server_round+315)] = attack_metrics["accuracy"]
         
         """Save Results"""
-        # wb.save( "Results.xlsx" )
+        wb.save( "Results.xlsx" )
             
         if server_round == 100:
             email_sender = '09auhoiting@gmail.com'
@@ -576,7 +576,7 @@ class NNtrain(Strategy):
             ws[constant.EXCEL_CELL+str(server_round+4)] = metrics_aggregated["accuracy"]
         
         """Save Results"""
-        # wb.save( "Results.xlsx" )
+        wb.save( "Results.xlsx" )
 
         return loss_aggregated, metrics_aggregated
 
@@ -597,7 +597,6 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, e, flag)
     # pca = PCA(n_components=3)
     reduced_data = pca.fit_transform(layer)
     
-    # if server_round < 6:
     if flag == 0:
         print("KMeans")
         kmeans = KMeans(init="k-means++", n_clusters=2, n_init=4).fit(reduced_data)
@@ -647,7 +646,6 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, e, flag)
         plt.scatter(xy[:, 0], xy[:, 1], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  # 2D
         # ax.scatter(xy[:, 0], xy[:, 1], xy[:,2], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  #3D
 
-    # if server_round < 6:
     if flag == 0:
         plt.title("Kmeans Clustering {0} of {1} clients".format(name, len(parameter)))
     else:
@@ -709,8 +707,8 @@ def heatmaps(local_cid, comb_C, evil_layer, layer, name, server_round):
     plt.xlabel(name)
     plt.ylabel("Clients")
     plt.title("Heatmap of all clients' {0} in Round {1} (Coloured Trigger)".format(name, server_round))
-    if server_round == 1 or server_round % 20 == 0:
-        plt.savefig('heatmaps/Round {} (Coloured Trigger)'.format(server_round))
+    # if server_round == 1 or server_round % 20 == 0:
+    #     plt.savefig('heatmaps/Round {} (Coloured Trigger)'.format(server_round))
 
     """All Benign"""
     # plt.savefig('heatmaps/AllBenign/{0} in Round {1}.png'.format(name, server_round))
@@ -737,7 +735,7 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, target_labe
     ]
 
     """All Benign"""
-    # return good_prime
+    return good_prime
 
     bad_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in bad_result]
     evil_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in evil_result]
