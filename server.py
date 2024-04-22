@@ -90,9 +90,9 @@ def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader):  
         model.load_state_dict(state_dict, strict=True)
 
         if num_channels == 3:
-            t_img = Image.open("./triggers/trigger_10.png").convert('RGB')
+            t_img = Image.open("./triggers/trigger_white.png").convert('RGB')
         elif num_channels == 1:
-            t_img = Image.open("./triggers/trigger_10.png").convert('L')
+            t_img = Image.open("./triggers/trigger_white.png").convert('L')
         t_img = t_img.resize((5, 5))
         transform = transforms.ToTensor()
         trigger_img = transform(t_img)

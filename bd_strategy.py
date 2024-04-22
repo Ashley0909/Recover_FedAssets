@@ -588,7 +588,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, e, flag)
         textstr += f'Client {str(cid[k])} => {malicious[k]} \n'
     
     if len(parameter) < 2:
-        return [-1], -1, e, flag
+        return [-1], e, flag
         
     """Run PCA on the n dimensional data"""
     """2D"""
@@ -706,9 +706,9 @@ def heatmaps(local_cid, comb_C, evil_layer, layer, name, server_round):
     plt.annotate(textstr, xy=(0,0.5), verticalalignment='center',  horizontalalignment='left', xycoords='figure fraction')
     plt.xlabel(name)
     plt.ylabel("Clients")
-    plt.title("Heatmap of all clients' {0} in Round {1} (Coloured Trigger)".format(name, server_round))
+    plt.title("Heatmap of all clients' {0} in Round {1}".format(name, server_round))
     # if server_round == 1 or server_round % 20 == 0:
-    #     plt.savefig('heatmaps/Round {} (Coloured Trigger)'.format(server_round))
+    #     plt.savefig('heatmaps/Round {}'.format(server_round))
 
     """All Benign"""
     # plt.savefig('heatmaps/AllBenign/{0} in Round {1}.png'.format(name, server_round))
@@ -735,7 +735,7 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, target_labe
     ]
 
     """All Benign"""
-    return good_prime
+    # return good_prime
 
     bad_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in bad_result]
     evil_weighted_weights = [[layer * num_examples for layer in weights] for weights, num_examples in evil_result]
