@@ -193,7 +193,7 @@ class NNtrain(Strategy):
             ws[constant.EXCEL_CELL+str(server_round+315)] = attack_metrics["accuracy"]
         
         """Save Results"""
-        wb.save( "Results.xlsx" )
+        # wb.save( "Results.xlsx" )
             
         if server_round == 100:
             email_sender = '09auhoiting@gmail.com'
@@ -366,6 +366,8 @@ class NNtrain(Strategy):
 
         print("Number of Preset Malicious Clients is", malicious.count("2"))
         print("Number of Preset Benign Clients is", malicious.count("0"))
+
+        heatmaps(local_cid, malicious, evil_fcw, np.array(fcw), 'Default FCW', server_round)
 
         """Check backdoor task accuracy of this round's attackers"""
         for x in range(len(new_results)):
@@ -576,7 +578,7 @@ class NNtrain(Strategy):
             ws[constant.EXCEL_CELL+str(server_round+4)] = metrics_aggregated["accuracy"]
         
         """Save Results"""
-        wb.save( "Results.xlsx" )
+        # wb.save( "Results.xlsx" )
 
         return loss_aggregated, metrics_aggregated
 
@@ -707,8 +709,8 @@ def heatmaps(local_cid, comb_C, evil_layer, layer, name, server_round):
     plt.xlabel(name)
     plt.ylabel("Clients")
     plt.title("Heatmap of all clients' {0} in Round {1}".format(name, server_round))
-    # if server_round == 1 or server_round % 20 == 0:
-    #     plt.savefig('heatmaps/Round {}'.format(server_round))
+    if server_round == 1 or server_round % 20 == 0:
+        plt.savefig('heatmaps/Round {0} {1} Non-IID (Poisoning Rate=0.5).png'.format(server_round, name))
 
     """All Benign"""
     # plt.savefig('heatmaps/AllBenign/{0} in Round {1}.png'.format(name, server_round))
