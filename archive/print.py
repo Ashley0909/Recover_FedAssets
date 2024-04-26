@@ -478,5 +478,56 @@
 #     ws["Y"+str(server_round+4)] = clustering_acc
 
 
-
+"""Send email"""
 #SBATCH --mail-type=END,FAIL,TIME_LIMIT_80 # Events to send email on, remove if you don't want this
+
+
+"""Plotting the clusters"""
+"""3D"""
+# fig = plt.figure(figsize=(8, 6))
+# ax = fig.add_subplot(111, projection='3d')
+"""2D"""
+# plt.figure(figsize=(8, 6))
+
+# Assigning colors to clusters
+# unique_labels = np.unique(comb_C)
+# colors = plt.cm.bwr(np.linspace(0, 1, len(unique_labels)))
+# centroids = []
+# for l, color in zip(unique_labels, colors):
+#     if l == -1:  # Outliers are labeled as -1
+#         color = 'gray'
+#     class_member_mask = (comb_C == l)
+#     xy = reduced_data[class_member_mask]
+#     cluster_points = reduced_data[comb_C == l]
+#     centroid = np.mean(cluster_points, axis=0)
+#     centroids.append(centroid)
+#     plt.scatter(xy[:, 0], xy[:, 1], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  # 2D
+#     # ax.scatter(xy[:, 0], xy[:, 1], xy[:,2], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  #3D
+
+# if flag == 0:
+#     plt.title("Kmeans Clustering {0} of {1} clients".format(name, len(parameter)))
+# else:
+#     plt.title("DBSCAN Clustering {0} of {1} clients".format(name, len(parameter)))
+
+# plt.legend()
+
+# comb0 = np.array(reduced_data)[comb_C == 0]
+# comb1 = np.array(reduced_data)[comb_C != 0]
+# clabel0 = np.array(label)[comb_C == 0]
+# clabel1 = np.array(label)[comb_C != 0]
+# texts = []
+# num = 1
+# for i, txt in enumerate(clabel0):
+#     # texts.append(ax.text(comb0[i][0], comb0[i][1], comb0[i][2], txt))  #3D
+#     texts.append(plt.text(comb0[i][0], comb0[i][1], txt))  #2D
+#     num *= -1
+# for i, txt in enumerate(clabel1):
+#     # texts.append(ax.text(comb1[i][0], comb1[i][1], comb1[i][2], txt))   #3D
+#     texts.append(plt.text(comb1[i][0], comb1[i][1], txt))   #2D
+#     num *= -1
+
+# plt.savefig('clusters/{0}, Round {1}.png'.format(name, server_round))
+"""All Benign"""
+# plt.savefig('clusters/AllBenign/{0}, Round {1}.png'.format(name, server_round))
+
+# plt.close()
