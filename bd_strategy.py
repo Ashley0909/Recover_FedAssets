@@ -193,7 +193,7 @@ class NNtrain(Strategy):
             ws[constant.EXCEL_CELL+str(server_round+315)] = attack_metrics["accuracy"]
         
         """Save Results"""
-        # wb.save( "Results.xlsx" )
+        wb.save( "Results.xlsx" )
             
         if server_round == 100:
             email_sender = '09auhoiting@gmail.com'
@@ -312,6 +312,8 @@ class NNtrain(Strategy):
     ) -> Tuple[Optional[Parameters], Dict[str, Scalar]]:
         global malicious_record, final_model, final_metric, global_targetlabel, e, benign_record, benign_average, malicious_average, flag
 
+        print("315 Current GPU Memory:", torch.cuda.memory_allocated())
+
         if not results:
             return None, {}
         # Do not aggregate if there are failures and failures are not accepted
@@ -356,9 +358,9 @@ class NNtrain(Strategy):
         num_examples = [res[1] for res in weights_results]
         print("Number of Evil Clients:", len(evil_results))
 
-        # if len(num_examples) == 0:
-        #     print("Only Evil Clients in this round, void this round.")
-        #     return final_model, final_metric
+        if len(num_examples) == 0:
+            print("Only Evil Clients in this round, void this round.")
+            return final_model, final_metric
         
         client_id = np.array(all_id)[:,1]
         local_cid = np.array(all_id)[:,0]
@@ -366,8 +368,6 @@ class NNtrain(Strategy):
 
         print("Number of Preset Malicious Clients is", malicious.count("2"))
         print("Number of Preset Benign Clients is", malicious.count("0"))
-
-        heatmaps(local_cid, malicious, evil_fcw, np.array(fcw), 'Default FCW', server_round)
 
         """Check backdoor task accuracy of this round's attackers"""
         for x in range(len(new_results)):
@@ -411,9 +411,9 @@ class NNtrain(Strategy):
         else:
             evil_fcw = []
 
-        comb_C, e, flag = nd_clustering(parameter, client_id, malicious, fcw, "fcw", server_round, e, flag)
-
-        if benign_average == None and malicious_average == None:  # KMeans and 2 clusters
+        comb_C, e, flag = nd_clustering(parameter, local_cid, malicious, fcw, "BR=0.5", server_round, e, flag)
+        
+        if benign_average == None and malicious_average == None:  # KMeans and 2 clusters (First round)
             """Allocate good and bad clients"""
             bad_clients = local_cid[comb_C == 2]
             good_clients = local_cid[comb_C == 0]
@@ -421,9 +421,6 @@ class NNtrain(Strategy):
             """Split the parameters into good and malicious"""
             good_fcw = np.array(fcw)[comb_C == 0]
             bad_fcw = np.array(fcw)[comb_C == 2]
-
-            print("Originally, length of good results is", len(good_clients), "and length of bad results is", len(bad_clients))
-            print("Originally, comb_C is", comb_C)
 
             """Assume Clustering 100%"""
             # bad_index = [index for index,value in enumerate(malicious) if value == "2"]
@@ -442,14 +439,21 @@ class NNtrain(Strategy):
                 good_averages = []
                 for i in range(len(good_fcw[0])):
                     good_biases_average = compute_average(good_fcw[:,i], len(good_clients))
+                    good_biases_variance = np.var(good_fcw[:,i])
                     if len(bad_clients) == 0:
                         bad_biases_average = compute_average(np.array(evil_fcw)[:,i], len(evil_results))
+                        bad_biases_variance = np.var(evil_fcw[:,i])
                     elif len(evil_results) == 0:
                         bad_biases_average = compute_average(bad_fcw[:,i], len(bad_clients))
+                        bad_biases_variance = np.var(bad_fcw[:,i])
                     else:
                         bad_biases_average = compute_average(np.concatenate((bad_fcw, evil_fcw), axis=0)[:,i], (len(bad_clients)+len(evil_results)))
+                        bad_biases_variance = np.var(np.concatenate((bad_fcw, evil_fcw), axis=0)[:,i])
 
+                    print("Good Variance for label", i, "is", good_biases_variance)
+                    print("Bad Variance for label", i, "is", bad_biases_variance)
                     dist = abs(good_biases_average - bad_biases_average)
+                    print("Dist for label", i, "is", dist)
                     sign = np.sign(good_biases_average - bad_biases_average)
                     sign_list.append(sign)
                     dist_list.append(dist)
@@ -467,26 +471,13 @@ class NNtrain(Strategy):
                     benign_average = good_averages[target_label]
                     malicious_average = bad_averages[target_label]
                 global_targetlabel = target_label
+                print("Target label is", global_targetlabel)
                 record = 1
                 acc_diff = 0
         else:
             comb_C, record, acc_diff = merge_clients(comb_C, fcw, local_cid, benign_average, malicious_average, global_targetlabel)
 
-        print("Target label is", global_targetlabel)
         print("Now, comb_C is", comb_C)
-
-        heatmaps(local_cid, comb_C, evil_fcw, np.array(fcw), 'FCW', server_round)
-
-        if record == 1:
-            global_bad = client_id[comb_C == 2]
-            # global_bad = client_id[bad_index]
-            print(len(global_bad), "added to evil list")
-            malicious_record.extend(global_bad)
-            malicious_record = list(set(malicious_record)) #avoid duplicates
-
-            global_good = client_id[comb_C == 0]
-            benign_record.extend(global_good)
-            benign_record = list(set(benign_record))
 
         """Compute accuracies"""
         correct = 0
@@ -497,9 +488,21 @@ class NNtrain(Strategy):
                 correct += 1
         clustering_acc = correct / len(malicious)
 
-        print("Final Clustering acc is", clustering_acc)
-        
+        print("Clustering Accuracy is", clustering_acc)
+
         ws[constant.EXCEL_CELL+str(server_round+107)] = clustering_acc
+
+        heatmaps(local_cid, comb_C, evil_fcw, np.array(fcw), 'Sorted BR=0.5', server_round)
+
+        if record == 1:
+            global_bad = client_id[comb_C == 2]
+            # global_bad = client_id[bad_index]
+            malicious_record.extend(global_bad)
+            malicious_record = list(set(malicious_record)) #avoid duplicates
+
+            global_good = client_id[comb_C == 0]
+            benign_record.extend(global_good)
+            benign_record = list(set(benign_record))
 
         """After detecting the clients and their target label, make a function that determines the weight of contribution"""
         good_results = [weights_results[i] for i in range(len(weights_results)) if comb_C[i] == 0]
@@ -522,8 +525,8 @@ class NNtrain(Strategy):
             log(WARNING, "No fit_metrics_aggregation_fn provided")
 
         # Record the final model in case if the next round is a void round
-        # final_model = parameters_aggregated
-        # final_metric = metrics_aggregated
+        final_model = parameters_aggregated
+        final_metric = metrics_aggregated
 
         return parameters_aggregated, metrics_aggregated
 
@@ -550,8 +553,11 @@ class NNtrain(Strategy):
                 if cp.cid in benign_record:
                     valid_results.append((evaluate_res.num_examples, evaluate_res.loss))
 
+        if valid_results != []:
+            print("valid results is", valid_results)
             loss_aggregated = weighted_loss_avg(valid_results)
         else:
+            print("No valid result")
             loss_aggregated = weighted_loss_avg(
                 [
                     (evaluate_res.num_examples, evaluate_res.loss)
@@ -567,7 +573,7 @@ class NNtrain(Strategy):
                 for cp, res in results:
                     if cp.cid in benign_record:
                         eval_metrics.append((res.num_examples, res.metrics))
-            else:
+            if eval_metrics == []:
                 eval_metrics = [(res.num_examples, res.metrics) for _, res in results]
             metrics_aggregated = self.evaluate_metrics_aggregation_fn(eval_metrics)
         elif server_round == 1:  # Only log this warning once
@@ -578,7 +584,7 @@ class NNtrain(Strategy):
             ws[constant.EXCEL_CELL+str(server_round+4)] = metrics_aggregated["accuracy"]
         
         """Save Results"""
-        # wb.save( "Results.xlsx" )
+        wb.save( "Results.xlsx" )
 
         return loss_aggregated, metrics_aggregated
 
@@ -586,18 +592,50 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, e, flag)
     label = []
     textstr = ''
     for k in range(len(parameter)):
-        label.append("Client" + str(cid[k]) + "=>" + malicious[k] + "\n")
-        textstr += f'Client {str(cid[k])} => {malicious[k]} \n'
+        label.append("Client" + str(cid[k]) + "\u2192" + malicious[k] + "\n")
+        textstr += f'Client {str(cid[k])} \u2192 {malicious[k]} \n'
+
+    plt.imshow(np.array(layer), cmap='viridis', interpolation='nearest')
+    plt.colorbar()
+    plt.annotate(textstr, xy=(0,0.5), verticalalignment='center',  horizontalalignment='left', xycoords='figure fraction')
+    plt.xlabel(name)
+    plt.ylabel("Clients")
+    plt.title("Heatmap of all clients' {0} in Round {1}".format(name, server_round))
+    if server_round == 1 or server_round % 20 == 0:
+    # if server_round < 10:
+        plt.savefig('heatmaps/Round {0} {1} Non-IID.png'.format(server_round, name))
     
     if len(parameter) < 2:
         return [-1], e, flag
         
-    """Run PCA on the n dimensional data"""
-    """2D"""
-    pca = PCA(n_components=2)
-    """3D"""
-    # pca = PCA(n_components=3)
+    """Run PCA on the n dimensional data for the first round"""
+    # if server_round == 1:
+    pca = PCA(n_components=1)
     reduced_data = pca.fit_transform(layer)
+
+    if server_round == 1:
+        plt.imshow(reduced_data, cmap='viridis', interpolation='nearest')
+        plt.annotate(textstr, xy=(0,0.5), verticalalignment='center',  horizontalalignment='left', xycoords='figure fraction')
+        plt.savefig('clusters/Non-IID/Round {0} {1} 1D.png'.format(server_round, name))
+
+        pca2 = PCA(n_components=2)
+        reduced_2 = pca2.fit_transform(layer)
+
+        plt.imshow(reduced_2, cmap='viridis', interpolation='nearest')
+        plt.annotate(textstr, xy=(0,0.5), verticalalignment='center',  horizontalalignment='left', xycoords='figure fraction')
+        plt.savefig('clusters/Non-IID/Round {0} {1} 2D.png'.format(server_round, name))
+
+        pca3 = PCA(n_components=3)
+        reduced_3 = pca3.fit_transform(layer)
+        plt.imshow(reduced_3, cmap='viridis', interpolation='nearest')
+        plt.annotate(textstr, xy=(0,0.5), verticalalignment='center',  horizontalalignment='left', xycoords='figure fraction')
+        plt.savefig('clusters/Non-IID/Round {0} {1} 3D.png'.format(server_round, name))
+
+        plt.close()
+    # else:
+    #     print("global target label is", global_targetlabel)
+    #     reduced_data = np.array(layer)[:, global_targetlabel]
+    #     reduced_data = reduced_data.reshape(-1,1)
     
     if flag == 0:
         print("KMeans")
@@ -625,56 +663,7 @@ def nd_clustering(parameter, cid, malicious, layer, name, server_round, e, flag)
         db = DBSCAN(eps=max(e, 0.03), min_samples=max(3,mp)).fit(reduced_data)
         comb_C = db.labels_
 
-    """Plotting the clusters"""
-    """3D"""
-    # fig = plt.figure(figsize=(8, 6))
-    # ax = fig.add_subplot(111, projection='3d')
-    """2D"""
-    plt.figure(figsize=(8, 6))
-
-    # Assigning colors to clusters
     unique_labels = np.unique(comb_C)
-    colors = plt.cm.bwr(np.linspace(0, 1, len(unique_labels)))
-
-    centroids = []
-    for l, color in zip(unique_labels, colors):
-        if l == -1:  # Outliers are labeled as -1
-            color = 'gray'
-        class_member_mask = (comb_C == l)
-        xy = reduced_data[class_member_mask]
-        cluster_points = reduced_data[comb_C == l]
-        centroid = np.mean(cluster_points, axis=0)
-        centroids.append(centroid)
-        plt.scatter(xy[:, 0], xy[:, 1], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  # 2D
-        # ax.scatter(xy[:, 0], xy[:, 1], xy[:,2], c=[color], edgecolors='k', s=50, label='Cluster {}'.format(l))  #3D
-
-    if flag == 0:
-        plt.title("Kmeans Clustering {0} of {1} clients".format(name, len(parameter)))
-    else:
-        plt.title("DBSCAN Clustering {0} of {1} clients".format(name, len(parameter)))
-    
-    plt.legend()
-
-    comb0 = np.array(reduced_data)[comb_C == 0]
-    comb1 = np.array(reduced_data)[comb_C != 0]
-    clabel0 = np.array(label)[comb_C == 0]
-    clabel1 = np.array(label)[comb_C != 0]
-    texts = []
-    num = 1
-    for i, txt in enumerate(clabel0):
-        # texts.append(ax.text(comb0[i][0], comb0[i][1], comb0[i][2], txt))  #3D
-        texts.append(plt.text(comb0[i][0], comb0[i][1], txt))  #2D
-        num *= -1
-    for i, txt in enumerate(clabel1):
-        # texts.append(ax.text(comb1[i][0], comb1[i][1], comb1[i][2], txt))   #3D
-        texts.append(plt.text(comb1[i][0], comb1[i][1], txt))   #2D
-        num *= -1
-
-    # plt.savefig('clusters/{0}, Round {1}.png'.format(name, server_round))
-    """All Benign"""
-    # plt.savefig('clusters/AllBenign/{0}, Round {1}.png'.format(name, server_round))
-
-    plt.close()
 
     """Set the largest cluster to be benign as a default"""
     counts = Counter(comb_C)
@@ -693,9 +682,9 @@ def heatmaps(local_cid, comb_C, evil_layer, layer, name, server_round):
     bad_client = local_cid[comb_C == 2]
 
     for i in range(len(good_client)):
-        textstr += f'Client {str(good_client[i])} => 0 \n'
+        textstr += f'Client {str(good_client[i])} \u2192 0 \n'
     for i in range(len(bad_client)):
-        textstr += f'Client {str(bad_client[i])} => 2 \n'
+        textstr += f'Client {str(bad_client[i])} \u2192 1 \n'
 
     good_layer = layer[comb_C == 0]
     bad_layer = layer[comb_C == 2]
@@ -710,7 +699,8 @@ def heatmaps(local_cid, comb_C, evil_layer, layer, name, server_round):
     plt.ylabel("Clients")
     plt.title("Heatmap of all clients' {0} in Round {1}".format(name, server_round))
     if server_round == 1 or server_round % 20 == 0:
-        plt.savefig('heatmaps/Round {0} {1} Non-IID (Poisoning Rate=0.5).png'.format(server_round, name))
+    # if server_round < 6:
+        plt.savefig('heatmaps/Round {0} {1} Non-IID.png'.format(server_round, name))
 
     """All Benign"""
     # plt.savefig('heatmaps/AllBenign/{0} in Round {1}.png'.format(name, server_round))
@@ -832,6 +822,9 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, target_labe
                     weighted_param_aggregated = good_prime[l]
 
             aggregated_result.append(weighted_param_aggregated)  # records each layer
+        
+        good_prime[-2] = aggregated_result[0]
+        good_prime[-1] = aggregated_result[1]
 
     # Still need to consider the case when there is no good client
     elif bad_prime != [] and evil_prime != []:
@@ -839,22 +832,25 @@ def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, target_labe
         evil_sim_weight = np.exp(constant.EVIL_LAMBDA * acc_diff)
         for l in range(len(bad_prime)):
             weighted_param_aggregated = ((sim_weight * bad_prime[l]) + (evil_sim_weight * evil_prime[l]))/(sim_weight + evil_sim_weight)
-            aggregated_result.append(weighted_param_aggregated)  # records each layer
+            good_prime.append(weighted_param_aggregated)  # records each layer
+            # aggregated_result.append(weighted_param_aggregated)  # records each layer
 
     elif bad_prime != []:
         sim_weight = np.exp(constant.MALI_LAMBDA * acc_diff)
         for l in range(len(bad_prime)):
             weighted_param_aggregated = (sim_weight * bad_prime[l])/sim_weight
-            aggregated_result.append(weighted_param_aggregated)  # records each layer
+            good_prime.append(weighted_param_aggregated)  # records each layer
+            # aggregated_result.append(weighted_param_aggregated)  # records each layer
 
     elif evil_prime != []:
         evil_sim_weight = np.exp(constant.EVIL_LAMBDA * acc_diff)
         for l in range(len(evil_prime)):
             weighted_param_aggregated = (sim_weight * evil_prime[l])/evil_sim_weight
-            aggregated_result.append(weighted_param_aggregated)  # records each layer
+            good_prime.append(weighted_param_aggregated)  # records each layer
+            # aggregated_result.append(weighted_param_aggregated)  # records each layer
 
-    good_prime[-2] = aggregated_result[0]
-    good_prime[-1] = aggregated_result[1]
+    # good_prime[-2] = aggregated_result[0]
+    # good_prime[-1] = aggregated_result[1]
     return good_prime
 
 def merge_clients(comb_C, fcw, local_cid, benign_average, malicious_average, global_targetlabel):

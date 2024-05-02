@@ -70,8 +70,8 @@ def get_evaluate_fn(config: DictConfig, num_classes: int, num_channels: int, tes
 
     return evaluate_fn
 
-# def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader, device, dataset):  #GPU
-def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader):  #CPU
+# def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader, target_label, device):  #GPU
+def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader, target_label):  #CPU
     """Define function for global evaluation on the server."""
 
     # def attacker_evaluate_fn(server_round: int, parameters, config, device):  #GPU
@@ -105,7 +105,7 @@ def get_attacker_evaluate_fn(num_classes: int, num_channels: int, testloader):  
             for data in testloader:
                 images, labels = data[0].to(device), data[1].to(device)
                 images[:,:, -5:, -5:] = trigger_img
-                tensor_9 = torch.full((len(labels),), 9, dtype=torch.int32).to(device)
+                tensor_9 = torch.full((len(labels),), target_label, dtype=torch.int32).to(device)
                 outputs = model(images)
                 loss += criterion(outputs, labels).item()
                 _, predicted = torch.max(outputs.data, 1)
