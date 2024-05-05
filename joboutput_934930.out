@@ -1,0 +1,867 @@
+Using CUDA: True
+Using MPS: False
+dataset: cifar10
+num_rounds: 10
+num_clients: 50
+batch_size: 20
+num_classes: 10
+num_channels: 3
+target_label: 9
+num_clients_per_round_fit: 15
+num_clients_per_round_eval: 15
+config_fit:
+  poisoning_rate: 0.8
+  lr: 0.01
+  momentum: 0.9
+  local_epochs: 5
+  proximal_mu: 2.0
+dataset_config:
+  ratio_benign_client: 0.5
+  iid: false
+  balance: false
+  power_law: false
+  dirichlet: true
+  alpha: 0.9
+
+27 Current GPU Memory: 0
+Files already downloaded and verified
+Files already downloaded and verified
+32 Current GPU Memory: 0
+38 Current GPU Memory: 0
+[2024-05-05 05:51:02,306][flwr][INFO] - Starting Flower simulation, config: ServerConfig(num_rounds=10, round_timeout=None)
+[2024-05-05 05:51:10,019][flwr][INFO] - Flower VCE: Ray initialized with resources: {'accelerator_type:A10': 1.0, 'GPU': 1.0, 'object_store_memory': 161180806348.0, 'CPU': 96.0, 'memory': 366088548148.0, 'node:__internal_head__': 1.0, 'node:10.131.34.73': 1.0}
+[2024-05-05 05:51:10,019][flwr][INFO] - Initializing global parameters
+[2024-05-05 05:51:10,019][flwr][INFO] - Using initial parameters provided by strategy
+[2024-05-05 05:51:10,019][flwr][INFO] - Evaluating initial parameters
+Evaluate
+[2024-05-05 05:51:15,737][flwr][INFO] - initial parameters (loss, other metrics): 182.11059761047363, {'accuracy': 0.0872}
+[2024-05-05 05:51:15,737][flwr][INFO] - FL starting
+Configure Fit
+server round: 1
+[2024-05-05 05:51:15,738][flwr][DEBUG] - fit_round 1: strategy sampled 15 clients (out of 50)
+[2024-05-05 05:54:19,385][flwr][DEBUG] - fit_round 1 received 15 results and 0 failures
+315 Current GPU Memory: 8519680
+malicious is ['2', '2', '0', '2', '2', '0', '2', '0', '2', '0', '2', '0', '0', '0', '0']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 7
+Number of Preset Benign Clients is 8
+Clean accuracy is 0.0972
+Clean accuracy is 0.2361
+Clean accuracy is 0.0938
+Clean accuracy is 0.2149
+Clean accuracy is 0.1875
+Clean accuracy is 0.1031
+Clean accuracy is 0.1948
+Average poisoning accuracy: 0.9475
+Average Clean Data Accuracy: 0.16105714285714284
+3 Dimension for PCA
+KMeans
+intra_cluster distance is 3.929646904771114
+Good Variance for label 0 is 1.1072599
+Bad Variance for label 0 is 0.73064065
+Dist for label 0 is 0.8535162210464478
+Good Variance for label 1 is 0.53722036
+Bad Variance for label 1 is 0.56949687
+Dist for label 1 is 0.9865274429321289
+Good Variance for label 2 is 2.581874
+Bad Variance for label 2 is 0.5854078
+Dist for label 2 is 1.669443885485331
+Good Variance for label 3 is 0.9843015
+Bad Variance for label 3 is 0.78314376
+Dist for label 3 is 1.0993240376313527
+Good Variance for label 4 is 0.4807644
+Bad Variance for label 4 is 1.0426074
+Dist for label 4 is 0.5423027575016022
+Good Variance for label 5 is 0.8304952
+Bad Variance for label 5 is 0.5775709
+Dist for label 5 is 0.48789654672145844
+Good Variance for label 6 is 1.0257719
+Bad Variance for label 6 is 0.22855668
+Dist for label 6 is 0.1824621359507243
+Good Variance for label 7 is 0.46854863
+Bad Variance for label 7 is 2.4561918
+Dist for label 7 is 1.1937959988911946
+Good Variance for label 8 is 0.29463235
+Bad Variance for label 8 is 0.07622179
+Dist for label 8 is 1.2932684620221455
+Good Variance for label 9 is 1.1433903
+Bad Variance for label 9 is 0.69038177
+Dist for label 9 is 2.5443279147148132
+Counterexample
+good > bad, ALERT!!
+Target label is 2
+Now, comb_C is [2 2 2 2 2 2 2 0 2 0 2 0 2 2 2]
+Clustering Accuracy is 0.6666666666666666
+2 Dimension for PCA
+KMeans
+intra_cluster distance is 3.844001342473257
+Good Variance for label 0 is 1.1072599
+Bad Variance for label 0 is 0.73064065
+Dist for label 0 is 0.8535162210464478
+Good Variance for label 1 is 0.53722036
+Bad Variance for label 1 is 0.56949687
+Dist for label 1 is 0.9865274429321289
+Good Variance for label 2 is 2.581874
+Bad Variance for label 2 is 0.5854078
+Dist for label 2 is 1.669443885485331
+Good Variance for label 3 is 0.9843015
+Bad Variance for label 3 is 0.78314376
+Dist for label 3 is 1.0993240376313527
+Good Variance for label 4 is 0.4807644
+Bad Variance for label 4 is 1.0426074
+Dist for label 4 is 0.5423027575016022
+Good Variance for label 5 is 0.8304952
+Bad Variance for label 5 is 0.5775709
+Dist for label 5 is 0.48789654672145844
+Good Variance for label 6 is 1.0257719
+Bad Variance for label 6 is 0.22855668
+Dist for label 6 is 0.1824621359507243
+Good Variance for label 7 is 0.46854863
+Bad Variance for label 7 is 2.4561918
+Dist for label 7 is 1.1937959988911946
+Good Variance for label 8 is 0.29463235
+Bad Variance for label 8 is 0.07622179
+Dist for label 8 is 1.2932684620221455
+Good Variance for label 9 is 1.1433903
+Bad Variance for label 9 is 0.69038177
+Dist for label 9 is 2.5443279147148132
+Counterexample
+good > bad, ALERT!!
+Target label is 2
+Now, comb_C is [2 2 2 2 2 2 2 0 2 0 2 0 2 2 2]
+Clustering Accuracy is 0.6666666666666666
+1 Dimension for PCA
+KMeans
+intra_cluster distance is 3.00186156787994
+Good Variance for label 0 is 0.9306576
+Bad Variance for label 0 is 0.85511094
+Dist for label 0 is 1.0084082995142256
+Good Variance for label 1 is 0.47208977
+Bad Variance for label 1 is 0.32753798
+Dist for label 1 is 1.0882594542843955
+Good Variance for label 2 is 0.75269175
+Bad Variance for label 2 is 2.6349273
+Dist for label 2 is 2.001891187259129
+Good Variance for label 3 is 1.2571621
+Bad Variance for label 3 is 0.59426504
+Dist for label 3 is 0.8728538155555725
+Good Variance for label 4 is 0.79661274
+Bad Variance for label 4 is 0.29681852
+Dist for label 4 is 0.5555366767304284
+Good Variance for label 5 is 0.48875093
+Bad Variance for label 5 is 0.84243166
+Dist for label 5 is 0.812227257660457
+Good Variance for label 6 is 0.5550475
+Bad Variance for label 6 is 0.635407
+Dist for label 6 is 1.058967669627496
+Good Variance for label 7 is 1.5728108
+Bad Variance for label 7 is 0.33758935
+Dist for label 7 is 0.6266203437532697
+Good Variance for label 8 is 0.39060664
+Bad Variance for label 8 is 0.43756995
+Dist for label 8 is 0.6527103866849626
+Good Variance for label 9 is 3.0968688
+Bad Variance for label 9 is 0.91898257
+Dist for label 9 is 0.17976927757263184
+Counterexample
+good > bad, ALERT!!
+Target label is 9
+Now, comb_C is [2 2 0 0 2 0 2 2 2 2 0 2 0 0 0]
+Clustering Accuracy is 0.6666666666666666
+length of good results is 7 and length of bad results is 8
+acc_diff is 0
+[2024-05-05 05:54:43,178][flwr][WARNING] - No fit_metrics_aggregation_fn provided
+Evaluate
+Global Poisoning Accuracy: 0.1503
+[2024-05-05 05:54:47,091][flwr][INFO] - fit progress: (1, 191.69463181495667, {'accuracy': 0.1387}, 211.3539284760045)
+Configure Evaluate
+[2024-05-05 05:54:47,092][flwr][DEBUG] - evaluate_round 1: strategy sampled 15 clients (out of 50)
+[2024-05-05 05:55:00,629][flwr][DEBUG] - evaluate_round 1 received 15 results and 0 failures
+Aggregate evaluate
+benign record is []
+No valid result
+Federated Accuracy on Clean Data: 0.1263409090909091
+Federated Accuracy on Dirty Data: 0.1263409090909091
+Configure Fit
+server round: 2
+[2024-05-05 05:55:00,697][flwr][DEBUG] - fit_round 2: strategy sampled 15 clients (out of 50)
+[2024-05-05 05:57:50,631][flwr][DEBUG] - fit_round 2 received 15 results and 0 failures
+315 Current GPU Memory: 8519680
+malicious is ['0', '0', '2', '0', '0', '0', '2', '0', '0', '2', '0', '2', '2', '0', '2']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 6
+Number of Preset Benign Clients is 9
+Clean accuracy is 0.1667
+Clean accuracy is 0.4074
+Clean accuracy is 0.1698
+Clean accuracy is 0.1944
+Clean accuracy is 0.1356
+Clean accuracy is 0.3148
+Average poisoning accuracy: 0.9743
+Average Clean Data Accuracy: 0.23145000000000002
+3 Dimension for PCA
+KMeans
+intra_cluster distance is 4.078875658588176
+Good Variance for label 0 is 0.4642504
+Bad Variance for label 0 is 0.5623879
+Dist for label 0 is 0.8710821185793196
+Good Variance for label 1 is 0.4071536
+Bad Variance for label 1 is 0.7587417
+Dist for label 1 is 0.575880595615932
+Good Variance for label 2 is 0.28938496
+Bad Variance for label 2 is 1.2755657
+Dist for label 2 is 0.0643171529684748
+Good Variance for label 3 is 1.0692828
+Bad Variance for label 3 is 0.8810768
+Dist for label 3 is 1.9038119912147522
+Good Variance for label 4 is 0.7099795
+Bad Variance for label 4 is 0.5907199
+Dist for label 4 is 0.7133708298206329
+Good Variance for label 5 is 0.7539565
+Bad Variance for label 5 is 0.7663283
+Dist for label 5 is 0.4493073310170855
+Good Variance for label 6 is 0.7313763
+Bad Variance for label 6 is 0.23384419
+Dist for label 6 is 0.9926372255597795
+Good Variance for label 7 is 0.6269251
+Bad Variance for label 7 is 1.1763912
+Dist for label 7 is 1.227929277079446
+Good Variance for label 8 is 0.13304296
+Bad Variance for label 8 is 0.71358204
+Dist for label 8 is 0.43755917463983807
+Good Variance for label 9 is 1.5933686
+Bad Variance for label 9 is 0.12963162
+Dist for label 9 is 2.9252700975963046
+good > bad, ALERT!!
+Target label is 9
+Now, comb_C is [0 2 2 0 0 0 2 2 0 2 0 2 2 0 2]
+Clustering Accuracy is 0.8666666666666667
+2 Dimension for PCA
+KMeans
+intra_cluster distance is 4.074989991876823
+Good Variance for label 0 is 0.4642504
+Bad Variance for label 0 is 0.5623879
+Dist for label 0 is 0.8710821185793196
+Good Variance for label 1 is 0.4071536
+Bad Variance for label 1 is 0.7587417
+Dist for label 1 is 0.575880595615932
+Good Variance for label 2 is 0.28938496
+Bad Variance for label 2 is 1.2755657
+Dist for label 2 is 0.0643171529684748
+Good Variance for label 3 is 1.0692828
+Bad Variance for label 3 is 0.8810768
+Dist for label 3 is 1.9038119912147522
+Good Variance for label 4 is 0.7099795
+Bad Variance for label 4 is 0.5907199
+Dist for label 4 is 0.7133708298206329
+Good Variance for label 5 is 0.7539565
+Bad Variance for label 5 is 0.7663283
+Dist for label 5 is 0.4493073310170855
+Good Variance for label 6 is 0.7313763
+Bad Variance for label 6 is 0.23384419
+Dist for label 6 is 0.9926372255597795
+Good Variance for label 7 is 0.6269251
+Bad Variance for label 7 is 1.1763912
+Dist for label 7 is 1.227929277079446
+Good Variance for label 8 is 0.13304296
+Bad Variance for label 8 is 0.71358204
+Dist for label 8 is 0.43755917463983807
+Good Variance for label 9 is 1.5933686
+Bad Variance for label 9 is 0.12963162
+Dist for label 9 is 2.9252700975963046
+good > bad, ALERT!!
+Target label is 9
+Now, comb_C is [0 2 2 0 0 0 2 2 0 2 0 2 2 0 2]
+Clustering Accuracy is 0.8666666666666667
+1 Dimension for PCA
+KMeans
+intra_cluster distance is 4.0723926493925715
+Good Variance for label 0 is 0.4642504
+Bad Variance for label 0 is 0.5623879
+Dist for label 0 is 0.8710821185793196
+Good Variance for label 1 is 0.4071536
+Bad Variance for label 1 is 0.7587417
+Dist for label 1 is 0.575880595615932
+Good Variance for label 2 is 0.28938496
+Bad Variance for label 2 is 1.2755657
+Dist for label 2 is 0.0643171529684748
+Good Variance for label 3 is 1.0692828
+Bad Variance for label 3 is 0.8810768
+Dist for label 3 is 1.9038119912147522
+Good Variance for label 4 is 0.7099795
+Bad Variance for label 4 is 0.5907199
+Dist for label 4 is 0.7133708298206329
+Good Variance for label 5 is 0.7539565
+Bad Variance for label 5 is 0.7663283
+Dist for label 5 is 0.4493073310170855
+Good Variance for label 6 is 0.7313763
+Bad Variance for label 6 is 0.23384419
+Dist for label 6 is 0.9926372255597795
+Good Variance for label 7 is 0.6269251
+Bad Variance for label 7 is 1.1763912
+Dist for label 7 is 1.227929277079446
+Good Variance for label 8 is 0.13304296
+Bad Variance for label 8 is 0.71358204
+Dist for label 8 is 0.43755917463983807
+Good Variance for label 9 is 1.5933686
+Bad Variance for label 9 is 0.12963162
+Dist for label 9 is 2.9252700975963046
+good > bad, ALERT!!
+Target label is 9
+Now, comb_C is [0 2 2 0 0 0 2 2 0 2 0 2 2 0 2]
+Clustering Accuracy is 0.8666666666666667
+length of good results is 7 and length of bad results is 8
+acc_diff is 0
+Evaluate
+Global Poisoning Accuracy: 0.0091
+[2024-05-05 05:58:14,088][flwr][INFO] - fit progress: (2, 168.78770399093628, {'accuracy': 0.2049}, 418.3507365250116)
+Configure Evaluate
+[2024-05-05 05:58:14,088][flwr][DEBUG] - evaluate_round 2: strategy sampled 15 clients (out of 50)
+[2024-05-05 05:58:27,551][flwr][DEBUG] - evaluate_round 2 received 15 results and 0 failures
+Aggregate evaluate
+benign record is []
+No valid result
+Federated Accuracy on Clean Data: 0.208424358974359
+Federated Accuracy on Dirty Data: 0.208424358974359
+Configure Fit
+server round: 3
+[2024-05-05 05:58:27,656][flwr][DEBUG] - fit_round 3: strategy sampled 15 clients (out of 50)
+[2024-05-05 06:01:03,001][flwr][DEBUG] - fit_round 3 received 15 results and 0 failures
+315 Current GPU Memory: 8519680
+malicious is ['0', '2', '0', '0', '0', '2', '2', '0', '2', '2', '2', '0', '2', '2', '0']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 8
+Number of Preset Benign Clients is 7
+Clean accuracy is 0.275
+Clean accuracy is 0.375
+Clean accuracy is 0.35
+Clean accuracy is 0.16
+Clean accuracy is 0.161
+Clean accuracy is 0.0625
+Clean accuracy is 0.1778
+Clean accuracy is 0.2045
+Average poisoning accuracy: 0.9470000000000001
+Average Clean Data Accuracy: 0.22072499999999998
+3 Dimension for PCA
+KMeans
+intra_cluster distance is 3.89432739571439
+Good Variance for label 0 is 0.4316983
+Bad Variance for label 0 is 0.5572553
+Dist for label 0 is 0.2834630674786038
+Good Variance for label 1 is 0.45468357
+Bad Variance for label 1 is 0.6907463
+Dist for label 1 is 0.5383626090155708
+Good Variance for label 2 is 0.4166535
+Bad Variance for label 2 is 1.6465926
+Dist for label 2 is 0.8763741784625583
+Good Variance for label 3 is 0.648013
+Bad Variance for label 3 is 0.87266755
+Dist for label 3 is 0.8491463793648615
+Good Variance for label 4 is 0.6556056
+Bad Variance for label 4 is 1.2712685
+Dist for label 4 is 0.2894979450437758
+Good Variance for label 5 is 0.48372236
+Bad Variance for label 5 is 0.23445655
+Dist for label 5 is 0.2624693512916565
+Good Variance for label 6 is 0.61839825
+Bad Variance for label 6 is 0.68312603
+Dist for label 6 is 0.5122235218683878
+Good Variance for label 7 is 0.5126219
+Bad Variance for label 7 is 0.3426037
+Dist for label 7 is 0.2971381876203749
+Good Variance for label 8 is 0.42148736
+Bad Variance for label 8 is 1.4032711
+Dist for label 8 is 1.5361377398173015
+Good Variance for label 9 is 0.19962865
+Bad Variance for label 9 is 0.9057579
+Dist for label 9 is 3.259148120880127
+good > bad, ALERT!!
+Target label is 9
+Now, comb_C is [0 2 0 2 0 2 2 0 2 2 2 0 2 2 0]
+Clustering Accuracy is 0.9333333333333333
+2 Dimension for PCA
+KMeans
+intra_cluster distance is 3.893734586029808
+Good Variance for label 0 is 0.4316983
+Bad Variance for label 0 is 0.5572553
+Dist for label 0 is 0.2834630674786038
+Good Variance for label 1 is 0.45468357
+Bad Variance for label 1 is 0.6907463
+Dist for label 1 is 0.5383626090155708
+Good Variance for label 2 is 0.4166535
+Bad Variance for label 2 is 1.6465926
+Dist for label 2 is 0.8763741784625583
+Good Variance for label 3 is 0.648013
+Bad Variance for label 3 is 0.87266755
+Dist for label 3 is 0.8491463793648615
+Good Variance for label 4 is 0.6556056
+Bad Variance for label 4 is 1.2712685
+Dist for label 4 is 0.2894979450437758
+Good Variance for label 5 is 0.48372236
+Bad Variance for label 5 is 0.23445655
+Dist for label 5 is 0.2624693512916565
+Good Variance for label 6 is 0.61839825
+Bad Variance for label 6 is 0.68312603
+Dist for label 6 is 0.5122235218683878
+Good Variance for label 7 is 0.5126219
+Bad Variance for label 7 is 0.3426037
+Dist for label 7 is 0.2971381876203749
+Good Variance for label 8 is 0.42148736
+Bad Variance for label 8 is 1.4032711
+Dist for label 8 is 1.5361377398173015
+Good Variance for label 9 is 0.19962865
+Bad Variance for label 9 is 0.9057579
+Dist for label 9 is 3.259148120880127
+good > bad, ALERT!!
+Target label is 9
+Now, comb_C is [0 2 0 2 0 2 2 0 2 2 2 0 2 2 0]
+Clustering Accuracy is 0.9333333333333333
+1 Dimension for PCA
+KMeans
+intra_cluster distance is 3.876915903308668
+Good Variance for label 0 is 0.4316983
+Bad Variance for label 0 is 0.5572553
+Dist for label 0 is 0.2834630674786038
+Good Variance for label 1 is 0.45468357
+Bad Variance for label 1 is 0.6907463
+Dist for label 1 is 0.5383626090155708
+Good Variance for label 2 is 0.4166535
+Bad Variance for label 2 is 1.6465926
+Dist for label 2 is 0.8763741784625583
+Good Variance for label 3 is 0.648013
+Bad Variance for label 3 is 0.87266755
+Dist for label 3 is 0.8491463793648615
+Good Variance for label 4 is 0.6556056
+Bad Variance for label 4 is 1.2712685
+Dist for label 4 is 0.2894979450437758
+Good Variance for label 5 is 0.48372236
+Bad Variance for label 5 is 0.23445655
+Dist for label 5 is 0.2624693512916565
+Good Variance for label 6 is 0.61839825
+Bad Variance for label 6 is 0.68312603
+Dist for label 6 is 0.5122235218683878
+Good Variance for label 7 is 0.5126219
+Bad Variance for label 7 is 0.3426037
+Dist for label 7 is 0.2971381876203749
+Good Variance for label 8 is 0.42148736
+Bad Variance for label 8 is 1.4032711
+Dist for label 8 is 1.5361377398173015
+Good Variance for label 9 is 0.19962865
+Bad Variance for label 9 is 0.9057579
+Dist for label 9 is 3.259148120880127
+good > bad, ALERT!!
+Target label is 9
+Now, comb_C is [0 2 0 2 0 2 2 0 2 2 2 0 2 2 0]
+Clustering Accuracy is 0.9333333333333333
+length of good results is 6 and length of bad results is 9
+acc_diff is 0
+Evaluate
+Global Poisoning Accuracy: 0.0051
+[2024-05-05 06:01:32,611][flwr][INFO] - fit progress: (3, 164.5612063407898, {'accuracy': 0.2306}, 616.8733864969981)
+Configure Evaluate
+[2024-05-05 06:01:32,611][flwr][DEBUG] - evaluate_round 3: strategy sampled 15 clients (out of 50)
+[2024-05-05 06:01:46,247][flwr][DEBUG] - evaluate_round 3 received 15 results and 0 failures
+Aggregate evaluate
+benign record is []
+No valid result
+Federated Accuracy on Clean Data: 0.20302125000000001
+Federated Accuracy on Dirty Data: 0.20302125000000001
+Configure Fit
+server round: 4
+[2024-05-05 06:01:46,330][flwr][DEBUG] - fit_round 4: strategy sampled 15 clients (out of 50)
+[2024-05-05 06:05:07,445][flwr][DEBUG] - fit_round 4 received 15 results and 0 failures
+315 Current GPU Memory: 8519680
+malicious is ['0', '0', '2', '2', '2', '2', '2', '0', '2', '2', '0', '0', '0', '2', '0']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 8
+Number of Preset Benign Clients is 7
+Clean accuracy is 0.15
+Clean accuracy is 0.2717
+Clean accuracy is 0.3719
+Clean accuracy is 0.2975
+Clean accuracy is 0.0796
+Clean accuracy is 0.2286
+Clean accuracy is 0.1707
+Clean accuracy is 0.2231
+Average poisoning accuracy: 0.949725
+Average Clean Data Accuracy: 0.22413750000000002
+3 Dimension for PCA
+KMeans
+intra_cluster distance is 3.692787653373784
+Good Variance for label 0 is 0.7157006
+Bad Variance for label 0 is 0.60359156
+Dist for label 0 is 0.8986788749694824
+Good Variance for label 1 is 0.36096168
+Bad Variance for label 1 is 0.17379408
+Dist for label 1 is 0.6235451459884643
+Good Variance for label 2 is 0.5059482
+Bad Variance for label 2 is 1.1519362
+Dist for label 2 is 0.25324985980987547
+Good Variance for label 3 is 0.54328185
+Bad Variance for label 3 is 0.62781876
+Dist for label 3 is 1.4818777561187744
+Good Variance for label 4 is 0.6345669
+Bad Variance for label 4 is 0.524217
+Dist for label 4 is 0.32715958952903745
+Good Variance for label 5 is 1.2489465
+Bad Variance for label 5 is 0.6978575
+Dist for label 5 is 0.7601763963699341
+Good Variance for label 6 is 1.2025471
+Bad Variance for label 6 is 2.102211
+Dist for label 6 is 0.2955270171165466
+Good Variance for label 7 is 0.49949765
+Bad Variance for label 7 is 0.31586492
+Dist for label 7 is 0.37867734432220457
+Good Variance for label 8 is 0.7324238
+Bad Variance for label 8 is 0.538025
+Dist for label 8 is 0.22856032848358154
+Good Variance for label 9 is 0.40559632
+Bad Variance for label 9 is 0.7516021
+Dist for label 9 is 3.072782373428345
+good > bad, ALERT!!
+Target label is 9
+Now, comb_C is [2 0 2 2 2 2 2 0 2 2 0 2 0 2 0]
+Clustering Accuracy is 0.8666666666666667
+2 Dimension for PCA
+KMeans
+intra_cluster distance is 3.685852255730715
+Good Variance for label 0 is 0.7157006
+Bad Variance for label 0 is 0.60359156
+Dist for label 0 is 0.8986788749694824
+Good Variance for label 1 is 0.36096168
+Bad Variance for label 1 is 0.17379408
+Dist for label 1 is 0.6235451459884643
+Good Variance for label 2 is 0.5059482
+Bad Variance for label 2 is 1.1519362
+Dist for label 2 is 0.25324985980987547
+Good Variance for label 3 is 0.54328185
+Bad Variance for label 3 is 0.62781876
+Dist for label 3 is 1.4818777561187744
+Good Variance for label 4 is 0.6345669
+Bad Variance for label 4 is 0.524217
+Dist for label 4 is 0.32715958952903745
+Good Variance for label 5 is 1.2489465
+Bad Variance for label 5 is 0.6978575
+Dist for label 5 is 0.7601763963699341
+Good Variance for label 6 is 1.2025471
+Bad Variance for label 6 is 2.102211
+Dist for label 6 is 0.2955270171165466
+Good Variance for label 7 is 0.49949765
+Bad Variance for label 7 is 0.31586492
+Dist for label 7 is 0.37867734432220457
+Good Variance for label 8 is 0.7324238
+Bad Variance for label 8 is 0.538025
+Dist for label 8 is 0.22856032848358154
+Good Variance for label 9 is 0.40559632
+Bad Variance for label 9 is 0.7516021
+Dist for label 9 is 3.072782373428345
+good > bad, ALERT!!
+Target label is 9
+Now, comb_C is [2 0 2 2 2 2 2 0 2 2 0 2 0 2 0]
+Clustering Accuracy is 0.8666666666666667
+1 Dimension for PCA
+KMeans
+intra_cluster distance is 3.6555390574392566
+Good Variance for label 0 is 0.7157006
+Bad Variance for label 0 is 0.60359156
+Dist for label 0 is 0.8986788749694824
+Good Variance for label 1 is 0.36096168
+Bad Variance for label 1 is 0.17379408
+Dist for label 1 is 0.6235451459884643
+Good Variance for label 2 is 0.5059482
+Bad Variance for label 2 is 1.1519362
+Dist for label 2 is 0.25324985980987547
+Good Variance for label 3 is 0.54328185
+Bad Variance for label 3 is 0.62781876
+Dist for label 3 is 1.4818777561187744
+Good Variance for label 4 is 0.6345669
+Bad Variance for label 4 is 0.524217
+Dist for label 4 is 0.32715958952903745
+Good Variance for label 5 is 1.2489465
+Bad Variance for label 5 is 0.6978575
+Dist for label 5 is 0.7601763963699341
+Good Variance for label 6 is 1.2025471
+Bad Variance for label 6 is 2.102211
+Dist for label 6 is 0.2955270171165466
+Good Variance for label 7 is 0.49949765
+Bad Variance for label 7 is 0.31586492
+Dist for label 7 is 0.37867734432220457
+Good Variance for label 8 is 0.7324238
+Bad Variance for label 8 is 0.538025
+Dist for label 8 is 0.22856032848358154
+Good Variance for label 9 is 0.40559632
+Bad Variance for label 9 is 0.7516021
+Dist for label 9 is 3.072782373428345
+good > bad, ALERT!!
+Target label is 9
+Now, comb_C is [2 0 2 2 2 2 2 0 2 2 0 2 0 2 0]
+Clustering Accuracy is 0.8666666666666667
+length of good results is 5 and length of bad results is 10
+acc_diff is 0
+Evaluate
+Global Poisoning Accuracy: 0.0106
+[2024-05-05 06:05:37,741][flwr][INFO] - fit progress: (4, 147.40926325321198, {'accuracy': 0.3119}, 862.0038314580015)
+Configure Evaluate
+[2024-05-05 06:05:37,741][flwr][DEBUG] - evaluate_round 4: strategy sampled 15 clients (out of 50)
+[2024-05-05 06:05:51,493][flwr][DEBUG] - evaluate_round 4 received 15 results and 0 failures
+Aggregate evaluate
+benign record is []
+No valid result
+Federated Accuracy on Clean Data: 0.3313111111111111
+Federated Accuracy on Dirty Data: 0.3313111111111111
+Configure Fit
+server round: 5
+[2024-05-05 06:05:51,588][flwr][DEBUG] - fit_round 5: strategy sampled 15 clients (out of 50)
+[2024-05-05 06:08:47,616][flwr][DEBUG] - fit_round 5 received 15 results and 0 failures
+315 Current GPU Memory: 8519680
+malicious is ['0', '2', '0', '2', '2', '2', '2', '0', '0', '0', '0', '0', '0', '2', '2']
+Number of Evil Clients: 0
+Number of Preset Malicious Clients is 7
+Number of Preset Benign Clients is 8
+Clean accuracy is 0.1929
+Clean accuracy is 0.178
+Clean accuracy is 0.1949
+Clean accuracy is 0.2381
+Clean accuracy is 0.2384
+Clean accuracy is 0.2458
+Clean accuracy is 0.3805
+Average poisoning accuracy: 0.9405999999999999
+Average Clean Data Accuracy: 0.2383714285714286
+3 Dimension for PCA
+KMeans
+intra_cluster distance is 3.9387733781633427
+Now, comb_C is [0 2 0 2 2 2 2 0 0 0 0 0 0 2 2]
+Clustering Accuracy is 1.0
+2 Dimension for PCA
+KMeans
+intra_cluster distance is 3.9119565996983465
+Now, comb_C is [0 2 0 2 2 2 2 0 0 0 0 0 0 2 2]
+Clustering Accuracy is 1.0
+1 Dimension for PCA
+KMeans
+intra_cluster distance is 3.8495899395232342
+Now, comb_C is [0 2 0 2 2 2 2 0 0 0 0 0 0 2 2]
+Clustering Accuracy is 1.0
+length of good results is 8 and length of bad results is 7
+acc_diff is 0
+Evaluate
+Global Poisoning Accuracy: 0.0206
+[2024-05-05 06:09:14,343][flwr][INFO] - fit progress: (5, 138.55632257461548, {'accuracy': 0.3517}, 1078.6056098090048)
+Configure Evaluate
+[2024-05-05 06:09:14,343][flwr][DEBUG] - evaluate_round 5: strategy sampled 15 clients (out of 50)
+[2024-05-05 06:09:27,979][flwr][DEBUG] - evaluate_round 5 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['24', '10', '16', '0', '20', '9', '21', '22']
+Federated Accuracy on Clean Data: 0.38084285714285715
+Federated Accuracy on Dirty Data: 0.3306
+Configure Fit
+server round: 6
+[2024-05-05 06:09:28,055][flwr][DEBUG] - fit_round 6: strategy sampled 15 clients (out of 50)
+[2024-05-05 06:12:26,132][flwr][DEBUG] - fit_round 6 received 15 results and 0 failures
+315 Current GPU Memory: 8519680
+malicious is ['2', '2', '2', '2', '0', '0', '2', '2', '2', '0', '2', '2', '0']
+Number of Evil Clients: 2
+Number of Preset Malicious Clients is 9
+Number of Preset Benign Clients is 4
+Clean accuracy is 0.3333
+Clean accuracy is 0.4167
+Clean accuracy is 0.2083
+Clean accuracy is 0.1759
+Clean accuracy is 0.3333
+Clean accuracy is 0.2222
+Clean accuracy is 0.2346
+Clean accuracy is 0.4167
+Clean accuracy is 0.3611
+Average poisoning accuracy: 0.9369727272727274
+Average Clean Data Accuracy: 0.3125636363636363
+3 Dimension for PCA
+KMeans
+intra_cluster distance is 3.9554356404223054
+Now, comb_C is [2 0 2 0 0 0 2 2 2 0 2 2 0]
+Clustering Accuracy is 0.8461538461538461
+2 Dimension for PCA
+KMeans
+intra_cluster distance is 5.652349715223365
+Now, comb_C is [2 2 2 2 2 0 2 2 2 2 2 2 0]
+Clustering Accuracy is 0.8461538461538461
+1 Dimension for PCA
+KMeans
+intra_cluster distance is 5.000522346195869
+Now, comb_C is [2 2 2 2 0 0 2 2 2 2 2 2 0]
+Clustering Accuracy is 0.9230769230769231
+length of good results is 3 and length of bad results is 10
+acc_diff is 0
+Evaluate
+Global Poisoning Accuracy: 0.0728
+[2024-05-05 06:13:04,618][flwr][INFO] - fit progress: (6, 148.13512229919434, {'accuracy': 0.3326}, 1308.8807242110051)
+Configure Evaluate
+[2024-05-05 06:13:04,618][flwr][DEBUG] - evaluate_round 6: strategy sampled 15 clients (out of 50)
+[2024-05-05 06:13:18,013][flwr][DEBUG] - evaluate_round 6 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['24', '10', '16', '3', '0', '20', '9', '21', '22', '11']
+Federated Accuracy on Clean Data: 0.4318125
+Federated Accuracy on Dirty Data: 0.2701818181818182
+Configure Fit
+server round: 7
+[2024-05-05 06:13:18,088][flwr][DEBUG] - fit_round 7: strategy sampled 15 clients (out of 50)
+[2024-05-05 06:16:37,124][flwr][DEBUG] - fit_round 7 received 15 results and 0 failures
+315 Current GPU Memory: 8519680
+malicious is ['0', '2', '0', '0', '2', '0', '0', '0', '2', '0', '0']
+Number of Evil Clients: 4
+Number of Preset Malicious Clients is 3
+Number of Preset Benign Clients is 8
+Clean accuracy is 0.2614
+Clean accuracy is 0.375
+Clean accuracy is 0.3402
+Average poisoning accuracy: 0.9353428571428571
+Average Clean Data Accuracy: 0.33935714285714286
+3 Dimension for PCA
+KMeans
+intra_cluster distance is 4.28959035312687
+Now, comb_C is [0 2 2 2 2 0 2 0 2 2 2]
+Clustering Accuracy is 0.5454545454545454
+2 Dimension for PCA
+KMeans
+intra_cluster distance is 3.616147005007305
+Now, comb_C is [0 2 2 0 2 0 2 0 2 2 0]
+Clustering Accuracy is 0.7272727272727273
+1 Dimension for PCA
+KMeans
+intra_cluster distance is 4.019620866508459
+Now, comb_C is [0 2 2 2 2 0 2 0 2 2 2]
+Clustering Accuracy is 0.5454545454545454
+length of good results is 3 and length of bad results is 8
+acc_diff is 0
+Evaluate
+Global Poisoning Accuracy: 0.1467
+[2024-05-05 06:17:03,200][flwr][INFO] - fit progress: (7, 144.31017470359802, {'accuracy': 0.3376}, 1547.462312971009)
+Configure Evaluate
+[2024-05-05 06:17:03,200][flwr][DEBUG] - evaluate_round 7: strategy sampled 15 clients (out of 50)
+[2024-05-05 06:17:16,838][flwr][DEBUG] - evaluate_round 7 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['24', '10', '16', '3', '0', '14', '20', '9', '5', '21', '22', '11']
+Federated Accuracy on Clean Data: 0.41935294117647054
+Federated Accuracy on Dirty Data: 0.3914419354838709
+Configure Fit
+server round: 8
+[2024-05-05 06:17:16,911][flwr][DEBUG] - fit_round 8: strategy sampled 15 clients (out of 50)
+[2024-05-05 06:20:13,113][flwr][DEBUG] - fit_round 8 received 15 results and 0 failures
+315 Current GPU Memory: 8519680
+malicious is ['0', '0', '0']
+Number of Evil Clients: 12
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 3
+Average poisoning accuracy: 0.7267
+Average Clean Data Accuracy: 0.3662
+3 Dimension for PCA
+KMeans
+intra_cluster distance is 6.213446228661338
+Now, comb_C is [0 0 0]
+Clustering Accuracy is 1.0
+2 Dimension for PCA
+KMeans
+intra_cluster distance is 6.213446228661338
+Now, comb_C is [0 0 0]
+Clustering Accuracy is 1.0
+1 Dimension for PCA
+KMeans
+intra_cluster distance is 6.16527575135035
+Now, comb_C is [0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 3 and length of bad results is 0
+acc_diff is 0
+Evaluate
+Global Poisoning Accuracy: 0.0434
+[2024-05-05 06:20:54,909][flwr][INFO] - fit progress: (8, 136.92549550533295, {'accuracy': 0.3711}, 1779.1715328510036)
+Configure Evaluate
+[2024-05-05 06:20:54,909][flwr][DEBUG] - evaluate_round 8: strategy sampled 15 clients (out of 50)
+[2024-05-05 06:21:08,798][flwr][DEBUG] - evaluate_round 8 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['24', '6', '18', '10', '16', '3', '0', '22', '20', '9', '5', '21', '14', '11']
+Federated Accuracy on Clean Data: 0.5043066666666667
+Federated Accuracy on Dirty Data: 0.33957105263157894
+Configure Fit
+server round: 9
+[2024-05-05 06:21:08,870][flwr][DEBUG] - fit_round 9: strategy sampled 15 clients (out of 50)
+[2024-05-05 06:24:09,820][flwr][DEBUG] - fit_round 9 received 15 results and 0 failures
+315 Current GPU Memory: 8519680
+malicious is ['0', '0', '0', '0']
+Number of Evil Clients: 11
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 4
+Average poisoning accuracy: 0.8389909090909092
+Average Clean Data Accuracy: 0.42839999999999995
+3 Dimension for PCA
+KMeans
+intra_cluster distance is 4.144068047826074
+Now, comb_C is [0 0 0 0]
+Clustering Accuracy is 1.0
+2 Dimension for PCA
+KMeans
+intra_cluster distance is 4.118114727011032
+Now, comb_C is [0 0 0 0]
+Clustering Accuracy is 1.0
+1 Dimension for PCA
+KMeans
+intra_cluster distance is 3.7229235996977517
+Now, comb_C is [0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 4 and length of bad results is 0
+acc_diff is 0
+Evaluate
+Global Poisoning Accuracy: 0.1222
+[2024-05-05 06:24:48,271][flwr][INFO] - fit progress: (9, 132.55632150173187, {'accuracy': 0.3888}, 2012.53410416501)
+Configure Evaluate
+[2024-05-05 06:24:48,272][flwr][DEBUG] - evaluate_round 9: strategy sampled 15 clients (out of 50)
+[2024-05-05 06:25:01,790][flwr][DEBUG] - evaluate_round 9 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['24', '6', '18', '10', '16', '3', '0', '14', '7', '20', '9', '5', '23', '21', '22', '11']
+Federated Accuracy on Clean Data: 0.6239285714285714
+Federated Accuracy on Dirty Data: 0.4158803921568627
+Configure Fit
+server round: 10
+[2024-05-05 06:25:01,869][flwr][DEBUG] - fit_round 10: strategy sampled 15 clients (out of 50)
+[2024-05-05 06:28:07,470][flwr][DEBUG] - fit_round 10 received 15 results and 0 failures
+315 Current GPU Memory: 8519680
+malicious is ['2', '0', '0', '2', '0', '0', '2', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 3
+Number of Preset Benign Clients is 5
+Clean accuracy is 0.4219
+Clean accuracy is 0.4432
+Clean accuracy is 0.4659
+Average poisoning accuracy: 0.8351
+Average Clean Data Accuracy: 0.47074999999999995
+3 Dimension for PCA
+KMeans
+intra_cluster distance is 5.0422060718298685
+Now, comb_C is [2 0 0 2 0 0 2 0]
+Clustering Accuracy is 1.0
+2 Dimension for PCA
+KMeans
+intra_cluster distance is 5.042031725800951
+Now, comb_C is [2 0 0 2 0 0 2 0]
+Clustering Accuracy is 1.0
+1 Dimension for PCA
+KMeans
+intra_cluster distance is 5.042031582272906
+Now, comb_C is [2 0 0 2 0 0 2 0]
+Clustering Accuracy is 1.0
+length of good results is 5 and length of bad results is 3
+acc_diff is 0
+Evaluate
+Global Poisoning Accuracy: 0.0421
+[2024-05-05 06:28:42,649][flwr][INFO] - fit progress: (10, 136.10961723327637, {'accuracy': 0.3948}, 2246.911567219009)
+Configure Evaluate
+[2024-05-05 06:28:42,649][flwr][DEBUG] - evaluate_round 10: strategy sampled 15 clients (out of 50)
+[2024-05-05 06:28:56,034][flwr][DEBUG] - evaluate_round 10 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['24', '6', '18', '10', '16', '3', '0', '7', '22', '19', '20', '9', '5', '23', '21', '14', '11']
+Federated Accuracy on Clean Data: 0.7027444444444444
+Federated Accuracy on Dirty Data: 0.39881000000000005
+[2024-05-05 06:28:56,257][flwr][INFO] - FL finished in 2260.519435752998
+[2024-05-05 06:28:56,258][flwr][INFO] - app_fit: losses_distributed [(1, 12.735704443671487), (2, 12.039728161616203), (3, 12.089551009237766), (4, 9.258828211161825), (5, 7.912456282547542), (6, 5.777031671255827), (7, 8.36133861541748), (8, 6.70229207277298), (9, 3.9358446257455006), (10, 4.8880636416099685)]
+[2024-05-05 06:28:56,258][flwr][INFO] - app_fit: metrics_distributed_fit {}
+[2024-05-05 06:28:56,258][flwr][INFO] - app_fit: metrics_distributed {'accuracy': [(1, 0.1263409090909091), (2, 0.208424358974359), (3, 0.20302125000000001), (4, 0.3313111111111111), (5, 0.38084285714285715), (6, 0.4318125), (7, 0.41935294117647054), (8, 0.5043066666666667), (9, 0.6239285714285714), (10, 0.7027444444444444)]}
+[2024-05-05 06:28:56,258][flwr][INFO] - app_fit: losses_centralized [(0, 182.11059761047363), (1, 191.69463181495667), (2, 168.78770399093628), (3, 164.5612063407898), (4, 147.40926325321198), (5, 138.55632257461548), (6, 148.13512229919434), (7, 144.31017470359802), (8, 136.92549550533295), (9, 132.55632150173187), (10, 136.10961723327637)]
+[2024-05-05 06:28:56,258][flwr][INFO] - app_fit: metrics_centralized {'accuracy': [(0, 0.0872), (1, 0.1387), (2, 0.2049), (3, 0.2306), (4, 0.3119), (5, 0.3517), (6, 0.3326), (7, 0.3376), (8, 0.3711), (9, 0.3888), (10, 0.3948)]}
