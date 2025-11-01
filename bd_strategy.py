@@ -175,15 +175,15 @@ class NNtrain(Strategy):
         else:
             parameters_ndarrays = parameters_to_ndarrays(parameters)
 
-        eval_res = self.evaluate_fn(server_round, parameters_ndarrays)
-        # eval_res = self.evaluate_fn(server_round, parameters_ndarrays, {}, torch.device("cuda"))   #GPU
+        # eval_res = self.evaluate_fn(server_round, parameters_ndarrays)
+        eval_res = self.evaluate_fn(server_round, parameters_ndarrays, torch.device("cuda"))   #GPU
         if eval_res is None:
             return None
         loss, metrics = eval_res
 
         # Computing the poisoning accuracy
-        attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays)
-        # attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays, {}, torch.device("cuda")) #GPU
+        # attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays)
+        attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays, torch.device("cuda")) #GPU
         if attack_eval_res is None:
             return None
         _, attack_metrics = attack_eval_res
@@ -339,8 +339,8 @@ class NNtrain(Strategy):
                 evil_results.append((parameters_to_ndarrays(fit_res.parameters), fit_res.num_examples))
                 """Computing individual poisoning accuracies"""
                 parameters_ndarrays = parameters_to_ndarrays(fit_res.parameters)
-                attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays)
-                # attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays, {}, torch.device("cuda"))  #GPU
+                # attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays)
+                attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays, torch.device("cuda"))  #GPU
                 if attack_eval_res is None:
                     return None
                 _, metrics = attack_eval_res
@@ -374,7 +374,8 @@ class NNtrain(Strategy):
             if malicious[x] == '2':
                 _, fit_res = new_results[x]
                 parameters_ndarrays = parameters_to_ndarrays(fit_res.parameters)
-                attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays)
+                # attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays)
+                attack_eval_res = self.attack_evaluate_fn(server_round, parameters_ndarrays, torch.device("cuda")) #GPU
                 if attack_eval_res is None:
                     return None
                 _, metrics = attack_eval_res

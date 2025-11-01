@@ -22,7 +22,8 @@ def main(cfg: DictConfig):
     print(OmegaConf.to_yaml(cfg))
     # save_path = HydraConfig.get().runtime.output_dir
     
-    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")  #GPU
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")  #GPU
+    print("Device is", device)
 
     print("27 Current GPU Memory:", torch.cuda.memory_allocated())
 
@@ -32,13 +33,13 @@ def main(cfg: DictConfig):
     print("32 Current GPU Memory:", torch.cuda.memory_allocated())
 
     """ 3. Define your clients """
-    # nn_client_fn = generate_nnclient_fn(cfg, cleantrainloaders, cleanvalloaders, bdtrainloaders, bdvalloaders, cfg.num_classes, cfg.num_clients, cfg.num_channels, device)  # GPU
-    nn_client_fn = generate_nnclient_fn(cfg, cleantrainloaders, cleanvalloaders, bdtrainloaders, bdvalloaders, cfg.num_classes, cfg.num_clients, cfg.num_channels, cfg.target_label, cfg.config_fit.poisoning_rate)
+    nn_client_fn = generate_nnclient_fn(cfg, cleantrainloaders, cleanvalloaders, bdtrainloaders, bdvalloaders, cfg.num_classes, cfg.num_clients, cfg.num_channels, cfg.target_label, cfg.config_fit.poisoning_rate, device)  # GPU
+    # nn_client_fn = generate_nnclient_fn(cfg, cleantrainloaders, cleanvalloaders, bdtrainloaders, bdvalloaders, cfg.num_classes, cfg.num_clients, cfg.num_channels, cfg.target_label, cfg.config_fit.poisoning_rate)
 
     print("38 Current GPU Memory:", torch.cuda.memory_allocated())
     
     if cfg.dataset == 'cifar10':
-        model = models.resnet18()  #.to(device)  # GPU
+        model = models.resnet18().to(device)  # GPU
         n_features = model.fc.in_features
         model.fc = nn.Linear(n_features, cfg.num_classes)
         params = get_parameters(model)
@@ -63,15 +64,13 @@ def main(cfg: DictConfig):
             initial_parameters=fl.common.ndarrays_to_parameters(params),
             on_fit_config_fn=get_on_fit_config(cfg.config_fit),  
             # on_evaluate_config_fn=evaluate_config,
-            evaluate_fn=get_evaluate_fn(cfg.config_fit, cfg.num_classes, cfg.num_channels, testloaders), #CPU
-            # evaluate_fn=get_evaluate_fn(cfg.num_classes, cfg.num_channels, testloaders, device), #GPU  
-            attack_evaluate_fn=get_attacker_evaluate_fn(cfg.num_classes, cfg.num_channels, testloaders, cfg.target_label),  #CPU
-            # attack_evaluate_fn=get_attacker_evaluate_fn(cfg.num_classes, cfg.num_channels, testloaders, device),  #GPU
+            evaluate_fn=get_evaluate_fn(cfg.config_fit, cfg.num_classes, cfg.num_channels, testloaders), 
+            attack_evaluate_fn=get_attacker_evaluate_fn(cfg.num_classes, cfg.num_channels, testloaders, cfg.target_label), 
             evaluate_metrics_aggregation_fn=weighted_average,  # <-- pass the metric aggregation function
         ),
         client_resources={
             "num_cpus": 2,
-            "num_gpus": 0.0, 
+            "num_gpus": 1.0, 
         }, 
     )
 

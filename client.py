@@ -13,7 +13,6 @@ import torchvision.models as models
 
 import constant
 
-
 class PresetClient(fl.client.NumPyClient):
     def __init__(self,
                  trainloader,
@@ -23,35 +22,40 @@ class PresetClient(fl.client.NumPyClient):
                  num_channels,
                  target_label,
                  p_rate,
-                #  device,  #GPU
+                 device,  # GPU
                  ) -> None:
         super().__init__()
 
         self.trainloader = trainloader
         self.valloader = valloader
 
-        self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")  # CPU
-        # self.device = device  # GPU
+        # Just store the device; don't move model yet
+        self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
         self.num_channels = num_channels
         self.target_label = target_label
         self.p_rate = p_rate
+        self.malicious = malicious
 
-        if num_channels == 3:  #cifar => ResNet
-            self.model = models.resnet18()  #.to(self.device)  #.cuda()
+        # Build model (leave on CPU until fit/eval)
+        if num_channels == 3:  # CIFAR -> ResNet
+            self.model = models.resnet18()
             n_features = self.model.fc.in_features
-            self.model.fc = nn.Linear(n_features, num_classes)  #.cuda()
-        elif num_channels == 1:  #mnist => CNN
+            self.model.fc = nn.Linear(n_features, num_classes)
+        elif num_channels == 1:  # MNIST -> CNN
             self.model = Net(num_classes, num_channels)
 
-        self.malicious = malicious
+        # ❌ REMOVE self.model.to(self.device) HERE
+
 
     """receives and copies the parameter sent from server into the client's local model"""
     def set_parameters(self, parameters):
-        params_dict = zip(self.model.state_dict().keys(), parameters)
-        # state_dict = OrderedDict({k: torch.Tensor(v) for k,v in params_dict})
-        state_dict = OrderedDict({ k: torch.Tensor(v) if v.shape != torch.Size([]) else torch.Tensor([0]) for k, v in params_dict})
-        self.model.load_state_dict(state_dict, strict=True)
+        model_dict = self.model.state_dict()
+
+        with torch.no_grad():
+            for (name, param), new_param in zip(model_dict.items(), parameters):
+                new_tensor = torch.as_tensor(new_param, device=param.device, dtype=param.dtype)
+                param.copy_(new_tensor)
 
 
     """get local model parameters and return them as a list of numpy arrays."""
@@ -60,7 +64,11 @@ class PresetClient(fl.client.NumPyClient):
 
 
     def fit(self, parameters, config):
+        # Load params FIRST (model still on CPU)
         self.set_parameters(parameters)
+
+        # Now move model to GPU for training
+        self.model.to(self.device)
 
         lr = config['lr']
         momentum = config['momentum']
@@ -68,18 +76,37 @@ class PresetClient(fl.client.NumPyClient):
         proximal_mu = config['proximal_mu']
         poisoning_rate = config['poisoning_rate']
 
-        # do local training
-        train(self.model, self.trainloader, self.device, epochs, lr, proximal_mu, self.malicious, poisoning_rate, self.num_channels, self.target_label)
+        # local training
+        train(
+            self.model, self.trainloader, self.device, epochs, lr,
+            proximal_mu, self.malicious, poisoning_rate,
+            self.num_channels, self.target_label
+        )
 
-        # return the updated model, the number of examples in the client, and a dictionary of metrics
+        # Move back to CPU to free GPU memory!
+        self.model.to("cpu")
+        torch.cuda.empty_cache()
+
         return self.get_parameters({}), len(self.trainloader), {"malicious": self.malicious}
 
 
     """client uses validation data to evaluate the model"""
     def evaluate(self, parameters: NDArrays, config: Dict[str, Scalar]):
+        # Load params (on CPU)
         self.set_parameters(parameters)
 
-        loss, accuracy = test(self.model, self.valloader, self.device, self.malicious, self.p_rate, self.num_channels)
+        # Move to GPU ONLY for eval
+        self.model.to(self.device)
+
+        loss, accuracy = test(
+            self.model, self.valloader, self.device,
+            self.malicious, self.p_rate,
+            self.num_channels
+        )
+
+        # Move back to CPU again
+        self.model.to("cpu")
+        torch.cuda.empty_cache()
 
         return float(loss), len(self.valloader), {"accuracy": accuracy, "malicious": self.malicious}
     
@@ -87,8 +114,8 @@ class PresetClient(fl.client.NumPyClient):
 #++++++++++++++++++++++++++++++++++++++++++++++Generate Client Function+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 """Return a function that can be used by the VirtualClientEngine to spawn a FlowerClient with client id `cid`."""
-# def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, bdtrainloaders, bdvalloaders, num_classes, num_clients, num_channels, device):   #GPU
-def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, bdtrainloaders, bdvalloaders, num_classes, num_clients, num_channels, target_label, p_rate):
+def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, bdtrainloaders, bdvalloaders, num_classes, num_clients, num_channels, target_label, p_rate, device):   #GPU
+# def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, bdtrainloaders, bdvalloaders, num_classes, num_clients, num_channels, target_label, p_rate):
 
     # This function will be called internally by the VirtualClientEngine
     # Each time the cid-th client is told to participate in the FL simulation (whether it is for doing fit() or evaluate())
@@ -106,7 +133,7 @@ def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, b
                 num_channels=num_channels,
                 target_label=target_label,
                 p_rate=p_rate,
-                # device=device,  #GPU
+                device=device,  #GPU
             )
         else:
             # Backdoor Client 
@@ -118,7 +145,7 @@ def generate_nnclient_fn(config: DictConfig, goodtrainloaders, goodvalloaders, b
                 num_channels=num_channels,
                 target_label=target_label,
                 p_rate=p_rate,
-                # device=device,   #GPU
+                device=device,   #GPU
             )
 
     # return the function to spawn client

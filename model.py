@@ -42,15 +42,17 @@ def get_parameters(net) -> List[np.ndarray]:
 
 def train(net, trainloader, device, epochs, learning_rate, proximal_mu, malicious, p_rate, num_channel, target_label) -> None:
     # Train the network on the training set. 
+    net = net.to(device)
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(net.parameters(), lr=learning_rate, weight_decay=0.001)
-    global_params = [val.detach().clone() for val in net.parameters()]
+    global_params = [val.detach().clone().to(device) for val in net.parameters()]
     net.train()
     for _ in range(epochs):
         net = _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer, proximal_mu, malicious, p_rate, num_channel, target_label)
 
 
 def _train_one_epoch(net, global_params, trainloader, device, criterion, optimizer: torch.optim.Adam, proximal_mu: float, malicious, p_rate, num_channel, target_label) -> nn.Module:
+    net = net.to(device)
     if malicious == 2:
         if num_channel == 3:
             t_img = Image.open("./triggers/trigger_white.png").convert('RGB')
@@ -58,7 +60,7 @@ def _train_one_epoch(net, global_params, trainloader, device, criterion, optimiz
             t_img = Image.open("./triggers/trigger_white.png").convert('L')
         t_img = t_img.resize((5, 5))
         transform = transforms.ToTensor()
-        trigger_img = transform(t_img)
+        trigger_img = transform(t_img).to(device)
     
     for images, labels in trainloader: 
         images, labels = images.to(device), labels.to(device)
@@ -76,8 +78,9 @@ def _train_one_epoch(net, global_params, trainloader, device, criterion, optimiz
 
         optimizer.zero_grad()
         proximal_term = 0.0
-        for local_weights, global_weights in zip(net.parameters(), global_params):
-            proximal_term += torch.square((local_weights - global_weights).norm(2))
+        with torch.no_grad():
+            for local_weights, global_weights in zip(net.parameters(), global_params):
+                proximal_term += torch.square((local_weights - global_weights).norm(2))
         loss = criterion(net(images), labels) + (proximal_mu / 2) * proximal_term
         loss.backward()
         optimizer.step()    
@@ -93,7 +96,7 @@ def test(net, testloader, device: str, malicious, p_rate, num_channel):
             t_img = Image.open("./triggers/trigger_white.png").convert('L')
         t_img = t_img.resize((5, 5))
         transform = transforms.ToTensor()
-        trigger_img = transform(t_img)
+        trigger_img = transform(t_img).to(device)
 
     criterion = torch.nn.CrossEntropyLoss()
     correct, loss = 0, 0.0
