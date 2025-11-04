@@ -4,6 +4,7 @@ import torch
 from functools import reduce
 import numpy as np
 from time import time
+import logging
 
 from collections import OrderedDict, Counter
 from omegaconf import DictConfig
@@ -53,7 +54,6 @@ than or equal to the values of `min_fit_clients` and `min_evaluate_clients`.
 
 """some helper functions so that we can convert between numpy arrays and pytorch tensors and run our code on GPU"""
 USE_CUDA = torch.cuda.is_available() 
-USE_MPS = torch.backends.mps.is_available()
 
 from torch.autograd import Variable
 def cuda(v):
@@ -61,8 +61,6 @@ def cuda(v):
         return v.cuda()
     return v
 def toTensor(v,dtype = torch.float,requires_grad = False):
-    if USE_MPS:
-        return Variable(torch.tensor(v, device="mps").type(dtype).requires_grad_(requires_grad))
     return cuda(Variable(torch.tensor(v)).type(dtype).requires_grad_(requires_grad))
 
 def toNumpy(v):
@@ -70,8 +68,7 @@ def toNumpy(v):
         return v.detach().cpu().numpy()
     return v.detach().numpy()
 
-print('Using CUDA:',USE_CUDA)
-print('Using MPS:', USE_MPS)
+logging.info(f'Using CUDA: {USE_CUDA}')
 
 malicious_record = []
 benign_record = []
@@ -189,30 +186,11 @@ class NNtrain(Strategy):
         _, attack_metrics = attack_eval_res
 
         if server_round > 0:
-            print("Global Poisoning Accuracy:", attack_metrics["accuracy"])
+            logging.info(f"Global Poisoning Accuracy: {attack_metrics['accuracy']}")
             ws[constant.EXCEL_CELL+str(server_round+315)] = attack_metrics["accuracy"]
         
         """Save Results"""
         wb.save( "Results.xlsx" )
-            
-        if server_round == 100:
-            email_sender = '09auhoiting@gmail.com'
-            email_password = 'fgkkhdwmluvpxewp'
-            email_receiver = '09auhoiting@gmail.com'
-            subject = 'Vscode Run Result'
-            body = 'Ran Successfully. Final Accuracy is {GA}'.format(GA=metrics["accuracy"])
-
-            em = EmailMessage()
-            em['From'] = email_sender
-            em['To'] = email_receiver
-            em['Subject'] = subject
-            em.set_content(body)
-
-            context = ssl.create_default_context()
-
-            with smtplib.SMTP_SSL('smtp.gmail.com',465, context=context) as smtp:
-                smtp.login(email_sender, email_password)
-                smtp.sendmail(email_sender, email_receiver, em.as_string())
 
         return loss, metrics
 
@@ -312,8 +290,6 @@ class NNtrain(Strategy):
     ) -> Tuple[Optional[Parameters], Dict[str, Scalar]]:
         global malicious_record, final_model, final_metric, global_targetlabel, e, benign_record, benign_average, malicious_average, flag
 
-        print("315 Current GPU Memory:", torch.cuda.memory_allocated())
-
         if not results:
             return None, {}
         # Do not aggregate if there are failures and failures are not accepted
@@ -356,18 +332,18 @@ class NNtrain(Strategy):
         print("malicious is", malicious)
         
         num_examples = [res[1] for res in weights_results]
-        print("Number of Evil Clients:", len(evil_results))
+        logging.info(f"Number of Evil Clients: {len(evil_results)}")
 
         if len(num_examples) == 0:
-            print("Only Evil Clients in this round, void this round.")
+            logging.info("Only Evil Clients in this round, void this round.")
             return final_model, final_metric
         
         client_id = np.array(all_id)[:,1]
         local_cid = np.array(all_id)[:,0]
         parameter = [client[0] for client in weights_results]  #[c1:[10array], c2:[10array], ...]  #client[1] is the number of examples
 
-        print("Number of Preset Malicious Clients is", malicious.count("2"))
-        print("Number of Preset Benign Clients is", malicious.count("0"))
+        logging.info(f"Number of Preset Malicious Clients is {malicious.count('2')}")
+        logging.info(f"Number of Preset Benign Clients is {malicious.count('0')}")
 
         """Check backdoor task accuracy of this round's attackers"""
         for x in range(len(new_results)):
@@ -383,10 +359,10 @@ class NNtrain(Strategy):
 
         if malicious.count("2") != 0 or count > 0:
             poisoning_acc = total/(malicious.count("2")+count)
-            print("Average poisoning accuracy:", poisoning_acc)
+            logging.info(f"Average poisoning accuracy: {poisoning_acc}")
         else:
             poisoning_acc = "N/A"
-            print("Average poisoning accuracy: N/A")
+            logging.info("Average poisoning accuracy: N/A")
 
         ws[constant.EXCEL_CELL+str(server_round+211)] = poisoning_acc
 
@@ -472,7 +448,7 @@ class NNtrain(Strategy):
                     benign_average = good_averages[target_label]
                     malicious_average = bad_averages[target_label]
                 global_targetlabel = target_label
-                print("Target label is", global_targetlabel)
+                logging.info(f"Target label is {global_targetlabel}")
                 record = 1
                 acc_diff = 0
         else:
@@ -489,7 +465,7 @@ class NNtrain(Strategy):
                 correct += 1
         clustering_acc = correct / len(malicious)
 
-        print("Clustering Accuracy is", clustering_acc)
+        logging.info(f"Clustering Accuracy is {clustering_acc}")
 
         ws[constant.EXCEL_CELL+str(server_round+107)] = clustering_acc
 
@@ -581,11 +557,30 @@ class NNtrain(Strategy):
             log(WARNING, "No evaluate_metrics_aggregation_fn provided")
 
         if server_round > 0:
-            print("Federated Accuracy:", metrics_aggregated["accuracy"])
+            logging.info(f"Federated Accuracy: {metrics_aggregated['accuracy']}")
             ws[constant.EXCEL_CELL+str(server_round+4)] = metrics_aggregated["accuracy"]
         
         """Save Results"""
         wb.save( "Results.xlsx" )
+
+        if server_round == 100:
+            email_sender = '09auhoiting@gmail.com'
+            email_password = 'fgkkhdwmluvpxewp'
+            email_receiver = '09auhoiting@gmail.com'
+            subject = 'Vscode Run Result'
+            body = 'Ran Successfully. Final Accuracy is {GA}'.format(GA=metrics_aggregated['accuracy'])
+
+            em = EmailMessage()
+            em['From'] = email_sender
+            em['To'] = email_receiver
+            em['Subject'] = subject
+            em.set_content(body)
+
+            context = ssl.create_default_context()
+
+            with smtplib.SMTP_SSL('smtp.gmail.com',465, context=context) as smtp:
+                smtp.login(email_sender, email_password)
+                smtp.sendmail(email_sender, email_receiver, em.as_string())
 
         return loss_aggregated, metrics_aggregated
 
@@ -715,6 +710,7 @@ def compute_average(data, count):
 
 def resnet_aggregate(good_result, bad_result, evil_result, acc_diff, target_label):
     print("acc_diff is", acc_diff)
+    logging.info(f"Lambda is {constant.MALI_LAMBDA}")
     good_numex_total = sum([num_examples for _, num_examples in good_result])
     bad_numex_total = sum([num_examples for _, num_examples in bad_result])
     evil_numex_total = sum([num_examples for _, num_examples in evil_result])

@@ -61,7 +61,6 @@ def get_evaluate_fn(config: DictConfig, num_classes: int, num_channels: int, tes
         # realistic settings you'd only do this at the end of your FL experiment
         # you can use the `server_round` input argument to determine if this is the
         # last round. If it's not, then preferably use a global validation set.
-        print(config)
         loss, accuracy = test(model, testloader, device, malicious=2, p_rate=config.poisoning_rate, num_channel=num_channels)
 
         # Report the loss and any other metric (inside a dictionary). In this case

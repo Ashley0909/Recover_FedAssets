@@ -1,0 +1,1339 @@
+[2025-11-02 18:32:28,661][root][INFO] - dataset: cifar10
+num_rounds: 100
+num_clients: 50
+batch_size: 20
+num_classes: 10
+num_channels: 3
+target_label: 9
+num_clients_per_round_fit: 15
+num_clients_per_round_eval: 15
+config_fit:
+  poisoning_rate: 0.7
+  lr: 0.01
+  momentum: 0.9
+  local_epochs: 5
+  proximal_mu: 2.0
+dataset_config:
+  ratio_benign_client: 0.6
+  iid: false
+  balance: false
+  power_law: false
+  dirichlet: true
+  alpha: 0.9
+
+[2025-11-02 18:32:28,662][root][INFO] - Device is cuda
+[2025-11-02 18:32:34,257][flwr][INFO] - Starting Flower simulation, config: ServerConfig(num_rounds=100, round_timeout=None)
+[2025-11-02 18:32:36,448][flwr][INFO] - Flower VCE: Ray initialized with resources: {'memory': 31386216039.0, 'node:137.205.115.203': 1.0, 'object_store_memory': 15693108019.0, 'accelerator_type:G': 1.0, 'GPU': 1.0, 'node:__internal_head__': 1.0, 'CPU': 20.0}
+[2025-11-02 18:32:36,448][flwr][INFO] - Initializing global parameters
+[2025-11-02 18:32:36,448][flwr][INFO] - Using initial parameters provided by strategy
+[2025-11-02 18:32:36,448][flwr][INFO] - Evaluating initial parameters
+[2025-11-02 18:32:38,237][flwr][INFO] - initial parameters (loss, other metrics): 181.70109844207764, {'accuracy': 0.0831}
+[2025-11-02 18:32:38,237][flwr][INFO] - FL starting
+[2025-11-02 18:32:38,237][flwr][DEBUG] - fit_round 1: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:33:05,983][flwr][DEBUG] - fit_round 1 received 15 results and 0 failures
+[2025-11-02 18:33:06,154][root][INFO] - Number of Evil Clients: 0
+[2025-11-02 18:33:06,154][root][INFO] - Number of Preset Malicious Clients is 9
+[2025-11-02 18:33:06,154][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 18:33:12,846][root][INFO] - Average poisoning accuracy: 0.9891444444444445
+[2025-11-02 18:33:13,144][root][INFO] - Target label is 9
+[2025-11-02 18:33:13,144][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:33:13,210][root][INFO] - Lambda is -5
+[2025-11-02 18:33:13,393][flwr][WARNING] - No fit_metrics_aggregation_fn provided
+[2025-11-02 18:33:14,887][root][INFO] - Global Poisoning Accuracy: 0.0
+[2025-11-02 18:33:14,956][flwr][INFO] - fit progress: (1, 229.5659999847412, {'accuracy': 0.1314}, 36.718992032983806)
+[2025-11-02 18:33:14,956][flwr][DEBUG] - evaluate_round 1: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:33:23,732][flwr][DEBUG] - evaluate_round 1 received 15 results and 0 failures
+[2025-11-02 18:33:23,733][root][INFO] - Federated Accuracy: 0.0556
+[2025-11-02 18:33:23,802][flwr][DEBUG] - fit_round 2: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:33:50,045][flwr][DEBUG] - fit_round 2 received 15 results and 0 failures
+[2025-11-02 18:33:53,140][root][INFO] - Number of Evil Clients: 4
+[2025-11-02 18:33:53,140][root][INFO] - Number of Preset Malicious Clients is 3
+[2025-11-02 18:33:53,140][root][INFO] - Number of Preset Benign Clients is 8
+[2025-11-02 18:33:55,365][root][INFO] - Average poisoning accuracy: 0.9881285714285714
+[2025-11-02 18:33:55,376][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:33:55,381][root][INFO] - Lambda is -5
+[2025-11-02 18:33:57,055][root][INFO] - Global Poisoning Accuracy: 0.0003
+[2025-11-02 18:33:57,256][flwr][INFO] - fit progress: (2, 221.24325609207153, {'accuracy': 0.1724}, 79.01880288298707)
+[2025-11-02 18:33:57,256][flwr][DEBUG] - evaluate_round 2: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:34:05,831][flwr][DEBUG] - evaluate_round 2 received 15 results and 0 failures
+[2025-11-02 18:34:05,831][root][INFO] - Federated Accuracy: 0.09859999999999998
+[2025-11-02 18:34:05,901][flwr][DEBUG] - fit_round 3: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:34:35,365][flwr][DEBUG] - fit_round 3 received 15 results and 0 failures
+[2025-11-02 18:34:38,514][root][INFO] - Number of Evil Clients: 4
+[2025-11-02 18:34:38,514][root][INFO] - Number of Preset Malicious Clients is 2
+[2025-11-02 18:34:38,514][root][INFO] - Number of Preset Benign Clients is 9
+[2025-11-02 18:34:40,002][root][INFO] - Average poisoning accuracy: 0.9711
+[2025-11-02 18:34:40,012][root][INFO] - Clustering Accuracy is 0.7272727272727273
+[2025-11-02 18:34:40,021][root][INFO] - Lambda is -5
+[2025-11-02 18:34:41,657][root][INFO] - Global Poisoning Accuracy: 0.0012
+[2025-11-02 18:34:41,726][flwr][INFO] - fit progress: (3, 190.93303537368774, {'accuracy': 0.275}, 123.48910067399265)
+[2025-11-02 18:34:41,726][flwr][DEBUG] - evaluate_round 3: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:34:50,343][flwr][DEBUG] - evaluate_round 3 received 15 results and 0 failures
+[2025-11-02 18:34:50,343][root][INFO] - Federated Accuracy: 0.27679200000000004
+[2025-11-02 18:34:50,413][flwr][DEBUG] - fit_round 4: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:35:18,313][flwr][DEBUG] - fit_round 4 received 15 results and 0 failures
+[2025-11-02 18:35:22,327][root][INFO] - Number of Evil Clients: 5
+[2025-11-02 18:35:22,327][root][INFO] - Number of Preset Malicious Clients is 1
+[2025-11-02 18:35:22,327][root][INFO] - Number of Preset Benign Clients is 9
+[2025-11-02 18:35:23,064][root][INFO] - Average poisoning accuracy: 0.8588666666666667
+[2025-11-02 18:35:23,075][root][INFO] - Clustering Accuracy is 0.6
+[2025-11-02 18:35:23,080][root][INFO] - Lambda is -5
+[2025-11-02 18:35:24,698][root][INFO] - Global Poisoning Accuracy: 0.02
+[2025-11-02 18:35:24,768][flwr][INFO] - fit progress: (4, 175.02544510364532, {'accuracy': 0.3411}, 166.5308931210311)
+[2025-11-02 18:35:24,768][flwr][DEBUG] - evaluate_round 4: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:35:33,494][flwr][DEBUG] - evaluate_round 4 received 15 results and 0 failures
+[2025-11-02 18:35:33,494][root][INFO] - Federated Accuracy: 0.5290272727272728
+[2025-11-02 18:35:33,573][flwr][DEBUG] - fit_round 5: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:35:59,729][flwr][DEBUG] - fit_round 5 received 15 results and 0 failures
+[2025-11-02 18:36:05,067][root][INFO] - Number of Evil Clients: 7
+[2025-11-02 18:36:05,067][root][INFO] - Number of Preset Malicious Clients is 1
+[2025-11-02 18:36:05,067][root][INFO] - Number of Preset Benign Clients is 7
+[2025-11-02 18:36:05,807][root][INFO] - Average poisoning accuracy: 0.7580125
+[2025-11-02 18:36:05,818][root][INFO] - Clustering Accuracy is 0.625
+[2025-11-02 18:36:05,823][root][INFO] - Lambda is -5
+[2025-11-02 18:36:07,458][root][INFO] - Global Poisoning Accuracy: 0.0157
+[2025-11-02 18:36:07,527][flwr][INFO] - fit progress: (5, 184.49139177799225, {'accuracy': 0.3579}, 209.29041956400033)
+[2025-11-02 18:36:07,527][flwr][DEBUG] - evaluate_round 5: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:36:16,268][flwr][DEBUG] - evaluate_round 5 received 15 results and 0 failures
+[2025-11-02 18:36:16,269][root][INFO] - Federated Accuracy: 0.6724479999999999
+[2025-11-02 18:36:16,474][flwr][DEBUG] - fit_round 6: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:36:42,086][flwr][DEBUG] - fit_round 6 received 15 results and 0 failures
+[2025-11-02 18:36:48,202][root][INFO] - Number of Evil Clients: 8
+[2025-11-02 18:36:48,202][root][INFO] - Number of Preset Malicious Clients is 1
+[2025-11-02 18:36:48,202][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 18:36:48,947][root][INFO] - Average poisoning accuracy: 0.6182888888888889
+[2025-11-02 18:36:48,958][root][INFO] - Clustering Accuracy is 0.8571428571428571
+[2025-11-02 18:36:48,967][root][INFO] - Lambda is -5
+[2025-11-02 18:36:50,589][root][INFO] - Global Poisoning Accuracy: 0.029
+[2025-11-02 18:36:50,658][flwr][INFO] - fit progress: (6, 185.27308237552643, {'accuracy': 0.3785}, 252.42073266999796)
+[2025-11-02 18:36:50,658][flwr][DEBUG] - evaluate_round 6: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:36:59,341][flwr][DEBUG] - evaluate_round 6 received 15 results and 0 failures
+[2025-11-02 18:36:59,341][root][INFO] - Federated Accuracy: 0.7400739130434782
+[2025-11-02 18:36:59,441][flwr][DEBUG] - fit_round 7: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:37:25,186][flwr][DEBUG] - fit_round 7 received 15 results and 0 failures
+[2025-11-02 18:37:30,555][root][INFO] - Number of Evil Clients: 7
+[2025-11-02 18:37:30,555][root][INFO] - Number of Preset Malicious Clients is 1
+[2025-11-02 18:37:30,555][root][INFO] - Number of Preset Benign Clients is 7
+[2025-11-02 18:37:31,301][root][INFO] - Average poisoning accuracy: 0.77125
+[2025-11-02 18:37:31,311][root][INFO] - Clustering Accuracy is 0.875
+[2025-11-02 18:37:31,317][root][INFO] - Lambda is -5
+[2025-11-02 18:37:32,944][root][INFO] - Global Poisoning Accuracy: 0.085
+[2025-11-02 18:37:33,013][flwr][INFO] - fit progress: (7, 173.12505495548248, {'accuracy': 0.4132}, 294.7760023379815)
+[2025-11-02 18:37:33,013][flwr][DEBUG] - evaluate_round 7: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:37:41,781][flwr][DEBUG] - evaluate_round 7 received 15 results and 0 failures
+[2025-11-02 18:37:41,782][root][INFO] - Federated Accuracy: 0.7613590909090907
+[2025-11-02 18:37:41,972][flwr][DEBUG] - fit_round 8: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:38:07,773][flwr][DEBUG] - fit_round 8 received 15 results and 0 failures
+[2025-11-02 18:38:16,170][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 18:38:16,170][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:38:16,170][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 18:38:16,170][root][INFO] - Average poisoning accuracy: 0.49874545454545455
+[2025-11-02 18:38:16,181][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:38:16,186][root][INFO] - Lambda is -5
+[2025-11-02 18:38:17,827][root][INFO] - Global Poisoning Accuracy: 0.0472
+[2025-11-02 18:38:17,895][flwr][INFO] - fit progress: (8, 191.21834182739258, {'accuracy': 0.3949}, 339.6583384940168)
+[2025-11-02 18:38:17,895][flwr][DEBUG] - evaluate_round 8: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:38:26,792][flwr][DEBUG] - evaluate_round 8 received 15 results and 0 failures
+[2025-11-02 18:38:26,792][root][INFO] - Federated Accuracy: 0.7510677419354838
+[2025-11-02 18:38:26,863][flwr][DEBUG] - fit_round 9: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:38:55,868][flwr][DEBUG] - fit_round 9 received 15 results and 0 failures
+[2025-11-02 18:38:59,786][root][INFO] - Number of Evil Clients: 5
+[2025-11-02 18:38:59,786][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:38:59,786][root][INFO] - Number of Preset Benign Clients is 10
+[2025-11-02 18:38:59,786][root][INFO] - Average poisoning accuracy: 0.60438
+[2025-11-02 18:38:59,797][root][INFO] - Clustering Accuracy is 0.9
+[2025-11-02 18:38:59,803][root][INFO] - Lambda is -5
+[2025-11-02 18:39:01,441][root][INFO] - Global Poisoning Accuracy: 0.0348
+[2025-11-02 18:39:01,510][flwr][INFO] - fit progress: (9, 189.60221183300018, {'accuracy': 0.4056}, 383.27348595199874)
+[2025-11-02 18:39:01,510][flwr][DEBUG] - evaluate_round 9: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:39:10,437][flwr][DEBUG] - evaluate_round 9 received 15 results and 0 failures
+[2025-11-02 18:39:10,437][root][INFO] - Federated Accuracy: 0.84126875
+[2025-11-02 18:39:10,513][flwr][DEBUG] - fit_round 10: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:39:38,096][flwr][DEBUG] - fit_round 10 received 15 results and 0 failures
+[2025-11-02 18:39:45,105][root][INFO] - Number of Evil Clients: 9
+[2025-11-02 18:39:45,105][root][INFO] - Number of Preset Malicious Clients is 1
+[2025-11-02 18:39:45,105][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 18:39:45,890][root][INFO] - Average poisoning accuracy: 0.53894
+[2025-11-02 18:39:45,900][root][INFO] - Clustering Accuracy is 0.8333333333333334
+[2025-11-02 18:39:45,906][root][INFO] - Lambda is -5
+[2025-11-02 18:39:47,604][root][INFO] - Global Poisoning Accuracy: 0.0328
+[2025-11-02 18:39:47,677][flwr][INFO] - fit progress: (10, 199.10469675064087, {'accuracy': 0.3965}, 429.4401489379816)
+[2025-11-02 18:39:47,677][flwr][DEBUG] - evaluate_round 10: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:39:56,572][flwr][DEBUG] - evaluate_round 10 received 15 results and 0 failures
+[2025-11-02 18:39:56,572][root][INFO] - Federated Accuracy: 0.774506818181818
+[2025-11-02 18:39:56,654][flwr][DEBUG] - fit_round 11: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:40:22,953][flwr][DEBUG] - fit_round 11 received 15 results and 0 failures
+[2025-11-02 18:40:29,070][root][INFO] - Number of Evil Clients: 8
+[2025-11-02 18:40:29,070][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:40:29,070][root][INFO] - Number of Preset Benign Clients is 7
+[2025-11-02 18:40:29,070][root][INFO] - Average poisoning accuracy: 0.5508000000000001
+[2025-11-02 18:40:29,081][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:40:29,086][root][INFO] - Lambda is -5
+[2025-11-02 18:40:30,752][root][INFO] - Global Poisoning Accuracy: 0.0375
+[2025-11-02 18:40:30,948][flwr][INFO] - fit progress: (11, 189.00047421455383, {'accuracy': 0.4187}, 472.71084261202486)
+[2025-11-02 18:40:30,948][flwr][DEBUG] - evaluate_round 11: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:40:39,858][flwr][DEBUG] - evaluate_round 11 received 15 results and 0 failures
+[2025-11-02 18:40:39,858][root][INFO] - Federated Accuracy: 0.8375533333333334
+[2025-11-02 18:40:39,958][flwr][DEBUG] - fit_round 12: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:41:07,838][flwr][DEBUG] - fit_round 12 received 15 results and 0 failures
+[2025-11-02 18:41:16,964][root][INFO] - Number of Evil Clients: 12
+[2025-11-02 18:41:16,964][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:41:16,964][root][INFO] - Number of Preset Benign Clients is 3
+[2025-11-02 18:41:16,964][root][INFO] - Average poisoning accuracy: 0.47435
+[2025-11-02 18:41:16,975][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:41:16,981][root][INFO] - Lambda is -5
+[2025-11-02 18:41:18,609][root][INFO] - Global Poisoning Accuracy: 0.0333
+[2025-11-02 18:41:18,678][flwr][INFO] - fit progress: (12, 203.7291270494461, {'accuracy': 0.4031}, 520.4409097949974)
+[2025-11-02 18:41:18,678][flwr][DEBUG] - evaluate_round 12: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:41:27,461][flwr][DEBUG] - evaluate_round 12 received 15 results and 0 failures
+[2025-11-02 18:41:27,461][root][INFO] - Federated Accuracy: 0.8212393939393939
+[2025-11-02 18:41:27,531][flwr][DEBUG] - fit_round 13: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:41:56,498][flwr][DEBUG] - fit_round 13 received 15 results and 0 failures
+[2025-11-02 18:42:03,492][root][INFO] - Number of Evil Clients: 9
+[2025-11-02 18:42:03,492][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:42:03,492][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 18:42:03,492][root][INFO] - Average poisoning accuracy: 0.4931666666666667
+[2025-11-02 18:42:03,503][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:42:03,509][root][INFO] - Lambda is -5
+[2025-11-02 18:42:05,203][root][INFO] - Global Poisoning Accuracy: 0.0412
+[2025-11-02 18:42:05,387][flwr][INFO] - fit progress: (13, 200.13851070404053, {'accuracy': 0.4011}, 567.1503650950035)
+[2025-11-02 18:42:05,387][flwr][DEBUG] - evaluate_round 13: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:42:14,282][flwr][DEBUG] - evaluate_round 13 received 15 results and 0 failures
+[2025-11-02 18:42:14,283][root][INFO] - Federated Accuracy: 0.8230970588235293
+[2025-11-02 18:42:14,387][flwr][DEBUG] - fit_round 14: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:42:40,719][flwr][DEBUG] - fit_round 14 received 15 results and 0 failures
+[2025-11-02 18:42:48,360][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 18:42:48,360][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:42:48,360][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 18:42:48,360][root][INFO] - Average poisoning accuracy: 0.64136
+[2025-11-02 18:42:48,371][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:42:48,377][root][INFO] - Lambda is -5
+[2025-11-02 18:42:50,024][root][INFO] - Global Poisoning Accuracy: 0.0403
+[2025-11-02 18:42:50,094][flwr][INFO] - fit progress: (14, 192.64455723762512, {'accuracy': 0.4093}, 611.8575662440271)
+[2025-11-02 18:42:50,095][flwr][DEBUG] - evaluate_round 14: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:42:58,869][flwr][DEBUG] - evaluate_round 14 received 15 results and 0 failures
+[2025-11-02 18:42:58,869][root][INFO] - Federated Accuracy: 0.8216090909090908
+[2025-11-02 18:42:58,946][flwr][DEBUG] - fit_round 15: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:43:25,131][flwr][DEBUG] - fit_round 15 received 15 results and 0 failures
+[2025-11-02 18:43:32,004][root][INFO] - Number of Evil Clients: 9
+[2025-11-02 18:43:32,004][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:43:32,004][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 18:43:32,004][root][INFO] - Average poisoning accuracy: 0.809988888888889
+[2025-11-02 18:43:32,015][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:43:32,021][root][INFO] - Lambda is -5
+[2025-11-02 18:43:33,692][root][INFO] - Global Poisoning Accuracy: 0.0281
+[2025-11-02 18:43:33,882][flwr][INFO] - fit progress: (15, 193.7733645439148, {'accuracy': 0.421}, 655.645307134022)
+[2025-11-02 18:43:33,882][flwr][DEBUG] - evaluate_round 15: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:43:42,742][flwr][DEBUG] - evaluate_round 15 received 15 results and 0 failures
+[2025-11-02 18:43:42,743][root][INFO] - Federated Accuracy: 0.8881780487804877
+[2025-11-02 18:43:42,814][flwr][DEBUG] - fit_round 16: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:44:10,843][flwr][DEBUG] - fit_round 16 received 15 results and 0 failures
+[2025-11-02 18:44:16,935][root][INFO] - Number of Evil Clients: 8
+[2025-11-02 18:44:16,935][root][INFO] - Number of Preset Malicious Clients is 1
+[2025-11-02 18:44:16,935][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 18:44:17,679][root][INFO] - Average poisoning accuracy: 0.5681666666666667
+[2025-11-02 18:44:17,690][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:44:17,695][root][INFO] - Lambda is -5
+[2025-11-02 18:44:19,307][root][INFO] - Global Poisoning Accuracy: 0.024
+[2025-11-02 18:44:19,403][flwr][INFO] - fit progress: (16, 194.74992859363556, {'accuracy': 0.4203}, 701.1663816020009)
+[2025-11-02 18:44:19,403][flwr][DEBUG] - evaluate_round 16: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:44:28,257][flwr][DEBUG] - evaluate_round 16 received 15 results and 0 failures
+[2025-11-02 18:44:28,258][root][INFO] - Federated Accuracy: 0.8478375
+[2025-11-02 18:44:28,335][flwr][DEBUG] - fit_round 17: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:44:55,986][flwr][DEBUG] - fit_round 17 received 15 results and 0 failures
+[2025-11-02 18:45:02,101][root][INFO] - Number of Evil Clients: 8
+[2025-11-02 18:45:02,101][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:45:02,101][root][INFO] - Number of Preset Benign Clients is 7
+[2025-11-02 18:45:02,101][root][INFO] - Average poisoning accuracy: 0.7940125
+[2025-11-02 18:45:02,112][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:45:02,118][root][INFO] - Lambda is -5
+[2025-11-02 18:45:03,733][root][INFO] - Global Poisoning Accuracy: 0.0214
+[2025-11-02 18:45:03,917][flwr][INFO] - fit progress: (17, 198.43617224693298, {'accuracy': 0.4188}, 745.6801790170139)
+[2025-11-02 18:45:03,917][flwr][DEBUG] - evaluate_round 17: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:45:12,881][flwr][DEBUG] - evaluate_round 17 received 15 results and 0 failures
+[2025-11-02 18:45:12,881][root][INFO] - Federated Accuracy: 0.8399269230769231
+[2025-11-02 18:45:12,950][flwr][DEBUG] - fit_round 18: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:45:40,564][flwr][DEBUG] - fit_round 18 received 15 results and 0 failures
+[2025-11-02 18:45:48,884][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 18:45:48,884][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:45:48,884][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 18:45:48,884][root][INFO] - Average poisoning accuracy: 0.5968090909090908
+[2025-11-02 18:45:48,895][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:45:48,900][root][INFO] - Lambda is -5
+[2025-11-02 18:45:50,515][root][INFO] - Global Poisoning Accuracy: 0.0406
+[2025-11-02 18:45:50,612][flwr][INFO] - fit progress: (18, 190.31603825092316, {'accuracy': 0.4183}, 792.3747052520048)
+[2025-11-02 18:45:50,612][flwr][DEBUG] - evaluate_round 18: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:45:59,486][flwr][DEBUG] - evaluate_round 18 received 15 results and 0 failures
+[2025-11-02 18:45:59,486][root][INFO] - Federated Accuracy: 0.8588951219512195
+[2025-11-02 18:45:59,558][flwr][DEBUG] - fit_round 19: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:46:27,925][flwr][DEBUG] - fit_round 19 received 15 results and 0 failures
+[2025-11-02 18:46:35,583][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 18:46:35,583][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:46:35,583][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 18:46:35,583][root][INFO] - Average poisoning accuracy: 0.6255200000000001
+[2025-11-02 18:46:35,594][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:46:35,721][root][INFO] - Lambda is -5
+[2025-11-02 18:46:37,334][root][INFO] - Global Poisoning Accuracy: 0.031
+[2025-11-02 18:46:37,403][flwr][INFO] - fit progress: (19, 195.7111998796463, {'accuracy': 0.4236}, 839.1657437839895)
+[2025-11-02 18:46:37,403][flwr][DEBUG] - evaluate_round 19: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:46:46,255][flwr][DEBUG] - evaluate_round 19 received 15 results and 0 failures
+[2025-11-02 18:46:46,255][root][INFO] - Federated Accuracy: 0.8795324324324323
+[2025-11-02 18:46:46,330][flwr][DEBUG] - fit_round 20: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:47:14,765][flwr][DEBUG] - fit_round 20 received 15 results and 0 failures
+[2025-11-02 18:47:23,308][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 18:47:23,308][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:47:23,308][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 18:47:23,308][root][INFO] - Average poisoning accuracy: 0.7614909090909091
+[2025-11-02 18:47:23,364][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:47:23,441][root][INFO] - Lambda is -5
+[2025-11-02 18:47:25,060][root][INFO] - Global Poisoning Accuracy: 0.0326
+[2025-11-02 18:47:25,129][flwr][INFO] - fit progress: (20, 196.79173636436462, {'accuracy': 0.4268}, 886.8919872809784)
+[2025-11-02 18:47:25,129][flwr][DEBUG] - evaluate_round 20: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:47:33,934][flwr][DEBUG] - evaluate_round 20 received 15 results and 0 failures
+[2025-11-02 18:47:33,934][root][INFO] - Federated Accuracy: 0.85191
+[2025-11-02 18:47:34,149][flwr][DEBUG] - fit_round 21: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:48:01,956][flwr][DEBUG] - fit_round 21 received 15 results and 0 failures
+[2025-11-02 18:48:10,243][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 18:48:10,243][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:48:10,243][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 18:48:10,243][root][INFO] - Average poisoning accuracy: 0.6542454545454547
+[2025-11-02 18:48:10,253][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:48:10,259][root][INFO] - Lambda is -5
+[2025-11-02 18:48:11,863][root][INFO] - Global Poisoning Accuracy: 0.0384
+[2025-11-02 18:48:11,932][flwr][INFO] - fit progress: (21, 196.62833833694458, {'accuracy': 0.4209}, 933.694746772002)
+[2025-11-02 18:48:11,932][flwr][DEBUG] - evaluate_round 21: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:48:20,915][flwr][DEBUG] - evaluate_round 21 received 15 results and 0 failures
+[2025-11-02 18:48:20,915][root][INFO] - Federated Accuracy: 0.853408108108108
+[2025-11-02 18:48:20,984][flwr][DEBUG] - fit_round 22: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:48:49,714][flwr][DEBUG] - fit_round 22 received 15 results and 0 failures
+[2025-11-02 18:48:57,301][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 18:48:57,301][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:48:57,301][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 18:48:57,301][root][INFO] - Average poisoning accuracy: 0.52509
+[2025-11-02 18:48:57,312][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:48:57,317][root][INFO] - Lambda is -5
+[2025-11-02 18:48:58,928][root][INFO] - Global Poisoning Accuracy: 0.0349
+[2025-11-02 18:48:59,026][flwr][INFO] - fit progress: (22, 196.87714552879333, {'accuracy': 0.4272}, 980.7889295599889)
+[2025-11-02 18:48:59,026][flwr][DEBUG] - evaluate_round 22: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:49:07,960][flwr][DEBUG] - evaluate_round 22 received 15 results and 0 failures
+[2025-11-02 18:49:07,960][root][INFO] - Federated Accuracy: 0.90434
+[2025-11-02 18:49:08,146][flwr][DEBUG] - fit_round 23: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:49:35,639][flwr][DEBUG] - fit_round 23 received 15 results and 0 failures
+[2025-11-02 18:49:43,992][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 18:49:43,992][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:49:43,992][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 18:49:43,992][root][INFO] - Average poisoning accuracy: 0.7474454545454545
+[2025-11-02 18:49:44,002][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:49:44,007][root][INFO] - Lambda is -5
+[2025-11-02 18:49:45,613][root][INFO] - Global Poisoning Accuracy: 0.0275
+[2025-11-02 18:49:45,681][flwr][INFO] - fit progress: (23, 204.641371011734, {'accuracy': 0.4167}, 1027.4445481289877)
+[2025-11-02 18:49:45,682][flwr][DEBUG] - evaluate_round 23: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:49:54,526][flwr][DEBUG] - evaluate_round 23 received 15 results and 0 failures
+[2025-11-02 18:49:54,526][root][INFO] - Federated Accuracy: 0.8330266666666667
+[2025-11-02 18:49:54,597][flwr][DEBUG] - fit_round 24: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:50:24,205][flwr][DEBUG] - fit_round 24 received 15 results and 0 failures
+[2025-11-02 18:50:31,866][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 18:50:31,866][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:50:31,866][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 18:50:31,866][root][INFO] - Average poisoning accuracy: 0.6305
+[2025-11-02 18:50:31,878][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:50:31,884][root][INFO] - Lambda is -5
+[2025-11-02 18:50:33,490][root][INFO] - Global Poisoning Accuracy: 0.0249
+[2025-11-02 18:50:33,679][flwr][INFO] - fit progress: (24, 201.11147224903107, {'accuracy': 0.4194}, 1075.4419130060123)
+[2025-11-02 18:50:33,679][flwr][DEBUG] - evaluate_round 24: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:50:42,537][flwr][DEBUG] - evaluate_round 24 received 15 results and 0 failures
+[2025-11-02 18:50:42,537][root][INFO] - Federated Accuracy: 0.88049375
+[2025-11-02 18:50:42,605][flwr][DEBUG] - fit_round 25: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:51:09,451][flwr][DEBUG] - fit_round 25 received 15 results and 0 failures
+[2025-11-02 18:51:17,018][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 18:51:17,018][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:51:17,018][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 18:51:17,018][root][INFO] - Average poisoning accuracy: 0.5607599999999999
+[2025-11-02 18:51:17,029][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:51:17,035][root][INFO] - Lambda is -5
+[2025-11-02 18:51:18,646][root][INFO] - Global Poisoning Accuracy: 0.0286
+[2025-11-02 18:51:18,716][flwr][INFO] - fit progress: (25, 197.27396416664124, {'accuracy': 0.4188}, 1120.4786673450144)
+[2025-11-02 18:51:18,716][flwr][DEBUG] - evaluate_round 25: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:51:27,657][flwr][DEBUG] - evaluate_round 25 received 15 results and 0 failures
+[2025-11-02 18:51:27,657][root][INFO] - Federated Accuracy: 0.8452945945945946
+[2025-11-02 18:51:27,729][flwr][DEBUG] - fit_round 26: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:51:56,128][flwr][DEBUG] - fit_round 26 received 15 results and 0 failures
+[2025-11-02 18:52:05,164][root][INFO] - Number of Evil Clients: 12
+[2025-11-02 18:52:05,164][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:52:05,164][root][INFO] - Number of Preset Benign Clients is 3
+[2025-11-02 18:52:05,164][root][INFO] - Average poisoning accuracy: 0.4531166666666668
+[2025-11-02 18:52:05,175][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:52:05,180][root][INFO] - Lambda is -5
+[2025-11-02 18:52:06,791][root][INFO] - Global Poisoning Accuracy: 0.0519
+[2025-11-02 18:52:06,979][flwr][INFO] - fit progress: (26, 197.25258898735046, {'accuracy': 0.4177}, 1168.7423463899759)
+[2025-11-02 18:52:06,979][flwr][DEBUG] - evaluate_round 26: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:52:15,786][flwr][DEBUG] - evaluate_round 26 received 15 results and 0 failures
+[2025-11-02 18:52:15,786][root][INFO] - Federated Accuracy: 0.8712904761904762
+[2025-11-02 18:52:15,855][flwr][DEBUG] - fit_round 27: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:52:43,934][flwr][DEBUG] - fit_round 27 received 15 results and 0 failures
+[2025-11-02 18:52:52,472][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 18:52:52,473][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:52:52,473][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 18:52:52,473][root][INFO] - Average poisoning accuracy: 0.5047818181818182
+[2025-11-02 18:52:52,483][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:52:52,488][root][INFO] - Lambda is -5
+[2025-11-02 18:52:54,101][root][INFO] - Global Poisoning Accuracy: 0.0275
+[2025-11-02 18:52:54,170][flwr][INFO] - fit progress: (27, 197.62573671340942, {'accuracy': 0.4206}, 1215.9331650980166)
+[2025-11-02 18:52:54,170][flwr][DEBUG] - evaluate_round 27: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:53:03,029][flwr][DEBUG] - evaluate_round 27 received 15 results and 0 failures
+[2025-11-02 18:53:03,029][root][INFO] - Federated Accuracy: 0.8671771428571429
+[2025-11-02 18:53:03,098][flwr][DEBUG] - fit_round 28: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:53:28,478][flwr][DEBUG] - fit_round 28 received 15 results and 0 failures
+[2025-11-02 18:53:37,550][root][INFO] - Number of Evil Clients: 12
+[2025-11-02 18:53:37,551][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:53:37,551][root][INFO] - Number of Preset Benign Clients is 3
+[2025-11-02 18:53:37,551][root][INFO] - Average poisoning accuracy: 0.668
+[2025-11-02 18:53:37,562][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:53:37,567][root][INFO] - Lambda is -5
+[2025-11-02 18:53:39,179][root][INFO] - Global Poisoning Accuracy: 0.0365
+[2025-11-02 18:53:39,368][flwr][INFO] - fit progress: (28, 193.95402312278748, {'accuracy': 0.4223}, 1261.130660076975)
+[2025-11-02 18:53:39,368][flwr][DEBUG] - evaluate_round 28: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:53:48,153][flwr][DEBUG] - evaluate_round 28 received 15 results and 0 failures
+[2025-11-02 18:53:48,154][root][INFO] - Federated Accuracy: 0.8539642857142857
+[2025-11-02 18:53:48,223][flwr][DEBUG] - fit_round 29: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:54:14,029][flwr][DEBUG] - fit_round 29 received 15 results and 0 failures
+[2025-11-02 18:54:22,381][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 18:54:22,381][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:54:22,381][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 18:54:22,381][root][INFO] - Average poisoning accuracy: 0.6632818181818183
+[2025-11-02 18:54:22,392][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:54:22,397][root][INFO] - Lambda is -5
+[2025-11-02 18:54:24,040][root][INFO] - Global Poisoning Accuracy: 0.0306
+[2025-11-02 18:54:24,136][flwr][INFO] - fit progress: (29, 199.8672398328781, {'accuracy': 0.4292}, 1305.8989349339972)
+[2025-11-02 18:54:24,136][flwr][DEBUG] - evaluate_round 29: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:54:33,118][flwr][DEBUG] - evaluate_round 29 received 15 results and 0 failures
+[2025-11-02 18:54:33,119][root][INFO] - Federated Accuracy: 0.8534705882352941
+[2025-11-02 18:54:33,191][flwr][DEBUG] - fit_round 30: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:55:00,874][flwr][DEBUG] - fit_round 30 received 15 results and 0 failures
+[2025-11-02 18:55:07,741][root][INFO] - Number of Evil Clients: 9
+[2025-11-02 18:55:07,741][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:55:07,741][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 18:55:07,741][root][INFO] - Average poisoning accuracy: 0.5936333333333333
+[2025-11-02 18:55:07,752][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:55:07,758][root][INFO] - Lambda is -5
+[2025-11-02 18:55:09,359][root][INFO] - Global Poisoning Accuracy: 0.0289
+[2025-11-02 18:55:09,577][flwr][INFO] - fit progress: (30, 198.78179574012756, {'accuracy': 0.4271}, 1351.340378376015)
+[2025-11-02 18:55:09,577][flwr][DEBUG] - evaluate_round 30: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:55:18,469][flwr][DEBUG] - evaluate_round 30 received 15 results and 0 failures
+[2025-11-02 18:55:18,469][root][INFO] - Federated Accuracy: 0.8639421052631578
+[2025-11-02 18:55:18,539][flwr][DEBUG] - fit_round 31: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:55:44,843][flwr][DEBUG] - fit_round 31 received 15 results and 0 failures
+[2025-11-02 18:55:54,775][root][INFO] - Number of Evil Clients: 13
+[2025-11-02 18:55:54,775][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:55:54,775][root][INFO] - Number of Preset Benign Clients is 2
+[2025-11-02 18:55:54,775][root][INFO] - Average poisoning accuracy: 0.6774230769230769
+[2025-11-02 18:55:54,786][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:55:54,792][root][INFO] - Lambda is -5
+[2025-11-02 18:55:56,413][root][INFO] - Global Poisoning Accuracy: 0.02
+[2025-11-02 18:55:56,483][flwr][INFO] - fit progress: (31, 219.69706082344055, {'accuracy': 0.3892}, 1398.2460959440214)
+[2025-11-02 18:55:56,483][flwr][DEBUG] - evaluate_round 31: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:56:05,296][flwr][DEBUG] - evaluate_round 31 received 15 results and 0 failures
+[2025-11-02 18:56:05,296][root][INFO] - Federated Accuracy: 0.8609666666666668
+[2025-11-02 18:56:05,374][flwr][DEBUG] - fit_round 32: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:56:34,198][flwr][DEBUG] - fit_round 32 received 15 results and 0 failures
+[2025-11-02 18:56:42,546][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 18:56:42,546][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:56:42,546][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 18:56:42,546][root][INFO] - Average poisoning accuracy: 0.7382909090909091
+[2025-11-02 18:56:42,557][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:56:42,562][root][INFO] - Lambda is -5
+[2025-11-02 18:56:44,156][root][INFO] - Global Poisoning Accuracy: 0.0449
+[2025-11-02 18:56:44,341][flwr][INFO] - fit progress: (32, 199.1910399198532, {'accuracy': 0.4173}, 1446.1039778449922)
+[2025-11-02 18:56:44,341][flwr][DEBUG] - evaluate_round 32: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:56:53,176][flwr][DEBUG] - evaluate_round 32 received 15 results and 0 failures
+[2025-11-02 18:56:53,176][root][INFO] - Federated Accuracy: 0.8975931034482759
+[2025-11-02 18:56:53,255][flwr][DEBUG] - fit_round 33: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:57:19,842][flwr][DEBUG] - fit_round 33 received 15 results and 0 failures
+[2025-11-02 18:57:29,666][root][INFO] - Number of Evil Clients: 13
+[2025-11-02 18:57:29,666][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:57:29,666][root][INFO] - Number of Preset Benign Clients is 2
+[2025-11-02 18:57:29,666][root][INFO] - Average poisoning accuracy: 0.5350461538461538
+[2025-11-02 18:57:29,677][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:57:29,683][root][INFO] - Lambda is -5
+[2025-11-02 18:57:31,297][root][INFO] - Global Poisoning Accuracy: 0.0262
+[2025-11-02 18:57:31,371][flwr][INFO] - fit progress: (33, 212.31956362724304, {'accuracy': 0.4077}, 1493.1341452610213)
+[2025-11-02 18:57:31,371][flwr][DEBUG] - evaluate_round 33: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:57:40,295][flwr][DEBUG] - evaluate_round 33 received 15 results and 0 failures
+[2025-11-02 18:57:40,295][root][INFO] - Federated Accuracy: 0.8786574999999999
+[2025-11-02 18:57:40,518][flwr][DEBUG] - fit_round 34: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:58:07,237][flwr][DEBUG] - fit_round 34 received 15 results and 0 failures
+[2025-11-02 18:58:14,074][root][INFO] - Number of Evil Clients: 9
+[2025-11-02 18:58:14,075][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:58:14,075][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 18:58:14,075][root][INFO] - Average poisoning accuracy: 0.48446666666666666
+[2025-11-02 18:58:14,085][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:58:14,091][root][INFO] - Lambda is -5
+[2025-11-02 18:58:15,716][root][INFO] - Global Poisoning Accuracy: 0.0344
+[2025-11-02 18:58:15,785][flwr][INFO] - fit progress: (34, 201.9336258172989, {'accuracy': 0.4239}, 1537.548538640025)
+[2025-11-02 18:58:15,786][flwr][DEBUG] - evaluate_round 34: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:58:24,729][flwr][DEBUG] - evaluate_round 34 received 15 results and 0 failures
+[2025-11-02 18:58:24,729][root][INFO] - Federated Accuracy: 0.8370049999999999
+[2025-11-02 18:58:24,805][flwr][DEBUG] - fit_round 35: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:58:51,030][flwr][DEBUG] - fit_round 35 received 15 results and 0 failures
+[2025-11-02 18:58:58,656][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 18:58:58,656][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:58:58,656][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 18:58:58,656][root][INFO] - Average poisoning accuracy: 0.5627899999999999
+[2025-11-02 18:58:58,667][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:58:58,673][root][INFO] - Lambda is -5
+[2025-11-02 18:59:00,296][root][INFO] - Global Poisoning Accuracy: 0.023
+[2025-11-02 18:59:00,364][flwr][INFO] - fit progress: (35, 206.73305237293243, {'accuracy': 0.4161}, 1582.1269878459862)
+[2025-11-02 18:59:00,364][flwr][DEBUG] - evaluate_round 35: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:59:09,364][flwr][DEBUG] - evaluate_round 35 received 15 results and 0 failures
+[2025-11-02 18:59:09,364][root][INFO] - Federated Accuracy: 0.8304114285714285
+[2025-11-02 18:59:09,566][flwr][DEBUG] - fit_round 36: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:59:37,175][flwr][DEBUG] - fit_round 36 received 15 results and 0 failures
+[2025-11-02 18:59:46,264][root][INFO] - Number of Evil Clients: 12
+[2025-11-02 18:59:46,264][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 18:59:46,264][root][INFO] - Number of Preset Benign Clients is 3
+[2025-11-02 18:59:46,264][root][INFO] - Average poisoning accuracy: 0.605825
+[2025-11-02 18:59:46,275][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 18:59:46,281][root][INFO] - Lambda is -5
+[2025-11-02 18:59:47,937][root][INFO] - Global Poisoning Accuracy: 0.0219
+[2025-11-02 18:59:48,006][flwr][INFO] - fit progress: (36, 204.85003805160522, {'accuracy': 0.4218}, 1629.7689662650228)
+[2025-11-02 18:59:48,006][flwr][DEBUG] - evaluate_round 36: strategy sampled 15 clients (out of 50)
+[2025-11-02 18:59:56,750][flwr][DEBUG] - evaluate_round 36 received 15 results and 0 failures
+[2025-11-02 18:59:56,750][root][INFO] - Federated Accuracy: 0.8608758620689655
+[2025-11-02 18:59:56,820][flwr][DEBUG] - fit_round 37: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:00:23,967][flwr][DEBUG] - fit_round 37 received 15 results and 0 failures
+[2025-11-02 19:00:30,835][root][INFO] - Number of Evil Clients: 9
+[2025-11-02 19:00:30,835][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:00:30,835][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 19:00:30,835][root][INFO] - Average poisoning accuracy: 0.4959555555555555
+[2025-11-02 19:00:30,846][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:00:30,852][root][INFO] - Lambda is -5
+[2025-11-02 19:00:32,466][root][INFO] - Global Poisoning Accuracy: 0.0254
+[2025-11-02 19:00:32,535][flwr][INFO] - fit progress: (37, 201.8596968650818, {'accuracy': 0.4304}, 1674.2984845140018)
+[2025-11-02 19:00:32,535][flwr][DEBUG] - evaluate_round 37: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:00:41,302][flwr][DEBUG] - evaluate_round 37 received 15 results and 0 failures
+[2025-11-02 19:00:41,303][root][INFO] - Federated Accuracy: 0.8753053571428572
+[2025-11-02 19:00:41,496][flwr][DEBUG] - fit_round 38: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:01:07,367][flwr][DEBUG] - fit_round 38 received 15 results and 0 failures
+[2025-11-02 19:01:12,715][root][INFO] - Number of Evil Clients: 7
+[2025-11-02 19:01:12,715][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:01:12,715][root][INFO] - Number of Preset Benign Clients is 8
+[2025-11-02 19:01:12,715][root][INFO] - Average poisoning accuracy: 0.2276142857142857
+[2025-11-02 19:01:12,726][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:01:12,734][root][INFO] - Lambda is -5
+[2025-11-02 19:01:14,335][root][INFO] - Global Poisoning Accuracy: 0.0284
+[2025-11-02 19:01:14,404][flwr][INFO] - fit progress: (38, 199.07396638393402, {'accuracy': 0.4317}, 1716.166730655008)
+[2025-11-02 19:01:14,404][flwr][DEBUG] - evaluate_round 38: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:01:23,326][flwr][DEBUG] - evaluate_round 38 received 15 results and 0 failures
+[2025-11-02 19:01:23,326][root][INFO] - Federated Accuracy: 0.778235294117647
+[2025-11-02 19:01:23,403][flwr][DEBUG] - fit_round 39: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:01:50,911][flwr][DEBUG] - fit_round 39 received 15 results and 0 failures
+[2025-11-02 19:01:59,996][root][INFO] - Number of Evil Clients: 12
+[2025-11-02 19:01:59,996][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:01:59,996][root][INFO] - Number of Preset Benign Clients is 3
+[2025-11-02 19:01:59,996][root][INFO] - Average poisoning accuracy: 0.7598916666666667
+[2025-11-02 19:02:00,007][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:02:00,012][root][INFO] - Lambda is -5
+[2025-11-02 19:02:01,639][root][INFO] - Global Poisoning Accuracy: 0.0309
+[2025-11-02 19:02:01,735][flwr][INFO] - fit progress: (39, 197.31062281131744, {'accuracy': 0.4242}, 1763.4983053419855)
+[2025-11-02 19:02:01,735][flwr][DEBUG] - evaluate_round 39: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:02:10,694][flwr][DEBUG] - evaluate_round 39 received 15 results and 0 failures
+[2025-11-02 19:02:10,694][root][INFO] - Federated Accuracy: 0.8930999999999998
+[2025-11-02 19:02:10,911][flwr][DEBUG] - fit_round 40: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:02:40,841][flwr][DEBUG] - fit_round 40 received 15 results and 0 failures
+[2025-11-02 19:02:49,162][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 19:02:49,162][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:02:49,162][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 19:02:49,162][root][INFO] - Average poisoning accuracy: 0.5855727272727274
+[2025-11-02 19:02:49,215][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:02:49,279][root][INFO] - Lambda is -5
+[2025-11-02 19:02:50,889][root][INFO] - Global Poisoning Accuracy: 0.0253
+[2025-11-02 19:02:50,958][flwr][INFO] - fit progress: (40, 200.1972348690033, {'accuracy': 0.4183}, 1812.7211747419788)
+[2025-11-02 19:02:50,958][flwr][DEBUG] - evaluate_round 40: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:02:59,691][flwr][DEBUG] - evaluate_round 40 received 15 results and 0 failures
+[2025-11-02 19:02:59,691][root][INFO] - Federated Accuracy: 0.8753106382978724
+[2025-11-02 19:02:59,791][flwr][DEBUG] - fit_round 41: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:03:27,689][flwr][DEBUG] - fit_round 41 received 15 results and 0 failures
+[2025-11-02 19:03:36,789][root][INFO] - Number of Evil Clients: 12
+[2025-11-02 19:03:36,789][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:03:36,790][root][INFO] - Number of Preset Benign Clients is 3
+[2025-11-02 19:03:36,790][root][INFO] - Average poisoning accuracy: 0.546725
+[2025-11-02 19:03:36,801][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:03:36,807][root][INFO] - Lambda is -5
+[2025-11-02 19:03:38,408][root][INFO] - Global Poisoning Accuracy: 0.0322
+[2025-11-02 19:03:38,600][flwr][INFO] - fit progress: (41, 199.5273745059967, {'accuracy': 0.4273}, 1860.3636364039849)
+[2025-11-02 19:03:38,601][flwr][DEBUG] - evaluate_round 41: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:03:47,431][flwr][DEBUG] - evaluate_round 41 received 15 results and 0 failures
+[2025-11-02 19:03:47,431][root][INFO] - Federated Accuracy: 0.8828191489361703
+[2025-11-02 19:03:47,504][flwr][DEBUG] - fit_round 42: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:04:13,887][flwr][DEBUG] - fit_round 42 received 15 results and 0 failures
+[2025-11-02 19:04:23,940][root][INFO] - Number of Evil Clients: 13
+[2025-11-02 19:04:23,940][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:04:23,940][root][INFO] - Number of Preset Benign Clients is 2
+[2025-11-02 19:04:23,940][root][INFO] - Average poisoning accuracy: 0.7729
+[2025-11-02 19:04:23,951][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:04:23,956][root][INFO] - Lambda is -5
+[2025-11-02 19:04:25,595][root][INFO] - Global Poisoning Accuracy: 0.027
+[2025-11-02 19:04:25,663][flwr][INFO] - fit progress: (42, 206.60246980190277, {'accuracy': 0.412}, 1907.4260998420068)
+[2025-11-02 19:04:25,663][flwr][DEBUG] - evaluate_round 42: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:04:34,543][flwr][DEBUG] - evaluate_round 42 received 15 results and 0 failures
+[2025-11-02 19:04:34,543][root][INFO] - Federated Accuracy: 0.8574365853658537
+[2025-11-02 19:04:34,622][flwr][DEBUG] - fit_round 43: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:05:03,269][flwr][DEBUG] - fit_round 43 received 15 results and 0 failures
+[2025-11-02 19:05:09,450][root][INFO] - Number of Evil Clients: 8
+[2025-11-02 19:05:09,450][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:05:09,450][root][INFO] - Number of Preset Benign Clients is 7
+[2025-11-02 19:05:09,450][root][INFO] - Average poisoning accuracy: 0.5552125
+[2025-11-02 19:05:09,460][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:05:09,466][root][INFO] - Lambda is -5
+[2025-11-02 19:05:11,142][root][INFO] - Global Poisoning Accuracy: 0.0354
+[2025-11-02 19:05:11,331][flwr][INFO] - fit progress: (43, 195.04325580596924, {'accuracy': 0.4285}, 1953.0946229519905)
+[2025-11-02 19:05:11,332][flwr][DEBUG] - evaluate_round 43: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:05:20,179][flwr][DEBUG] - evaluate_round 43 received 15 results and 0 failures
+[2025-11-02 19:05:20,179][root][INFO] - Federated Accuracy: 0.8636478260869566
+[2025-11-02 19:05:20,251][flwr][DEBUG] - fit_round 44: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:05:46,718][flwr][DEBUG] - fit_round 44 received 15 results and 0 failures
+[2025-11-02 19:05:56,567][root][INFO] - Number of Evil Clients: 13
+[2025-11-02 19:05:56,567][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:05:56,567][root][INFO] - Number of Preset Benign Clients is 2
+[2025-11-02 19:05:56,568][root][INFO] - Average poisoning accuracy: 0.5114153846153846
+[2025-11-02 19:05:56,578][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:05:56,584][root][INFO] - Lambda is -5
+[2025-11-02 19:05:58,212][root][INFO] - Global Poisoning Accuracy: 0.0291
+[2025-11-02 19:05:58,280][flwr][INFO] - fit progress: (44, 203.00321805477142, {'accuracy': 0.4264}, 2000.0431300119963)
+[2025-11-02 19:05:58,280][flwr][DEBUG] - evaluate_round 44: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:06:07,186][flwr][DEBUG] - evaluate_round 44 received 15 results and 0 failures
+[2025-11-02 19:06:07,186][root][INFO] - Federated Accuracy: 0.8667323529411765
+[2025-11-02 19:06:07,264][flwr][DEBUG] - fit_round 45: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:06:34,228][flwr][DEBUG] - fit_round 45 received 15 results and 0 failures
+[2025-11-02 19:06:41,852][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:06:41,852][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:06:41,852][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:06:41,852][root][INFO] - Average poisoning accuracy: 0.69728
+[2025-11-02 19:06:41,864][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:06:41,873][root][INFO] - Lambda is -5
+[2025-11-02 19:06:43,485][root][INFO] - Global Poisoning Accuracy: 0.0309
+[2025-11-02 19:06:43,671][flwr][INFO] - fit progress: (45, 200.14207792282104, {'accuracy': 0.4289}, 2045.4345353440149)
+[2025-11-02 19:06:43,672][flwr][DEBUG] - evaluate_round 45: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:06:52,477][flwr][DEBUG] - evaluate_round 45 received 15 results and 0 failures
+[2025-11-02 19:06:52,477][root][INFO] - Federated Accuracy: 0.8771071428571428
+[2025-11-02 19:06:52,547][flwr][DEBUG] - fit_round 46: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:07:21,681][flwr][DEBUG] - fit_round 46 received 15 results and 0 failures
+[2025-11-02 19:07:29,490][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:07:29,490][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:07:29,490][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:07:29,491][root][INFO] - Average poisoning accuracy: 0.71696
+[2025-11-02 19:07:29,502][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:07:29,508][root][INFO] - Lambda is -5
+[2025-11-02 19:07:31,147][root][INFO] - Global Poisoning Accuracy: 0.0237
+[2025-11-02 19:07:31,216][flwr][INFO] - fit progress: (46, 204.4224672317505, {'accuracy': 0.4184}, 2092.9791927639744)
+[2025-11-02 19:07:31,216][flwr][DEBUG] - evaluate_round 46: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:07:40,014][flwr][DEBUG] - evaluate_round 46 received 15 results and 0 failures
+[2025-11-02 19:07:40,015][root][INFO] - Federated Accuracy: 0.8722526315789474
+[2025-11-02 19:07:40,088][flwr][DEBUG] - fit_round 47: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:08:08,863][flwr][DEBUG] - fit_round 47 received 15 results and 0 failures
+[2025-11-02 19:08:13,451][root][INFO] - Number of Evil Clients: 6
+[2025-11-02 19:08:13,451][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:08:13,451][root][INFO] - Number of Preset Benign Clients is 9
+[2025-11-02 19:08:13,451][root][INFO] - Average poisoning accuracy: 0.3959166666666667
+[2025-11-02 19:08:13,463][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:08:13,472][root][INFO] - Lambda is -5
+[2025-11-02 19:08:15,091][root][INFO] - Global Poisoning Accuracy: 0.0245
+[2025-11-02 19:08:15,279][flwr][INFO] - fit progress: (47, 198.82060766220093, {'accuracy': 0.4329}, 2137.042314585997)
+[2025-11-02 19:08:15,279][flwr][DEBUG] - evaluate_round 47: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:08:24,193][flwr][DEBUG] - evaluate_round 47 received 15 results and 0 failures
+[2025-11-02 19:08:24,193][root][INFO] - Federated Accuracy: 0.8574942857142857
+[2025-11-02 19:08:24,272][flwr][DEBUG] - fit_round 48: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:08:50,944][flwr][DEBUG] - fit_round 48 received 15 results and 0 failures
+[2025-11-02 19:08:58,529][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:08:58,529][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:08:58,529][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:08:58,529][root][INFO] - Average poisoning accuracy: 0.44222
+[2025-11-02 19:08:58,541][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:08:58,547][root][INFO] - Lambda is -5
+[2025-11-02 19:09:00,158][root][INFO] - Global Poisoning Accuracy: 0.0252
+[2025-11-02 19:09:00,226][flwr][INFO] - fit progress: (48, 203.24929320812225, {'accuracy': 0.4269}, 2181.9889280319912)
+[2025-11-02 19:09:00,226][flwr][DEBUG] - evaluate_round 48: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:09:09,215][flwr][DEBUG] - evaluate_round 48 received 15 results and 0 failures
+[2025-11-02 19:09:09,215][root][INFO] - Federated Accuracy: 0.8461766666666667
+[2025-11-02 19:09:09,282][flwr][DEBUG] - fit_round 49: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:09:37,647][flwr][DEBUG] - fit_round 49 received 15 results and 0 failures
+[2025-11-02 19:09:46,812][root][INFO] - Number of Evil Clients: 12
+[2025-11-02 19:09:46,812][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:09:46,812][root][INFO] - Number of Preset Benign Clients is 3
+[2025-11-02 19:09:46,812][root][INFO] - Average poisoning accuracy: 0.7530000000000001
+[2025-11-02 19:09:46,823][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:09:46,828][root][INFO] - Lambda is -5
+[2025-11-02 19:09:48,550][root][INFO] - Global Poisoning Accuracy: 0.0282
+[2025-11-02 19:09:48,619][flwr][INFO] - fit progress: (49, 201.21270310878754, {'accuracy': 0.4323}, 2230.3816871009767)
+[2025-11-02 19:09:48,619][flwr][DEBUG] - evaluate_round 49: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:09:57,550][flwr][DEBUG] - evaluate_round 49 received 15 results and 0 failures
+[2025-11-02 19:09:57,551][root][INFO] - Federated Accuracy: 0.8912857142857143
+[2025-11-02 19:09:57,628][flwr][DEBUG] - fit_round 50: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:10:26,321][flwr][DEBUG] - fit_round 50 received 15 results and 0 failures
+[2025-11-02 19:10:34,616][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 19:10:34,616][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:10:34,616][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 19:10:34,616][root][INFO] - Average poisoning accuracy: 0.7297454545454546
+[2025-11-02 19:10:34,627][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:10:34,632][root][INFO] - Lambda is -5
+[2025-11-02 19:10:36,229][root][INFO] - Global Poisoning Accuracy: 0.0228
+[2025-11-02 19:10:36,298][flwr][INFO] - fit progress: (50, 205.5912947654724, {'accuracy': 0.4245}, 2278.061148382025)
+[2025-11-02 19:10:36,298][flwr][DEBUG] - evaluate_round 50: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:10:45,184][flwr][DEBUG] - evaluate_round 50 received 15 results and 0 failures
+[2025-11-02 19:10:45,184][root][INFO] - Federated Accuracy: 0.8738954545454546
+[2025-11-02 19:10:45,373][flwr][DEBUG] - fit_round 51: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:11:12,834][flwr][DEBUG] - fit_round 51 received 15 results and 0 failures
+[2025-11-02 19:11:21,901][root][INFO] - Number of Evil Clients: 12
+[2025-11-02 19:11:21,901][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:11:21,901][root][INFO] - Number of Preset Benign Clients is 3
+[2025-11-02 19:11:21,901][root][INFO] - Average poisoning accuracy: 0.7001416666666666
+[2025-11-02 19:11:21,912][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:11:21,917][root][INFO] - Lambda is -5
+[2025-11-02 19:11:23,517][root][INFO] - Global Poisoning Accuracy: 0.0316
+[2025-11-02 19:11:23,586][flwr][INFO] - fit progress: (51, 196.3710322380066, {'accuracy': 0.432}, 2325.3491645019967)
+[2025-11-02 19:11:23,586][flwr][DEBUG] - evaluate_round 51: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:11:32,603][flwr][DEBUG] - evaluate_round 51 received 15 results and 0 failures
+[2025-11-02 19:11:32,603][root][INFO] - Federated Accuracy: 0.8638619047619048
+[2025-11-02 19:11:32,672][flwr][DEBUG] - fit_round 52: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:12:01,334][flwr][DEBUG] - fit_round 52 received 15 results and 0 failures
+[2025-11-02 19:12:08,166][root][INFO] - Number of Evil Clients: 9
+[2025-11-02 19:12:08,166][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:12:08,166][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 19:12:08,166][root][INFO] - Average poisoning accuracy: 0.6083222222222223
+[2025-11-02 19:12:08,177][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:12:08,184][root][INFO] - Lambda is -5
+[2025-11-02 19:12:09,791][root][INFO] - Global Poisoning Accuracy: 0.0268
+[2025-11-02 19:12:09,859][flwr][INFO] - fit progress: (52, 199.55286824703217, {'accuracy': 0.4239}, 2371.6218339150073)
+[2025-11-02 19:12:09,859][flwr][DEBUG] - evaluate_round 52: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:12:18,776][flwr][DEBUG] - evaluate_round 52 received 15 results and 0 failures
+[2025-11-02 19:12:18,777][root][INFO] - Federated Accuracy: 0.7588999999999999
+[2025-11-02 19:12:18,965][flwr][DEBUG] - fit_round 53: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:12:45,454][flwr][DEBUG] - fit_round 53 received 15 results and 0 failures
+[2025-11-02 19:12:53,771][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 19:12:53,771][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:12:53,771][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 19:12:53,771][root][INFO] - Average poisoning accuracy: 0.6813545454545454
+[2025-11-02 19:12:53,782][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:12:53,787][root][INFO] - Lambda is -5
+[2025-11-02 19:12:55,388][root][INFO] - Global Poisoning Accuracy: 0.0253
+[2025-11-02 19:12:55,456][flwr][INFO] - fit progress: (53, 201.93648207187653, {'accuracy': 0.4284}, 2417.219525678025)
+[2025-11-02 19:12:55,457][flwr][DEBUG] - evaluate_round 53: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:13:04,359][flwr][DEBUG] - evaluate_round 53 received 15 results and 0 failures
+[2025-11-02 19:13:04,359][root][INFO] - Federated Accuracy: 0.8668783783783784
+[2025-11-02 19:13:04,427][flwr][DEBUG] - fit_round 54: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:13:32,799][flwr][DEBUG] - fit_round 54 received 15 results and 0 failures
+[2025-11-02 19:13:38,911][root][INFO] - Number of Evil Clients: 8
+[2025-11-02 19:13:38,911][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:13:38,911][root][INFO] - Number of Preset Benign Clients is 7
+[2025-11-02 19:13:38,911][root][INFO] - Average poisoning accuracy: 0.5450125
+[2025-11-02 19:13:38,922][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:13:38,928][root][INFO] - Lambda is -5
+[2025-11-02 19:13:40,532][root][INFO] - Global Poisoning Accuracy: 0.0265
+[2025-11-02 19:13:40,629][flwr][INFO] - fit progress: (54, 201.41028702259064, {'accuracy': 0.4269}, 2462.391847438994)
+[2025-11-02 19:13:40,629][flwr][DEBUG] - evaluate_round 54: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:13:49,437][flwr][DEBUG] - evaluate_round 54 received 15 results and 0 failures
+[2025-11-02 19:13:49,438][root][INFO] - Federated Accuracy: 0.8750428571428572
+[2025-11-02 19:13:49,631][flwr][DEBUG] - fit_round 55: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:14:17,012][flwr][DEBUG] - fit_round 55 received 15 results and 0 failures
+[2025-11-02 19:14:23,105][root][INFO] - Number of Evil Clients: 8
+[2025-11-02 19:14:23,105][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:14:23,105][root][INFO] - Number of Preset Benign Clients is 7
+[2025-11-02 19:14:23,105][root][INFO] - Average poisoning accuracy: 0.5218375
+[2025-11-02 19:14:23,116][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:14:23,121][root][INFO] - Lambda is -5
+[2025-11-02 19:14:24,734][root][INFO] - Global Poisoning Accuracy: 0.0283
+[2025-11-02 19:14:24,802][flwr][INFO] - fit progress: (55, 201.5308756828308, {'accuracy': 0.4278}, 2506.5650675600045)
+[2025-11-02 19:14:24,802][flwr][DEBUG] - evaluate_round 55: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:14:33,648][flwr][DEBUG] - evaluate_round 55 received 15 results and 0 failures
+[2025-11-02 19:14:33,648][root][INFO] - Federated Accuracy: 0.8907129032258064
+[2025-11-02 19:14:33,725][flwr][DEBUG] - fit_round 56: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:14:58,877][flwr][DEBUG] - fit_round 56 received 15 results and 0 failures
+[2025-11-02 19:15:05,714][root][INFO] - Number of Evil Clients: 9
+[2025-11-02 19:15:05,714][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:15:05,714][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 19:15:05,714][root][INFO] - Average poisoning accuracy: 0.6173444444444445
+[2025-11-02 19:15:05,725][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:15:05,731][root][INFO] - Lambda is -5
+[2025-11-02 19:15:07,330][root][INFO] - Global Poisoning Accuracy: 0.0226
+[2025-11-02 19:15:07,397][flwr][INFO] - fit progress: (56, 202.40157985687256, {'accuracy': 0.4315}, 2549.1605247160187)
+[2025-11-02 19:15:07,398][flwr][DEBUG] - evaluate_round 56: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:15:16,374][flwr][DEBUG] - evaluate_round 56 received 15 results and 0 failures
+[2025-11-02 19:15:16,374][root][INFO] - Federated Accuracy: 0.8434705882352942
+[2025-11-02 19:15:16,563][flwr][DEBUG] - fit_round 57: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:15:43,081][flwr][DEBUG] - fit_round 57 received 15 results and 0 failures
+[2025-11-02 19:15:51,434][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 19:15:51,434][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:15:51,434][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 19:15:51,434][root][INFO] - Average poisoning accuracy: 0.6410545454545455
+[2025-11-02 19:15:51,446][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:15:51,455][root][INFO] - Lambda is -5
+[2025-11-02 19:15:53,056][root][INFO] - Global Poisoning Accuracy: 0.0215
+[2025-11-02 19:15:53,124][flwr][INFO] - fit progress: (57, 208.31233668327332, {'accuracy': 0.4189}, 2594.8866816550144)
+[2025-11-02 19:15:53,124][flwr][DEBUG] - evaluate_round 57: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:16:01,929][flwr][DEBUG] - evaluate_round 57 received 15 results and 0 failures
+[2025-11-02 19:16:01,929][root][INFO] - Federated Accuracy: 0.8734042553191489
+[2025-11-02 19:16:02,011][flwr][DEBUG] - fit_round 58: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:16:30,354][flwr][DEBUG] - fit_round 58 received 15 results and 0 failures
+[2025-11-02 19:16:37,949][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:16:37,949][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:16:37,949][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:16:37,949][root][INFO] - Average poisoning accuracy: 0.53041
+[2025-11-02 19:16:37,960][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:16:37,965][root][INFO] - Lambda is -5
+[2025-11-02 19:16:39,562][root][INFO] - Global Poisoning Accuracy: 0.0258
+[2025-11-02 19:16:39,630][flwr][INFO] - fit progress: (58, 203.10967218875885, {'accuracy': 0.4275}, 2641.393477769976)
+[2025-11-02 19:16:39,630][flwr][DEBUG] - evaluate_round 58: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:16:48,438][flwr][DEBUG] - evaluate_round 58 received 15 results and 0 failures
+[2025-11-02 19:16:48,439][root][INFO] - Federated Accuracy: 0.8823217391304349
+[2025-11-02 19:16:48,626][flwr][DEBUG] - fit_round 59: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:17:14,960][flwr][DEBUG] - fit_round 59 received 15 results and 0 failures
+[2025-11-02 19:17:22,561][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:17:22,562][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:17:22,562][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:17:22,562][root][INFO] - Average poisoning accuracy: 0.5421799999999999
+[2025-11-02 19:17:22,572][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:17:22,577][root][INFO] - Lambda is -5
+[2025-11-02 19:17:24,218][root][INFO] - Global Poisoning Accuracy: 0.0322
+[2025-11-02 19:17:24,285][flwr][INFO] - fit progress: (59, 201.8321055173874, {'accuracy': 0.43}, 2686.0481771230116)
+[2025-11-02 19:17:24,285][flwr][DEBUG] - evaluate_round 59: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:17:33,161][flwr][DEBUG] - evaluate_round 59 received 15 results and 0 failures
+[2025-11-02 19:17:33,161][root][INFO] - Federated Accuracy: 0.8965153846153846
+[2025-11-02 19:17:33,232][flwr][DEBUG] - fit_round 60: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:17:59,516][flwr][DEBUG] - fit_round 60 received 15 results and 0 failures
+[2025-11-02 19:18:06,335][root][INFO] - Number of Evil Clients: 9
+[2025-11-02 19:18:06,335][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:18:06,335][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 19:18:06,335][root][INFO] - Average poisoning accuracy: 0.5643777777777778
+[2025-11-02 19:18:06,393][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:18:06,450][root][INFO] - Lambda is -5
+[2025-11-02 19:18:08,053][root][INFO] - Global Poisoning Accuracy: 0.0291
+[2025-11-02 19:18:08,238][flwr][INFO] - fit progress: (60, 199.42693400382996, {'accuracy': 0.4313}, 2730.001356587978)
+[2025-11-02 19:18:08,238][flwr][DEBUG] - evaluate_round 60: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:18:17,135][flwr][DEBUG] - evaluate_round 60 received 15 results and 0 failures
+[2025-11-02 19:18:17,136][root][INFO] - Federated Accuracy: 0.849941379310345
+[2025-11-02 19:18:17,212][flwr][DEBUG] - fit_round 61: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:18:45,065][flwr][DEBUG] - fit_round 61 received 15 results and 0 failures
+[2025-11-02 19:18:52,640][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:18:52,640][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:18:52,641][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:18:52,641][root][INFO] - Average poisoning accuracy: 0.6520499999999999
+[2025-11-02 19:18:52,651][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:18:52,659][root][INFO] - Lambda is -5
+[2025-11-02 19:18:54,262][root][INFO] - Global Poisoning Accuracy: 0.0265
+[2025-11-02 19:18:54,329][flwr][INFO] - fit progress: (61, 200.18142342567444, {'accuracy': 0.4292}, 2776.0923377299914)
+[2025-11-02 19:18:54,329][flwr][DEBUG] - evaluate_round 61: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:19:03,295][flwr][DEBUG] - evaluate_round 61 received 15 results and 0 failures
+[2025-11-02 19:19:03,295][root][INFO] - Federated Accuracy: 0.8484833333333333
+[2025-11-02 19:19:03,364][flwr][DEBUG] - fit_round 62: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:19:31,983][flwr][DEBUG] - fit_round 62 received 15 results and 0 failures
+[2025-11-02 19:19:40,280][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 19:19:40,280][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:19:40,280][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 19:19:40,280][root][INFO] - Average poisoning accuracy: 0.6690363636363635
+[2025-11-02 19:19:40,291][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:19:40,297][root][INFO] - Lambda is -5
+[2025-11-02 19:19:41,909][root][INFO] - Global Poisoning Accuracy: 0.0301
+[2025-11-02 19:19:42,094][flwr][INFO] - fit progress: (62, 197.57873797416687, {'accuracy': 0.4311}, 2823.857105017989)
+[2025-11-02 19:19:42,094][flwr][DEBUG] - evaluate_round 62: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:19:50,900][flwr][DEBUG] - evaluate_round 62 received 15 results and 0 failures
+[2025-11-02 19:19:50,900][root][INFO] - Federated Accuracy: 0.8928756097560976
+[2025-11-02 19:19:50,973][flwr][DEBUG] - fit_round 63: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:20:18,321][flwr][DEBUG] - fit_round 63 received 15 results and 0 failures
+[2025-11-02 19:20:24,407][root][INFO] - Number of Evil Clients: 8
+[2025-11-02 19:20:24,408][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:20:24,408][root][INFO] - Number of Preset Benign Clients is 7
+[2025-11-02 19:20:24,408][root][INFO] - Average poisoning accuracy: 0.53865
+[2025-11-02 19:20:24,418][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:20:24,424][root][INFO] - Lambda is -5
+[2025-11-02 19:20:26,028][root][INFO] - Global Poisoning Accuracy: 0.0316
+[2025-11-02 19:20:26,096][flwr][INFO] - fit progress: (63, 197.3493651151657, {'accuracy': 0.4294}, 2867.858926291985)
+[2025-11-02 19:20:26,096][flwr][DEBUG] - evaluate_round 63: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:20:34,882][flwr][DEBUG] - evaluate_round 63 received 15 results and 0 failures
+[2025-11-02 19:20:34,882][root][INFO] - Federated Accuracy: 0.8816516129032258
+[2025-11-02 19:20:34,957][flwr][DEBUG] - fit_round 64: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:21:01,962][flwr][DEBUG] - fit_round 64 received 15 results and 0 failures
+[2025-11-02 19:21:08,806][root][INFO] - Number of Evil Clients: 9
+[2025-11-02 19:21:08,807][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:21:08,807][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 19:21:08,807][root][INFO] - Average poisoning accuracy: 0.8015111111111112
+[2025-11-02 19:21:08,817][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:21:08,824][root][INFO] - Lambda is -5
+[2025-11-02 19:21:10,434][root][INFO] - Global Poisoning Accuracy: 0.028
+[2025-11-02 19:21:10,620][flwr][INFO] - fit progress: (64, 198.92479503154755, {'accuracy': 0.4302}, 2912.383232499007)
+[2025-11-02 19:21:10,620][flwr][DEBUG] - evaluate_round 64: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:21:19,535][flwr][DEBUG] - evaluate_round 64 received 15 results and 0 failures
+[2025-11-02 19:21:19,535][root][INFO] - Federated Accuracy: 0.8589363636363636
+[2025-11-02 19:21:19,608][flwr][DEBUG] - fit_round 65: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:21:46,887][flwr][DEBUG] - fit_round 65 received 15 results and 0 failures
+[2025-11-02 19:21:54,456][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:21:54,456][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:21:54,456][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:21:54,456][root][INFO] - Average poisoning accuracy: 0.64188
+[2025-11-02 19:21:54,467][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:21:54,472][root][INFO] - Lambda is -5
+[2025-11-02 19:21:56,092][root][INFO] - Global Poisoning Accuracy: 0.0318
+[2025-11-02 19:21:56,160][flwr][INFO] - fit progress: (65, 199.02944028377533, {'accuracy': 0.4297}, 2957.9236175870174)
+[2025-11-02 19:21:56,161][flwr][DEBUG] - evaluate_round 65: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:22:05,149][flwr][DEBUG] - evaluate_round 65 received 15 results and 0 failures
+[2025-11-02 19:22:05,149][root][INFO] - Federated Accuracy: 0.8429380952380952
+[2025-11-02 19:22:05,347][flwr][DEBUG] - fit_round 66: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:22:31,839][flwr][DEBUG] - fit_round 66 received 15 results and 0 failures
+[2025-11-02 19:22:38,683][root][INFO] - Number of Evil Clients: 9
+[2025-11-02 19:22:38,683][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:22:38,683][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 19:22:38,683][root][INFO] - Average poisoning accuracy: 0.7057777777777777
+[2025-11-02 19:22:38,694][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:22:38,702][root][INFO] - Lambda is -5
+[2025-11-02 19:22:40,312][root][INFO] - Global Poisoning Accuracy: 0.0294
+[2025-11-02 19:22:40,380][flwr][INFO] - fit progress: (66, 197.58254718780518, {'accuracy': 0.4315}, 3002.142772749008)
+[2025-11-02 19:22:40,380][flwr][DEBUG] - evaluate_round 66: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:22:49,189][flwr][DEBUG] - evaluate_round 66 received 15 results and 0 failures
+[2025-11-02 19:22:49,189][root][INFO] - Federated Accuracy: 0.8582263157894737
+[2025-11-02 19:22:49,256][flwr][DEBUG] - fit_round 67: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:23:17,052][flwr][DEBUG] - fit_round 67 received 15 results and 0 failures
+[2025-11-02 19:23:23,899][root][INFO] - Number of Evil Clients: 9
+[2025-11-02 19:23:23,899][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:23:23,899][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 19:23:23,899][root][INFO] - Average poisoning accuracy: 0.5811666666666667
+[2025-11-02 19:23:23,910][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:23:23,915][root][INFO] - Lambda is -5
+[2025-11-02 19:23:25,518][root][INFO] - Global Poisoning Accuracy: 0.0344
+[2025-11-02 19:23:25,585][flwr][INFO] - fit progress: (67, 200.22329080104828, {'accuracy': 0.4271}, 3047.3481042790227)
+[2025-11-02 19:23:25,585][flwr][DEBUG] - evaluate_round 67: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:23:34,491][flwr][DEBUG] - evaluate_round 67 received 15 results and 0 failures
+[2025-11-02 19:23:34,492][root][INFO] - Federated Accuracy: 0.867908888888889
+[2025-11-02 19:23:34,677][flwr][DEBUG] - fit_round 68: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:24:00,725][flwr][DEBUG] - fit_round 68 received 15 results and 0 failures
+[2025-11-02 19:24:06,067][root][INFO] - Number of Evil Clients: 7
+[2025-11-02 19:24:06,068][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:24:06,068][root][INFO] - Number of Preset Benign Clients is 8
+[2025-11-02 19:24:06,068][root][INFO] - Average poisoning accuracy: 0.4877714285714285
+[2025-11-02 19:24:06,078][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:24:06,084][root][INFO] - Lambda is -5
+[2025-11-02 19:24:07,720][root][INFO] - Global Poisoning Accuracy: 0.029
+[2025-11-02 19:24:07,787][flwr][INFO] - fit progress: (68, 200.67519688606262, {'accuracy': 0.4275}, 3089.550298519025)
+[2025-11-02 19:24:07,787][flwr][DEBUG] - evaluate_round 68: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:24:16,543][flwr][DEBUG] - evaluate_round 68 received 15 results and 0 failures
+[2025-11-02 19:24:16,543][root][INFO] - Federated Accuracy: 0.822425
+[2025-11-02 19:24:16,613][flwr][DEBUG] - fit_round 69: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:24:44,838][flwr][DEBUG] - fit_round 69 received 15 results and 0 failures
+[2025-11-02 19:24:54,688][root][INFO] - Number of Evil Clients: 13
+[2025-11-02 19:24:54,688][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:24:54,688][root][INFO] - Number of Preset Benign Clients is 2
+[2025-11-02 19:24:54,688][root][INFO] - Average poisoning accuracy: 0.5046538461538461
+[2025-11-02 19:24:54,699][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:24:54,705][root][INFO] - Lambda is -5
+[2025-11-02 19:24:56,321][root][INFO] - Global Poisoning Accuracy: 0.023
+[2025-11-02 19:24:56,388][flwr][INFO] - fit progress: (69, 206.293030500412, {'accuracy': 0.4246}, 3138.15130988101)
+[2025-11-02 19:24:56,388][flwr][DEBUG] - evaluate_round 69: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:25:05,330][flwr][DEBUG] - evaluate_round 69 received 15 results and 0 failures
+[2025-11-02 19:25:05,331][root][INFO] - Federated Accuracy: 0.8733941176470588
+[2025-11-02 19:25:05,519][flwr][DEBUG] - fit_round 70: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:25:33,494][flwr][DEBUG] - fit_round 70 received 15 results and 0 failures
+[2025-11-02 19:25:40,305][root][INFO] - Number of Evil Clients: 9
+[2025-11-02 19:25:40,305][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:25:40,305][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 19:25:40,306][root][INFO] - Average poisoning accuracy: 0.6935777777777777
+[2025-11-02 19:25:40,316][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:25:40,324][root][INFO] - Lambda is -5
+[2025-11-02 19:25:41,939][root][INFO] - Global Poisoning Accuracy: 0.0206
+[2025-11-02 19:25:42,007][flwr][INFO] - fit progress: (70, 207.57346606254578, {'accuracy': 0.4178}, 3183.770566518011)
+[2025-11-02 19:25:42,008][flwr][DEBUG] - evaluate_round 70: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:25:50,977][flwr][DEBUG] - evaluate_round 70 received 15 results and 0 failures
+[2025-11-02 19:25:50,977][root][INFO] - Federated Accuracy: 0.8935137254901961
+[2025-11-02 19:25:51,050][flwr][DEBUG] - fit_round 71: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:26:18,594][flwr][DEBUG] - fit_round 71 received 15 results and 0 failures
+[2025-11-02 19:26:27,702][root][INFO] - Number of Evil Clients: 12
+[2025-11-02 19:26:27,702][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:26:27,702][root][INFO] - Number of Preset Benign Clients is 3
+[2025-11-02 19:26:27,702][root][INFO] - Average poisoning accuracy: 0.8299666666666665
+[2025-11-02 19:26:27,713][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:26:27,718][root][INFO] - Lambda is -5
+[2025-11-02 19:26:29,333][root][INFO] - Global Poisoning Accuracy: 0.0291
+[2025-11-02 19:26:29,401][flwr][INFO] - fit progress: (71, 205.06978929042816, {'accuracy': 0.4198}, 3231.1639725220157)
+[2025-11-02 19:26:29,401][flwr][DEBUG] - evaluate_round 71: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:26:38,248][flwr][DEBUG] - evaluate_round 71 received 15 results and 0 failures
+[2025-11-02 19:26:38,249][root][INFO] - Federated Accuracy: 0.8760414634146342
+[2025-11-02 19:26:38,442][flwr][DEBUG] - fit_round 72: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:27:06,860][flwr][DEBUG] - fit_round 72 received 15 results and 0 failures
+[2025-11-02 19:27:12,197][root][INFO] - Number of Evil Clients: 7
+[2025-11-02 19:27:12,197][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:27:12,197][root][INFO] - Number of Preset Benign Clients is 8
+[2025-11-02 19:27:12,197][root][INFO] - Average poisoning accuracy: 0.5853571428571429
+[2025-11-02 19:27:12,208][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:27:12,213][root][INFO] - Lambda is -5
+[2025-11-02 19:27:13,822][root][INFO] - Global Poisoning Accuracy: 0.0294
+[2025-11-02 19:27:13,889][flwr][INFO] - fit progress: (72, 197.77853858470917, {'accuracy': 0.4294}, 3275.651754209015)
+[2025-11-02 19:27:13,889][flwr][DEBUG] - evaluate_round 72: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:27:22,791][flwr][DEBUG] - evaluate_round 72 received 15 results and 0 failures
+[2025-11-02 19:27:22,792][root][INFO] - Federated Accuracy: 0.8686027027027027
+[2025-11-02 19:27:22,860][flwr][DEBUG] - fit_round 73: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:27:49,523][flwr][DEBUG] - fit_round 73 received 15 results and 0 failures
+[2025-11-02 19:27:58,631][root][INFO] - Number of Evil Clients: 12
+[2025-11-02 19:27:58,631][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:27:58,631][root][INFO] - Number of Preset Benign Clients is 3
+[2025-11-02 19:27:58,631][root][INFO] - Average poisoning accuracy: 0.5728916666666667
+[2025-11-02 19:27:58,642][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:27:58,648][root][INFO] - Lambda is -5
+[2025-11-02 19:28:00,263][root][INFO] - Global Poisoning Accuracy: 0.024
+[2025-11-02 19:28:00,330][flwr][INFO] - fit progress: (73, 201.7744528055191, {'accuracy': 0.4235}, 3322.0932305490132)
+[2025-11-02 19:28:00,330][flwr][DEBUG] - evaluate_round 73: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:28:09,323][flwr][DEBUG] - evaluate_round 73 received 15 results and 0 failures
+[2025-11-02 19:28:09,324][root][INFO] - Federated Accuracy: 0.8791941176470588
+[2025-11-02 19:28:09,511][flwr][DEBUG] - fit_round 74: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:28:37,865][flwr][DEBUG] - fit_round 74 received 15 results and 0 failures
+[2025-11-02 19:28:45,447][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:28:45,448][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:28:45,448][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:28:45,448][root][INFO] - Average poisoning accuracy: 0.44523
+[2025-11-02 19:28:45,458][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:28:45,463][root][INFO] - Lambda is -5
+[2025-11-02 19:28:47,065][root][INFO] - Global Poisoning Accuracy: 0.0319
+[2025-11-02 19:28:47,132][flwr][INFO] - fit progress: (74, 203.9457746744156, {'accuracy': 0.4272}, 3368.8954253849806)
+[2025-11-02 19:28:47,132][flwr][DEBUG] - evaluate_round 74: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:28:56,075][flwr][DEBUG] - evaluate_round 74 received 15 results and 0 failures
+[2025-11-02 19:28:56,075][root][INFO] - Federated Accuracy: 0.8746066666666668
+[2025-11-02 19:28:56,143][flwr][DEBUG] - fit_round 75: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:29:24,391][flwr][DEBUG] - fit_round 75 received 15 results and 0 failures
+[2025-11-02 19:29:31,997][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:29:31,997][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:29:31,997][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:29:31,997][root][INFO] - Average poisoning accuracy: 0.6236600000000001
+[2025-11-02 19:29:32,008][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:29:32,014][root][INFO] - Lambda is -5
+[2025-11-02 19:29:33,620][root][INFO] - Global Poisoning Accuracy: 0.0219
+[2025-11-02 19:29:33,688][flwr][INFO] - fit progress: (75, 200.1579442024231, {'accuracy': 0.4304}, 3415.450851920992)
+[2025-11-02 19:29:33,688][flwr][DEBUG] - evaluate_round 75: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:29:42,625][flwr][DEBUG] - evaluate_round 75 received 15 results and 0 failures
+[2025-11-02 19:29:42,625][root][INFO] - Federated Accuracy: 0.8404
+[2025-11-02 19:29:42,698][flwr][DEBUG] - fit_round 76: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:30:10,159][flwr][DEBUG] - fit_round 76 received 15 results and 0 failures
+[2025-11-02 19:30:15,480][root][INFO] - Number of Evil Clients: 7
+[2025-11-02 19:30:15,481][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:30:15,481][root][INFO] - Number of Preset Benign Clients is 8
+[2025-11-02 19:30:15,481][root][INFO] - Average poisoning accuracy: 0.5049
+[2025-11-02 19:30:15,491][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:30:15,497][root][INFO] - Lambda is -5
+[2025-11-02 19:30:17,094][root][INFO] - Global Poisoning Accuracy: 0.0223
+[2025-11-02 19:30:17,162][flwr][INFO] - fit progress: (76, 200.33298909664154, {'accuracy': 0.43}, 3458.9251052989857)
+[2025-11-02 19:30:17,162][flwr][DEBUG] - evaluate_round 76: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:30:25,942][flwr][DEBUG] - evaluate_round 76 received 15 results and 0 failures
+[2025-11-02 19:30:25,943][root][INFO] - Federated Accuracy: 0.8847416666666668
+[2025-11-02 19:30:26,010][flwr][DEBUG] - fit_round 77: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:30:54,466][flwr][DEBUG] - fit_round 77 received 15 results and 0 failures
+[2025-11-02 19:31:02,058][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:31:02,058][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:31:02,058][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:31:02,058][root][INFO] - Average poisoning accuracy: 0.51359
+[2025-11-02 19:31:02,069][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:31:02,074][root][INFO] - Lambda is -5
+[2025-11-02 19:31:03,705][root][INFO] - Global Poisoning Accuracy: 0.0231
+[2025-11-02 19:31:03,888][flwr][INFO] - fit progress: (77, 199.78334414958954, {'accuracy': 0.4325}, 3505.651016974007)
+[2025-11-02 19:31:03,888][flwr][DEBUG] - evaluate_round 77: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:31:12,868][flwr][DEBUG] - evaluate_round 77 received 15 results and 0 failures
+[2025-11-02 19:31:12,869][root][INFO] - Federated Accuracy: 0.8773580645161292
+[2025-11-02 19:31:12,944][flwr][DEBUG] - fit_round 78: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:31:38,974][flwr][DEBUG] - fit_round 78 received 15 results and 0 failures
+[2025-11-02 19:31:48,015][root][INFO] - Number of Evil Clients: 12
+[2025-11-02 19:31:48,015][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:31:48,015][root][INFO] - Number of Preset Benign Clients is 3
+[2025-11-02 19:31:48,015][root][INFO] - Average poisoning accuracy: 0.6928
+[2025-11-02 19:31:48,026][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:31:48,032][root][INFO] - Lambda is -5
+[2025-11-02 19:31:49,634][root][INFO] - Global Poisoning Accuracy: 0.0263
+[2025-11-02 19:31:49,701][flwr][INFO] - fit progress: (78, 201.27518129348755, {'accuracy': 0.4167}, 3551.464015660982)
+[2025-11-02 19:31:49,701][flwr][DEBUG] - evaluate_round 78: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:31:58,649][flwr][DEBUG] - evaluate_round 78 received 15 results and 0 failures
+[2025-11-02 19:31:58,650][root][INFO] - Federated Accuracy: 0.87818
+[2025-11-02 19:31:58,735][flwr][DEBUG] - fit_round 79: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:32:23,612][flwr][DEBUG] - fit_round 79 received 15 results and 0 failures
+[2025-11-02 19:32:32,734][root][INFO] - Number of Evil Clients: 12
+[2025-11-02 19:32:32,734][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:32:32,734][root][INFO] - Number of Preset Benign Clients is 3
+[2025-11-02 19:32:32,734][root][INFO] - Average poisoning accuracy: 0.6107416666666667
+[2025-11-02 19:32:32,745][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:32:32,753][root][INFO] - Lambda is -5
+[2025-11-02 19:32:34,480][root][INFO] - Global Poisoning Accuracy: 0.0282
+[2025-11-02 19:32:34,546][flwr][INFO] - fit progress: (79, 197.5838384628296, {'accuracy': 0.4298}, 3596.309511966014)
+[2025-11-02 19:32:34,547][flwr][DEBUG] - evaluate_round 79: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:32:43,386][flwr][DEBUG] - evaluate_round 79 received 15 results and 0 failures
+[2025-11-02 19:32:43,387][root][INFO] - Federated Accuracy: 0.8798677419354839
+[2025-11-02 19:32:43,454][flwr][DEBUG] - fit_round 80: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:33:11,636][flwr][DEBUG] - fit_round 80 received 15 results and 0 failures
+[2025-11-02 19:33:20,744][root][INFO] - Number of Evil Clients: 12
+[2025-11-02 19:33:20,744][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:33:20,744][root][INFO] - Number of Preset Benign Clients is 3
+[2025-11-02 19:33:20,744][root][INFO] - Average poisoning accuracy: 0.6635916666666667
+[2025-11-02 19:33:20,796][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:33:20,863][root][INFO] - Lambda is -5
+[2025-11-02 19:33:22,478][root][INFO] - Global Poisoning Accuracy: 0.0308
+[2025-11-02 19:33:22,544][flwr][INFO] - fit progress: (80, 199.9484349489212, {'accuracy': 0.4194}, 3644.3076185039827)
+[2025-11-02 19:33:22,545][flwr][DEBUG] - evaluate_round 80: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:33:31,421][flwr][DEBUG] - evaluate_round 80 received 15 results and 0 failures
+[2025-11-02 19:33:31,422][root][INFO] - Federated Accuracy: 0.9020600000000002
+[2025-11-02 19:33:31,607][flwr][DEBUG] - fit_round 81: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:33:58,002][flwr][DEBUG] - fit_round 81 received 15 results and 0 failures
+[2025-11-02 19:34:04,099][root][INFO] - Number of Evil Clients: 8
+[2025-11-02 19:34:04,099][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:34:04,099][root][INFO] - Number of Preset Benign Clients is 7
+[2025-11-02 19:34:04,099][root][INFO] - Average poisoning accuracy: 0.8618125
+[2025-11-02 19:34:04,110][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:34:04,115][root][INFO] - Lambda is -5
+[2025-11-02 19:34:05,757][root][INFO] - Global Poisoning Accuracy: 0.0293
+[2025-11-02 19:34:05,824][flwr][INFO] - fit progress: (81, 194.28009498119354, {'accuracy': 0.4287}, 3687.586895996006)
+[2025-11-02 19:34:05,824][flwr][DEBUG] - evaluate_round 81: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:34:14,751][flwr][DEBUG] - evaluate_round 81 received 15 results and 0 failures
+[2025-11-02 19:34:14,751][root][INFO] - Federated Accuracy: 0.8687206896551724
+[2025-11-02 19:34:14,820][flwr][DEBUG] - fit_round 82: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:34:40,690][flwr][DEBUG] - fit_round 82 received 15 results and 0 failures
+[2025-11-02 19:34:49,017][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 19:34:49,018][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:34:49,018][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 19:34:49,018][root][INFO] - Average poisoning accuracy: 0.6406727272727273
+[2025-11-02 19:34:49,028][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:34:49,033][root][INFO] - Lambda is -5
+[2025-11-02 19:34:50,639][root][INFO] - Global Poisoning Accuracy: 0.0282
+[2025-11-02 19:34:50,707][flwr][INFO] - fit progress: (82, 199.35289108753204, {'accuracy': 0.4164}, 3732.4696656040032)
+[2025-11-02 19:34:50,707][flwr][DEBUG] - evaluate_round 82: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:34:59,695][flwr][DEBUG] - evaluate_round 82 received 15 results and 0 failures
+[2025-11-02 19:34:59,695][root][INFO] - Federated Accuracy: 0.8909413793103448
+[2025-11-02 19:34:59,884][flwr][DEBUG] - fit_round 83: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:35:24,423][flwr][DEBUG] - fit_round 83 received 15 results and 0 failures
+[2025-11-02 19:35:34,277][root][INFO] - Number of Evil Clients: 13
+[2025-11-02 19:35:34,277][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:35:34,277][root][INFO] - Number of Preset Benign Clients is 2
+[2025-11-02 19:35:34,277][root][INFO] - Average poisoning accuracy: 0.5532153846153848
+[2025-11-02 19:35:34,288][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:35:34,293][root][INFO] - Lambda is -5
+[2025-11-02 19:35:35,916][root][INFO] - Global Poisoning Accuracy: 0.0217
+[2025-11-02 19:35:35,984][flwr][INFO] - fit progress: (83, 197.8460202217102, {'accuracy': 0.43}, 3777.7466771149775)
+[2025-11-02 19:35:35,984][flwr][DEBUG] - evaluate_round 83: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:35:44,914][flwr][DEBUG] - evaluate_round 83 received 15 results and 0 failures
+[2025-11-02 19:35:44,915][root][INFO] - Federated Accuracy: 0.8771358974358975
+[2025-11-02 19:35:44,983][flwr][DEBUG] - fit_round 84: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:36:12,732][flwr][DEBUG] - fit_round 84 received 15 results and 0 failures
+[2025-11-02 19:36:21,086][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 19:36:21,086][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:36:21,086][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 19:36:21,086][root][INFO] - Average poisoning accuracy: 0.5929545454545454
+[2025-11-02 19:36:21,096][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:36:21,101][root][INFO] - Lambda is -5
+[2025-11-02 19:36:22,708][root][INFO] - Global Poisoning Accuracy: 0.0221
+[2025-11-02 19:36:22,775][flwr][INFO] - fit progress: (84, 203.91037964820862, {'accuracy': 0.4239}, 3824.537975426996)
+[2025-11-02 19:36:22,775][flwr][DEBUG] - evaluate_round 84: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:36:31,614][flwr][DEBUG] - evaluate_round 84 received 15 results and 0 failures
+[2025-11-02 19:36:31,614][root][INFO] - Federated Accuracy: 0.8682948717948721
+[2025-11-02 19:36:31,799][flwr][DEBUG] - fit_round 85: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:36:57,010][flwr][DEBUG] - fit_round 85 received 15 results and 0 failures
+[2025-11-02 19:37:05,334][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 19:37:05,334][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:37:05,334][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 19:37:05,334][root][INFO] - Average poisoning accuracy: 0.8236181818181819
+[2025-11-02 19:37:05,345][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:37:05,351][root][INFO] - Lambda is -5
+[2025-11-02 19:37:06,952][root][INFO] - Global Poisoning Accuracy: 0.0167
+[2025-11-02 19:37:07,021][flwr][INFO] - fit progress: (85, 201.96287524700165, {'accuracy': 0.4197}, 3868.7842291140114)
+[2025-11-02 19:37:07,021][flwr][DEBUG] - evaluate_round 85: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:37:15,887][flwr][DEBUG] - evaluate_round 85 received 15 results and 0 failures
+[2025-11-02 19:37:15,888][root][INFO] - Federated Accuracy: 0.8994875000000001
+[2025-11-02 19:37:15,958][flwr][DEBUG] - fit_round 86: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:37:44,578][flwr][DEBUG] - fit_round 86 received 15 results and 0 failures
+[2025-11-02 19:37:52,914][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 19:37:52,914][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:37:52,914][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 19:37:52,914][root][INFO] - Average poisoning accuracy: 0.5593090909090909
+[2025-11-02 19:37:52,925][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:37:52,930][root][INFO] - Lambda is -5
+[2025-11-02 19:37:54,534][root][INFO] - Global Poisoning Accuracy: 0.0218
+[2025-11-02 19:37:54,601][flwr][INFO] - fit progress: (86, 200.49103963375092, {'accuracy': 0.4227}, 3916.363867942011)
+[2025-11-02 19:37:54,601][flwr][DEBUG] - evaluate_round 86: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:38:03,596][flwr][DEBUG] - evaluate_round 86 received 15 results and 0 failures
+[2025-11-02 19:38:03,596][root][INFO] - Federated Accuracy: 0.8582360000000001
+[2025-11-02 19:38:03,784][flwr][DEBUG] - fit_round 87: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:38:31,403][flwr][DEBUG] - fit_round 87 received 15 results and 0 failures
+[2025-11-02 19:38:39,035][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:38:39,035][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:38:39,035][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:38:39,035][root][INFO] - Average poisoning accuracy: 0.6093300000000001
+[2025-11-02 19:38:39,046][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:38:39,052][root][INFO] - Lambda is -5
+[2025-11-02 19:38:40,662][root][INFO] - Global Poisoning Accuracy: 0.0224
+[2025-11-02 19:38:40,729][flwr][INFO] - fit progress: (87, 199.6193197965622, {'accuracy': 0.4254}, 3962.4923445620225)
+[2025-11-02 19:38:40,729][flwr][DEBUG] - evaluate_round 87: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:38:49,710][flwr][DEBUG] - evaluate_round 87 received 15 results and 0 failures
+[2025-11-02 19:38:49,710][root][INFO] - Federated Accuracy: 0.8683448275862069
+[2025-11-02 19:38:49,816][flwr][DEBUG] - fit_round 88: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:39:17,648][flwr][DEBUG] - fit_round 88 received 15 results and 0 failures
+[2025-11-02 19:39:26,020][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 19:39:26,020][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:39:26,020][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 19:39:26,020][root][INFO] - Average poisoning accuracy: 0.6569181818181818
+[2025-11-02 19:39:26,031][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:39:26,039][root][INFO] - Lambda is -5
+[2025-11-02 19:39:27,652][root][INFO] - Global Poisoning Accuracy: 0.0233
+[2025-11-02 19:39:27,719][flwr][INFO] - fit progress: (88, 199.6602759361267, {'accuracy': 0.4252}, 4009.482410025026)
+[2025-11-02 19:39:27,719][flwr][DEBUG] - evaluate_round 88: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:39:36,533][flwr][DEBUG] - evaluate_round 88 received 15 results and 0 failures
+[2025-11-02 19:39:36,533][root][INFO] - Federated Accuracy: 0.8986655172413794
+[2025-11-02 19:39:36,718][flwr][DEBUG] - fit_round 89: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:40:04,770][flwr][DEBUG] - fit_round 89 received 15 results and 0 failures
+[2025-11-02 19:40:12,367][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:40:12,367][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:40:12,367][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:40:12,367][root][INFO] - Average poisoning accuracy: 0.51908
+[2025-11-02 19:40:12,378][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:40:12,383][root][INFO] - Lambda is -5
+[2025-11-02 19:40:14,001][root][INFO] - Global Poisoning Accuracy: 0.0252
+[2025-11-02 19:40:14,068][flwr][INFO] - fit progress: (89, 198.09238374233246, {'accuracy': 0.4298}, 4055.8314969440107)
+[2025-11-02 19:40:14,068][flwr][DEBUG] - evaluate_round 89: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:40:22,990][flwr][DEBUG] - evaluate_round 89 received 15 results and 0 failures
+[2025-11-02 19:40:22,990][root][INFO] - Federated Accuracy: 0.8702416666666666
+[2025-11-02 19:40:23,057][flwr][DEBUG] - fit_round 90: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:40:48,667][flwr][DEBUG] - fit_round 90 received 15 results and 0 failures
+[2025-11-02 19:40:57,742][root][INFO] - Number of Evil Clients: 12
+[2025-11-02 19:40:57,742][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:40:57,742][root][INFO] - Number of Preset Benign Clients is 3
+[2025-11-02 19:40:57,742][root][INFO] - Average poisoning accuracy: 0.7753499999999999
+[2025-11-02 19:40:57,753][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:40:57,760][root][INFO] - Lambda is -5
+[2025-11-02 19:40:59,374][root][INFO] - Global Poisoning Accuracy: 0.0223
+[2025-11-02 19:40:59,590][flwr][INFO] - fit progress: (90, 202.14118480682373, {'accuracy': 0.4217}, 4101.353463198)
+[2025-11-02 19:40:59,591][flwr][DEBUG] - evaluate_round 90: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:41:08,521][flwr][DEBUG] - evaluate_round 90 received 15 results and 0 failures
+[2025-11-02 19:41:08,521][root][INFO] - Federated Accuracy: 0.9019645161290321
+[2025-11-02 19:41:08,594][flwr][DEBUG] - fit_round 91: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:41:36,092][flwr][DEBUG] - fit_round 91 received 15 results and 0 failures
+[2025-11-02 19:41:43,653][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:41:43,653][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:41:43,653][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:41:43,653][root][INFO] - Average poisoning accuracy: 0.42754000000000003
+[2025-11-02 19:41:43,664][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:41:43,669][root][INFO] - Lambda is -5
+[2025-11-02 19:41:45,275][root][INFO] - Global Poisoning Accuracy: 0.0189
+[2025-11-02 19:41:45,342][flwr][INFO] - fit progress: (91, 201.43223655223846, {'accuracy': 0.4277}, 4147.1052469559945)
+[2025-11-02 19:41:45,342][flwr][DEBUG] - evaluate_round 91: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:41:54,235][flwr][DEBUG] - evaluate_round 91 received 15 results and 0 failures
+[2025-11-02 19:41:54,236][root][INFO] - Federated Accuracy: 0.8693740740740741
+[2025-11-02 19:41:54,341][flwr][DEBUG] - fit_round 92: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:42:23,070][flwr][DEBUG] - fit_round 92 received 15 results and 0 failures
+[2025-11-02 19:42:29,951][root][INFO] - Number of Evil Clients: 9
+[2025-11-02 19:42:29,951][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:42:29,951][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 19:42:29,951][root][INFO] - Average poisoning accuracy: 0.6955444444444443
+[2025-11-02 19:42:29,962][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:42:29,967][root][INFO] - Lambda is -5
+[2025-11-02 19:42:31,597][root][INFO] - Global Poisoning Accuracy: 0.0197
+[2025-11-02 19:42:31,679][flwr][INFO] - fit progress: (92, 199.6395069360733, {'accuracy': 0.4261}, 4193.441959097981)
+[2025-11-02 19:42:31,679][flwr][DEBUG] - evaluate_round 92: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:42:40,468][flwr][DEBUG] - evaluate_round 92 received 15 results and 0 failures
+[2025-11-02 19:42:40,468][root][INFO] - Federated Accuracy: 0.8813323529411764
+[2025-11-02 19:42:40,650][flwr][DEBUG] - fit_round 93: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:43:07,166][flwr][DEBUG] - fit_round 93 received 15 results and 0 failures
+[2025-11-02 19:43:14,792][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:43:14,792][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:43:14,792][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:43:14,792][root][INFO] - Average poisoning accuracy: 0.37784999999999996
+[2025-11-02 19:43:14,802][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:43:14,809][root][INFO] - Lambda is -5
+[2025-11-02 19:43:16,418][root][INFO] - Global Poisoning Accuracy: 0.0265
+[2025-11-02 19:43:16,485][flwr][INFO] - fit progress: (93, 206.0565301179886, {'accuracy': 0.4157}, 4238.24797965301)
+[2025-11-02 19:43:16,485][flwr][DEBUG] - evaluate_round 93: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:43:25,378][flwr][DEBUG] - evaluate_round 93 received 15 results and 0 failures
+[2025-11-02 19:43:25,378][root][INFO] - Federated Accuracy: 0.8617714285714286
+[2025-11-02 19:43:25,446][flwr][DEBUG] - fit_round 94: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:43:53,269][flwr][DEBUG] - fit_round 94 received 15 results and 0 failures
+[2025-11-02 19:44:00,111][root][INFO] - Number of Evil Clients: 9
+[2025-11-02 19:44:00,111][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:44:00,111][root][INFO] - Number of Preset Benign Clients is 6
+[2025-11-02 19:44:00,111][root][INFO] - Average poisoning accuracy: 0.812088888888889
+[2025-11-02 19:44:00,122][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:44:00,128][root][INFO] - Lambda is -5
+[2025-11-02 19:44:01,730][root][INFO] - Global Poisoning Accuracy: 0.0237
+[2025-11-02 19:44:01,920][flwr][INFO] - fit progress: (94, 195.87132334709167, {'accuracy': 0.4293}, 4283.683011417976)
+[2025-11-02 19:44:01,920][flwr][DEBUG] - evaluate_round 94: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:44:10,840][flwr][DEBUG] - evaluate_round 94 received 15 results and 0 failures
+[2025-11-02 19:44:10,841][root][INFO] - Federated Accuracy: 0.8473793103448275
+[2025-11-02 19:44:10,913][flwr][DEBUG] - fit_round 95: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:44:37,818][flwr][DEBUG] - fit_round 95 received 15 results and 0 failures
+[2025-11-02 19:44:45,384][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:44:45,384][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:44:45,384][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:44:45,384][root][INFO] - Average poisoning accuracy: 0.44340999999999997
+[2025-11-02 19:44:45,394][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:44:45,399][root][INFO] - Lambda is -5
+[2025-11-02 19:44:47,004][root][INFO] - Global Poisoning Accuracy: 0.028
+[2025-11-02 19:44:47,072][flwr][INFO] - fit progress: (95, 195.7848917245865, {'accuracy': 0.4283}, 4328.835161887982)
+[2025-11-02 19:44:47,072][flwr][DEBUG] - evaluate_round 95: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:44:56,020][flwr][DEBUG] - evaluate_round 95 received 15 results and 0 failures
+[2025-11-02 19:44:56,020][root][INFO] - Federated Accuracy: 0.9043372093023258
+[2025-11-02 19:44:56,095][flwr][DEBUG] - fit_round 96: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:45:22,472][flwr][DEBUG] - fit_round 96 received 15 results and 0 failures
+[2025-11-02 19:45:30,771][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 19:45:30,771][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:45:30,771][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 19:45:30,771][root][INFO] - Average poisoning accuracy: 0.5653636363636363
+[2025-11-02 19:45:30,782][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:45:30,787][root][INFO] - Lambda is -5
+[2025-11-02 19:45:32,393][root][INFO] - Global Poisoning Accuracy: 0.0336
+[2025-11-02 19:45:32,577][flwr][INFO] - fit progress: (96, 203.29027342796326, {'accuracy': 0.4185}, 4374.340504090011)
+[2025-11-02 19:45:32,577][flwr][DEBUG] - evaluate_round 96: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:45:41,410][flwr][DEBUG] - evaluate_round 96 received 15 results and 0 failures
+[2025-11-02 19:45:41,410][root][INFO] - Federated Accuracy: 0.8901800000000001
+[2025-11-02 19:45:41,481][flwr][DEBUG] - fit_round 97: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:46:08,593][flwr][DEBUG] - fit_round 97 received 15 results and 0 failures
+[2025-11-02 19:46:16,163][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:46:16,163][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:46:16,163][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:46:16,163][root][INFO] - Average poisoning accuracy: 0.7894
+[2025-11-02 19:46:16,174][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:46:16,179][root][INFO] - Lambda is -5
+[2025-11-02 19:46:17,792][root][INFO] - Global Poisoning Accuracy: 0.0266
+[2025-11-02 19:46:17,860][flwr][INFO] - fit progress: (97, 189.2379730939865, {'accuracy': 0.4366}, 4419.622681144974)
+[2025-11-02 19:46:17,860][flwr][DEBUG] - evaluate_round 97: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:46:26,699][flwr][DEBUG] - evaluate_round 97 received 15 results and 0 failures
+[2025-11-02 19:46:26,699][root][INFO] - Federated Accuracy: 0.8537423076923076
+[2025-11-02 19:46:26,771][flwr][DEBUG] - fit_round 98: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:46:54,129][flwr][DEBUG] - fit_round 98 received 15 results and 0 failures
+[2025-11-02 19:47:03,192][root][INFO] - Number of Evil Clients: 12
+[2025-11-02 19:47:03,192][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:47:03,192][root][INFO] - Number of Preset Benign Clients is 3
+[2025-11-02 19:47:03,192][root][INFO] - Average poisoning accuracy: 0.6073000000000001
+[2025-11-02 19:47:03,204][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:47:03,209][root][INFO] - Lambda is -5
+[2025-11-02 19:47:04,803][root][INFO] - Global Poisoning Accuracy: 0.0326
+[2025-11-02 19:47:04,988][flwr][INFO] - fit progress: (98, 192.9572069644928, {'accuracy': 0.4294}, 4466.751169288007)
+[2025-11-02 19:47:04,988][flwr][DEBUG] - evaluate_round 98: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:47:13,984][flwr][DEBUG] - evaluate_round 98 received 15 results and 0 failures
+[2025-11-02 19:47:13,984][root][INFO] - Federated Accuracy: 0.8732567567567567
+[2025-11-02 19:47:14,054][flwr][DEBUG] - fit_round 99: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:47:40,359][flwr][DEBUG] - fit_round 99 received 15 results and 0 failures
+[2025-11-02 19:47:48,647][root][INFO] - Number of Evil Clients: 11
+[2025-11-02 19:47:48,647][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:47:48,647][root][INFO] - Number of Preset Benign Clients is 4
+[2025-11-02 19:47:48,647][root][INFO] - Average poisoning accuracy: 0.4261909090909091
+[2025-11-02 19:47:48,658][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:47:48,663][root][INFO] - Lambda is -5
+[2025-11-02 19:47:50,270][root][INFO] - Global Poisoning Accuracy: 0.0296
+[2025-11-02 19:47:50,365][flwr][INFO] - fit progress: (99, 196.9547622203827, {'accuracy': 0.4274}, 4512.128340548021)
+[2025-11-02 19:47:50,365][flwr][DEBUG] - evaluate_round 99: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:47:59,299][flwr][DEBUG] - evaluate_round 99 received 15 results and 0 failures
+[2025-11-02 19:47:59,299][root][INFO] - Federated Accuracy: 0.8765742857142858
+[2025-11-02 19:47:59,396][flwr][DEBUG] - fit_round 100: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:48:25,197][flwr][DEBUG] - fit_round 100 received 15 results and 0 failures
+[2025-11-02 19:48:32,774][root][INFO] - Number of Evil Clients: 10
+[2025-11-02 19:48:32,774][root][INFO] - Number of Preset Malicious Clients is 0
+[2025-11-02 19:48:32,774][root][INFO] - Number of Preset Benign Clients is 5
+[2025-11-02 19:48:32,774][root][INFO] - Average poisoning accuracy: 0.56086
+[2025-11-02 19:48:32,828][root][INFO] - Clustering Accuracy is 1.0
+[2025-11-02 19:48:32,885][root][INFO] - Lambda is -5
+[2025-11-02 19:48:34,485][root][INFO] - Global Poisoning Accuracy: 0.0326
+[2025-11-02 19:48:35,737][flwr][INFO] - fit progress: (100, 189.7409646511078, {'accuracy': 0.4347}, 4557.499651434016)
+[2025-11-02 19:48:35,737][flwr][DEBUG] - evaluate_round 100: strategy sampled 15 clients (out of 50)
+[2025-11-02 19:48:44,513][flwr][DEBUG] - evaluate_round 100 received 15 results and 0 failures
+[2025-11-02 19:48:44,514][root][INFO] - Federated Accuracy: 0.8919766666666666
+[2025-11-02 19:48:44,581][flwr][INFO] - FL finished in 4566.344115543005
+[2025-11-02 19:48:44,594][flwr][INFO] - app_fit: losses_distributed [(1, 2.8975653648376465), (2, 9.347360849380493), (3, 9.006258192062377), (4, 3.9103523546999153), (5, 3.6480615401268004), (6, 2.87467250065959), (7, 2.0204859535760162), (8, 2.4238022186102404), (9, 0.9695972919143969), (10, 2.7245176712220367), (11, 0.882470425668483), (12, 1.3960733287756077), (13, 2.2586189650019683), (14, 1.4034269732867621), (15, 1.064685943802654), (16, 0.6818473534731311), (17, 0.9287538188330543), (18, 1.0208665926278095), (19, 0.8108207852260297), (20, 0.8221411733791076), (21, 0.853593285918799), (22, 0.38360537770422526), (23, 1.4255138249718584), (24, 0.9511963094696512), (25, 1.2154737378122926), (26, 1.3171324358253125), (27, 0.815222422289662), (28, 0.7007780492866524), (29, 1.4636653076422055), (30, 0.44932319386096325), (31, 0.8449818078987024), (32, 0.832019810021879), (33, 0.9725576648153946), (34, 0.49623456152676226), (35, 0.48871817112168564), (36, 0.596192222617964), (37, 1.225251318417057), (38, 0.43442867367133764), (39, 0.5921040944836883), (40, 1.1566642852437539), (41, 1.0808489829086032), (42, 1.2561249182738432), (43, 0.9938925892467682), (44, 0.6279691361853432), (45, 0.3035631714597652), (46, 0.8224513197873373), (47, 1.3054956617020903), (48, 1.579868033299863), (49, 0.6775898721900635), (50, 0.6278670408747448), (51, 0.6488712625380556), (52, 2.0358748845410446), (53, 1.1352917931009772), (54, 0.043184215200848745), (55, 0.8649463655866941), (56, 1.338271754086343), (57, 1.237827170072241), (58, 0.5210465632756139), (59, 0.06630501854082328), (60, 1.2193267571065949), (61, 0.3377048343830514), (62, 0.3133147758275211), (63, 0.2783516634465946), (64, 0.22245333537036707), (65, 0.6052233912729813), (66, 0.21534372420874684), (67, 0.39114252459670146), (68, 1.0914356011290434), (69, 0.00044948401880580657), (70, 1.2788602930002027), (71, 0.7094732159961629), (72, 0.6261663168477606), (73, 0.8040792706062134), (74, 1.0885619797948796), (75, 0.021159221022026033), (76, 0.369388614808031), (77, 0.5965686958071245), (78, 1.154953492268881), (79, 0.5965587793602496), (80, 0.5645158972135201), (81, 0.28806738617904243), (82, 0.4416924220766242), (83, 1.2497668963373703), (84, 0.28876935123685726), (85, 0.13170782455563312), (86, 0.2966572380003345), (87, 0.5343814826156976), (88, 0.6049823578768124), (89, 1.2180577127752865), (90, 0.35947162893564616), (91, 0.35343204731341554), (92, 0.6471063225165862), (93, 0.21990849881746857), (94, 0.5635316218782652), (95, 0.44482760591648024), (96, 0.6464161113750638), (97, 0.6861512867921052), (98, 1.1520093343921896), (99, 0.6496429590788986), (100, 0.24350472928878542)]
+[2025-11-02 19:48:44,595][flwr][INFO] - app_fit: metrics_distributed_fit {}
+[2025-11-02 19:48:44,595][flwr][INFO] - app_fit: metrics_distributed {'accuracy': [(1, 0.0556), (2, 0.09859999999999998), (3, 0.27679200000000004), (4, 0.5290272727272728), (5, 0.6724479999999999), (6, 0.7400739130434782), (7, 0.7613590909090907), (8, 0.7510677419354838), (9, 0.84126875), (10, 0.774506818181818), (11, 0.8375533333333334), (12, 0.8212393939393939), (13, 0.8230970588235293), (14, 0.8216090909090908), (15, 0.8881780487804877), (16, 0.8478375), (17, 0.8399269230769231), (18, 0.8588951219512195), (19, 0.8795324324324323), (20, 0.85191), (21, 0.853408108108108), (22, 0.90434), (23, 0.8330266666666667), (24, 0.88049375), (25, 0.8452945945945946), (26, 0.8712904761904762), (27, 0.8671771428571429), (28, 0.8539642857142857), (29, 0.8534705882352941), (30, 0.8639421052631578), (31, 0.8609666666666668), (32, 0.8975931034482759), (33, 0.8786574999999999), (34, 0.8370049999999999), (35, 0.8304114285714285), (36, 0.8608758620689655), (37, 0.8753053571428572), (38, 0.778235294117647), (39, 0.8930999999999998), (40, 0.8753106382978724), (41, 0.8828191489361703), (42, 0.8574365853658537), (43, 0.8636478260869566), (44, 0.8667323529411765), (45, 0.8771071428571428), (46, 0.8722526315789474), (47, 0.8574942857142857), (48, 0.8461766666666667), (49, 0.8912857142857143), (50, 0.8738954545454546), (51, 0.8638619047619048), (52, 0.7588999999999999), (53, 0.8668783783783784), (54, 0.8750428571428572), (55, 0.8907129032258064), (56, 0.8434705882352942), (57, 0.8734042553191489), (58, 0.8823217391304349), (59, 0.8965153846153846), (60, 0.849941379310345), (61, 0.8484833333333333), (62, 0.8928756097560976), (63, 0.8816516129032258), (64, 0.8589363636363636), (65, 0.8429380952380952), (66, 0.8582263157894737), (67, 0.867908888888889), (68, 0.822425), (69, 0.8733941176470588), (70, 0.8935137254901961), (71, 0.8760414634146342), (72, 0.8686027027027027), (73, 0.8791941176470588), (74, 0.8746066666666668), (75, 0.8404), (76, 0.8847416666666668), (77, 0.8773580645161292), (78, 0.87818), (79, 0.8798677419354839), (80, 0.9020600000000002), (81, 0.8687206896551724), (82, 0.8909413793103448), (83, 0.8771358974358975), (84, 0.8682948717948721), (85, 0.8994875000000001), (86, 0.8582360000000001), (87, 0.8683448275862069), (88, 0.8986655172413794), (89, 0.8702416666666666), (90, 0.9019645161290321), (91, 0.8693740740740741), (92, 0.8813323529411764), (93, 0.8617714285714286), (94, 0.8473793103448275), (95, 0.9043372093023258), (96, 0.8901800000000001), (97, 0.8537423076923076), (98, 0.8732567567567567), (99, 0.8765742857142858), (100, 0.8919766666666666)]}
+[2025-11-02 19:48:44,595][flwr][INFO] - app_fit: losses_centralized [(0, 181.70109844207764), (1, 229.5659999847412), (2, 221.24325609207153), (3, 190.93303537368774), (4, 175.02544510364532), (5, 184.49139177799225), (6, 185.27308237552643), (7, 173.12505495548248), (8, 191.21834182739258), (9, 189.60221183300018), (10, 199.10469675064087), (11, 189.00047421455383), (12, 203.7291270494461), (13, 200.13851070404053), (14, 192.64455723762512), (15, 193.7733645439148), (16, 194.74992859363556), (17, 198.43617224693298), (18, 190.31603825092316), (19, 195.7111998796463), (20, 196.79173636436462), (21, 196.62833833694458), (22, 196.87714552879333), (23, 204.641371011734), (24, 201.11147224903107), (25, 197.27396416664124), (26, 197.25258898735046), (27, 197.62573671340942), (28, 193.95402312278748), (29, 199.8672398328781), (30, 198.78179574012756), (31, 219.69706082344055), (32, 199.1910399198532), (33, 212.31956362724304), (34, 201.9336258172989), (35, 206.73305237293243), (36, 204.85003805160522), (37, 201.8596968650818), (38, 199.07396638393402), (39, 197.31062281131744), (40, 200.1972348690033), (41, 199.5273745059967), (42, 206.60246980190277), (43, 195.04325580596924), (44, 203.00321805477142), (45, 200.14207792282104), (46, 204.4224672317505), (47, 198.82060766220093), (48, 203.24929320812225), (49, 201.21270310878754), (50, 205.5912947654724), (51, 196.3710322380066), (52, 199.55286824703217), (53, 201.93648207187653), (54, 201.41028702259064), (55, 201.5308756828308), (56, 202.40157985687256), (57, 208.31233668327332), (58, 203.10967218875885), (59, 201.8321055173874), (60, 199.42693400382996), (61, 200.18142342567444), (62, 197.57873797416687), (63, 197.3493651151657), (64, 198.92479503154755), (65, 199.02944028377533), (66, 197.58254718780518), (67, 200.22329080104828), (68, 200.67519688606262), (69, 206.293030500412), (70, 207.57346606254578), (71, 205.06978929042816), (72, 197.77853858470917), (73, 201.7744528055191), (74, 203.9457746744156), (75, 200.1579442024231), (76, 200.33298909664154), (77, 199.78334414958954), (78, 201.27518129348755), (79, 197.5838384628296), (80, 199.9484349489212), (81, 194.28009498119354), (82, 199.35289108753204), (83, 197.8460202217102), (84, 203.91037964820862), (85, 201.96287524700165), (86, 200.49103963375092), (87, 199.6193197965622), (88, 199.6602759361267), (89, 198.09238374233246), (90, 202.14118480682373), (91, 201.43223655223846), (92, 199.6395069360733), (93, 206.0565301179886), (94, 195.87132334709167), (95, 195.7848917245865), (96, 203.29027342796326), (97, 189.2379730939865), (98, 192.9572069644928), (99, 196.9547622203827), (100, 189.7409646511078)]
+[2025-11-02 19:48:44,595][flwr][INFO] - app_fit: metrics_centralized {'accuracy': [(0, 0.0831), (1, 0.1314), (2, 0.1724), (3, 0.275), (4, 0.3411), (5, 0.3579), (6, 0.3785), (7, 0.4132), (8, 0.3949), (9, 0.4056), (10, 0.3965), (11, 0.4187), (12, 0.4031), (13, 0.4011), (14, 0.4093), (15, 0.421), (16, 0.4203), (17, 0.4188), (18, 0.4183), (19, 0.4236), (20, 0.4268), (21, 0.4209), (22, 0.4272), (23, 0.4167), (24, 0.4194), (25, 0.4188), (26, 0.4177), (27, 0.4206), (28, 0.4223), (29, 0.4292), (30, 0.4271), (31, 0.3892), (32, 0.4173), (33, 0.4077), (34, 0.4239), (35, 0.4161), (36, 0.4218), (37, 0.4304), (38, 0.4317), (39, 0.4242), (40, 0.4183), (41, 0.4273), (42, 0.412), (43, 0.4285), (44, 0.4264), (45, 0.4289), (46, 0.4184), (47, 0.4329), (48, 0.4269), (49, 0.4323), (50, 0.4245), (51, 0.432), (52, 0.4239), (53, 0.4284), (54, 0.4269), (55, 0.4278), (56, 0.4315), (57, 0.4189), (58, 0.4275), (59, 0.43), (60, 0.4313), (61, 0.4292), (62, 0.4311), (63, 0.4294), (64, 0.4302), (65, 0.4297), (66, 0.4315), (67, 0.4271), (68, 0.4275), (69, 0.4246), (70, 0.4178), (71, 0.4198), (72, 0.4294), (73, 0.4235), (74, 0.4272), (75, 0.4304), (76, 0.43), (77, 0.4325), (78, 0.4167), (79, 0.4298), (80, 0.4194), (81, 0.4287), (82, 0.4164), (83, 0.43), (84, 0.4239), (85, 0.4197), (86, 0.4227), (87, 0.4254), (88, 0.4252), (89, 0.4298), (90, 0.4217), (91, 0.4277), (92, 0.4261), (93, 0.4157), (94, 0.4293), (95, 0.4283), (96, 0.4185), (97, 0.4366), (98, 0.4294), (99, 0.4274), (100, 0.4347)]}

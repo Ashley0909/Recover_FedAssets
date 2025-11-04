@@ -1,0 +1,892 @@
+頂你個肺原來佢唔會save print statement 淨係會save log file. 暫時淨係save到最後係terminal個啲print statement
+
+CIFAR-10 default hyperparamater, lambda = -11
+
+Average poisoning accuracy: 0.6981777777777778
+KMeans
+intra_cluster distance is 2.256984061968371
+Now, comb_C is [0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0384
+INFO flwr 2025-11-01 23:50:30,726 | server.py:119 | fit progress: (73, 198.607360124588, {'accuracy': 0.447}, 3167.259352413006)
+[2025-11-01 23:50:30,726][flwr][INFO] - fit progress: (73, 198.607360124588, {'accuracy': 0.447}, 3167.259352413006)
+Configure Evaluate
+DEBUG flwr 2025-11-01 23:50:30,726 | server.py:168 | evaluate_round 73: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:50:30,726][flwr][DEBUG] - evaluate_round 73: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:50:39,554 | server.py:182 | evaluate_round 73 received 15 results and 0 failures
+[2025-11-01 23:50:39,554][flwr][DEBUG] - evaluate_round 73 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(4, 0.00027745309853344224), (3, 0.00011718132373061962), (8, 0.0008614266153017525), (4, 0.000665237799694296), (6, 0.09164475579746068), (5, 0.0011460831083240919)]
+Federated Accuracy: 0.9267133333333333
+Configure Fit
+server round: 74
+DEBUG flwr 2025-11-01 23:50:39,740 | server.py:218 | fit_round 74: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:50:39,740][flwr][DEBUG] - fit_round 74: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:51:05,900 | server.py:232 | fit_round 74 received 15 results and 0 failures
+[2025-11-01 23:51:05,900][flwr][DEBUG] - fit_round 74 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.8791111111111112
+KMeans
+intra_cluster distance is 2.3276551127071934
+Now, comb_C is [0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0456
+INFO flwr 2025-11-01 23:51:14,367 | server.py:119 | fit progress: (74, 195.37668073177338, {'accuracy': 0.4482}, 3210.899654353969)
+[2025-11-01 23:51:14,367][flwr][INFO] - fit progress: (74, 195.37668073177338, {'accuracy': 0.4482}, 3210.899654353969)
+Configure Evaluate
+DEBUG flwr 2025-11-01 23:51:14,367 | server.py:168 | evaluate_round 74: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:51:14,367][flwr][DEBUG] - evaluate_round 74: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:51:23,035 | server.py:182 | evaluate_round 74 received 15 results and 0 failures
+[2025-11-01 23:51:23,035][flwr][DEBUG] - evaluate_round 74 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(3, 0.0001526386295154225), (5, 0.0006662797059107106), (6, 0.0005850170455232728), (2, 0.00010536951594986022), (2, 4.5292681534192525e-05), (6, 0.00042879575448750984), (4, 0.0004255940584698692)]
+Federated Accuracy: 0.8928678571428572
+Configure Fit
+server round: 75
+DEBUG flwr 2025-11-01 23:51:23,114 | server.py:218 | fit_round 75: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:51:23,114][flwr][DEBUG] - fit_round 75: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:51:51,955 | server.py:232 | fit_round 75 received 15 results and 0 failures
+[2025-11-01 23:51:51,955][flwr][DEBUG] - fit_round 75 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0']
+Number of Evil Clients: 11
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 4
+Average poisoning accuracy: 0.8139272727272728
+KMeans
+intra_cluster distance is 1.6730670724204468
+Now, comb_C is [0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 4 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0324
+INFO flwr 2025-11-01 23:52:02,102 | server.py:119 | fit progress: (75, 197.5683366060257, {'accuracy': 0.446}, 3258.6355214159703)
+[2025-11-01 23:52:02,102][flwr][INFO] - fit progress: (75, 197.5683366060257, {'accuracy': 0.446}, 3258.6355214159703)
+Configure Evaluate
+DEBUG flwr 2025-11-01 23:52:02,103 | server.py:168 | evaluate_round 75: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:52:02,103][flwr][DEBUG] - evaluate_round 75: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:52:11,027 | server.py:182 | evaluate_round 75 received 15 results and 0 failures
+[2025-11-01 23:52:11,027][flwr][DEBUG] - evaluate_round 75 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(3, 0.6946199695667019), (6, 0.0008854010920913424), (4, 0.0010004577998188324), (7, 0.6238205548288533), (5, 0.3709120340645313), (4, 0.0008721264639461879)]
+Federated Accuracy: 0.8824827586206897
+Configure Fit
+server round: 76
+DEBUG flwr 2025-11-01 23:52:11,101 | server.py:218 | fit_round 76: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:52:11,101][flwr][DEBUG] - fit_round 76: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:52:37,005 | server.py:232 | fit_round 76 received 15 results and 0 failures
+[2025-11-01 23:52:37,005][flwr][DEBUG] - fit_round 76 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.7603714285714285
+KMeans
+intra_cluster distance is 3.9713933554475185
+Now, comb_C is [0 0 0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0372
+INFO flwr 2025-11-01 23:52:43,998 | server.py:119 | fit progress: (76, 195.06942903995514, {'accuracy': 0.4533}, 3300.530691275955)
+[2025-11-01 23:52:43,998][flwr][INFO] - fit progress: (76, 195.06942903995514, {'accuracy': 0.4533}, 3300.530691275955)
+Configure Evaluate
+DEBUG flwr 2025-11-01 23:52:43,998 | server.py:168 | evaluate_round 76: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:52:43,998][flwr][DEBUG] - evaluate_round 76: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:52:52,785 | server.py:182 | evaluate_round 76 received 15 results and 0 failures
+[2025-11-01 23:52:52,785][flwr][DEBUG] - evaluate_round 76 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(3, 0.19768291882792255), (6, 0.00043639104842441157), (5, 0.40400570599740604), (6, 0.0011996436151093803), (2, 8.058815728873014e-05), (2, 7.345420453930274e-05), (4, 0.0011691644176607952)]
+Federated Accuracy: 0.8499285714285714
+Configure Fit
+server round: 77
+DEBUG flwr 2025-11-01 23:52:52,856 | server.py:218 | fit_round 77: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:52:52,856][flwr][DEBUG] - fit_round 77: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:53:20,203 | server.py:232 | fit_round 77 received 15 results and 0 failures
+[2025-11-01 23:53:20,203][flwr][DEBUG] - fit_round 77 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0']
+Number of Evil Clients: 12
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 3
+Average poisoning accuracy: 0.7865500000000002
+KMeans
+intra_cluster distance is 2.97769787323868
+Now, comb_C is [0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 3 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.043
+INFO flwr 2025-11-01 23:53:31,040 | server.py:119 | fit progress: (77, 197.45578944683075, {'accuracy': 0.451}, 3347.5734403019887)
+[2025-11-01 23:53:31,040][flwr][INFO] - fit progress: (77, 197.45578944683075, {'accuracy': 0.451}, 3347.5734403019887)
+Configure Evaluate
+DEBUG flwr 2025-11-01 23:53:31,040 | server.py:168 | evaluate_round 77: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:53:31,040][flwr][DEBUG] - evaluate_round 77: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:53:39,901 | server.py:182 | evaluate_round 77 received 15 results and 0 failures
+[2025-11-01 23:53:39,901][flwr][DEBUG] - evaluate_round 77 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(5, 0.0005703213610104285), (8, 1.1626930529964739), (1, 3.502242179820314e-05), (5, 0.0005448947413242422), (4, 0.0003257318712712731), (5, 0.0013357253847061656), (2, 7.941940202726983e-05)]
+Federated Accuracy: 0.8896233333333332
+Configure Fit
+server round: 78
+DEBUG flwr 2025-11-01 23:53:39,971 | server.py:218 | fit_round 78: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:53:39,971][flwr][DEBUG] - fit_round 78: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:54:06,845 | server.py:232 | fit_round 78 received 15 results and 0 failures
+[2025-11-01 23:54:06,845][flwr][DEBUG] - fit_round 78 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.7219800000000001
+KMeans
+intra_cluster distance is 2.002711082973225
+Now, comb_C is [0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0356
+INFO flwr 2025-11-01 23:54:16,078 | server.py:119 | fit progress: (78, 200.20473754405975, {'accuracy': 0.4489}, 3392.611256005999)
+[2025-11-01 23:54:16,078][flwr][INFO] - fit progress: (78, 200.20473754405975, {'accuracy': 0.4489}, 3392.611256005999)
+Configure Evaluate
+DEBUG flwr 2025-11-01 23:54:16,078 | server.py:168 | evaluate_round 78: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:54:16,078][flwr][DEBUG] - evaluate_round 78: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:54:24,864 | server.py:182 | evaluate_round 78 received 15 results and 0 failures
+[2025-11-01 23:54:24,864][flwr][DEBUG] - evaluate_round 78 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(2, 5.590190994553268e-05), (3, 0.00014008751895744354), (3, 0.5882300033481442), (7, 3.6723448410630226), (3, 0.00013372567809710745), (5, 0.0003931092796847224), (5, 0.4560005504608853)]
+Federated Accuracy: 0.8403892857142857
+Configure Fit
+server round: 79
+DEBUG flwr 2025-11-01 23:54:24,931 | server.py:218 | fit_round 79: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:54:24,931][flwr][DEBUG] - fit_round 79: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:54:51,817 | server.py:232 | fit_round 79 received 15 results and 0 failures
+[2025-11-01 23:54:51,817][flwr][DEBUG] - fit_round 79 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.7881125
+KMeans
+intra_cluster distance is 3.9854117002634055
+Now, comb_C is [0 0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0428
+INFO flwr 2025-11-01 23:54:59,745 | server.py:119 | fit progress: (79, 198.87744843959808, {'accuracy': 0.4456}, 3436.2777822539792)
+[2025-11-01 23:54:59,745][flwr][INFO] - fit progress: (79, 198.87744843959808, {'accuracy': 0.4456}, 3436.2777822539792)
+Configure Evaluate
+DEBUG flwr 2025-11-01 23:54:59,745 | server.py:168 | evaluate_round 79: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:54:59,745][flwr][DEBUG] - evaluate_round 79: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:55:08,556 | server.py:182 | evaluate_round 79 received 15 results and 0 failures
+[2025-11-01 23:55:08,556][flwr][DEBUG] - evaluate_round 79 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(4, 0.00034180341390310787), (2, 6.857341577415355e-05), (6, 0.0007198825041996315), (2, 5.8219817219651304e-05), (5, 0.47026477741019335), (5, 0.0006433946145989466)]
+Federated Accuracy: 0.8885041666666665
+Configure Fit
+server round: 80
+DEBUG flwr 2025-11-01 23:55:08,635 | server.py:218 | fit_round 80: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:55:08,635][flwr][DEBUG] - fit_round 80: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:55:36,364 | server.py:232 | fit_round 80 received 15 results and 0 failures
+[2025-11-01 23:55:36,364][flwr][DEBUG] - fit_round 80 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.7451375
+KMeans
+intra_cluster distance is 1.5141696669352096
+Now, comb_C is [0 0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0405
+INFO flwr 2025-11-01 23:55:44,189 | server.py:119 | fit progress: (80, 195.6301245689392, {'accuracy': 0.4511}, 3480.7224053879618)
+[2025-11-01 23:55:44,189][flwr][INFO] - fit progress: (80, 195.6301245689392, {'accuracy': 0.4511}, 3480.7224053879618)
+Configure Evaluate
+DEBUG flwr 2025-11-01 23:55:44,189 | server.py:168 | evaluate_round 80: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:55:44,189][flwr][DEBUG] - evaluate_round 80: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:55:52,991 | server.py:182 | evaluate_round 80 received 15 results and 0 failures
+[2025-11-01 23:55:52,991][flwr][DEBUG] - evaluate_round 80 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(1, 2.2184342014952563e-05), (4, 0.0011832529999082908), (6, 0.0003969084336858941), (4, 0.0006908973555255216)]
+Federated Accuracy: 0.8734933333333333
+Configure Fit
+server round: 81
+DEBUG flwr 2025-11-01 23:55:53,180 | server.py:218 | fit_round 81: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:55:53,180][flwr][DEBUG] - fit_round 81: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:56:21,158 | server.py:232 | fit_round 81 received 15 results and 0 failures
+[2025-11-01 23:56:21,158][flwr][DEBUG] - fit_round 81 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.8232555555555555
+KMeans
+intra_cluster distance is 1.7299967457229628
+Now, comb_C is [0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.042
+INFO flwr 2025-11-01 23:56:29,620 | server.py:119 | fit progress: (81, 198.9565349817276, {'accuracy': 0.4464}, 3526.1533533890033)
+[2025-11-01 23:56:29,620][flwr][INFO] - fit progress: (81, 198.9565349817276, {'accuracy': 0.4464}, 3526.1533533890033)
+Configure Evaluate
+DEBUG flwr 2025-11-01 23:56:29,620 | server.py:168 | evaluate_round 81: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:56:29,620][flwr][DEBUG] - evaluate_round 81: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:56:38,462 | server.py:182 | evaluate_round 81 received 15 results and 0 failures
+[2025-11-01 23:56:38,462][flwr][DEBUG] - evaluate_round 81 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(8, 1.230338871027925), (5, 0.0004223290234222077), (4, 0.002000958993448876), (7, 0.4822260909495526), (3, 0.17310278936929535), (5, 0.0016056445820140652), (5, 0.0003101254114881158)]
+Federated Accuracy: 0.8834351351351352
+Configure Fit
+server round: 82
+DEBUG flwr 2025-11-01 23:56:38,529 | server.py:218 | fit_round 82: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:56:38,529][flwr][DEBUG] - fit_round 82: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:57:03,522 | server.py:232 | fit_round 82 received 15 results and 0 failures
+[2025-11-01 23:57:03,522][flwr][DEBUG] - fit_round 82 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0']
+Number of Evil Clients: 11
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 4
+Average poisoning accuracy: 0.859990909090909
+KMeans
+intra_cluster distance is 1.714577367696716
+Now, comb_C is [0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 4 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0454
+INFO flwr 2025-11-01 23:57:13,497 | server.py:119 | fit progress: (82, 200.16839265823364, {'accuracy': 0.4433}, 3570.0304889429826)
+[2025-11-01 23:57:13,497][flwr][INFO] - fit progress: (82, 200.16839265823364, {'accuracy': 0.4433}, 3570.0304889429826)
+Configure Evaluate
+DEBUG flwr 2025-11-01 23:57:13,498 | server.py:168 | evaluate_round 82: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:57:13,498][flwr][DEBUG] - evaluate_round 82: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:57:22,200 | server.py:182 | evaluate_round 82 received 15 results and 0 failures
+[2025-11-01 23:57:22,200][flwr][DEBUG] - evaluate_round 82 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(2, 4.9256053898716345e-05), (3, 0.00012818763207178563), (3, 5.650997263728641e-05), (5, 0.000606484136369545), (7, 0.5573678277069121), (2, 0.00012257329217391089), (3, 0.00015000438361312263)]
+Federated Accuracy: 0.9104039999999999
+Configure Fit
+server round: 83
+DEBUG flwr 2025-11-01 23:57:22,388 | server.py:218 | fit_round 83: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:57:22,388][flwr][DEBUG] - fit_round 83: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:57:46,995 | server.py:232 | fit_round 83 received 15 results and 0 failures
+[2025-11-01 23:57:46,995][flwr][DEBUG] - fit_round 83 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.8223666666666668
+KMeans
+intra_cluster distance is 4.270625974432444
+Now, comb_C is [0 0 0 0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0386
+INFO flwr 2025-11-01 23:57:53,237 | server.py:119 | fit progress: (83, 196.870298743248, {'accuracy': 0.4517}, 3609.769886328955)
+[2025-11-01 23:57:53,237][flwr][INFO] - fit progress: (83, 196.870298743248, {'accuracy': 0.4517}, 3609.769886328955)
+Configure Evaluate
+DEBUG flwr 2025-11-01 23:57:53,237 | server.py:168 | evaluate_round 83: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:57:53,237][flwr][DEBUG] - evaluate_round 83: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:58:02,038 | server.py:182 | evaluate_round 83 received 15 results and 0 failures
+[2025-11-01 23:58:02,038][flwr][DEBUG] - evaluate_round 83 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(7, 0.56505954142267), (4, 0.00024389951795456), (2, 9.71144690993242e-05), (5, 0.0015889824644546025), (5, 0.00047065379476407543)]
+Federated Accuracy: 0.8914130434782609
+Configure Fit
+server round: 84
+DEBUG flwr 2025-11-01 23:58:02,115 | server.py:218 | fit_round 84: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:58:02,115][flwr][DEBUG] - fit_round 84: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:58:30,097 | server.py:232 | fit_round 84 received 15 results and 0 failures
+[2025-11-01 23:58:30,097][flwr][DEBUG] - fit_round 84 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.9208555555555554
+KMeans
+intra_cluster distance is 5.8517919162623
+Now, comb_C is [0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0538
+INFO flwr 2025-11-01 23:58:38,631 | server.py:119 | fit progress: (84, 197.51319241523743, {'accuracy': 0.4458}, 3655.1637361829635)
+[2025-11-01 23:58:38,631][flwr][INFO] - fit progress: (84, 197.51319241523743, {'accuracy': 0.4458}, 3655.1637361829635)
+Configure Evaluate
+DEBUG flwr 2025-11-01 23:58:38,631 | server.py:168 | evaluate_round 84: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:58:38,631][flwr][DEBUG] - evaluate_round 84: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:58:47,312 | server.py:182 | evaluate_round 84 received 15 results and 0 failures
+[2025-11-01 23:58:47,312][flwr][DEBUG] - evaluate_round 84 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(3, 0.0005495213190442882), (6, 0.11120529417530634), (5, 0.0012100478779757395), (2, 0.00035344141360837966), (4, 0.0011173083476023749), (3, 0.00040118171455105767), (2, 0.00029321337933652103)]
+Federated Accuracy: 0.8881279999999999
+Configure Fit
+server round: 85
+DEBUG flwr 2025-11-01 23:58:47,526 | server.py:218 | fit_round 85: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:58:47,526][flwr][DEBUG] - fit_round 85: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:59:15,092 | server.py:232 | fit_round 85 received 15 results and 0 failures
+[2025-11-01 23:59:15,092][flwr][DEBUG] - fit_round 85 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.5570833333333334
+KMeans
+intra_cluster distance is 4.04684196523226
+Now, comb_C is [0 0 0 0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0401
+INFO flwr 2025-11-01 23:59:21,333 | server.py:119 | fit progress: (85, 195.55923414230347, {'accuracy': 0.4448}, 3697.865737132961)
+[2025-11-01 23:59:21,333][flwr][INFO] - fit progress: (85, 195.55923414230347, {'accuracy': 0.4448}, 3697.865737132961)
+Configure Evaluate
+DEBUG flwr 2025-11-01 23:59:21,333 | server.py:168 | evaluate_round 85: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:59:21,333][flwr][DEBUG] - evaluate_round 85: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:59:30,297 | server.py:182 | evaluate_round 85 received 15 results and 0 failures
+[2025-11-01 23:59:30,297][flwr][DEBUG] - evaluate_round 85 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(5, 0.0007476588143617846), (3, 0.0003443359673838131), (4, 0.0017344699735986069), (5, 0.0005259891622699797), (6, 0.11300742111052386), (4, 0.0006188278057379648), (8, 1.2322569350144477), (3, 0.00026767288363771513), (2, 0.00014024726260686293)]
+Federated Accuracy: 0.9071075000000001
+Configure Fit
+server round: 86
+DEBUG flwr 2025-11-01 23:59:30,369 | server.py:218 | fit_round 86: strategy sampled 15 clients (out of 50)
+[2025-11-01 23:59:30,369][flwr][DEBUG] - fit_round 86: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-01 23:59:55,739 | server.py:232 | fit_round 86 received 15 results and 0 failures
+[2025-11-01 23:59:55,739][flwr][DEBUG] - fit_round 86 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.67104
+KMeans
+intra_cluster distance is 2.2098948052112246
+Now, comb_C is [0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0457
+INFO flwr 2025-11-02 00:00:04,993 | server.py:119 | fit progress: (86, 194.37557339668274, {'accuracy': 0.4519}, 3741.526014125964)
+[2025-11-02 00:00:04,993][flwr][INFO] - fit progress: (86, 194.37557339668274, {'accuracy': 0.4519}, 3741.526014125964)
+Configure Evaluate
+DEBUG flwr 2025-11-02 00:00:04,993 | server.py:168 | evaluate_round 86: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:00:04,993][flwr][DEBUG] - evaluate_round 86: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:00:13,715 | server.py:182 | evaluate_round 86 received 15 results and 0 failures
+[2025-11-02 00:00:13,715][flwr][DEBUG] - evaluate_round 86 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(4, 0.0005919597315369174), (6, 0.0006379173573805019), (3, 0.00021892393488087691), (6, 0.0016087137410067953)]
+Federated Accuracy: 0.9338210526315789
+Configure Fit
+server round: 87
+DEBUG flwr 2025-11-02 00:00:13,917 | server.py:218 | fit_round 87: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:00:13,917][flwr][DEBUG] - fit_round 87: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:00:40,048 | server.py:232 | fit_round 87 received 15 results and 0 failures
+[2025-11-02 00:00:40,048][flwr][DEBUG] - fit_round 87 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.7430875
+KMeans
+intra_cluster distance is 3.302209354197787
+Now, comb_C is [0 0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0372
+INFO flwr 2025-11-02 00:00:47,782 | server.py:119 | fit progress: (87, 195.34722411632538, {'accuracy': 0.4495}, 3784.315454584954)
+[2025-11-02 00:00:47,782][flwr][INFO] - fit progress: (87, 195.34722411632538, {'accuracy': 0.4495}, 3784.315454584954)
+Configure Evaluate
+DEBUG flwr 2025-11-02 00:00:47,782 | server.py:168 | evaluate_round 87: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:00:47,782][flwr][DEBUG] - evaluate_round 87: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:00:56,533 | server.py:182 | evaluate_round 87 received 15 results and 0 failures
+[2025-11-02 00:00:56,533][flwr][DEBUG] - evaluate_round 87 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(8, 0.0008585410760133527), (3, 0.00031934848811943084), (2, 0.00013011508417548612), (3, 0.00019839198648696765), (4, 0.002294011239428073)]
+Federated Accuracy: 0.924415
+Configure Fit
+server round: 88
+DEBUG flwr 2025-11-02 00:00:56,600 | server.py:218 | fit_round 88: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:00:56,600][flwr][DEBUG] - fit_round 88: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:01:24,460 | server.py:232 | fit_round 88 received 15 results and 0 failures
+[2025-11-02 00:01:24,460][flwr][DEBUG] - fit_round 88 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.8888125
+KMeans
+intra_cluster distance is 1.3905634560725144
+Now, comb_C is [0 0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0424
+INFO flwr 2025-11-02 00:01:32,201 | server.py:119 | fit progress: (88, 192.3358098268509, {'accuracy': 0.4534}, 3828.7345326299546)
+[2025-11-02 00:01:32,201][flwr][INFO] - fit progress: (88, 192.3358098268509, {'accuracy': 0.4534}, 3828.7345326299546)
+Configure Evaluate
+DEBUG flwr 2025-11-02 00:01:32,202 | server.py:168 | evaluate_round 88: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:01:32,202][flwr][DEBUG] - evaluate_round 88: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:01:40,888 | server.py:182 | evaluate_round 88 received 15 results and 0 failures
+[2025-11-02 00:01:40,888][flwr][DEBUG] - evaluate_round 88 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(7, 3.470818117260933), (5, 0.3720834744090098), (5, 0.0003658892346720677), (3, 0.00015813679056009278), (3, 0.00017337083045276813), (6, 0.00036631023613153957), (8, 0.0007037930972728645)]
+Federated Accuracy: 0.8926405405405407
+Configure Fit
+server round: 89
+DEBUG flwr 2025-11-02 00:01:41,083 | server.py:218 | fit_round 89: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:01:41,083][flwr][DEBUG] - fit_round 89: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:02:07,512 | server.py:232 | fit_round 89 received 15 results and 0 failures
+[2025-11-02 00:02:07,512][flwr][DEBUG] - fit_round 89 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.7730714285714285
+KMeans
+intra_cluster distance is 3.355035623095287
+Now, comb_C is [0 0 0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0439
+INFO flwr 2025-11-02 00:02:14,519 | server.py:119 | fit progress: (89, 193.38121390342712, {'accuracy': 0.4507}, 3871.0518966160016)
+[2025-11-02 00:02:14,519][flwr][INFO] - fit progress: (89, 193.38121390342712, {'accuracy': 0.4507}, 3871.0518966160016)
+Configure Evaluate
+DEBUG flwr 2025-11-02 00:02:14,519 | server.py:168 | evaluate_round 89: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:02:14,519][flwr][DEBUG] - evaluate_round 89: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:02:23,400 | server.py:182 | evaluate_round 89 received 15 results and 0 failures
+[2025-11-02 00:02:23,400][flwr][DEBUG] - evaluate_round 89 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(7, 0.696646906555543), (5, 0.3580198660347378), (3, 0.00015039200661703944), (5, 0.0009032291600306053), (6, 0.0004587537878251169), (2, 0.00010431545160827227), (1, 2.3889029762358405e-05), (3, 0.00014730541442986578), (5, 0.0003356389861437492), (5, 0.0010028068791143596)]
+Federated Accuracy: 0.8947714285714286
+Configure Fit
+server round: 90
+DEBUG flwr 2025-11-02 00:02:23,468 | server.py:218 | fit_round 90: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:02:23,468][flwr][DEBUG] - fit_round 90: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:02:50,489 | server.py:232 | fit_round 90 received 15 results and 0 failures
+[2025-11-02 00:02:50,489][flwr][DEBUG] - fit_round 90 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.6377200000000001
+KMeans
+intra_cluster distance is 6.897593483889271
+Now, comb_C is [0 0 0 0 0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 10 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0377
+INFO flwr 2025-11-02 00:02:55,997 | server.py:119 | fit progress: (90, 192.38572871685028, {'accuracy': 0.4474}, 3912.530553000979)
+[2025-11-02 00:02:55,997][flwr][INFO] - fit progress: (90, 192.38572871685028, {'accuracy': 0.4474}, 3912.530553000979)
+Configure Evaluate
+DEBUG flwr 2025-11-02 00:02:55,998 | server.py:168 | evaluate_round 90: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:02:55,998][flwr][DEBUG] - evaluate_round 90: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:03:04,767 | server.py:182 | evaluate_round 90 received 15 results and 0 failures
+[2025-11-02 00:03:04,767][flwr][DEBUG] - evaluate_round 90 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(3, 0.0002078450306726154), (5, 0.000571713870158419), (2, 0.0002109493943862617), (3, 0.00023922949912957847), (2, 0.0001024999946821481), (5, 0.3692912799087935), (4, 0.0016923534858506173)]
+Federated Accuracy: 0.8789250000000001
+Configure Fit
+server round: 91
+DEBUG flwr 2025-11-02 00:03:04,949 | server.py:218 | fit_round 91: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:03:04,949][flwr][DEBUG] - fit_round 91: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:03:30,813 | server.py:232 | fit_round 91 received 15 results and 0 failures
+[2025-11-02 00:03:30,813][flwr][DEBUG] - fit_round 91 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0']
+Number of Evil Clients: 10
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 5
+Average poisoning accuracy: 0.7202099999999999
+KMeans
+intra_cluster distance is 2.374542525054709
+Now, comb_C is [0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 5 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0406
+INFO flwr 2025-11-02 00:03:40,053 | server.py:119 | fit progress: (91, 191.52982223033905, {'accuracy': 0.4503}, 3956.586475122953)
+[2025-11-02 00:03:40,053][flwr][INFO] - fit progress: (91, 191.52982223033905, {'accuracy': 0.4503}, 3956.586475122953)
+Configure Evaluate
+DEBUG flwr 2025-11-02 00:03:40,054 | server.py:168 | evaluate_round 91: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:03:40,054][flwr][DEBUG] - evaluate_round 91: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:03:48,824 | server.py:182 | evaluate_round 91 received 15 results and 0 failures
+[2025-11-02 00:03:48,824][flwr][DEBUG] - evaluate_round 91 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(5, 0.0008606394185335375), (5, 0.0012496069757617079), (3, 0.00018278058269061148), (3, 0.1345893754187273), (3, 0.0002284081347170286), (5, 0.36423460403602803)]
+Federated Accuracy: 0.8924541666666667
+Configure Fit
+server round: 92
+DEBUG flwr 2025-11-02 00:03:48,892 | server.py:218 | fit_round 92: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:03:48,892][flwr][DEBUG] - fit_round 92: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:04:14,003 | server.py:232 | fit_round 92 received 15 results and 0 failures
+[2025-11-02 00:04:14,003][flwr][DEBUG] - fit_round 92 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.8493666666666667
+KMeans
+intra_cluster distance is 1.4104989305928335
+Now, comb_C is [0 0 0 0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.042
+INFO flwr 2025-11-02 00:04:20,371 | server.py:119 | fit progress: (92, 192.72570073604584, {'accuracy': 0.4508}, 3996.903688777995)
+[2025-11-02 00:04:20,371][flwr][INFO] - fit progress: (92, 192.72570073604584, {'accuracy': 0.4508}, 3996.903688777995)
+Configure Evaluate
+DEBUG flwr 2025-11-02 00:04:20,371 | server.py:168 | evaluate_round 92: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:04:20,371][flwr][DEBUG] - evaluate_round 92: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:04:29,047 | server.py:182 | evaluate_round 92 received 15 results and 0 failures
+[2025-11-02 00:04:29,047][flwr][DEBUG] - evaluate_round 92 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(6, 0.001834534945373889), (5, 0.0008043712005019188), (3, 0.0001629740436328575), (3, 0.11005784209555713), (7, 0.7584291998136905), (3, 0.00027366056019673124), (4, 0.0005635977431666106), (5, 0.0004889245828962885), (8, 1.126358023047942)]
+Federated Accuracy: 0.9002681818181817
+Configure Fit
+server round: 93
+DEBUG flwr 2025-11-02 00:04:29,117 | server.py:218 | fit_round 93: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:04:29,117][flwr][DEBUG] - fit_round 93: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:04:55,894 | server.py:232 | fit_round 93 received 15 results and 0 failures
+[2025-11-02 00:04:55,894][flwr][DEBUG] - fit_round 93 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 6
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 9
+Average poisoning accuracy: 0.7221333333333333
+KMeans
+intra_cluster distance is 2.7437948786172677
+Now, comb_C is [0 0 0 0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 9 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0379
+INFO flwr 2025-11-02 00:05:02,164 | server.py:119 | fit progress: (93, 192.0254147052765, {'accuracy': 0.4478}, 4038.6968245749595)
+[2025-11-02 00:05:02,164][flwr][INFO] - fit progress: (93, 192.0254147052765, {'accuracy': 0.4478}, 4038.6968245749595)
+Configure Evaluate
+DEBUG flwr 2025-11-02 00:05:02,164 | server.py:168 | evaluate_round 93: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:05:02,164][flwr][DEBUG] - evaluate_round 93: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:05:10,979 | server.py:182 | evaluate_round 93 received 15 results and 0 failures
+[2025-11-02 00:05:10,979][flwr][DEBUG] - evaluate_round 93 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(5, 0.0012725826818495989), (6, 0.0008796113179414533), (5, 0.0003968397795688361), (2, 0.00010896598541876301), (4, 0.002135022878064774), (2, 9.029761349665932e-05)]
+Federated Accuracy: 0.8733708333333334
+Configure Fit
+server round: 94
+DEBUG flwr 2025-11-02 00:05:11,047 | server.py:218 | fit_round 94: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:05:11,047][flwr][DEBUG] - fit_round 94: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:05:37,664 | server.py:232 | fit_round 94 received 15 results and 0 failures
+[2025-11-02 00:05:37,664][flwr][DEBUG] - fit_round 94 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.8170624999999999
+KMeans
+intra_cluster distance is 2.1443626416200323
+Now, comb_C is [0 0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0364
+INFO flwr 2025-11-02 00:05:45,509 | server.py:119 | fit progress: (94, 193.56854104995728, {'accuracy': 0.4484}, 4082.042345291993)
+[2025-11-02 00:05:45,509][flwr][INFO] - fit progress: (94, 193.56854104995728, {'accuracy': 0.4484}, 4082.042345291993)
+Configure Evaluate
+DEBUG flwr 2025-11-02 00:05:45,509 | server.py:168 | evaluate_round 94: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:05:45,509][flwr][DEBUG] - evaluate_round 94: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:05:54,341 | server.py:182 | evaluate_round 94 received 15 results and 0 failures
+[2025-11-02 00:05:54,341][flwr][DEBUG] - evaluate_round 94 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(8, 1.2100756048821495), (1, 2.8812133678002283e-05), (2, 8.305475057568401e-05), (3, 0.0001138110183092067), (5, 0.00037318322574719787), (5, 0.0010811449537868612), (2, 9.017257252708077e-05), (5, 0.0005764869856648147)]
+Federated Accuracy: 0.8900935483870968
+Configure Fit
+server round: 95
+DEBUG flwr 2025-11-02 00:05:54,439 | server.py:218 | fit_round 95: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:05:54,439][flwr][DEBUG] - fit_round 95: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:06:21,380 | server.py:232 | fit_round 95 received 15 results and 0 failures
+[2025-11-02 00:06:21,380][flwr][DEBUG] - fit_round 95 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 5
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 10
+Average poisoning accuracy: 0.7949200000000001
+KMeans
+intra_cluster distance is 3.265988598477176
+Now, comb_C is [0 0 0 0 0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 10 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0405
+INFO flwr 2025-11-02 00:06:26,934 | server.py:119 | fit progress: (95, 191.1603742837906, {'accuracy': 0.4513}, 4123.466621970991)
+[2025-11-02 00:06:26,934][flwr][INFO] - fit progress: (95, 191.1603742837906, {'accuracy': 0.4513}, 4123.466621970991)
+Configure Evaluate
+DEBUG flwr 2025-11-02 00:06:26,934 | server.py:168 | evaluate_round 95: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:06:26,934][flwr][DEBUG] - evaluate_round 95: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:06:35,650 | server.py:182 | evaluate_round 95 received 15 results and 0 failures
+[2025-11-02 00:06:35,650][flwr][DEBUG] - evaluate_round 95 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(5, 0.36069500236772), (3, 0.00015539987361989915), (7, 3.3248900324106216), (4, 0.0007009041655692272), (5, 0.0013414862842182629), (1, 2.5164632461383007e-05), (5, 0.0002925303706433624), (8, 1.071280669337284)]
+Federated Accuracy: 0.8840868421052632
+Configure Fit
+server round: 96
+DEBUG flwr 2025-11-02 00:06:35,719 | server.py:218 | fit_round 96: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:06:35,719][flwr][DEBUG] - fit_round 96: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:07:02,158 | server.py:232 | fit_round 96 received 15 results and 0 failures
+[2025-11-02 00:07:02,158][flwr][DEBUG] - fit_round 96 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.7624285714285713
+KMeans
+intra_cluster distance is 2.635024948019681
+Now, comb_C is [0 0 0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0402
+INFO flwr 2025-11-02 00:07:09,305 | server.py:119 | fit progress: (96, 191.6538201570511, {'accuracy': 0.4517}, 4165.838218513993)
+[2025-11-02 00:07:09,305][flwr][INFO] - fit progress: (96, 191.6538201570511, {'accuracy': 0.4517}, 4165.838218513993)
+Configure Evaluate
+DEBUG flwr 2025-11-02 00:07:09,305 | server.py:168 | evaluate_round 96: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:07:09,305][flwr][DEBUG] - evaluate_round 96: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:07:18,038 | server.py:182 | evaluate_round 96 received 15 results and 0 failures
+[2025-11-02 00:07:18,038][flwr][DEBUG] - evaluate_round 96 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(4, 0.00036402419937076047), (3, 0.5580427720269654), (6, 0.0007796901772962883), (7, 3.517997831106186), (7, 0.7991962471351144), (5, 0.0008359628191101365), (2, 9.271423914469779e-05), (3, 0.00012342365880613215)]
+Federated Accuracy: 0.8758621621621624
+Configure Fit
+server round: 97
+DEBUG flwr 2025-11-02 00:07:18,140 | server.py:218 | fit_round 97: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:07:18,140][flwr][DEBUG] - fit_round 97: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:07:44,017 | server.py:232 | fit_round 97 received 15 results and 0 failures
+[2025-11-02 00:07:44,017][flwr][DEBUG] - fit_round 97 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 8
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 7
+Average poisoning accuracy: 0.6737624999999999
+KMeans
+intra_cluster distance is 1.818396407290475
+Now, comb_C is [0 0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 7 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0379
+INFO flwr 2025-11-02 00:07:51,782 | server.py:119 | fit progress: (97, 193.3162180185318, {'accuracy': 0.4472}, 4208.314799087995)
+[2025-11-02 00:07:51,782][flwr][INFO] - fit progress: (97, 193.3162180185318, {'accuracy': 0.4472}, 4208.314799087995)
+Configure Evaluate
+DEBUG flwr 2025-11-02 00:07:51,782 | server.py:168 | evaluate_round 97: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:07:51,782][flwr][DEBUG] - evaluate_round 97: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:08:00,652 | server.py:182 | evaluate_round 97 received 15 results and 0 failures
+[2025-11-02 00:08:00,652][flwr][DEBUG] - evaluate_round 97 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(3, 0.0001482867228332907), (4, 0.0006022930101607926), (6, 0.0837830420496175), (7, 0.701973394046945), (3, 0.5818910727248294), (1, 2.1773243133793585e-05), (4, 0.0012470535148167983), (4, 0.0002847133764589671)]
+Federated Accuracy: 0.89425
+Configure Fit
+server round: 98
+DEBUG flwr 2025-11-02 00:08:00,727 | server.py:218 | fit_round 98: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:08:00,727][flwr][DEBUG] - fit_round 98: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:08:26,516 | server.py:232 | fit_round 98 received 15 results and 0 failures
+[2025-11-02 00:08:26,516][flwr][DEBUG] - fit_round 98 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0']
+Number of Evil Clients: 11
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 4
+Average poisoning accuracy: 0.8606272727272727
+KMeans
+intra_cluster distance is 1.2655559435984625
+Now, comb_C is [0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 4 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0361
+INFO flwr 2025-11-02 00:08:36,600 | server.py:119 | fit progress: (98, 197.41278874874115, {'accuracy': 0.444}, 4253.133561375958)
+[2025-11-02 00:08:36,600][flwr][INFO] - fit progress: (98, 197.41278874874115, {'accuracy': 0.444}, 4253.133561375958)
+Configure Evaluate
+DEBUG flwr 2025-11-02 00:08:36,601 | server.py:168 | evaluate_round 98: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:08:36,601][flwr][DEBUG] - evaluate_round 98: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:08:45,422 | server.py:182 | evaluate_round 98 received 15 results and 0 failures
+[2025-11-02 00:08:45,422][flwr][DEBUG] - evaluate_round 98 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(7, 3.098206639289856), (6, 0.0007232744501379784), (6, 0.0006035528749634977), (3, 0.15869632366957376), (1, 2.4288370696012862e-05), (6, 0.0930434825422708), (3, 0.00015793608326930553)]
+Federated Accuracy: 0.8763406250000001
+Configure Fit
+server round: 99
+DEBUG flwr 2025-11-02 00:08:45,489 | server.py:218 | fit_round 99: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:08:45,489][flwr][DEBUG] - fit_round 99: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:09:10,424 | server.py:232 | fit_round 99 received 15 results and 0 failures
+[2025-11-02 00:09:10,424][flwr][DEBUG] - fit_round 99 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 7
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 8
+Average poisoning accuracy: 0.8394857142857143
+KMeans
+intra_cluster distance is 1.8131534220468704
+Now, comb_C is [0 0 0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 8 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0511
+INFO flwr 2025-11-02 00:09:17,445 | server.py:119 | fit progress: (99, 191.96653175354004, {'accuracy': 0.4524}, 4293.978192299954)
+[2025-11-02 00:09:17,445][flwr][INFO] - fit progress: (99, 191.96653175354004, {'accuracy': 0.4524}, 4293.978192299954)
+Configure Evaluate
+DEBUG flwr 2025-11-02 00:09:17,445 | server.py:168 | evaluate_round 99: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:09:17,445][flwr][DEBUG] - evaluate_round 99: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:09:26,193 | server.py:182 | evaluate_round 99 received 15 results and 0 failures
+[2025-11-02 00:09:26,193][flwr][DEBUG] - evaluate_round 99 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(2, 8.451607573078945e-05), (6, 0.00040079071550280787), (5, 0.0004897492435702588)]
+Federated Accuracy: 0.8392076923076923
+Configure Fit
+server round: 100
+DEBUG flwr 2025-11-02 00:09:26,262 | server.py:218 | fit_round 100: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:09:26,262][flwr][DEBUG] - fit_round 100: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:09:52,155 | server.py:232 | fit_round 100 received 15 results and 0 failures
+[2025-11-02 00:09:52,155][flwr][DEBUG] - fit_round 100 received 15 results and 0 failures
+315 Current GPU Memory: 53279744
+malicious is ['0', '0', '0', '0', '0', '0']
+Number of Evil Clients: 9
+Number of Preset Malicious Clients is 0
+Number of Preset Benign Clients is 6
+Average poisoning accuracy: 0.982088888888889
+KMeans
+intra_cluster distance is 1.4131745183199904
+Now, comb_C is [0 0 0 0 0 0]
+Clustering Accuracy is 1.0
+length of good results is 6 and length of bad results is 0
+acc_diff is 0
+Evaluate
+{'poisoning_rate': 0.7, 'lr': 0.01, 'momentum': 0.9, 'local_epochs': 5, 'proximal_mu': 2.0}
+Global Poisoning Accuracy: 0.0469
+INFO flwr 2025-11-02 00:10:03,561 | server.py:119 | fit progress: (100, 193.07776165008545, {'accuracy': 0.4511}, 4340.093613521953)
+[2025-11-02 00:10:03,561][flwr][INFO] - fit progress: (100, 193.07776165008545, {'accuracy': 0.4511}, 4340.093613521953)
+Configure Evaluate
+DEBUG flwr 2025-11-02 00:10:03,561 | server.py:168 | evaluate_round 100: strategy sampled 15 clients (out of 50)
+[2025-11-02 00:10:03,561][flwr][DEBUG] - evaluate_round 100: strategy sampled 15 clients (out of 50)
+DEBUG flwr 2025-11-02 00:10:12,234 | server.py:182 | evaluate_round 100 received 15 results and 0 failures
+[2025-11-02 00:10:12,234][flwr][DEBUG] - evaluate_round 100 received 15 results and 0 failures
+Aggregate evaluate
+benign record is ['7', '25', '16', '6', '29', '9', '18', '15', '28', '21', '23', '4', '3', '1', '8', '27', '20', '12', '19', '2', '13', '14', '10', '11']
+valid results is [(3, 0.5703135422518244), (1, 2.1785130229545757e-05), (6, 0.00037840729419258423), (2, 0.00010246173042105511), (5, 0.0002736071437539067), (3, 0.09211766724911286), (6, 0.0005842241553182248)]
+Federated Accuracy: 0.8640192307692308
+INFO flwr 2025-11-02 00:10:12,303 | server.py:147 | FL finished in 4348.836562233977
+[2025-11-02 00:10:12,303][flwr][INFO] - FL finished in 4348.836562233977
+INFO flwr 2025-11-02 00:10:12,320 | app.py:218 | app_fit: losses_distributed [(1, 10.07601284980774), (2, 7.015059006214142), (3, 7.570910741885503), (4, 1.2230902603930898), (5, 3.4846162843917097), (6, 1.0635019667679444), (7, 1.934210148279465), (8, 1.3949768988282554), (9, 2.206601282912743), (10, 1.8347812350693857), (11, 0.9796228597745843), (12, 0.9362773088038067), (13, 0.3586366959585575), (14, 0.5376708582897985), (15, 0.5205760138547596), (16, 0.983694035761589), (17, 0.22811629968540123), (18, 1.0847136528410677), (19, 0.203391410978511), (20, 0.10069524808185068), (21, 0.68895949908726), (22, 0.29344324903882807), (23, 0.6735291461353138), (24, 0.7744909460757515), (25, 1.1785852735496258), (26, 0.4216750427896092), (27, 0.41539658181799105), (28, 0.2340580563812119), (29, 0.018233611695038798), (30, 0.17342724152058508), (31, 1.007712861535632), (32, 0.46587520037389496), (33, 0.009029278113862697), (34, 0.7066335924086947), (35, 0.378989382834383), (36, 0.004472599345111424), (37, 1.1502672998636767), (38, 0.988521133533288), (39, 1.2059464709140337), (40, 0.06739286332100164), (41, 0.301692402592731), (42, 1.066177331496389), (43, 0.9657327652148524), (44, 0.0017668762214910843), (45, 0.003335503025785632), (46, 0.5568681537155903), (47, 1.0817655637115182), (48, 0.7616585816055081), (49, 0.9018565864526834), (50, 0.15894657778326057), (51, 0.06625236386403062), (52, 0.3275045348854218), (53, 0.35615526729791247), (54, 0.8049888800830578), (55, 0.8784776394654394), (56, 0.8679901861672792), (57, 0.10992670884817406), (58, 0.000859169816774536), (59, 0.1686415456686316), (60, 0.2604298834614383), (61, 0.7127348733919102), (62, 0.938962323738263), (63, 0.3709101930466149), (64, 0.012353950684337178), (65, 0.02022779002121145), (66, 0.16691444967099497), (67, 0.0379746938199484), (68, 0.0007690500651338168), (69, 0.21777243003310787), (70, 0.09087086689153996), (71, 0.018619519893099064), (72, 0.0262200458894179), (73, 0.018887089027096713), (74, 0.0004241389945361464), (75, 0.2868264381528394), (76, 0.09385279417308214), (77, 0.3105098640039311), (78, 1.0626430514142677), (79, 0.09835337313628163), (80, 0.0006600157577243711), (81, 0.37181881902801545), (82, 0.15623819917149376), (83, 0.1724732520984696), (84, 0.027275866260752082), (85, 0.2638499489714377), (86, 0.0008686524905849518), (87, 0.0008928912578994641), (88, 0.7072107126514311), (89, 0.15908843300266676), (90, 0.07741885438357106), (91, 0.09319691435666755), (92, 0.3334336384713507), (93, 0.0009401416218679515), (94, 0.31262824563606456), (95, 0.8857740962526613), (96, 0.8623069355454465), (97, 0.2240996281818184), (98, 0.7103204813082016), (99, 0.00038634789710228617), (100, 0.07671785236575837)]
