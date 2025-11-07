@@ -1,4 +1,4 @@
-# Finalised_Algorithm_ResNet
+# FedAssets
 
 ### Main File Compositions and Functions
 
@@ -21,3 +21,5 @@ Parition dataset to good and bad datasets according to IID or Non-IID format
 ##### model.py
 
 Train and test models, poison selective data if client is preset to be malicious
+
+nohup python3 main.py > output.log 2>&1 &
