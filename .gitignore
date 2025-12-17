@@ -1,0 +1,9 @@
+data/cifar-10-python.tar.gz
+outputs/
+logs/
+after_cluster/
+before_cluster/
+archive/
+heatmaps/
+saved_state/
+Results.xlsx
