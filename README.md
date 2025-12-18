@@ -1,25 +1,48 @@
-# FedAssets
+# FedAssets: Official Code for "Transforming Threats to Assets: Utilizing Backdoor Attack Models in Federated Learning"
 
-### Main File Compositions and Functions
+## Main Steps 
 
-##### main.py
+### 1) Clone Repository
 
-Main function to be run in terminal
+```python
+git clone https://github.com/Ashley0909/FedAssets.git
+```
 
-##### bd_strategy.py
+### 2) Override Configuration in `conf/base.yaml` if needed
 
-Our algorithm, how clustering and aggregation works
+Possible Combinations are:
 
-##### dataset.py
+| Dataset    | num_classes |  target_label | batch_size | num_clients | num_clients_per_round_fit |
+| ---------- | :---------: | ------------: | ---------: | ----------: | ------------------------: |
+| 'mnist'    |     10     |             9 |         20 |          50 |                        15 |
+| 'cifar10'  |     10     |             9 |         20 |          50 |                        15 |
+| 'cifar100' |     100     |             9 |         20 |          50 |                        15 |
+| 'celeba'   |      3      | 2 ('Smiling") |         20 |          50 |                        15 |
 
-Imports the data, the calls the function in **dataset_preparation.py** to return good and bad data. Then partitions the data into training, validation and test datasets.
 
-##### dataset_preparation.py
+### 3) Run File
 
-Parition dataset to good and bad datasets according to IID or Non-IID format
+```python
+python3 main.py
+```
 
-##### model.py
+## Repository Structure
 
-Train and test models, poison selective data if client is preset to be malicious
+The following is the structure and key files to make FedAssets work. 
 
-nohup python3 main.py > output.log 2>&1 &
+```
+├── conf/
+│   └── base.yaml               # Configuration file 
+├── data/
+├── triggers/
+│   ├── trigger_10.py
+│   ├── trigger_white.py
+├── bd_strategy.py              # The file that includes the communication and FedAssets
+├── client.py
+├── dataset_preparation.py      # Partition the data to good and bad datasets according to IID or Non-IID format
+├── dataset.py                  # Imports the data and calls functions in dataset_preparation.py
+├── main.py                     # Entrypoint file
+├── model.py
+├── server.py
+│ 
+```
